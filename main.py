@@ -7,12 +7,7 @@ import requests
 from tkinter.messagebox import showinfo
 from translate import translate
 import time
-#Var
-api_key="ecffd157b2cc9eacbd0d35a45c3dc047"
-base_url="https://api.openweathermap.org/data/2.5/weather?"
-Color = "#573ab6"
-TextColor = "white"
-#Fonction
+#FOnction
 def Ecriture(file,text):#Fonction d'écriture sur un fichier texte
     doc = open(file,"w")
     doc.truncate()
@@ -23,7 +18,24 @@ def Lecture(file):#Fonction de lecture d'un fichier texte et stokage dans une va
     fichier = open(file,"r")
     contenu= fichier.readlines()[0]
     fichier.close()
-    return 
+    return contenu
+#Var
+api_key="ecffd157b2cc9eacbd0d35a45c3dc047"
+base_url="https://api.openweathermap.org/data/2.5/weather?"
+Color = "#573ab6"
+TextColor = "white"
+NomAssistant = str(Lecture("Config/Nom.txt"))
+#Definition fenetre Tkinter
+screen = Tk()
+screen.title("Ryley")
+screen.config(bg=Color)
+screen.maxsize(500,600)
+screen.minsize(500,600)
+screen.iconphoto(False,PhotoImage(file="image/Ryley.png"))
+Ecranretour=Frame(screen,bg=Color,width=400,height=400)
+labelSpeak = Label(Ecranretour,text=NomAssistant+":",bg=Color,fg=TextColor,font=("arial","15"))
+labelSpeak.place(x="0",y="0")
+#Fonction
 def TestInternet():
     screenInternet = Toplevel()
     screenInternet.title("Ryley")
@@ -37,8 +49,6 @@ def TestInternet():
         Info = Label(screenInternet,text="Internet non disponible",font=("arial","20"),bg=Color,fg=TextColor).pack()
 def Parametre():
     ScreenPara = Toplevel()
-    def ParaAssistant():
-        CadreAssistant.pack(side="right")
     def FoncModif(file):
         Contenu = Lecture(file)
         ScreenModif = Toplevel()
@@ -47,15 +57,15 @@ def Parametre():
         ScreenModif.wait_visibility(ScreenModif)
         ScreenModif.wm_attributes('-alpha',0.9)
         ScreenModif.config(bg=Color)
-        LabelContenu = Label(ScreenModif,text=Contenu,font=("arial","20"),bg=Color,fg=TextColor)
+        LabelContenu = Label(ScreenModif,text=Contenu,font=("arial","20"),bg=Color,fg=TextColor).pack()
         entry = Entry(ScreenModif)
         def Modif():
             Var = str(entry.get())
             Ecriture(file,Var)
             ScreenModif.destroy()
         Modif = Button(ScreenModif,text="Modifier",bg=Color,fg=TextColor,command=Modif).pack(side="right",anchor="s")
-        LabelContenu.pack()
         entry.pack(side="left",anchor="s")
+    #def ParaAssistant():
     def ModifUser():
         FoncModif("Config/User.txt")
     def ModifNom():
@@ -84,8 +94,9 @@ def Parametre():
     BoutonAssistant1.place(x="250",y="5")
     Assistant2.place(x="5",y="55")
     BoutonAssistant2.place(x="250",y="55")
-def Speak():
-    
+def Speak(text):
+    labelSpeak.config(text=NomAssistant+": "+text)
+    labelSpeak.update()
 def Meteo():
     fileVille=open("Config/Ville.txt","r")
     varVille=str(fileVille.readlines()[0])
@@ -97,14 +108,6 @@ def Meteo():
         humidity=DICT["humidity"]
         meteodet=reponse["weather"][0]["description"]
         print(temp,"\n",humidity,"\n",meteodet)
-#Definition fenetre Tkinter
-screen = Tk()
-screen.title("Ryley")
-screen.config(bg=Color)
-screen.maxsize(500,600)
-screen.minsize(500,600)
-screen.iconphoto(False,PhotoImage(file="image/Ryley.png"))
-Ecranretour=Frame(screen,bg=Color,width=400,height=400)
 #Menu
 RyleyMenu = Menu(screen,bg="white",fg="black")
 FichierMenu = Menu(RyleyMenu,tearoff=0)
