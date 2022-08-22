@@ -50,6 +50,8 @@ def TestInternet():
         Info = Label(screenInternet,text="Internet non disponible",font=("arial","20"),bg=Color,fg=TextColor).pack()
 def Parametre():
     ScreenPara = Toplevel()
+    def ParaAssistant():
+        CadreAssistant.pack(side="right")
     def FoncModif(file):
         Contenu = Lecture(file)
         ScreenModif = Toplevel()
@@ -58,15 +60,15 @@ def Parametre():
         ScreenModif.wait_visibility(ScreenModif)
         ScreenModif.wm_attributes('-alpha',0.9)
         ScreenModif.config(bg=Color)
-        LabelContenu = Label(ScreenModif,text=Contenu,font=("arial","20"),bg=Color,fg=TextColor).pack()
+        LabelContenu = Label(ScreenModif,text=Contenu,font=("arial","20"),bg=Color,fg=TextColor)
         entry = Entry(ScreenModif)
         def Modif():
             Var = str(entry.get())
             Ecriture(file,Var)
             ScreenModif.destroy()
         Modif = Button(ScreenModif,text="Modifier",bg=Color,fg=TextColor,command=Modif).pack(side="right",anchor="s")
+        LabelContenu.pack()
         entry.pack(side="left",anchor="s")
-    #def ParaAssistant():
     def ModifUser():
         FoncModif("Config/User.txt")
     def ModifNom():
