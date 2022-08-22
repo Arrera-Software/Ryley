@@ -110,18 +110,13 @@ FichierMenu.add_command(label="Test Internet",command=TestInternet)
 RyleyMenu.add_cascade(label="Fichier",menu=FichierMenu)
 RyleyMenu.add_command(label="A propos")
 screen.config(menu=RyleyMenu)
-B1=Button(text="meteo",command=Meteo).pack()#Temporaire
 #Code principal
-def Touche(fenetre,fonc,touche):
-    def anychar(event):
-        if event.keycode == touche:
-            fonc()               
-    fenetre.bind("<Key>", anychar)
-BarreR = Entry(screen,width=400)
+BarreR = Entry(screen,width=50)
 def Interaction():
     requete=str(BarreR.get())
     if "meteo" in requete:
         Meteo()
-BarreR.pack(side="bottom")
-Touche(screen,Interaction,36)
+BoutonEnvoyer=Button(text="Envoyer",command=Interaction,bg=Color,fg=TextColor)
+BarreR.pack(side="left",anchor="s")
+BoutonEnvoyer.pack(side="right",anchor="s")
 screen.mainloop()
