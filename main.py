@@ -7,7 +7,7 @@ import requests
 from tkinter.messagebox import showinfo
 from translate import translate
 import time
-#FOnction
+#Fonction
 def Ecriture(file,text):#Fonction d'écriture sur un fichier texte
     doc = open(file,"w")
     doc.truncate()
@@ -25,6 +25,7 @@ base_url="https://api.openweathermap.org/data/2.5/weather?"
 Color = "#573ab6"
 TextColor = "white"
 NomAssistant = str(Lecture("Config/Nom.txt"))
+User = str(Lecture("Config/User.txt"))
 #Definition fenetre Tkinter
 screen = Tk()
 screen.title("Ryley")
@@ -97,6 +98,18 @@ def Parametre():
 def Speak(text):
     labelSpeak.config(text=NomAssistant+": "+text)
     labelSpeak.update()
+def Introduction():
+    hour=datetime.datetime.now().hour
+    if hour >= 0 and hour <=5:
+        Speak("Zzzz "+User+" Il faut peut etre dormir non?")
+    if hour >= 6 and hour <= 9 :
+        Speak("Hey "+User+" as-tu bien dormis?")
+    if hour >= 10 and hour <= 12:
+        Speak("Salut "+User+" comment ce passe ta matinée?")
+    if hour >= 13 and hour <= 17:
+        Speak("Alors "+User+" pret a travailler?")
+    if hour >= 18 and hour <= 23:
+        Speak("*baille* "+User+" ? Que fait tu si tard?")
 def Meteo():
     fileVille=open("Config/Ville.txt","r")
     varVille=str(fileVille.readlines()[0])
@@ -104,10 +117,14 @@ def Meteo():
     reponse=requests.get(complete_url).json()
     if reponse["cod"]!="404":
         DICT=reponse["main"]
-        temp=DICT["temp"]
-        humidity=DICT["humidity"]
-        meteodet=reponse["weather"][0]["description"]
-        print(temp,"\n",humidity,"\n",meteodet)
+        temp=str(DICT["temp"])
+        humidity=str(DICT["humidity"])
+        meteodet=str(reponse["weather"][0]["description"])
+        Speak("Il fait "+temp+"°C")
+        time.sleep(2.5)
+        Speak("Le temps est "+meteodet)
+        time.sleep(3)
+        Speak("Avec un taux d'humidité de "+humidity+"%")
 #Menu
 RyleyMenu = Menu(screen,bg="white",fg="black")
 FichierMenu = Menu(RyleyMenu,tearoff=0)
@@ -117,6 +134,7 @@ RyleyMenu.add_cascade(label="Fichier",menu=FichierMenu)
 RyleyMenu.add_command(label="A propos")
 screen.config(menu=RyleyMenu)
 #Code principal
+Introduction()
 BarreR = Entry(screen,width=50)
 def Interaction():
     requete=str(BarreR.get())
