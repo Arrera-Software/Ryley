@@ -1,4 +1,3 @@
-from multiprocessing.context import ForkContext
 from tkinter import*
 import webbrowser
 import os
@@ -113,6 +112,16 @@ RyleyMenu.add_command(label="A propos")
 screen.config(menu=RyleyMenu)
 B1=Button(text="meteo",command=Meteo).pack()#Temporaire
 #Code principal
-
-
+def Touche(fenetre,fonc,touche):
+    def anychar(event):
+        if event.keycode == touche:
+            fonc()               
+    fenetre.bind("<Key>", anychar)
+BarreR = Entry(screen,width=400)
+def Interaction():
+    requete=str(BarreR.get())
+    if "meteo" in requete:
+        Meteo()
+BarreR.pack(side="bottom")
+Touche(screen,Interaction,36)
 screen.mainloop()
