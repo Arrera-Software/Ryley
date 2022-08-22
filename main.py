@@ -84,6 +84,8 @@ def Parametre():
     BoutonAssistant1.place(x="250",y="5")
     Assistant2.place(x="5",y="55")
     BoutonAssistant2.place(x="250",y="55")
+def Speak():
+    
 def Meteo():
     fileVille=open("Config/Ville.txt","r")
     varVille=str(fileVille.readlines()[0])
@@ -102,6 +104,7 @@ screen.config(bg=Color)
 screen.maxsize(500,600)
 screen.minsize(500,600)
 screen.iconphoto(False,PhotoImage(file="image/Ryley.png"))
+Ecranretour=Frame(screen,bg=Color,width=400,height=400)
 #Menu
 RyleyMenu = Menu(screen,bg="white",fg="black")
 FichierMenu = Menu(RyleyMenu,tearoff=0)
@@ -117,6 +120,7 @@ def Interaction():
     if "meteo" in requete:
         Meteo()
 BoutonEnvoyer=Button(text="Envoyer",command=Interaction,bg=Color,fg=TextColor)
+Ecranretour.place(relx=.5,rely=.5,anchor ="center")
 BarreR.pack(side="left",anchor="s")
 BoutonEnvoyer.pack(side="right",anchor="s")
 screen.mainloop()
