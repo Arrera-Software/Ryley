@@ -1,4 +1,5 @@
 from tkinter import*
+from turtle import Screen
 import webbrowser
 import os
 import datetime
@@ -26,6 +27,7 @@ Color = "#573ab6"
 TextColor = "white"
 NomAssistant = str(Lecture("Config/Nom.txt"))
 User = str(Lecture("Config/User.txt"))
+listMoteur = "google" , "duckduckgo" , "ecosia" , "qwant" , "bing"
 #Definition fenetre Tkinter
 screen = Tk()
 screen.title("Ryley")
@@ -54,23 +56,35 @@ def Parametre():
     def ParaAssistant():
         CadreMeteo.pack_forget()
         CadreLang.pack_forget()
+        CadreLien.pack_forget()
+        CadreMoteur.pack_forget()
         CadreAssistant.pack(side="right")
     def ParaMeteo():
         CadreAssistant.pack_forget()
         CadreLang.pack_forget()
         CadreLien.pack_forget()
+        CadreMoteur.pack_forget()
         CadreMeteo.pack(side="right")
     def ParaLang():
         CadreMeteo.pack_forget()
         CadreAssistant.pack_forget()
         CadreLien.pack_forget()
+        CadreMoteur.pack_forget()
         CadreLang.pack(side="right")
     def ParaLien():
         CadreMeteo.pack_forget()
         CadreLang.pack_forget()
         CadreAssistant.pack_forget()
         CadreLien.pack_forget()
+        CadreMoteur.pack_forget()
         CadreLien.pack(side="right")
+    def ParaMoteur():
+        CadreMeteo.pack_forget()
+        CadreLang.pack_forget()
+        CadreAssistant.pack_forget()
+        CadreLien.pack_forget()
+        CadreLien.pack_forget()
+        CadreMoteur.pack(side="right")
     def FoncModif(file):
         Contenu = Lecture(file)
         ScreenModif = Toplevel()
@@ -110,6 +124,35 @@ def Parametre():
         FoncModif("Config/Site2.txt")
     def LienChange6():
         FoncModif("Config/Site3.txt")
+    def MoteurChange():
+        file = "Config/moteur.txt"
+        moteur = str(Lecture(file))
+        ScreenModifM = Toplevel()
+        ScreenModifM.maxsize(300,150)
+        ScreenModifM.minsize(300,150)
+        NewMoteur = StringVar(ScreenModifM)
+        if moteur == "google":
+            NewMoteur.set(listMoteur[0])
+        if moteur == "duckduckgo":
+            NewMoteur.set(listMoteur[1])
+        if moteur == "ecosia":
+            NewMoteur.set(listMoteur[2])
+        if moteur == "qwant":
+            NewMoteur.set(listMoteur[3])
+        if moteur == "bing":
+            NewMoteur.set(listMoteur[4])
+        ScreenModifM.wait_visibility(ScreenModifM)
+        ScreenModifM.wm_attributes('-alpha',0.9)
+        ScreenModifM.config(bg=Color)
+        LabelInfo = Label(ScreenModifM,text="Moteur de recherche\n par défault",font=("arial","20"),bg=Color,fg=TextColor).pack()
+        Moteur = OptionMenu(ScreenModifM,NewMoteur, *listMoteur)
+        def Modif():
+            VarMoteur = NewMoteur.get()
+            Ecriture(file,VarMoteur)
+            ScreenModifM.destroy()
+        BoutonValider = Button(ScreenModifM,text="Valider",command=Modif,bg=Color,fg=TextColor)
+        BoutonValider.pack(side="right")
+        Moteur.pack(side="left")
     ScreenPara.title("Ryley : Paramétre")
     ScreenPara.maxsize(500,500)
     ScreenPara.minsize(500,500)
@@ -138,6 +181,10 @@ def Parametre():
     Lang2 = Label(CadreLang,text="Deuxiéme Langue",bg=Color,fg=TextColor,font=("arial","20"))
     BoutonLang1 = Button(CadreLang,text="Change",bg=Color,fg=TextColor,command=LangChange1,font=("arial","15"))
     BoutonLang2 = Button(CadreLang,text="Change",bg=Color,fg=TextColor,command=LangChange2,font=("arial","15"))
+    #Cadre Moteur
+    CadreMoteur = Frame(ScreenPara,bg=Color,width=350,height=400)
+    Moteur1 = Label(CadreMoteur,text="Moteur",bg=Color,fg=TextColor,font=("arial","20"))
+    BoutonMoteur1 = Button(CadreMoteur,text="Change",bg=Color,fg=TextColor,command=MoteurChange,font=("arial","15"))
     #Cadre Lien
     CadreLien = Frame(ScreenPara,bg=Color,width=350,height=400)
     Lien1  = Label(CadreLien,text="Google Drive",bg=Color,fg=TextColor,font=("arial","20"))
@@ -152,6 +199,7 @@ def Parametre():
     BoutonLien4 = Button(CadreLien,text="Change",bg=Color,fg=TextColor,command=LienChange4,font=("arial","15"))
     BoutonLien5 = Button(CadreLien,text="Change",bg=Color,fg=TextColor,command=LienChange5,font=("arial","15"))
     BoutonLien6 = Button(CadreLien,text="Change",bg=Color,fg=TextColor,command=LienChange6,font=("arial","15"))
+    BoutonPara5 = Button(CadrePara,text="Moteur\nRecherche",command=ParaMoteur,bg=Color,fg=TextColor)
     #Affichage
     LabelIndication.pack()
     CadrePara.pack(side="left")
@@ -160,6 +208,7 @@ def Parametre():
     BoutonPara2.place(x="10",y="85")
     BoutonPara3.place(x="2",y="165")
     BoutonPara4.place(x="10",y="245")
+    BoutonPara5.place(x="2",y="325")
     #Cadre Assistant
     Assistant1.place(x="5",y="5")
     BoutonAssistant1.place(x="250",y="5")
@@ -186,6 +235,9 @@ def Parametre():
     BoutonLien5.place(x="250",y="205")
     Lien6.place(x="5",y="255")
     BoutonLien6.place(x="250",y="255")
+    #Cadre Moteur
+    Moteur1.place(x="5",y="5")
+    BoutonMoteur1.place(x="250",y="5")
 def Speak(text):
     labelSpeak.config(text=NomAssistant+": "+text)
     labelSpeak.update()
