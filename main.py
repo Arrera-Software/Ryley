@@ -36,7 +36,7 @@ screen.maxsize(500,600)
 screen.minsize(500,600)
 screen.iconphoto(False,PhotoImage(file="image/Ryley.png"))
 Ecranretour=Frame(screen,bg=Color,width=450,height=400)
-labelSpeak = Label(Ecranretour,text=NomAssistant+":",bg=Color,fg=TextColor,font=("arial","13"))
+labelSpeak = Label(Ecranretour,text=NomAssistant+":",bg=Color,fg=TextColor,font=("arial","14"))
 labelSpeak.place(x="0",y="0")
 #Fonction
 def TestInternet():
