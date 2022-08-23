@@ -289,6 +289,7 @@ def Interaction():
     site1 = str(Lecture("Config/Site1.txt"))
     site2 = str(Lecture("Config/Site2.txt"))
     site3 = str(Lecture("Config/Site3.txt"))
+    Moteur = str(Lecture("Config/moteur.txt"))
     if "quit" in requete:
         screen.quit()
     if "meteo" in requete:
