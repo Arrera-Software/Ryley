@@ -1,3 +1,4 @@
+import re
 from tkinter import*
 import webbrowser
 import os
@@ -317,6 +318,18 @@ def Interaction():
         Meteo()
     if "traduction" in requete or "Traduction" in requete or "trad" in requete:
         Traduction()
+    if "Drive" in requete or "Google Drive" in requete or "drive" in requete:
+        Speak("Voici Google Drive ;)")
+        time.sleep(1.75)
+        webbrowser.open(gDrive)
+    if "agenda" in requete or "taff" in requete or "devoirs" in requete or "devoir" in requete:
+        Speak("Voila ce que tu as a faire : ")
+        time.sleep(1.75)
+        webbrowser.open(lienAgenda)
+    if "emploi du temps" in requete or "edt" in requete or "planning" in requete or "emploi du tps" in requete :
+        Speak("Tiens, ton planning des jours à venir")
+        time.sleep(1.75)
+        webbrowser.open(lienEDT)
 BoutonEnvoyer=Button(text="Envoyer",command=Interaction,bg=Color,fg=TextColor)
 Ecranretour.place(relx=.5,rely=.5,anchor ="center")
 BarreR.pack(side="left",anchor="s")
