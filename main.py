@@ -1,5 +1,4 @@
 from tkinter import*
-from turtle import Screen
 import webbrowser
 import os
 import datetime
@@ -268,6 +267,28 @@ def Meteo():
         Speak("Le temps est "+meteodet)
         time.sleep(3)
         Speak("Avec un taux d'humidité de "+humidity+"%")
+def Traduction():
+    langue1=str(Lecture("Config/Lang1.txt"))
+    langue2=str(Lecture("Config/Lang2.txt"))
+    ScreenTrad=Toplevel()
+    ScreenTrad.title("Ryley's Trad")
+    ScreenTrad.maxsize(300,300)
+    ScreenTrad.minsize(300,300)
+    ScreenTrad.config(bg=Color)
+    labelInfo=Label(ScreenTrad,text="Traduction",bg=Color,fg=TextColor,font=("arial","15"))
+    trad=Entry(ScreenTrad)
+    def Langue1():
+        texte=translate(trad.get(),langue1)
+        labelInfo.config(text=texte)
+    def Langue2():
+        texte=translate(trad.get(),langue2)
+        labelInfo.config(text=texte)
+    bouttonlangue1=Button(ScreenTrad,text="Langue 1",bg=Color,fg=TextColor,command=Langue1)
+    bouttonlangue2=Button(ScreenTrad,text="Langue 2",bg=Color,fg=TextColor,command=Langue2)
+    labelInfo.pack()
+    trad.place(relx=.5,rely=.5,anchor ="center")
+    bouttonlangue1.pack(side="left",anchor="s")
+    bouttonlangue2.pack(side="right",anchor="s")
 #Menu
 RyleyMenu = Menu(screen,bg="white",fg="black")
 FichierMenu = Menu(RyleyMenu,tearoff=0)
@@ -294,6 +315,8 @@ def Interaction():
         screen.quit()
     if "meteo" in requete:
         Meteo()
+    if "traduction" in requete or "Traduction" in requete or "trad" in requete:
+        Traduction()
 BoutonEnvoyer=Button(text="Envoyer",command=Interaction,bg=Color,fg=TextColor)
 Ecranretour.place(relx=.5,rely=.5,anchor ="center")
 BarreR.pack(side="left",anchor="s")
