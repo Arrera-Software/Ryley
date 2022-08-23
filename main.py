@@ -231,6 +231,12 @@ def Interaction():
     requete=str(BarreR.get())
     NomAssistant = str(Lecture("Config/Nom.txt"))
     User = str(Lecture("Config/User.txt"))
+    gDrive = str(Lecture("Config/GDrive.txt"))
+    lienEDT = str(Lecture("Config/EDT.txt"))
+    lienAgenda = str(Lecture("Config/Agenda.txt"))
+    site1 = str(Lecture("Config/Site1.txt"))
+    site2 = str(Lecture("Config/Site2.txt"))
+    site3 = str(Lecture("Config/Site3.txt"))
     if "quit" in requete:
         screen.quit()
     if "meteo" in requete:
