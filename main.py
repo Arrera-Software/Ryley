@@ -327,7 +327,7 @@ def Interaction():
         time.sleep(1.75)
         webbrowser.open(lienAgenda)
     if "emploi du temps" in requete or "edt" in requete or "planning" in requete or "emploi du tps" in requete :
-        Speak("Tiens, ton planning des jours à venir")
+        Speak("Tiens, ton planning des jours à venir :")
         time.sleep(1.75)
         webbrowser.open(lienEDT)
 BoutonEnvoyer=Button(text="Envoyer",command=Interaction,bg=Color,fg=TextColor)
