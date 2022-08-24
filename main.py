@@ -101,6 +101,33 @@ def Parametre():
         Modif = Button(ScreenModif,text="Modifier",bg=Color,fg=TextColor,command=Modif).pack(side="right",anchor="s")
         LabelContenu.pack()
         entry.pack(side="left",anchor="s")
+    def FoncModifSite(file,file2):
+        Contenu = Lecture(file2)
+        ScreenModif = Toplevel()
+        ScreenModif.maxsize(400,250)
+        ScreenModif.minsize(400,250)
+        ScreenModif.wait_visibility(ScreenModif)
+        ScreenModif.wm_attributes('-alpha',0.9)
+        ScreenModif.config(bg=Color)
+        LabelContenu = Label(ScreenModif,text="Nom du site: "+Contenu,font=("arial","20"),bg=Color,fg=TextColor)
+        frameName = Frame(ScreenModif,width=350,height=100,bg=Color)
+        labelName = Label(frameName,text="Nom :",bg=Color,fg=TextColor)
+        entryName = Entry(frameName,width=30)
+        labelLien = Label(frameName,text="Lien :",bg=Color,fg=TextColor)
+        entryLien = Entry(frameName,width=30)
+        def Modif():
+            Var1 = str(entryName.get())
+            Var2 = str(entryLien.get())
+            Ecriture(file,Var2)
+            Ecriture(file2,Var1)
+            ScreenModif.destroy()
+        Modif = Button(ScreenModif,text="Modifier",bg=Color,fg=TextColor,command=Modif).pack(side="bottom")
+        LabelContenu.pack()
+        frameName.place(relx=.5,rely=.5,anchor ="center")
+        labelName.place(x="5",y="5")
+        entryName.place(x="65",y="5")
+        labelLien.place(x="5",y="65")
+        entryLien.place(x="65",y="65")
     def ModifUser():
         FoncModif("Config/User.txt")
     def ModifNom():
@@ -118,11 +145,11 @@ def Parametre():
     def LienChange3():
         FoncModif("Config/Agenda.txt")
     def LienChange4():
-        FoncModif("Config/Site1.txt")
+        FoncModifSite("Config/site/LienSite1.txt","Config/site/NomSite1.txt")
     def LienChange5():
-        FoncModif("Config/Site2.txt")
+        FoncModifSite("Config/site/LienSite2.txt","Config/site/NomSite2.txt")
     def LienChange6():
-        FoncModif("Config/Site3.txt")
+        FoncModifSite("Config/site/LienSite3.txt","Config/site/NomSite3.txt")
     def MoteurChange():
         file = "Config/moteur.txt"
         moteur = str(Lecture(file))
@@ -307,9 +334,6 @@ def Interaction():
     gDrive = str(Lecture("Config/GDrive.txt"))
     lienEDT = str(Lecture("Config/EDT.txt"))
     lienAgenda = str(Lecture("Config/Agenda.txt"))
-    site1 = str(Lecture("Config/Site1.txt"))
-    site2 = str(Lecture("Config/Site2.txt"))
-    site3 = str(Lecture("Config/Site3.txt"))
     Moteur = str(Lecture("Config/moteur.txt"))
     if "quit" in requete:
         screen.quit()
