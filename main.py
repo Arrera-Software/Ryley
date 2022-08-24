@@ -335,6 +335,12 @@ def Interaction():
     lienEDT = str(Lecture("Config/EDT.txt"))
     lienAgenda = str(Lecture("Config/Agenda.txt"))
     Moteur = str(Lecture("Config/moteur.txt"))
+    LienSite1 = str(Lecture("Config/site/LienSite1.txt"))
+    NameSite1 = str(Lecture("Config/site/NomSite1.txt"))
+    LienSite2 = str(Lecture("Config/site/LienSite2.txt"))
+    NameSite2 = str(Lecture("Config/site/NomSite2.txt"))
+    LienSite3 = str(Lecture("Config/site/LienSite3.txt"))
+    NameSite3 = str(Lecture("Config/site/NomSite3.txt"))
     if "quit" in requete:
         screen.quit()
     if "meteo" in requete:
