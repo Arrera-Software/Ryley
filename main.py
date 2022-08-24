@@ -246,7 +246,7 @@ def Introduction():
     if hour >= 0 and hour <=5:
         Speak("Zzzz "+User+" Il faut peut etre dormir non?")
     if hour >= 6 and hour <= 9 :
-        Speak("Hey "+User+" as-tu bien dormis?")
+        Speak("Hey "+User+" as-tu bien dormi?")
     if hour >= 10 and hour <= 12:
         Speak("Salut "+User+" comment ce passe ta matinée?")
     if hour >= 13 and hour <= 17:
@@ -323,7 +323,7 @@ def Interaction():
         time.sleep(1.75)
         webbrowser.open(gDrive)
     if "agenda" in requete or "taff" in requete or "devoirs" in requete or "devoir" in requete:
-        Speak("Voila ce que tu as a faire : ")
+        Speak("Voila ce que tu as à faire : ")
         time.sleep(1.75)
         webbrowser.open(lienAgenda)
     if "emploi du temps" in requete or "edt" in requete or "planning" in requete or "emploi du tps" in requete :
