@@ -1,4 +1,3 @@
-import re
 from tkinter import*
 import webbrowser
 import os
