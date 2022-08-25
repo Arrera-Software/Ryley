@@ -428,6 +428,18 @@ def Interaction():
         Speak("Tiens, ton planning des jours à venir :")
         time.sleep(1.75)
         webbrowser.open(lienEDT)
+    if NameSite1 in requete:
+        Speak("Voila ! ")
+        time.sleep(1.25)
+        webbrowser.open(LienSite1)
+    if NameSite2 in requete:
+        Speak("Et voici ! ")
+        time.sleep(1.25)
+        webbrowser.open(LienSite2)
+    if NameSite3 in requete:
+        Speak("Tiens ! ")
+        time.sleep(1.25)
+        webbrowser.open(LienSite3)
 BoutonEnvoyer=Button(bottom,text="Envoyer",command=Interaction,bg=SecondColor,fg=SecondTextColor)
 #Affichage
 labelSpeak.place(x="10",y="300")
