@@ -5,7 +5,7 @@ import datetime
 import random
 import requests
 from tkinter.messagebox import showinfo
-from translate import translate
+from translate import Translator
 import time
 #Fonction
 def Ecriture(file,text):#Fonction d'écriture sur un fichier texte
@@ -142,6 +142,8 @@ def Parametre():
         FoncModif("Config/Nom.txt")
     def MeteoChange1():
         FoncModif("Config/Ville.txt")
+    def LangChange0():
+        FoncModif("Config/Lang0.txt")
     def LangChange1():
         FoncModif("Config/Lang1.txt")
     def LangChange2():
@@ -211,8 +213,10 @@ def Parametre():
     BoutonMeteo1 = Button(CadreMeteo,text="Change",bg=SecondColor,fg=SecondTextColor,command=MeteoChange1,font=("arial","15"))
     #Cadre Lang
     CadreLang = Frame(ScreenPara,bg=SecondColor,width=350,height=400)
-    Lang1 = Label(CadreLang,text="Langue Principal",bg=SecondColor,fg=SecondTextColor,font=("arial","20"))
+    Lang0 = Label(CadreLang,text="Langue par default",bg=SecondColor,fg=SecondTextColor,font=("arial","20"))
+    Lang1 = Label(CadreLang,text="Premier Langue",bg=SecondColor,fg=SecondTextColor,font=("arial","20"))
     Lang2 = Label(CadreLang,text="Deuxiéme Langue",bg=SecondColor,fg=SecondTextColor,font=("arial","20"))
+    BoutonLang0 = Button(CadreLang,text="Change",bg=SecondColor,fg=SecondTextColor,command=LangChange0,font=("arial","15"))
     BoutonLang1 = Button(CadreLang,text="Change",bg=SecondColor,fg=SecondTextColor,command=LangChange1,font=("arial","15"))
     BoutonLang2 = Button(CadreLang,text="Change",bg=SecondColor,fg=SecondTextColor,command=LangChange2,font=("arial","15"))
     #Cadre Moteur
@@ -252,10 +256,12 @@ def Parametre():
     Meteo1.place(x="5",y="5")
     BoutonMeteo1.place(x="250",y="5")
     #Cadre Lang
-    Lang1.place(x="5",y="5")
-    BoutonLang1.place(x="250",y="5")
-    Lang2.place(x="5",y="55")
-    BoutonLang2.place(x="250",y="55")
+    Lang0.place(x="5",y="5")
+    BoutonLang0.place(x="250",y="5")
+    Lang1.place(x="5",y="55")
+    BoutonLang1.place(x="250",y="55")
+    Lang2.place(x="5",y="105")
+    BoutonLang2.place(x="250",y="105")
     #Cadre lien
     Lien1.place(x="5",y="5")
     BoutonLien1.place(x="250",y="5")
@@ -303,27 +309,74 @@ def Meteo():
         time.sleep(3)
         Speak("Avec un taux d'humidité de "+humidity+"%")
 def Traduction():
+    langue0=str(Lecture("Config/Lang0.txt"))
     langue1=str(Lecture("Config/Lang1.txt"))
     langue2=str(Lecture("Config/Lang2.txt"))
-    ScreenTrad=Toplevel()
+    ScreenTrad=Tk()
     ScreenTrad.title("Ryley's Trad")
-    ScreenTrad.maxsize(300,300)
-    ScreenTrad.minsize(300,300)
+    ScreenTrad.maxsize(400,400)
+    ScreenTrad.minsize(400,400)
     ScreenTrad.config(bg=SecondColor)
-    labelInfo=Label(ScreenTrad,text="Traduction",bg=SecondColor,fg=SecondTextColor,font=("arial","15"))
-    trad=Entry(ScreenTrad)
-    def Langue1():
-        texte=translate(trad.get(),langue1)
-        labelInfo.config(text=texte)
-    def Langue2():
-        texte=translate(trad.get(),langue2)
-        labelInfo.config(text=texte)
-    bouttonlangue1=Button(ScreenTrad,text="Langue 1",bg=SecondColor,fg=SecondTextColor,command=Langue1)
-    bouttonlangue2=Button(ScreenTrad,text="Langue 2",bg=SecondColor,fg=SecondTextColor,command=Langue2)
-    labelInfo.pack()
+    labelInfo=Label(ScreenTrad,text="Resultat",bg=SecondColor,fg=SecondTextColor,font=("arial","20"))
+    trad=Entry(ScreenTrad,width=45)
+    def L0versL1():
+        mot = str(trad.get())
+        translator= Translator(from_lang=langue0,to_lang=langue1)
+        translation = translator.translate(mot)
+        labelInfo.config(text=translation)
+    def L0versL2():
+        mot = str(trad.get())
+        translator= Translator(from_lang=langue0,to_lang=langue2)
+        translation = translator.translate(mot)
+        labelInfo.config(text=translation)
+    def L1versL0():
+        mot = str(trad.get())
+        translator= Translator(from_lang=langue1,to_lang=langue0)
+        translation = translator.translate(mot)
+        labelInfo.config(text=translation)
+    def L1versL2():
+        mot = str(trad.get())
+        translator= Translator(from_lang=langue1,to_lang=langue2)
+        translation = translator.translate(mot)
+        labelInfo.config(text=translation)
+    def L2versL0():
+        mot = str(trad.get())
+        translator= Translator(from_lang=langue2,to_lang=langue0)
+        translation = translator.translate(mot)
+        labelInfo.config(text=translation)
+    def L2versL1():
+        mot = str(trad.get())
+        translator= Translator(from_lang=langue2,to_lang=langue1)
+        translation = translator.translate(mot)
+        labelInfo.config(text=translation)
+    bouttonTraduction=Button(ScreenTrad,text="Traduire",bg=SecondColor,fg=SecondTextColor)
+    def Mode1():
+        bouttonTraduction.config(command=L0versL1)
+    def Mode2():
+        bouttonTraduction.config(command=L1versL0)
+    def Mode3():
+        bouttonTraduction.config(command=L0versL2)
+    def Mode4():
+        bouttonTraduction.config(command=L2versL0)
+    def Mode5():
+        bouttonTraduction.config(command=L1versL2)
+    def Mode6():
+        bouttonTraduction.config(command=L2versL1)
+    
+    MenuTrad = Menu(ScreenTrad,bg="white")
+    Choix = Menu(MenuTrad,tearoff=0)
+    Choix.add_command(label="Langue par défault vers Langue 1",command=Mode1)
+    Choix.add_command(label="Langue 1 vers Langue par défault",command=Mode2)
+    Choix.add_command(label="Langue par défault vers Langue 2",command=Mode3)
+    Choix.add_command(label="Langue 2 vers Langue par défault",command=Mode4)
+    Choix.add_command(label="Langue 1 vers Langue 2",command=Mode5)
+    Choix.add_command(label="Langue 2 vers Langue 1",command=Mode6)
+    MenuTrad.add_cascade(label = "Traduction",menu=Choix)
+    ScreenTrad.config(menu=MenuTrad)
+    labelInfo.place(x="5",y="25")
     trad.place(relx=.5,rely=.5,anchor ="center")
-    bouttonlangue1.pack(side="left",anchor="s")
-    bouttonlangue2.pack(side="right",anchor="s")
+    bouttonTraduction.pack(side="bottom")
+    ScreenTrad.mainloop()
 #Menu
 RyleyMenu = Menu(screen,bg="white",fg="black")
 FichierMenu = Menu(RyleyMenu,tearoff=0)
