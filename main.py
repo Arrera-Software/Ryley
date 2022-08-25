@@ -22,6 +22,8 @@ def Lecture(file):#Fonction de lecture d'un fichier texte et stokage dans une va
 #Var
 api_key="ecffd157b2cc9eacbd0d35a45c3dc047"
 base_url="https://api.openweathermap.org/data/2.5/weather?"
+urlNew = "https://newsapi.org/v2/top-headlines?sources=google-news-fr"
+keyNew = "3b43e18afcf945888748071d177b8513"
 MainColor = "white"
 MainTextColor = "black"
 SecondColor = "#573ab6"
@@ -316,6 +318,29 @@ def Meteo():
         Speak("Le temps est "+meteodet)
         time.sleep(3)
         Speak("Avec un taux d'humidité de "+humidity+"%")
+def Resumeactu():
+    def NetoyageActu(dictionnnaire):#Fonction qui permet de netoyer les donne recu par l'API
+        Sujet = dictionnnaire["content"]
+        Description = dictionnnaire["description"]
+        URL= dictionnnaire["url"]
+        Titre = dictionnnaire["title"]
+        return Sujet,Description,URL,Titre
+    Speak("Voyons voir, quoi de neuf aujourd'hui?")
+    time.sleep(2)
+    completeURLNew = urlNew+"&pageSize=3"+"&apiKey="+keyNew
+    article=requests.get(completeURLNew).json()["articles"]
+    Sujet1,description1,url1,titre1=NetoyageActu(article[0])
+    Sujet2,description2,url2,titre2=NetoyageActu(article[1])
+    Sujet3,description3,url3,titre3=NetoyageActu(article[2])
+    Speak("Tadam! Voici une première actualité : ")
+    time.sleep(1.75)
+    Speak(titre1)
+    Speak("Et voila la suite : ")
+    time.sleep(1.75)
+    Speak(titre2)
+    Speak("Efin : ")
+    time.sleep(1.75)
+    Speak(titre3)
 def Traduction():
     langue0=str(Lecture("Config/Lang0.txt"))
     langue1=str(Lecture("Config/Lang1.txt"))
@@ -440,6 +465,8 @@ def Interaction():
         Speak("Tiens ! ")
         time.sleep(1.25)
         webbrowser.open(LienSite3)
+    if "actu" in requete or "actualité" in requete or "news" in requete :
+        Resumeactu()
 BoutonEnvoyer=Button(bottom,text="Envoyer",command=Interaction,bg=SecondColor,fg=SecondTextColor)
 #Affichage
 labelSpeak.place(x="10",y="300")
