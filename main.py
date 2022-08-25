@@ -58,6 +58,14 @@ def TestInternet():
         Info = Label(screenInternet,text="Internet disponible",font=("arial","20"),bg=MainColor,fg=MainTextColor).pack()
     except requests.ConnectionError :
         Info = Label(screenInternet,text="Internet non disponible",font=("arial","20"),bg=MainColor,fg=MainTextColor).pack()
+def APropos():
+    screenAPropos = Toplevel()
+    screenAPropos.title("Ryley")
+    screenAPropos.maxsize(425,170)
+    screenAPropos.minsize(425,170)
+    screenAPropos.iconphoto(False,PhotoImage(file="image/Ryley.png"))
+    screenAPropos.config(bg=MainColor)
+    Label(screenAPropos,text="Assistant Personnelle Ryley\nCréer par:\nSpeedyCreator\net\nWiruto2",font=("arial","20"),bg=MainColor,fg=MainTextColor).pack()
 def Parametre():
     ScreenPara = Toplevel()
     def ParaAssistant():
@@ -383,7 +391,7 @@ FichierMenu = Menu(RyleyMenu,tearoff=0)
 FichierMenu.add_command(label="Paramétre",command=Parametre)
 FichierMenu.add_command(label="Test Internet",command=TestInternet)
 RyleyMenu.add_cascade(label="Fichier",menu=FichierMenu)
-RyleyMenu.add_command(label="A propos")
+RyleyMenu.add_command(label="A propos",command=APropos)
 screen.config(menu=RyleyMenu)
 #Code principal
 Introduction()
