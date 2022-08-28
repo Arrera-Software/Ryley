@@ -1,4 +1,6 @@
+from cProfile import label
 from tkinter import*
+from turtle import color
 import webbrowser
 import os
 import datetime
@@ -324,7 +326,7 @@ def Resumeactu():
         Description = dictionnnaire["description"]
         URL= dictionnnaire["url"]
         Titre = dictionnnaire["title"]
-        return Sujet,Description,URL,Titre
+        return Sujet,Description,URL,Titre  
     Speak("Voyons voir, quoi de neuf aujourd'hui?")
     time.sleep(2)
     completeURLNew = urlNew+"&pageSize=3"+"&apiKey="+keyNew
@@ -332,15 +334,29 @@ def Resumeactu():
     Sujet1,description1,url1,titre1=NetoyageActu(article[0])
     Sujet2,description2,url2,titre2=NetoyageActu(article[1])
     Sujet3,description3,url3,titre3=NetoyageActu(article[2])
+    screenActu = Toplevel()
+    screenActu.minsize(300,50)
+    screenActu.config(bg=MainColor)
+    labelActu = Label(screenActu,bg=MainColor,fg=MainTextColor,font=("arial","14"))
     Speak("Tadam! Voici une première actualité : ")
-    time.sleep(1.75)
-    Speak(titre1)
+    labelActu.pack()
+    labelActu.config(text=titre1)
+    labelActu.update()
+    time.sleep(2)
     Speak("Et voila la suite : ")
-    time.sleep(1.75)
-    Speak(titre2)
+    labelActu.update()
+    time.sleep(2)
+    labelActu.config(text=titre2)
+    labelActu.update()
+    time.sleep(2)
     Speak("Efin : ")
-    time.sleep(1.75)
-    Speak(titre3)
+    labelActu.update()
+    time.sleep(2)
+    labelActu.config(text=titre3)
+    labelActu.update()
+    time.sleep(2)
+    labelActu.pack_forget()
+    BoutonQuit = Button(screenActu,text="Quitter",command=screenActu.destroy,bg=MainColor,fg=MainTextColor,).pack()
 def Traduction():
     langue0=str(Lecture("Config/Lang0.txt"))
     langue1=str(Lecture("Config/Lang1.txt"))
