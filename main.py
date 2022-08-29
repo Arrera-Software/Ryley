@@ -22,6 +22,13 @@ def Lecture(file):#Fonction de lecture d'un fichier texte et stokage dans une va
     contenu= fichier.readlines()[0]
     fichier.close()
     return contenu
+
+def Touche(fenetre,fonc,touche):
+    def anychar(event):
+
+        if event.keycode == touche:
+            fonc()               
+    fenetre.bind("<Key>", anychar)
 #Var
 api_key="ecffd157b2cc9eacbd0d35a45c3dc047"
 base_url="https://api.openweathermap.org/data/2.5/weather?"
@@ -568,6 +575,7 @@ def Interaction():
     if "Recherche" in requete or "recherche" in requete:
         Rechercheninternet()
 BoutonEnvoyer=Button(bottom,text="Envoyer",command=Interaction,bg=SecondColor,fg=SecondTextColor)
+Touche(screen,Interaction,13)
 #Affichage
 labelSpeak.place(x="10",y="300")
 BarreR.place(x="0",y="130")
