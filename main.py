@@ -1,4 +1,7 @@
+from cProfile import label
 from tkinter import*
+from tokenize import Name
+from turtle import color
 import webbrowser
 import os
 import datetime
@@ -48,6 +51,46 @@ bottom.pack(side="bottom")
 bottom.create_image( 0, 0, image = bgBOTTOM, anchor = "nw")
 labelSpeak = Label(top,text=NomAssistant+":",bg=MainColor,fg=MainTextColor,font=("arial","14"))
 #Fonction
+
+def googleSearch(query):
+    with requests.session() as c:
+        url = 'https://www.google.com/search?q'
+        query = {'q': query}
+        urllink = requests.get(url, params=query)
+        liengoogle = urllink.url
+        webbrowser.open(liengoogle)
+def duckduckgoSearch(query):
+    with requests.session() as c:
+        url = 'https://duckduckgo.com/?q'
+        query = {'q': query}
+        urllink = requests.get(url, params=query)
+        lienduck = urllink.url
+        webbrowser.open(lienduck)
+    
+def QwantSearch(query):
+    with requests.session() as c:
+        url = 'https://www.qwant.com/?l=fr&q'
+        query = {'q': query}
+        urllink = requests.get(url, params=query)
+        lienQwant = urllink.url
+        webbrowser.open(lienQwant)
+
+def EcosiaSearch(query):
+    with requests.session() as c:
+        url = 'https://www.ecosia.org/search'
+        query = {'q': query}
+        urllink = requests.get(url,query)
+        lienEcosia = urllink.url
+        webbrowser.open(lienEcosia)
+  
+def bingSearch(query):
+    with requests.session() as c:
+        url = "https://www.bing.com/search"
+        query = {'q': query}
+        urllink = requests.get(url, params=query)
+        lienbing = urllink.url
+        webbrowser.open(lienbing)
+
 def TestInternet():
     screenInternet = Toplevel()
     screenInternet.title("Ryley")
@@ -324,7 +367,7 @@ def Resumeactu():
         Description = dictionnnaire["description"]
         URL= dictionnnaire["url"]
         Titre = dictionnnaire["title"]
-        return Sujet,Description,URL,Titre
+        return Sujet,Description,URL,Titre  
     Speak("Voyons voir, quoi de neuf aujourd'hui?")
     time.sleep(2)
     completeURLNew = urlNew+"&pageSize=3"+"&apiKey="+keyNew
@@ -332,15 +375,29 @@ def Resumeactu():
     Sujet1,description1,url1,titre1=NetoyageActu(article[0])
     Sujet2,description2,url2,titre2=NetoyageActu(article[1])
     Sujet3,description3,url3,titre3=NetoyageActu(article[2])
+    screenActu = Toplevel()
+    screenActu.minsize(300,50)
+    screenActu.config(bg=MainColor)
+    labelActu = Label(screenActu,bg=MainColor,fg=MainTextColor,font=("arial","14"))
     Speak("Tadam! Voici une première actualité : ")
-    time.sleep(1.75)
-    Speak(titre1)
+    labelActu.pack()
+    labelActu.config(text=titre1)
+    labelActu.update()
+    time.sleep(2)
     Speak("Et voila la suite : ")
-    time.sleep(1.75)
-    Speak(titre2)
+    labelActu.update()
+    time.sleep(2)
+    labelActu.config(text=titre2)
+    labelActu.update()
+    time.sleep(2)
     Speak("Efin : ")
-    time.sleep(1.75)
-    Speak(titre3)
+    labelActu.update()
+    time.sleep(2)
+    labelActu.config(text=titre3)
+    labelActu.update()
+    time.sleep(2)
+    labelActu.pack_forget()
+    BoutonQuit = Button(screenActu,text="Quitter",command=screenActu.destroy,bg=MainColor,fg=MainTextColor,).pack()
 def Traduction():
     langue0=str(Lecture("Config/Lang0.txt"))
     langue1=str(Lecture("Config/Lang1.txt"))
@@ -410,6 +467,24 @@ def Traduction():
     trad.place(relx=.5,rely=.5,anchor ="center")
     bouttonTraduction.pack(side="bottom")
     ScreenTrad.mainloop()
+def GrandRecherche():
+    Speak("Que veux-tu rechercher "+Name+" ?")
+    screenRech = Toplevel()
+    screenRech.config(bg=SecondColor)
+    screenRech.title("Ryley : Grand Recherche")
+    screenRech.maxsize(500,100)
+    BarreRecher = Entry(screenRech,width=50)
+    def Valider():
+        recherche=BarreRecher.get()
+        googleSearch(recherche)
+        QwantSearch(recherche)
+        duckduckgoSearch(recherche)
+        EcosiaSearch(recherche)
+        bingSearch(recherche)
+        Speak("Voici le résulat")
+    BoutonRecherche = Button(screenRech,text="Rechercher",bg=SecondColor,fg=SecondTextColor,command=Valider)
+    BarreRecher.pack(side="left")
+    BoutonRecherche.pack(side="right")
 #Menu
 RyleyMenu = Menu(screen,bg="white",fg="black")
 FichierMenu = Menu(RyleyMenu,tearoff=0)
@@ -467,6 +542,8 @@ def Interaction():
         webbrowser.open(LienSite3)
     if "actu" in requete or "actualité" in requete or "news" in requete :
         Resumeactu()
+    if "grand recherche" in requete:
+        GrandRecherche()
 BoutonEnvoyer=Button(bottom,text="Envoyer",command=Interaction,bg=SecondColor,fg=SecondTextColor)
 #Affichage
 labelSpeak.place(x="10",y="300")
