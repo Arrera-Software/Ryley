@@ -302,7 +302,7 @@ def Introduction():
     if hour >= 13 and hour <= 17:
         Speak("Alors "+User+" pret a travailler?")
     if hour >= 18 and hour <= 23:
-        Speak("*baille* "+User+" ? Que fait tu si tard?")
+        Speak("*baille* "+User+" ? Que fais tu si tard?")
 def Meteo():
     fileVille=open("Config/Ville.txt","r")
     varVille=str(fileVille.readlines()[0])
