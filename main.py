@@ -66,7 +66,6 @@ def duckduckgoSearch(query):
         urllink = requests.get(url, params=query)
         lienduck = urllink.url
         webbrowser.open(lienduck)
-    
 def QwantSearch(query):
     with requests.session() as c:
         url = 'https://www.qwant.com/?l=fr&q'
@@ -398,6 +397,28 @@ def Resumeactu():
     time.sleep(2)
     labelActu.pack_forget()
     BoutonQuit = Button(screenActu,text="Quitter",command=screenActu.destroy,bg=MainColor,fg=MainTextColor,).pack()
+def Rechercheninternet():
+    screenschearch=Toplevel()
+    screenschearch.config(bg=SecondColor)
+    screenschearch.title("Ryley : Recherche")
+    screenschearch.maxsize(500,100)
+    BarreRecher = Entry(screenschearch,width=50)
+    def Valider():
+        recherche=BarreRecher.get()
+        moteur=str(Lecture("Config/moteur.txt"))
+        if moteur=="google":
+            googleSearch(recherche)
+        if moteur=="duckduckgo":
+            duckduckgoSearch(recherche)
+        if moteur=="ecosia":
+            EcosiaSearch(recherche)
+        if moteur=="bing":
+            bingSearch(recherche)
+        if moteur=="qwant":
+            QwantSearch(recherche)
+    BoutonRecherche = Button(screenschearch,text="Rechercher",bg=SecondColor,fg=SecondTextColor,command=Valider)
+    BarreRecher.pack(side="left")
+    BoutonRecherche.pack(side="right")
 def Traduction():
     langue0=str(Lecture("Config/Lang0.txt"))
     langue1=str(Lecture("Config/Lang1.txt"))
@@ -471,7 +492,7 @@ def GrandRecherche():
     Speak("Que veux-tu rechercher "+Name+" ?")
     screenRech = Toplevel()
     screenRech.config(bg=SecondColor)
-    screenRech.title("Ryley : Grand Recherche")
+    screenRech.title("Ryley : Grande Recherche")
     screenRech.maxsize(500,100)
     BarreRecher = Entry(screenRech,width=50)
     def Valider():
@@ -542,8 +563,10 @@ def Interaction():
         webbrowser.open(LienSite3)
     if "actu" in requete or "actualité" in requete or "news" in requete :
         Resumeactu()
-    if "grand recherche" in requete:
+    if "Grecherche" in requete:
         GrandRecherche()
+    if "Recherche" in requete or "recherche" in requete:
+        Rechercheninternet()
 BoutonEnvoyer=Button(bottom,text="Envoyer",command=Interaction,bg=SecondColor,fg=SecondTextColor)
 #Affichage
 labelSpeak.place(x="10",y="300")
