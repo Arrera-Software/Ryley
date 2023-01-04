@@ -1,19 +1,16 @@
 from tkinter import *
 from function.JSON import*
 from setting.view import*
+from varriable import*
 
 listMoteur=["duckduckgo","google","qwant","ecosia"]
 listLienMoteur=["https://duckduckgo.com/","https://www.google.com/","https://www.qwant.com/","https://www.ecosia.org/"]
 
-MainColor = "white"
-MainTextColor = "black"
-SecondColor = "#1e23d3"
-SecondTextColor = "white"
 
 def ParaWeb(cadre,screen,btn1,btn2,btn3,btn4):
     varMoteur = StringVar(screen)
     cadre.pack_forget()
-    section= Frame(screen,width=500,height=700,bg=MainColor)
+    section= Frame(screen,width=500,height=700,bg=mainColor)
     section.pack(side="right")
     #fonction
     def exit():
@@ -188,28 +185,28 @@ def ParaWeb(cadre,screen,btn1,btn2,btn3,btn4):
         ViewApp()
     #declaration widget
     #btn
-    btnWeb1 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=Moteur)
-    btnWeb2 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=Lien1)
-    btnWeb3 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=Lien2)
-    btnWeb4 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=Lien3)
-    btnWeb5 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=App1)
-    btnWeb6 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=App2)
-    btnWeb7 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=App3)
-    btnWeb8 = Button(section,text="Exit",bg=MainColor,font=("arial","15"),fg=MainTextColor,command=exit)
-    btnValiderWeb = Button(section,text="Valider",bg=SecondColor,font=("arial","15"),fg=SecondTextColor)
+    btnWeb1 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=Moteur)
+    btnWeb2 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=Lien1)
+    btnWeb3 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=Lien2)
+    btnWeb4 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=Lien3)
+    btnWeb5 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=App1)
+    btnWeb6 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=App2)
+    btnWeb7 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=App3)
+    btnWeb8 = Button(section,text="Exit",bg=mainColor,font=("arial","15"),fg=mainTextColor,command=exit)
+    btnValiderWeb = Button(section,text="Valider",bg=secondColor,font=("arial","15"),fg=secondTextColor)
     #Label
-    labelIndication =Label(section,text="Changer les lien de vos site\n qui vous sont utile",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb1 = Label(section,text="Moteur de recherche",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb2 = Label(section,text="Lien de l'agenda",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb3 = Label(section,text="Lien Stokage Cloud",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb4 = Label(section,text="Lien emplois du temps",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb5 = Label(section,text="Site favorie 1",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb6 = Label(section,text="Site favorie 2",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb7 = Label(section,text="Site favorie 3",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb8 = Label(section,text="Choisissez-votre moteur de recherche préférer",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb9 = Label(section,text="Lien :",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelWeb10  = Label(section,text="Nom : ",bg=MainColor,font=("arial","15"),fg=MainTextColor) 
-    labelWeb11  = Label(section,text="Lien : ",bg=MainColor,font=("arial","15"),fg=MainTextColor) 
+    labelIndication =Label(section,text="Changer les lien de vos site\n qui vous sont utile",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb1 = Label(section,text="Moteur de recherche",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb2 = Label(section,text="Lien de l'agenda",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb3 = Label(section,text="Lien Stokage Cloud",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb4 = Label(section,text="Lien emplois du temps",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb5 = Label(section,text="Site favorie 1",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb6 = Label(section,text="Site favorie 2",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb7 = Label(section,text="Site favorie 3",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb8 = Label(section,text="Choisissez-votre moteur de recherche préférer",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb9 = Label(section,text="Lien :",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelWeb10  = Label(section,text="Nom : ",bg=mainColor,font=("arial","15"),fg=mainTextColor) 
+    labelWeb11  = Label(section,text="Lien : ",bg=mainColor,font=("arial","15"),fg=mainTextColor) 
     #entry
     entryLien = Entry(section,width=30,font=("arial","15"))
     entryLien2 = Entry(section,width=30,font=("arial","15"))

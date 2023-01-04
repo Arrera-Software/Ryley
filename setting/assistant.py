@@ -1,15 +1,11 @@
 from tkinter import *
 from function.JSON import*
 from setting.view import*
-
-MainColor = "white"
-MainTextColor = "black"
-SecondColor = "#1e23d3"
-SecondTextColor = "white"
+from varriable import*
 
 def Assistant(cadre,screen,btn1,btn2,btn3,btn4):
     cadre.pack_forget()
-    section= Frame(screen,width=500,height=700,bg=MainColor)
+    section= Frame(screen,width=500,height=700,bg=mainColor)
     section.pack(side="right")
     #fonction
     def exit():
@@ -64,16 +60,16 @@ def Assistant(cadre,screen,btn1,btn2,btn3,btn4):
         btnAssistantValider.place(x=225,y=300)
     #declaration widget
     #btn
-    btnAssistant1 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=AssistantName)
-    btnAssistant2 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=AssistantUser)
-    btnAssistant3 = Button(section,text="Exit",bg=MainColor,font=("arial","15"),fg=MainTextColor,command=exit)
-    btnAssistantValider = Button(section,text="Valider",bg=SecondColor,font=("arial","15"),fg=SecondTextColor)
+    btnAssistant1 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=AssistantName)
+    btnAssistant2 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=AssistantUser)
+    btnAssistant3 = Button(section,text="Exit",bg=mainColor,font=("arial","15"),fg=mainTextColor,command=exit)
+    btnAssistantValider = Button(section,text="Valider",bg=secondColor,font=("arial","15"),fg=secondTextColor)
     #Label
-    labelIndication =Label(section,text="Changer le nom de l'assistant",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelAssistant1 = Label(section,text="Nom de l'assistant",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelAssistant2 = Label(section,text="Utilisateur ",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelAssistant3 = Label(section,text="Nouveau nom :",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelAssistant4 = Label(section,text="Comment vous-vous appelez :",bg=MainColor,font=("arial","15"),fg=MainTextColor)
+    labelIndication =Label(section,text="Changer le nom de l'assistant",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelAssistant1 = Label(section,text="Nom de l'assistant",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelAssistant2 = Label(section,text="Utilisateur ",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelAssistant3 = Label(section,text="Nouveau nom :",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelAssistant4 = Label(section,text="Comment vous-vous appelez :",bg=mainColor,font=("arial","15"),fg=mainTextColor)
     labelIndication.place(x=125,y=0)
     #entry
     entryName = Entry(section,width=30,font=("arial","15"))

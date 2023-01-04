@@ -1,15 +1,11 @@
 from tkinter import *
 from function.JSON import*
 from setting.view import*
-
-MainColor = "white"
-MainTextColor = "black"
-SecondColor = "#1e23d3"
-SecondTextColor = "white"
+from varriable import*
 
 def Meteo(cadre,screen,btn1,btn2,btn3,btn4):
     cadre.pack_forget()
-    section= Frame(screen,width=500,height=700,bg=MainColor)
+    section= Frame(screen,width=500,height=700,bg=mainColor)
     section.pack(side="right")
     #fonction
     def exit():
@@ -46,13 +42,13 @@ def Meteo(cadre,screen,btn1,btn2,btn3,btn4):
         MeteoView()
    #declaration widget
     #btn
-    btnMeteo1 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=Meteo1)
-    btnMeteo6 = Button(section,text="Exit",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=exit)
-    btnMeteoValider = Button(section,text="Valider",bg=SecondColor,font=("arial","15"),fg=SecondTextColor)
+    btnMeteo1 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=Meteo1)
+    btnMeteo6 = Button(section,text="Exit",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=exit)
+    btnMeteoValider = Button(section,text="Valider",bg=secondColor,font=("arial","15"),fg=secondTextColor)
     #Label
-    labelIndication =Label(section,text="Changer la localisation \nde vos lieu",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelMeteo1 = Label(section,text="Lieu de Meteo",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelMeteo6 = Label(section,text="Nom de la ville :",bg=MainColor,font=("arial","15"),fg=MainTextColor) 
+    labelIndication =Label(section,text="Changer la localisation \nde vos lieu",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelMeteo1 = Label(section,text="Lieu de Meteo",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelMeteo6 = Label(section,text="Nom de la ville :",bg=mainColor,font=("arial","15"),fg=mainTextColor) 
     #entry
     entryVille = Entry(section,width=30,font=("arial","15"))
     

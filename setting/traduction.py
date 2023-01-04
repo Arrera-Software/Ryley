@@ -1,17 +1,13 @@
 from tkinter import *
 from function.JSON import*
 from setting.view import*
-
-MainColor = "white"
-MainTextColor = "black"
-SecondColor = "#1e23d3"
-SecondTextColor = "white"
+from varriable import*
 
 listLang = ["french","english","spanish"]
 def Trad(cadre,screen,btn1,btn2,btn3,btn4):
     varLang = StringVar(screen)
     cadre.pack_forget()
-    section= Frame(screen,width=500,height=700,bg=MainColor)
+    section= Frame(screen,width=500,height=700,bg=mainColor)
     section.pack(side="right")
     #fonction
     def exit():
@@ -98,17 +94,17 @@ def Trad(cadre,screen,btn1,btn2,btn3,btn4):
         
    #declaration widget
     #btn
-    btnTrad1 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=Traduction1)
-    btnTrad2 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=Traduction2)
-    btnTrad3 = Button(section,text="Modifier",bg=SecondColor,font=("arial","15"),fg=SecondTextColor,command=Traduction3)
-    btnTrad4 = Button(section,text="Exit",bg=MainColor,font=("arial","15"),fg=MainTextColor,command=exit)
-    btnTradValider = Button(section,text="Valider",bg=SecondColor,font=("arial","15"),fg=SecondTextColor)
+    btnTrad1 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=Traduction1)
+    btnTrad2 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=Traduction2)
+    btnTrad3 = Button(section,text="Modifier",bg=secondColor,font=("arial","15"),fg=secondTextColor,command=Traduction3)
+    btnTrad4 = Button(section,text="Exit",bg=mainColor,font=("arial","15"),fg=mainTextColor,command=exit)
+    btnTradValider = Button(section,text="Valider",bg=secondColor,font=("arial","15"),fg=secondTextColor)
     #Label
-    labelIndication =Label(section,text="Modifier la langue de l'outil \nde traduction de l'assistant",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelTrad1 = Label(section,text="Langue du systeme",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelTrad2 = Label(section,text="Langue principale",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelTrad3 = Label(section,text="Langue secondaire",bg=MainColor,font=("arial","15"),fg=MainTextColor)
-    labelTrad4 = Label(section,text="Langue :",bg=MainColor,font=("arial","15"),fg=MainTextColor)
+    labelIndication =Label(section,text="Modifier la langue de l'outil \nde traduction de l'assistant",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelTrad1 = Label(section,text="Langue du systeme",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelTrad2 = Label(section,text="Langue principale",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelTrad3 = Label(section,text="Langue secondaire",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelTrad4 = Label(section,text="Langue :",bg=mainColor,font=("arial","15"),fg=mainTextColor)
     #Menu deroulant 
     menuLangue = OptionMenu(section,varLang,*listLang)
     
