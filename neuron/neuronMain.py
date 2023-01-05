@@ -2,6 +2,7 @@ from API.API import*
 from function.traduction import*
 from function.internet import*
 import webbrowser
+from function.calcule import*
 
 def Main(var,fenetre,user,label,nom):
     gDrive = lectureJSON("setting/config.json","lienDrive")
@@ -73,4 +74,8 @@ def Main(var,fenetre,user,label,nom):
                                                     Rechercheinternet()
                                                     return 1
                                                 else :
-                                                    return 0
+                                                    if "Calcule" in var or "calcule" in var :
+                                                        Calcule()
+                                                        return 1
+                                                    else :
+                                                        return 0

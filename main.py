@@ -13,6 +13,7 @@ from function.traduction import*
 from API.API import*
 from varriable import*
 from neuron.neuronMain import*
+from function.calcule import*
 #Var
 nameAssistant = lectureJSON("setting/config.json","nomAssistant")
 User = lectureJSON("setting/config.json","user")
@@ -59,14 +60,17 @@ def Introduction():
 #Menu
 ryleyMenu = Menu(screen,bg="white",fg="black")
 fichierMenu = Menu(ryleyMenu,tearoff=0)
+appMenu = Menu(ryleyMenu,tearoff=0)
 fichierMenu.add_command(label="Paramétre",command=Setting)
 fichierMenu.add_command(label="Test Internet",command=TestInternet)
+appMenu.add_command(label="Calculatrice",command=Calcule)
 ryleyMenu.add_cascade(label="Fichier",menu=fichierMenu)
+ryleyMenu.add_cascade(label="Fonction",menu=appMenu)
 ryleyMenu.add_command(label="A propos",command=APropos)
 screen.config(menu=ryleyMenu)
 #Code principal
 Introduction()
-barreR = Entry(bottom,width=35,font=("arial","15"))
+barreR = Entry(bottom,width=35,font=("arial","15"),relief=SOLID)
 def envoi():
     requete=str(barreR.get())
     varRyley = Main(requete,screen,User,labelParole,nameAssistant)
