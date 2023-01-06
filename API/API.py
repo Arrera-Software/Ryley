@@ -19,9 +19,9 @@ def Meteo(label,nom):
         humidity=str(dictionnaire["humidity"])
         meteodet=str(reponse["weather"][0]["description"])
         speak("Il fait "+temp+"°C",label,nom)
-        time.sleep(2.5,label,nom)
+        time.sleep(1.5)
         speak("Le temps est "+meteodet,label,nom)
-        time.sleep(3)
+        time.sleep(1.5)
         speak("Avec un taux d'humidité de "+humidity+" %",label,nom)
 def NetoyageActu(dictionnnaire):#Fonction qui permet de netoyer les donne recu par l'API
     Titre = dictionnnaire["title"]
