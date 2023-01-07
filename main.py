@@ -14,6 +14,7 @@ from API.API import*
 from varriable import*
 from neuron.neuronMain import*
 from function.calcule import*
+from src.micro import*
 #Var
 nameAssistant = lectureJSON("setting/config.json","nomAssistant")
 user = lectureJSON("setting/config.json","user")
@@ -21,6 +22,7 @@ user = lectureJSON("setting/config.json","user")
 screen = Tk()
 bgTOP = PhotoImage(file = "image/BGTop.png")
 bgBOTTOM = PhotoImage(file = "image/BGBottom.png")
+imgMicro = PhotoImage(file="image/imgMicro.png")
 screen.title("Ryley")
 screen.config(bg=mainColor)
 screen.maxsize(500,600)
@@ -58,10 +60,13 @@ def Introduction():
                 if hour >= 13 and hour <= 17:
                     speak("Alors "+user+" pret a travailler?",labelParole,nameAssistant)
                 else :
-                    if hour >= 18 and hour <= 23:
-                        speak("*baille* "+user+" ? Que fais tu si tard?",labelParole,nameAssistant)
+                    if hour >= 18 and hour <= 21 :
+                        speak("Alors "+user+"que veut-tu faire ce soir ?",labelParole,nameAssistant)
                     else :
-                        speak("Salut "+user,labelParole,nameAssistant)
+                        if hour >= 22 and hour <= 23:
+                            speak("*baille* "+user+" ? Que fais tu si tard?",labelParole,nameAssistant)
+                        else :
+                            speak("Salut "+user,labelParole,nameAssistant)
 def phraseAttent():
     nbrad = random.randrange(1,6)
     if nbrad == 1 :
@@ -94,6 +99,8 @@ screen.config(menu=ryleyMenu)
 #Code principal
 Introduction()
 barreR = Entry(bottom,width=35,font=("arial","15"),relief=SOLID)
+def micro():
+    takeCommand(barreR)
 def envoi():
     requete=str(barreR.get())
     varRyley = Main(requete,screen,user,labelParole,nameAssistant)
@@ -103,9 +110,11 @@ def envoi():
         speak("Je peux pas répondre a ta requette "+user,labelParole,nameAssistant)
    
 boutonEnvoyer=Button(bottom,text="Envoyer",command=envoi,bg=secondColor,fg=secondTextColor,font=("arial","15"))
+boutonMicro = Button(bottom,image=imgMicro,command=micro)
 #Affichage
 labelParole.place(x="10",y="300")
-barreR.place(x="5",y="130")
-boutonEnvoyer.place(x="400",y="125")
+barreR.place(x="5",y="70")
+boutonEnvoyer.place(x="400",y="65")
+boutonMicro.place(x="25",y="115")
 #Fin de la boucle
 screen.mainloop()

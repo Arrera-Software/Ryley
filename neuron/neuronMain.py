@@ -74,7 +74,7 @@ def Main(var,fenetre,user,label,nom):
                                                     Rechercheinternet()
                                                     return 1
                                                 else :
-                                                    if "Calcule" in var or "calcule" in var :
+                                                    if "Calcule" in var or "calcule" in var and "Calcul" in var or "calcul" in var :
                                                         Calcule()
                                                         return 1
                                                     else :
