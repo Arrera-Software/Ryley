@@ -70,12 +70,8 @@ def Main(var,fenetre,user,label,nom):
                                                 GrandRecherche(user,label,nom)
                                                 return 1
                                             else :
-                                                if "Recherche" in var or "recherche" in var:
-                                                    Rechercheinternet()
+                                                if "Calcule" in var or "calcule" in var and "Calcul" in var or "calcul" in var :
+                                                    Calcule()
                                                     return 1
                                                 else :
-                                                    if "Calcule" in var or "calcule" in var and "Calcul" in var or "calcul" in var :
-                                                        Calcule()
-                                                        return 1
-                                                    else :
-                                                        return 0
+                                                   return 0

@@ -15,6 +15,7 @@ from varriable import*
 from neuron.neuronMain import*
 from function.calcule import*
 from src.micro import*
+from neuron.neuronSearch import*
 #Var
 nameAssistant = lectureJSON("setting/config.json","nomAssistant")
 user = lectureJSON("setting/config.json","user")
@@ -107,7 +108,11 @@ def envoi():
     if varRyley == 1 :
         phraseAttent()
     else :
-        speak("Je peux pas répondre a ta requette "+user,labelParole,nameAssistant)
+        varRyley = search(requete,screen,user,labelParole,nameAssistant)
+        if varRyley == 1 :
+            phraseAttent()
+        else :
+            speak("Je peux pas répondre a ta requette "+user,labelParole,nameAssistant)
    
 boutonEnvoyer=Button(bottom,text="Envoyer",command=envoi,bg=secondColor,fg=secondTextColor,font=("arial","15"))
 boutonMicro = Button(bottom,image=imgMicro,command=micro)

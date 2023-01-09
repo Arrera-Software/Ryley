@@ -3,8 +3,8 @@ from function.JSON import*
 from setting.view import*
 from varriable import*
 
-listMoteur=["duckduckgo","google","qwant","ecosia"]
-listLienMoteur=["https://duckduckgo.com/","https://www.google.com/","https://www.qwant.com/","https://www.ecosia.org/"]
+listMoteur=["duckduckgo","google","qwant","ecosia","brave"]
+listLienMoteur=["https://duckduckgo.com/?q=","https://www.google.com/search?q&q=","https://www.qwant.com/?l=fr&q","https://www.ecosia.org/search"]
 
 
 def ParaWeb(cadre,screen,btn1,btn2,btn3,btn4):
