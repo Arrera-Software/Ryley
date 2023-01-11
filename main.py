@@ -13,7 +13,6 @@ from function.traduction import*
 from API.API import*
 from varriable import*
 from neuron.neuronMain import*
-from function.calcule import*
 from src.micro import*
 from neuron.neuronSearch import*
 #Var

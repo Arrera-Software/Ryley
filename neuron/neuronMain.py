@@ -2,7 +2,7 @@ from API.API import*
 from function.traduction import*
 from function.internet import*
 import webbrowser
-from function.calcule import*
+from objet.Calcule.calcule import*
 
 def Main(var,fenetre,user,label,nom):
     gDrive = lectureJSON("setting/config.json","lienDrive")
@@ -71,7 +71,7 @@ def Main(var,fenetre,user,label,nom):
                                                 return 1
                                             else :
                                                 if "Calcule" in var or "calcule" in var and "Calcul" in var or "calcul" in var :
-                                                    Calcule()
+                                                    Calcule(mainColor,mainTextColor,"Ryley : Calculatrice")
                                                     return 1
                                                 else :
                                                    return 0
