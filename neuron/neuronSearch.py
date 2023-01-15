@@ -1,7 +1,6 @@
 import requests
 import webbrowser
 import re
-from src.parole import*
 from function.JSON import*
 from function.internet import*
 

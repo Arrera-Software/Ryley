@@ -1,7 +1,7 @@
 from tkinter import *
 from function.JSON import*
 from setting.view import*
-from varriable import*
+from src.varriable import*
 
 def Meteo(cadre,screen,btn1,btn2,btn3,btn4):
     cadre.pack_forget()

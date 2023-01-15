@@ -1,7 +1,7 @@
 from tkinter import *
 from function.JSON import*
 from setting.view import*
-from varriable import*
+from src.varriable import*
 
 listLang = ["french","english","spanish"]
 def Trad(cadre,screen,btn1,btn2,btn3,btn4):

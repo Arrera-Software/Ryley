@@ -1,4 +1,5 @@
 from API.API import*
+from src.ryleySRC import *
 from function.traduction import*
 from function.internet import*
 import webbrowser
@@ -27,37 +28,37 @@ def Main(var,fenetre,user,label,nom):
                 return 1
             else :
                 if "Drive" in var or "Google Drive" in var or "drive" in var:
-                    speak("Voici Google Drive ;)",label,nom)
+                    RyleySRC.speak("Voici Google Drive ;)",label,nom)
                     time.sleep(1.75)
                     webbrowser.open(gDrive)
                     return 1
                 else :
                     if "agenda" in var or "taff" in var or "devoirs" in var or "devoir" in var:
-                        speak("Voila ce que tu as à faire : ",label,nom)
+                        RyleySRC.speak("Voila ce que tu as à faire : ",label,nom)
                         time.sleep(1.75)
                         webbrowser.open(lienAgenda)
                         return 1
                     else :
                         if "emploi du temps" in var or "edt" in var or "planning" in var or "emploi du tps" in var :
-                            speak("Tiens, ton planning des jours à venir :",label,nom)
+                            RyleySRC.speak("Tiens, ton planning des jours à venir :",label,nom)
                             time.sleep(1.75)
                             webbrowser.open(lienEDT)
                             return 1
                         else :
                             if nameSite1 in var:
-                                speak("Voila ! ",label,nom)
+                                RyleySRC.speak("Voila ! ",label,nom)
                                 time.sleep(1.25)
                                 webbrowser.open(lienSite1)
                                 return 1
                             else :
                                 if nameSite2 in var:
-                                    speak("Et voici ! ",label,nom)
+                                    RyleySRC.speak("Et voici ! ",label,nom)
                                     time.sleep(1.25)
                                     webbrowser.open(lienSite2)
                                     return 1
                                 else :
                                     if nameSite3 in var:
-                                        speak("Tiens ! ",label,nom)
+                                        RyleySRC.speak("Tiens ! ",label,nom)
                                         time.sleep(1.25)
                                         webbrowser.open(lienSite3)
                                         return 1

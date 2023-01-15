@@ -2,7 +2,6 @@ import requests
 import webbrowser
 from tkinter import*
 from function.JSON import*
-from src.parole import*
 
 MainColor = "white"
 MainTextColor = "black"

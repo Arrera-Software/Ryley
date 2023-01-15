@@ -4,7 +4,7 @@ from setting.view import*
 from setting.internet import*
 from setting.meteo import*
 from setting.traduction import *
-from varriable import*
+from src.varriable import*
 
 listMoteur = "google" , "duckduckgo" , "ecosia" , "qwant" , "bing"
     

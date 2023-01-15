@@ -1,7 +1,7 @@
 from tkinter import *
 from function.JSON import*
 from setting.view import*
-from varriable import*
+from src.varriable import*
 
 listMoteur=["duckduckgo","google","qwant","ecosia","brave"]
 listLienMoteur=["https://duckduckgo.com/?q=","https://www.google.com/search?q&q=","https://www.qwant.com/?l=fr&q","https://www.ecosia.org/search"]
