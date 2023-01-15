@@ -4,9 +4,9 @@ from function.internet import*
 from function.traduction import*
 from API.API import*
 from src.varriable import*
-from neuron.neuronMain import*
-from neuron.neuronSearch import*
-from neuron.neuronTime import*
+from neuronRyley.neuronMain import*
+from neuronRyley.neuronSearch import*
+from neuronRyley.neuronTime import*
 from tkinter import*
 
 from src.ryleySRC import*
