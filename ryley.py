@@ -83,7 +83,7 @@ class Ryley :
                         RyleySRC.speak("Alors "+self.user+" pret a travailler?",self.labelParole,self.nameAssistant)
                     else :
                         if hour >= 18 and hour <= 21 :
-                            RyleySRC.speak("Alors "+self.user+"que veut-tu faire ce soir ?",self.labelParole,self.nameAssistant)
+                            RyleySRC.speak("Alors "+self.user+" que veut-tu faire ce soir ?",self.labelParole,self.nameAssistant)
                         else :
                             if hour >= 22 and hour <= 23:
                                 RyleySRC.speak("*baille* "+self.user+" ? Que fais tu si tard?",self.labelParole,self.nameAssistant)
