@@ -7,6 +7,7 @@ from src.varriable import*
 from neuronRyley.neuronMain import*
 from neuronRyley.neuronSearch import*
 from neuronRyley.neuronTime import*
+from neuronRyley.neuroneCodeHelp import*
 from tkinter import*
 
 from src.ryleySRC import*
@@ -19,9 +20,12 @@ class Ryley :
         self.user = lectureJSON("setting/config.json","user")
         #Definition fenetre Tkinter
         self.screen = Tk()
+        #var
         self.bgTOP = PhotoImage(file = "image/BGTop.png")
         self.bgBOTTOM = PhotoImage(file = "image/BGBottom.png")
         self.imgMicro = PhotoImage(file="image/imgMicro.png")
+        self.listLanguage = ["all","python","javascript","html","cpp","c","css","php","openjdk"]
+        self.varLanguage = StringVar(self.screen)
         self.screen.title("Ryley")
         self.screen.config(bg=mainColor)
         self.screen.maxsize(500,600)
@@ -45,10 +49,11 @@ class Ryley :
         self.ryleyMenu.add_cascade(label="Fonction",menu=self.appMenu)
         self.ryleyMenu.add_command(label="A propos",command=self.APropos)
         self.screen.config(menu=self.ryleyMenu)
-        
+        #bouton
         self.boutonEnvoyer=Button(self.bottom,text="Envoyer",command=self.envoi,bg=secondColor,fg=secondTextColor,font=("arial","15"))
         self.boutonMicro = Button(self.bottom,image=self.imgMicro,command=self.micro)
-        #Affichage
+        #option menu
+        self.choixLanguage = OptionMenu(self.bottom,self.varLanguage,*self.listLanguage)
         #Code principal
         self.Introduction()
         self.barreR = Entry(self.bottom,width=35,font=("arial","15"),relief=SOLID)
@@ -128,5 +133,12 @@ class Ryley :
                 if varRyley == 1 :
                     self.phraseAttent()
                 else :
-                    RyleySRC.speak("Je peux pas répondre a ta requette "+self.user,self.labelParole,self.nameAssistant)
+                    varRyley = neuronCodeHelp(requete,self.screen,self.user,self.labelParole,self.nameAssistant,self.barreR,self.top,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.envoi)
+                    if varRyley == 1 :
+                        self.phraseAttent()
+                    else :
+                        if varRyley == 2:
+                           RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",self.labelParole,self.nameAssistant) 
+                        else:
+                            RyleySRC.speak("Je peux pas répondre a ta requette "+self.user,self.labelParole,self.nameAssistant)
     
