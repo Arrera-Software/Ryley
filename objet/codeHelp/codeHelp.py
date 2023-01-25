@@ -2,10 +2,34 @@ from tkinter import*
 import webbrowser
 import requests
 from src.ryleySRC import*
+from src.varriable import*
 class CodeHelp:
+    def __init__(carde,cadre2,entry,label,button,optionMenu,varchoix,nom,oldfnc) :
+        screenCode = Toplevel()
+        screenCode.title("Ryley : Code help")
+        screenCode.iconphoto(False,PhotoImage(file="image/Ryley.png"))
+        screenCode.maxsize(500,500)
+        screenCode.minsize(500,500)
+        screenCode.config(bg=secondColor)
+        bgCode = Canvas(screenCode,width=500,height=500)
+        imgCenter = PhotoImage(file="image/codeHelp/bgCodeHelp.png",master=bgCode)
+        bgCode.image_names = imgCenter
+        bgCode.create_image(0,0,image=imgCenter,anchor="nw")
+        buttonDoc = Button(screenCode,text="Documentation",bg=mainColor,fg=mainTextColor,font=("arial",15))
+        imgDoc = PhotoImage(file="image/codeHelp/documentation.png",master=buttonDoc)
+        buttonDoc.image_names = imgDoc
+        buttonDoc.config(image=imgDoc)
+        buttonGithub  = Button(screenCode,text="Connexion à github",bg=mainColor,fg=mainTextColor,font=("arial",15))
+        imgGithub = PhotoImage(file="image/codeHelp/github.png",master=buttonGithub)
+        buttonGithub.image_names = imgGithub
+        buttonGithub.config(image=imgGithub)
+        buttonDoc.place(x=220,y=50)
+        buttonGithub.place(x=220,y=380)
+        bgCode.pack()
+        
     def rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc):
-        url = "https://devdocs.io/#q="
         def send():
+            url = "https://devdocs.io/#q="
             requette = entry.get()
             if requette == "quitter":
                 entry.delete(0,END)
@@ -36,6 +60,8 @@ class CodeHelp:
         entry.place(x="115",y="70")
         optionMenu.place(x="5",y="70")
         button.config(command=send)
+    
+    
         
         
              

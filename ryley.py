@@ -133,7 +133,7 @@ class Ryley :
                 if varRyley == 1 :
                     self.phraseAttent()
                 else :
-                    varRyley = neuronCodeHelp(requete,self.screen,self.user,self.labelParole,self.nameAssistant,self.barreR,self.top,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.envoi)
+                    varRyley = neuronCodeHelp(requete,self.screen,self.user,self.labelParole,self.nameAssistant,self.barreR,self.top,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.envoi,self.top)
                     if varRyley == 1 :
                         self.phraseAttent()
                     else :
