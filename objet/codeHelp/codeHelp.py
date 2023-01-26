@@ -23,6 +23,16 @@ class CodeHelp:
         imgGithub = PhotoImage(file="image/codeHelp/github.png",master=buttonGithub)
         buttonGithub.image_names = imgGithub
         buttonGithub.config(image=imgGithub)
+        buttonLibrairy = Button(screenCode,text="Librairy")
+        imgLibrairy = PhotoImage(file="image/codeHelp/librairy.png",master=buttonLibrairy)
+        buttonLibrairy.image_names = imgLibrairy
+        buttonLibrairy.config(image=imgLibrairy)
+        buttonApp = Button(screenCode,text="Application")
+        imgApp = PhotoImage(file="image/codeHelp/application.png",master=buttonApp)
+        buttonApp.image_names = imgApp
+        buttonApp.config(image=imgApp)
+        buttonApp.place(x=380,y=200)
+        buttonLibrairy.place(x=50,y=200)
         buttonDoc.place(x=220,y=50)
         buttonGithub.place(x=220,y=380)
         bgCode.pack()
