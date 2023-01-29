@@ -37,7 +37,9 @@ class Ryley :
         self.bottom = Canvas( self.screen, width = 500,height = 200)
         self.bottom.pack(side="bottom")
         self.bottom.create_image( 0, 0, image = self.bgBOTTOM, anchor = "nw")
+        #Label
         self.labelParole = Label(self.top,text=self.nameAssistant+":",bg=mainColor,fg=mainTextColor,font=("arial","14"))
+        self.labelIndication = Label(self.bottom,bg=secondColor,fg=secondTextColor,font=("arial","14"))
         #Menu
         self.ryleyMenu = Menu(self.screen,bg="white",fg="black")
         self.fichierMenu = Menu(self.ryleyMenu,tearoff=0)
@@ -133,12 +135,10 @@ class Ryley :
                 if varRyley == 1 :
                     self.phraseAttent()
                 else :
-                    varRyley = neuronCodeHelp(requete,self.screen,self.user,self.labelParole,self.nameAssistant,self.barreR,self.top,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.envoi,self.top)
+                    varRyley = neuronCodeHelp(requete,self.screen,self.user,self.labelParole,self.nameAssistant,self.barreR,self.top,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.envoi,self.top,self.labelIndication)
                     if varRyley == 1 :
                         self.phraseAttent()
                     else :
-                        if varRyley == 2:
-                           RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",self.labelParole,self.nameAssistant) 
-                        else:
+                        if (varRyley != 2):
                             RyleySRC.speak("Je peux pas répondre a ta requette "+self.user,self.labelParole,self.nameAssistant)
     
