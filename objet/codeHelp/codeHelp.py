@@ -5,6 +5,7 @@ from src.ryleySRC import*
 from src.varriable import*
 from github import Github
 from function.JSON import *
+from tkinter import colorchooser
 class CodeHelp:
     def __init__(carde,cadre2,entry,label,button,optionMenu,varchoix,nom,oldfnc,labelIndication,mode) :
         screenCode = Toplevel()
@@ -49,12 +50,11 @@ class CodeHelp:
                 Application()
             else :
                 mode1()
-            
         buttonDoc = Button(bgCode1,text="Documentation",bg=mainColor,fg=mainTextColor,font=("arial",15),command=Doc	)
         buttonGithub  = Button(bgCode1,text="Connexion à github",bg=mainColor,fg=mainTextColor,font=("arial",15),command=github)
         buttonLibrairy = Button(bgCode1,text="Librairy",bg=mainColor,fg=mainTextColor,)
         buttonApp = Button(bgCode1,text="Application",bg=mainColor,fg=mainTextColor,command=Application)
-        buttonColor = Button(bgCode2,text="Selecteur de couleur",bg=mainColor,fg=mainTextColor,)
+        buttonColor = Button(bgCode2,text="Selecteur de couleur",bg=mainColor,fg=mainTextColor,command=CodeHelp.ColorSelector)
         buttonVarriable = Button(bgCode2,text="Organisateur de varriable",bg=mainColor,fg=mainTextColor,)
         buttonRetour = Button(bgCode2,text="Retour",bg=mainColor,fg=mainTextColor,command=mode1)
         buttonEditeurDoc = Button(bgCode2,text="Editeur de Doncumentation",bg=mainColor,fg=mainTextColor,)
@@ -215,4 +215,43 @@ class CodeHelp:
             button.config(command=oldfnc)
             RyleySRC.speak("Votre nom d'uttilisateur est enregister",label,nom)
         button.config(command=Save)
+        
+    def ColorSelector():
+        screenColor = Toplevel()
+        screenColor.title("Ryley : CodeHelp selecteur de couleur")
+        screenColor.config(bg=mainColor)
+        screenColor.iconphoto(False,PhotoImage(file="image/Ryley.png"))
+        screenColor.maxsize(800,500)
+        screenColor.minsize(800,500)
+        #fonction
+        def selecteur():
+            color = colorchooser.askcolor(title="Ryley : CodeHelp selecteur de couleur",color=mainColor)
+            colorHTLM = str(color[1])
+            colorRGB = str(color[0])
+            def CopieHTLM():
+                screenColor.clipboard_clear()
+                screenColor.clipboard_append(colorHTLM)
+            def CopieRGB():
+                screenColor.clipboard_clear()
+                screenColor.clipboard_append(colorRGB)
+            cadreColor.config(bg=colorHTLM)
+            buttonCopiHTLM.config(command=CopieHTLM)
+            buttonCopiRGB.config(command=CopieRGB)
+            labelIndicationCode.config(text="Code HTML : "+colorHTLM+"\nCode RGB : "+colorRGB)
+        #cadre
+        cadreNoir = Frame(screenColor,bg="black",width=325,height=325,border=100)
+        cadreColor = Frame(cadreNoir,bg="#ffffff",width=310,height=310)
+        #label
+        labelIndicationCode = Label(screenColor,text="Code HTML : #ffffff \nCode RGB : (255,255,255)",bg=mainColor,fg=mainTextColor,font=("arial",15),justify="left")     
+        #declaration des bouton
+        buttonSelection = Button(screenColor,text="Selectionner la couleur",bg=mainColor,fg=mainTextColor,font=("arial",15),command=selecteur)
+        buttonCopiHTLM = Button(screenColor,text="Copier le code HTML",bg=mainColor,fg=mainTextColor,font=("arial",15))
+        buttonCopiRGB = Button(screenColor,text="Copier le code RGB",bg=mainColor,fg=mainTextColor,font=("arial",15))
+        #affichage
+        cadreColor.place(relx=0.5, rely=0.5, anchor=CENTER)
+        cadreNoir.pack(side="right")
+        labelIndicationCode.place(x=15,y=15)
+        buttonSelection.place(x=15,y=135)
+        buttonCopiHTLM.place(x=15,y=235)
+        buttonCopiRGB.place(x=15,y=335)
         
