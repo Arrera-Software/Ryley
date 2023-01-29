@@ -6,42 +6,93 @@ from src.varriable import*
 from github import Github
 from function.JSON import *
 class CodeHelp:
-    def __init__(carde,cadre2,entry,label,button,optionMenu,varchoix,nom,oldfnc,labelIndication) :
+    def __init__(carde,cadre2,entry,label,button,optionMenu,varchoix,nom,oldfnc,labelIndication,mode) :
         screenCode = Toplevel()
-        screenCode.title("Ryley : Code help")
         screenCode.iconphoto(False,PhotoImage(file="image/Ryley.png"))
         screenCode.maxsize(500,500)
         screenCode.minsize(500,500)
         screenCode.config(bg=secondColor)
+        def resetRyley():
+            button.config(command=oldfnc)
+            optionMenu.place_forget()
+            labelIndication.place_forget()
+            entry.place_forget()
+            entry.config(width=35)
+            entry.place(x="5",y="70")
         def Doc():
+            resetRyley()
             CodeHelp.rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc)
         def github():
+            resetRyley()
             CodeHelp.github(carde,entry,label,button,nom,oldfnc,labelIndication)
-        bgCode = Canvas(screenCode,width=500,height=500)
-        imgCenter = PhotoImage(file="image/codeHelp/bgCodeHelp.png",master=bgCode)
-        bgCode.image_names = imgCenter
-        bgCode.create_image(0,0,image=imgCenter,anchor="nw")
-        buttonDoc = Button(screenCode,text="Documentation",bg=mainColor,fg=mainTextColor,font=("arial",15),command=Doc	)
+        def Application():
+            bgCode1.pack_forget()
+            bgCode2.pack()
+            screenCode.title("Ryley : CodeHelp Application")
+        def mode1():
+            bgCode2.pack_forget()
+            bgCode1.pack()
+            screenCode.title("Ryley : Code help")
+        bgCode1 = Canvas(screenCode,width=500,height=500)
+        imgCenter = PhotoImage(file="image/codeHelp/bgCodeHelp.png",master=bgCode1)
+        bgCode1.image_names = imgCenter
+        bgCode1.create_image(0,0,image=imgCenter,anchor="nw")
+        
+        bgCode2 = Canvas(screenCode,width=500,height=500)
+        imgCenter2 = PhotoImage(file="image/codeHelp/bgCodeHelp.png",master=bgCode2)
+        bgCode2.image_names = imgCenter2
+        bgCode2.create_image(0,0,image=imgCenter2,anchor="nw")
+        if (mode == "1"):
+            mode1()
+        else :
+            if mode == "2":
+                Application()
+            else :
+                mode1()
+            
+        buttonDoc = Button(bgCode1,text="Documentation",bg=mainColor,fg=mainTextColor,font=("arial",15),command=Doc	)
+        buttonGithub  = Button(bgCode1,text="Connexion à github",bg=mainColor,fg=mainTextColor,font=("arial",15),command=github)
+        buttonLibrairy = Button(bgCode1,text="Librairy",bg=mainColor,fg=mainTextColor,)
+        buttonApp = Button(bgCode1,text="Application",bg=mainColor,fg=mainTextColor,command=Application)
+        buttonColor = Button(bgCode2,text="Selecteur de couleur",bg=mainColor,fg=mainTextColor,)
+        buttonVarriable = Button(bgCode2,text="Organisateur de varriable",bg=mainColor,fg=mainTextColor,)
+        buttonRetour = Button(bgCode2,text="Retour",bg=mainColor,fg=mainTextColor,command=mode1)
+        buttonEditeurDoc = Button(bgCode2,text="Editeur de Doncumentation",bg=mainColor,fg=mainTextColor,)
+        
         imgDoc = PhotoImage(file="image/codeHelp/documentation.png",master=buttonDoc)
+        imgLibrairy = PhotoImage(file="image/codeHelp/librairy.png",master=buttonLibrairy)
+        imgApp = PhotoImage(file="image/codeHelp/application.png",master=buttonApp)
+        imgGithub = PhotoImage(file="image/codeHelp/github.png",master=buttonGithub)
+        imgColor = PhotoImage(file="image/codeHelp/colorSelector.png",master=buttonColor)
+        imgVarriable =PhotoImage(file="image/codeHelp/orgagnisateurVarriable.png",master=buttonVarriable)
+        imgRetour = PhotoImage(file="image/codeHelp/retourAririere.png",master=buttonRetour)
+        imgEditeurDoc = PhotoImage(file="image/codeHelp/EditeurDoc.png",master=buttonEditeurDoc)
+       
         buttonDoc.image_names = imgDoc
         buttonDoc.config(image=imgDoc)
-        buttonGithub  = Button(screenCode,text="Connexion à github",bg=mainColor,fg=mainTextColor,font=("arial",15),command=github)
-        imgGithub = PhotoImage(file="image/codeHelp/github.png",master=buttonGithub)
         buttonGithub.image_names = imgGithub
         buttonGithub.config(image=imgGithub)
-        buttonLibrairy = Button(screenCode,text="Librairy")
-        imgLibrairy = PhotoImage(file="image/codeHelp/librairy.png",master=buttonLibrairy)
         buttonLibrairy.image_names = imgLibrairy
         buttonLibrairy.config(image=imgLibrairy)
-        buttonApp = Button(screenCode,text="Application")
-        imgApp = PhotoImage(file="image/codeHelp/application.png",master=buttonApp)
         buttonApp.image_names = imgApp
         buttonApp.config(image=imgApp)
+        buttonColor.image_names = imgColor
+        buttonColor.config(image=imgColor)
+        buttonVarriable.image_names =imgVarriable
+        buttonVarriable.config(image=imgVarriable)
+        buttonRetour.image_names = imgRetour
+        buttonRetour.config(image=imgRetour)
+        buttonEditeurDoc.image_names = imgEditeurDoc
+        buttonEditeurDoc.config(image=imgEditeurDoc)
+        
         buttonApp.place(x=380,y=200)
         buttonLibrairy.place(x=50,y=200)
         buttonDoc.place(x=220,y=50)
         buttonGithub.place(x=220,y=380)
-        bgCode.pack()
+        buttonColor.place(x=380,y=200)
+        buttonVarriable.place(x=50,y=200)
+        buttonEditeurDoc.place(x=220,y=50)
+        buttonRetour.place(x=220,y=380)
         
     def rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc):
         RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
@@ -79,6 +130,7 @@ class CodeHelp:
         button.config(command=send)
         
     def github(carde,entry,label,button,nom,oldfnc,labelIndication):
+        RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
         verifToken = lectureJSON("objet/codeHelp/accessGithub.json","token") != ""
         verifUser = lectureJSON("objet/codeHelp/accessGithub.json","user") != ""
         listRepo = []
@@ -164,8 +216,3 @@ class CodeHelp:
             RyleySRC.speak("Votre nom d'uttilisateur est enregister",label,nom)
         button.config(command=Save)
         
-    
-    
-        
-        
-             

@@ -6,7 +6,7 @@ def neuronCodeHelp(var,fenetre,user,label,nom,entry,cadre,button,optionMenu,varC
         return 2
     else :
         if "codeHelp" in var or "codehelp" in var :
-            CodeHelp(cadre2,entry,label,button,optionMenu,varChoix,nom,fnc,labelIndication)
+            CodeHelp(cadre2,entry,label,button,optionMenu,varChoix,nom,fnc,labelIndication,"1")
             return 1
         else :
             if "github" in var :
@@ -20,3 +20,9 @@ def neuronCodeHelp(var,fenetre,user,label,nom,entry,cadre,button,optionMenu,varC
                     if "userSave" in var :
                         CodeHelp.githubSaveUser(cadre2,entry,label,button,nom,fnc,labelIndication)
                         return 2 
+                    else :
+                        if "application code" in var or "app code" in var :
+                            CodeHelp(cadre2,entry,label,button,optionMenu,varChoix,nom,fnc,labelIndication,"2")
+                            return 2
+                        else :
+                            return 0
