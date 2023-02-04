@@ -34,6 +34,9 @@ class CodeHelp:
         def mode1():
             bgCode2.pack_forget()
             bgCode1.pack(side="right")
+            
+        def Librairy():
+            webbrowser.open("https://github.com/baptistepau/RyleyCodeHelpLibrairy")
            
         bgCode1 = Canvas(screen,width=500,height=600,bg=mainColor)
         imgCenter = PhotoImage(file="image/codeHelp/bgCodeHelp.png",master=bgCode1)
@@ -47,7 +50,7 @@ class CodeHelp:
         
         buttonDoc = Button(bgCode1,text="Documentation",bg=mainColor,fg=mainTextColor,font=("arial",15),command=Doc	)
         buttonGithub  = Button(bgCode1,text="Connexion à github",bg=mainColor,fg=mainTextColor,font=("arial",15),command=github)
-        buttonLibrairy = Button(bgCode1,text="Librairy",bg=mainColor,fg=mainTextColor,)
+        buttonLibrairy = Button(bgCode1,text="Librairy",bg=mainColor,fg=mainTextColor,command=Librairy)
         buttonApp = Button(bgCode1,text="Application",bg=mainColor,fg=mainTextColor,command=Application)
         buttonColor = Button(bgCode2,text="Selecteur de couleur",bg=mainColor,fg=mainTextColor,command=CodeHelp.ColorSelector)
         buttonVarriable = Button(bgCode2,text="Organisateur de varriable",bg=mainColor,fg=mainTextColor,)
