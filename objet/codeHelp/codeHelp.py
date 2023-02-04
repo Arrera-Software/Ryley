@@ -11,12 +11,7 @@ from tkinter import filedialog
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import *
 class CodeHelp:
-    def __init__(carde,cadre2,entry,label,button,optionMenu,varchoix,nom,oldfnc,labelIndication,mode) :
-        screenCode = Toplevel()
-        screenCode.iconphoto(False,PhotoImage(file="image/Ryley.png"))
-        screenCode.maxsize(500,500)
-        screenCode.minsize(500,500)
-        screenCode.config(bg=secondColor)
+    def __init__(carde,cadre2,entry,label,button,optionMenu,varchoix,nom,oldfnc,labelIndication,mode,menu,screen = Tk) :
         def resetRyley():
             button.config(command=oldfnc)
             optionMenu.place_forget()
@@ -27,33 +22,29 @@ class CodeHelp:
         def Doc():
             resetRyley()
             CodeHelp.rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc)
+        
         def github():
             resetRyley()
             CodeHelp.github(carde,entry,label,button,nom,oldfnc,labelIndication)
+       
         def Application():
             bgCode1.pack_forget()
-            bgCode2.pack()
-            screenCode.title("Ryley : CodeHelp Application")
+            bgCode2.pack(side="right")
+            
         def mode1():
             bgCode2.pack_forget()
-            bgCode1.pack()
-            screenCode.title("Ryley : Code help")
-        bgCode1 = Canvas(screenCode,width=500,height=500)
+            bgCode1.pack(side="right")
+           
+        bgCode1 = Canvas(screen,width=500,height=600,bg=mainColor)
         imgCenter = PhotoImage(file="image/codeHelp/bgCodeHelp.png",master=bgCode1)
         bgCode1.image_names = imgCenter
         bgCode1.create_image(0,0,image=imgCenter,anchor="nw")
         
-        bgCode2 = Canvas(screenCode,width=500,height=500)
+        bgCode2 = Canvas(screen,width=500,height=600,bg=mainColor)
         imgCenter2 = PhotoImage(file="image/codeHelp/bgCodeHelp.png",master=bgCode2)
         bgCode2.image_names = imgCenter2
         bgCode2.create_image(0,0,image=imgCenter2,anchor="nw")
-        if (mode == "1"):
-            mode1()
-        else :
-            if mode == "2":
-                Application()
-            else :
-                mode1()
+        
         buttonDoc = Button(bgCode1,text="Documentation",bg=mainColor,fg=mainTextColor,font=("arial",15),command=Doc	)
         buttonGithub  = Button(bgCode1,text="Connexion à github",bg=mainColor,fg=mainTextColor,font=("arial",15),command=github)
         buttonLibrairy = Button(bgCode1,text="Librairy",bg=mainColor,fg=mainTextColor,)
@@ -89,15 +80,39 @@ class CodeHelp:
         buttonEditeurDoc.image_names = imgEditeurDoc
         buttonEditeurDoc.config(image=imgEditeurDoc)
         
-        buttonApp.place(x=380,y=200)
-        buttonLibrairy.place(x=50,y=200)
-        buttonDoc.place(x=220,y=50)
-        buttonGithub.place(x=220,y=380)
-        buttonColor.place(x=380,y=200)
-        buttonVarriable.place(x=50,y=200)
-        buttonEditeurDoc.place(x=220,y=50)
-        buttonRetour.place(x=220,y=380)
+        buttonApp.place(x=380,y=245)
+        buttonLibrairy.place(x=50,y=245)
+        buttonDoc.place(x=220,y=95)
+        buttonGithub.place(x=220,y=425)
         
+        buttonColor.place(x=380,y=245)
+        buttonVarriable.place(x=50,y=245)
+        buttonEditeurDoc.place(x=220,y=95)
+        buttonRetour.place(x=220,y=425)
+        
+        def QuitterCodehelp():
+            menu.delete("Quitter Codehelp")
+            bgCode1.pack_forget()
+            bgCode2.pack_forget()
+            screen.minsize(500,600)
+            screen.maxsize(500,600)
+        
+        if (mode == "1"):
+            screen.minsize(1005,600)
+            screen.maxsize(1005,600)
+            mode1()
+        else :
+            if mode == "2":
+                screen.minsize(1005,600)
+                screen.maxsize(1005,600)
+                Application()
+            else :
+                screen.minsize(1005,600)
+                screen.maxsize(1005,600)
+                mode1()
+        menu.add_command(label="Quitter Codehelp",command=QuitterCodehelp)
+        
+      
     def rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc):
         RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
         def send():

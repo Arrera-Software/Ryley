@@ -31,11 +31,11 @@ class Ryley :
         self.screen.maxsize(500,600)
         self.screen.minsize(500,600)
         self.screen.iconphoto(False,PhotoImage(file="image/Ryley.png"))
-        self.top = Canvas( self.screen, width = 500,height = 400)
-        self.top.pack()
+        self.top = Canvas( self.screen, width = 500,height = 400,bg=mainColor)
+        self.top.place(x=0,y=0)
         self.top.create_image( 0, 0, image = self.bgTOP, anchor = "nw")
-        self.bottom = Canvas( self.screen, width = 500,height = 200)
-        self.bottom.pack(side="bottom")
+        self.bottom = Canvas( self.screen, width = 500,height = 200,bg=secondColor)
+        self.bottom.place(x=0,y=400)
         self.bottom.create_image( 0, 0, image = self.bgBOTTOM, anchor = "nw")
         #Label
         self.labelParole = Label(self.top,text=self.nameAssistant+":",bg=mainColor,fg=mainTextColor,font=("arial","14"))
@@ -65,6 +65,7 @@ class Ryley :
         self.boutonMicro.place(x="25",y="115")
         #Fin de la boucle
         self.screen.mainloop()
+        
     
     def APropos(self):
         self.screenAPropos = Toplevel()
@@ -135,7 +136,7 @@ class Ryley :
                 if varRyley == 1 :
                     self.phraseAttent()
                 else :
-                    varRyley = neuronCodeHelp(requete,self.screen,self.user,self.labelParole,self.nameAssistant,self.barreR,self.top,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.envoi,self.top,self.labelIndication)
+                    varRyley = neuronCodeHelp(requete,self.screen,self.user,self.labelParole,self.nameAssistant,self.barreR,self.top,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.envoi,self.top,self.labelIndication,self.ryleyMenu)
                     if varRyley == 1 :
                         self.phraseAttent()
                     else :
