@@ -9,6 +9,7 @@ def lectureSimpleJSON(file):
     with open(file, 'r') as openfile:
         dict = json.load(openfile)
     return dict
+
 def EcritureJSON(file,flag,valeur):
     openfile = open(file, 'r')
     dict = json.load(openfile)

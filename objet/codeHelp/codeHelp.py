@@ -53,7 +53,7 @@ class CodeHelp:
         buttonLibrairy = Button(bgCode1,text="Librairy",bg=mainColor,fg=mainTextColor,command=Librairy)
         buttonApp = Button(bgCode1,text="Application",bg=mainColor,fg=mainTextColor,command=Application)
         buttonColor = Button(bgCode2,text="Selecteur de couleur",bg=mainColor,fg=mainTextColor,command=CodeHelp.ColorSelector)
-        buttonVarriable = Button(bgCode2,text="Organisateur de varriable",bg=mainColor,fg=mainTextColor,)
+        buttonVarriable = Button(bgCode2,text="Organisateur de varriable",bg=mainColor,fg=mainTextColor,command=CodeHelp.orgranisateurVarriable)
         buttonRetour = Button(bgCode2,text="Retour",bg=mainColor,fg=mainTextColor,command=mode1)
         buttonEditeurDoc = Button(bgCode2,text="Editeur de Doncumentation",bg=mainColor,fg=mainTextColor,command=CodeHelp.EditeurDoc)
         
@@ -468,4 +468,133 @@ class CodeHelp:
         buttonCSS1.place(x=50,y=350)
         buttonCSS2.place(x=325,y=350)
         buttonCSS3.place(x=600,y=350)
+    
+    def orgranisateurVarriable():
+        
+        def initialisation():
+            text.config(state="normal")
+            text.delete("1.0",END)
+            text.insert("1.0","Varriable : valeur")
+            text.config(state="disable")
+        
+        def saveFile():
+            data = text.get("1.0", "end")
+            data = dict(map(str, item.split(':')) for item in data.strip().split('\n'))
+            file = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Fichier JSON", ".json")])
+            with open(file, "w") as f:
+                json.dump(data, f)
+        
+        def openFile():
+            file = askopenfilename(defaultextension=".json", filetypes=[("Fichier JSON", ".json")])
+            with open(file, "r") as f:
+                data = json.load(f)
+                print(data)
+                text.config(state="normal")
+                text.delete("1.0", END)
+                for key, value in data.items():
+                    text.config(state="normal")
+                    text.insert(END, f"{key}:{value}\n")
+                    text.config(state="disable")
+
+        
+        def valeurAddAffichage():
+            labelIndictation.place_forget()
+            labelNom.place_forget()
+            labelValeur.place_forget()
+            entryName.place_forget()
+            entryVal.place_forget()
+            
+            labelIndictation.config(text="Ajouter une nouvelle varriable")
+            labelIndictation.place(x=125,y=0)
+            labelNom.place(x=5,y=45)
+            labelValeur.place(x=375,y=45)
+            entryName.place(x=5,y=75)
+            entryVal.place(x=375,y=75)
+            frameAddVar.place(relx=0.5, rely=0.5, anchor=CENTER)
+        
+        def valeursuppAffichage():
+            labelIndictation.place_forget()
+            labelNom.place_forget()
+            labelValeur.place_forget()
+            entryName.place_forget()
+            entryVal.place_forget()
+            
+            labelIndictation.config(text="supprimmer une varriable")
+            labelIndictation.place(x=125,y=0)
+            labelNom.place(x=5,y=45)
+            entryName.place(x=5,y=75)
+            frameAddVar.place(relx=0.5, rely=0.5, anchor=CENTER)
+        
+        def addValeur():
+            text.config(state="normal")
+            text.grid_forget()
+            valeurAddAffichage()
+            def add():
+                key = entryName.get()
+                value = entryVal.get()
+                entryName.delete(0, END)
+                entryVal.delete(0, END)
+                d = text.get("1.0", "end")
+                d = dict(map(str, item.split(':')) for item in d.strip().split('\n'))
+                d[key] = value
+                text.delete("1.0", END)
+                for key, value in d.items():
+                    text.insert(END, f"{key}:{value}\n")
+                frameAddVar.place_forget()
+                text.grid(row=0, column=0, sticky='nsew')
+                text.config(state="disable")
+            buttonValider.config(command=add)
+            
+        def supprValeur():
+            text.config(state="normal")
+            text.grid_forget()
+            valeursuppAffichage()
+            def suppr():
+                key = entryName.get()
+                entryName.delete(0, END)
+                d = text.get("1.0", "end")
+                d = dict(map(str, item.split(':')) for item in d.strip().split('\n'))
+                del d[key]
+                text.delete("1.0", END)
+                for key, value in d.items():
+                    text.insert(END, f"{key} : {value}\n")
+                frameAddVar.place_forget()
+                text.grid(row=0, column=0, sticky='nsew')
+                text.config(state="disable")
+            buttonValider.config(command=suppr)
+        
+        screenOrganisateurVar = Toplevel()
+        screenOrganisateurVar.minsize(800,500)
+        screenOrganisateurVar.title("Ryley CodeHelp Organisateur de Varriable")
+        screenOrganisateurVar.iconphoto(False,PhotoImage(file="image/Ryley.png"))
+        screenOrganisateurVar.config(bg=mainColor)
+        screenOrganisateurVar.columnconfigure(0, weight=1)
+        screenOrganisateurVar.rowconfigure(0, weight=1)
+        menuediteur = Menu(screenOrganisateurVar,bg=mainColor,fg=mainTextColor)
+        menuFichier = Menu(menuediteur,bg=mainColor,fg=mainTextColor,tearoff=0)
+        
+        menuediteur.add_cascade(label="Fichier",menu=menuFichier)
+        menuediteur.add_command(label="Ajouter une varriable",command=lambda: addValeur())
+        menuediteur.add_command(label="Supprimmer une varriable",command=lambda : supprValeur())
+        
+        menuFichier.add_command(label="Nouveau",command=lambda : initialisation())
+        menuFichier.add_command(label="Ouvrir",command=lambda : openFile())
+        menuFichier.add_command(label="Sauvergarder",command=lambda : saveFile())
+
+        text = Text(screenOrganisateurVar)
+        frameAddVar = Frame(screenOrganisateurVar,width=500,height=200,bg=mainColor)
+        entryName = Entry(frameAddVar,width=10,font=("arial",15))
+        entryVal = Entry(frameAddVar,width=10,font=("arial",15))
+        buttonValider = Button(frameAddVar,text="Valider",font=("arial",15),bg=mainColor,fg=mainTextColor)
+        labelIndictation = Label(frameAddVar,font=("arial",15),bg=mainColor,fg=mainTextColor)
+        labelValeur = Label(frameAddVar,text="Valeur :",font=("arial",15),bg=mainColor,fg=mainTextColor)
+        labelNom = Label(frameAddVar,text="Nom :",font=("arial",15),bg=mainColor,fg=mainTextColor)
+        
+        
+        text.grid(row=0, column=0, sticky='nsew')
+        
+        buttonValider.place(relx=0.5, rely=0.5, anchor=CENTER)
+        initialisation()
+        
+        screenOrganisateurVar.config(menu=menuediteur)
         
