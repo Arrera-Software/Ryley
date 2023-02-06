@@ -15,8 +15,8 @@ def Main(var,fenetre,user,label,nom):
     nameSite2 = lectureJSON("setting/config.json","NameSite2")
     lienSite3 = lectureJSON("setting/config.json","lienSite3")
     nameSite3 = lectureJSON("setting/config.json","NameSite3")
-    if "quit" in var:
-        fenetre.quit()
+    if "Calcule" in var or "calcule" in var and "Calcul" in var or "calcul" in var :
+        Calcule(mainColor,mainTextColor,"Ryley : Calculatrice")
         return 1
     else :
         if "meteo" in var:
@@ -71,8 +71,4 @@ def Main(var,fenetre,user,label,nom):
                                                 GrandRecherche(user,label,nom)
                                                 return 1
                                             else :
-                                                if "Calcule" in var or "calcule" in var and "Calcul" in var or "calcul" in var :
-                                                    Calcule(mainColor,mainTextColor,"Ryley : Calculatrice")
-                                                    return 1
-                                                else :
-                                                   return 0
+                                                return 0

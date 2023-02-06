@@ -12,6 +12,7 @@ def search(var,fenetre,user,label,nom):
             recherche = re.sub("recherche ","",var)
         else : 
             recherche = re.sub("Recherche ","",var)
+        
         if moteurActuel == "duckduckgo" :
             duckduckgoSearch(recherche)
         else :
