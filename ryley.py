@@ -44,11 +44,23 @@ class Ryley :
         self.ryleyMenu = Menu(self.screen,bg="white",fg="black")
         self.fichierMenu = Menu(self.ryleyMenu,tearoff=0)
         self.appMenu = Menu(self.ryleyMenu,tearoff=0)
+        self.codeHelpMenu = Menu(self.appMenu,tearoff=0)
+        
         self.fichierMenu.add_command(label="Paramétre",command=Setting)
         self.fichierMenu.add_command(label="Test Internet",command=TestInternet)
+        
         self.appMenu.add_command(label="Calculatrice",command=Calcule)
+        
+        self.codeHelpMenu.add_command(label="Recherche de documentation",command=lambda : CodeHelp.rechercheDoc(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.nameAssistant,self.envoi))
+        self.codeHelpMenu.add_command(label="Connextion a github",command=lambda : CodeHelp.github(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.nameAssistant,self.envoi,self.labelIndication,))
+        self.codeHelpMenu.add_command(label="Librairy",command=lambda : webbrowser.open("https://github.com/baptistepau/RyleyCodeHelpLibrairy"))
+        self.codeHelpMenu.add_command(label="Editeur de Documentation",command=CodeHelp.EditeurDoc)
+        self.codeHelpMenu.add_command(label="Selectionneur de couleur",command=CodeHelp.ColorSelector)
+        self.codeHelpMenu.add_command(label="Organisateur de varriable",command=CodeHelp.orgranisateurVarriable)
+                
         self.ryleyMenu.add_cascade(label="Fichier",menu=self.fichierMenu)
         self.ryleyMenu.add_cascade(label="Fonction",menu=self.appMenu)
+        self.appMenu.add_cascade(label="codeHelp",menu=self.codeHelpMenu)
         self.ryleyMenu.add_command(label="A propos",command=self.APropos)
         self.screen.config(menu=self.ryleyMenu)
         #bouton
