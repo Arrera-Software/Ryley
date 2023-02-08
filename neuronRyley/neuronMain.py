@@ -67,8 +67,4 @@ def Main(var,fenetre,user,label,nom):
                                             Resumeactu(label,nom)
                                             return 1
                                         else :
-                                            if "Grecherche" in var:
-                                                GrandRecherche(user,label,nom)
-                                                return 1
-                                            else :
-                                                return 0
+                                            return 0
