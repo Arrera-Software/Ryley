@@ -23,9 +23,9 @@ class CodeHelp:
             resetRyley()
             CodeHelp.rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc)
         
-        def github():
+        def bootGithub():
             resetRyley()
-            CodeHelp.github(carde,entry,label,button,nom,oldfnc,labelIndication)
+            CodeHelp.PageGithub(carde,entry,label,button,nom,oldfnc,labelIndication)
        
         def Application():
             bgCode1.pack_forget()
@@ -49,7 +49,7 @@ class CodeHelp:
         bgCode2.create_image(0,0,image=imgCenter2,anchor="nw")
         
         buttonDoc = Button(bgCode1,text="Documentation",bg=mainColor,fg=mainTextColor,font=("arial",15),command=Doc	)
-        buttonGithub  = Button(bgCode1,text="Connexion à github",bg=mainColor,fg=mainTextColor,font=("arial",15),command=github)
+        buttonGithub  = Button(bgCode1,text="Connexion à github",bg=mainColor,fg=mainTextColor,font=("arial",15),command=bootGithub)
         buttonLibrairy = Button(bgCode1,text="Librairy",bg=mainColor,fg=mainTextColor,command=Librairy)
         buttonApp = Button(bgCode1,text="Application",bg=mainColor,fg=mainTextColor,command=Application)
         buttonColor = Button(bgCode2,text="Selecteur de couleur",bg=mainColor,fg=mainTextColor,command=CodeHelp.ColorSelector)
@@ -151,7 +151,7 @@ class CodeHelp:
         optionMenu.place(x="5",y="70")
         button.config(command=send)
         
-    def github(carde,entry,label,button,nom,oldfnc,labelIndication):
+    def PageGithub(carde,entry,label,button,nom,oldfnc,labelIndication):
         RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
         verifToken = lectureJSON("objet/codeHelp/codehelp.json","token") != ""
         verifUser = lectureJSON("objet/codeHelp/codehelp.json","user") != ""

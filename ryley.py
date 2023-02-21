@@ -52,7 +52,7 @@ class Ryley :
         self.appMenu.add_command(label="Calculatrice",command=Calcule)
         
         self.codeHelpMenu.add_command(label="Recherche de documentation",command=lambda : CodeHelp.rechercheDoc(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.nameAssistant,self.envoi))
-        self.codeHelpMenu.add_command(label="Connextion a github",command=lambda : CodeHelp.github(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.nameAssistant,self.envoi,self.labelIndication,))
+        self.codeHelpMenu.add_command(label="Connextion a github",command=lambda : CodeHelp.PageGithub(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.nameAssistant,self.envoi,self.labelIndication,))
         self.codeHelpMenu.add_command(label="Librairy",command=lambda : webbrowser.open("https://github.com/baptistepau/RyleyCodeHelpLibrairy"))
         self.codeHelpMenu.add_command(label="Editeur de Documentation",command=CodeHelp.EditeurDoc)
         self.codeHelpMenu.add_command(label="Selectionneur de couleur",command=CodeHelp.ColorSelector)

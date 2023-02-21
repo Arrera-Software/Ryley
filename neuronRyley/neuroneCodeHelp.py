@@ -10,7 +10,7 @@ def neuronCodeHelp(var,fenetre,user,label,nom,entry,cadre,button,optionMenu,varC
             return 1
         else :
             if "github" in var :
-                CodeHelp.github(cadre2,entry,label,button,nom,fnc,labelIndication)
+                CodeHelp.PageGithub(cadre2,entry,label,button,nom,fnc,labelIndication)
                 return 2
             else:
                 if "tokenSave" in var :

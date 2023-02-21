@@ -1,5 +1,5 @@
 {
-  "user": "Baptiste",
+  "user": "",
   "nomAssistant": "Ryley",
   "appWeb1Name": "Music",
   "appWeb2Name": "APP2",
@@ -7,7 +7,7 @@
   "appWeb1Lien": "music.com",
   "appWeb2Lien": "app.com",
   "appWeb3Lien": "app.com",
-  "ville": "Ambleteuse",
+  "ville": "",
   "nameMoteur": "google",
   "lienMoteur": "https://www.google.com/search?q&q=",
   "lienAngenda": "agenda",
