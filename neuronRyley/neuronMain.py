@@ -4,6 +4,7 @@ from function.traduction import*
 from function.internet import*
 import webbrowser
 from objet.Calcule.calcule import*
+from function.opensoft import *
 
 def Main(var,fenetre,user,label,nom):
     gDrive = lectureJSON("setting/config.json","lienDrive")
@@ -67,4 +68,29 @@ def Main(var,fenetre,user,label,nom):
                                             Resumeactu(label,nom)
                                             return 1
                                         else :
-                                            return 0
+                                            nameSoft1 = lectureJSON("setting/config.json","nameSoft1")
+                                            nameSoft2 = lectureJSON("setting/config.json","nameSoft2")
+                                            nameSoft3 = lectureJSON("setting/config.json","nameSoft3")
+                                            nameSoft4 = lectureJSON("setting/config.json","nameSoft4")
+                                            nameSoft5 = lectureJSON("setting/config.json","nameSoft5")
+                                            if nameSoft1 in var :
+                                                openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft1"))
+                                                return 1
+                                            else :
+                                                if nameSoft2 in var :
+                                                    openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft2"))
+                                                    return 1
+                                                else :
+                                                    if nameSoft3 in var :
+                                                        openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft3"))
+                                                        return 1
+                                                    else :
+                                                        if nameSoft4 in var :
+                                                            openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft4"))
+                                                            return 1
+                                                        else :
+                                                            if nameSoft5 in var :
+                                                                openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft5"))
+                                                                return 1
+                                                            else :
+                                                                return 0

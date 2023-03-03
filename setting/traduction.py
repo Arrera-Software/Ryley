@@ -4,7 +4,7 @@ from setting.view import*
 from src.varriable import*
 
 listLang = ["french","english","spanish"]
-def Trad(cadre,screen,btn1,btn2,btn3,btn4):
+def Trad(cadre,screen,btn1,btn2,btn3,btn4,btn5):
     varLang = StringVar(screen)
     cadre.pack_forget()
     section= Frame(screen,width=500,height=700,bg=mainColor)
@@ -13,7 +13,7 @@ def Trad(cadre,screen,btn1,btn2,btn3,btn4):
     def exit():
         section.pack_forget()
         cadre.pack(side="right")
-        ViewBTN(btn1,btn2,btn3,btn4)
+        ViewBTN(btn1,btn2,btn3,btn4,btn5)
     def Affichage():
         labelTrad1.place(x=20,y=125)
         labelTrad2.place(x=20,y=225)

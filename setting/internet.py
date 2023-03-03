@@ -7,7 +7,7 @@ listMoteur=["duckduckgo","google","qwant","ecosia","brave"]
 listLienMoteur=["https://duckduckgo.com/?q=","https://www.google.com/search?q&q=","https://www.qwant.com/?l=fr&q","https://www.ecosia.org/search"]
 
 
-def ParaWeb(cadre,screen,btn1,btn2,btn3,btn4):
+def ParaWeb(cadre,screen,btn1,btn2,btn3,btn4,btn5):
     varMoteur = StringVar(screen)
     cadre.pack_forget()
     section= Frame(screen,width=500,height=700,bg=mainColor)
@@ -16,7 +16,7 @@ def ParaWeb(cadre,screen,btn1,btn2,btn3,btn4):
     def exit():
         section.pack_forget()
         cadre.pack(side="right")
-        ViewBTN(btn1,btn2,btn3,btn4)
+        ViewBTN(btn1,btn2,btn3,btn4,btn5)
     def Affichage():
         labelWeb1.place(x=20,y=125)
         labelWeb2.place(x=20,y=185)

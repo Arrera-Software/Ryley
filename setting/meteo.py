@@ -3,7 +3,7 @@ from function.JSON import*
 from setting.view import*
 from src.varriable import*
 
-def Meteo(cadre,screen,btn1,btn2,btn3,btn4):
+def Meteo(cadre,screen,btn1,btn2,btn3,btn4,btn5):
     cadre.pack_forget()
     section= Frame(screen,width=500,height=700,bg=mainColor)
     section.pack(side="right")
@@ -11,7 +11,7 @@ def Meteo(cadre,screen,btn1,btn2,btn3,btn4):
     def exit():
         section.pack_forget()
         cadre.pack(side="right")
-        ViewBTN(btn1,btn2,btn3,btn4)
+        ViewBTN(btn1,btn2,btn3,btn4,btn5)
     def Affichage():
         labelMeteo1.place(x=20,y=125)
     
