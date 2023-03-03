@@ -24,7 +24,7 @@ class Ryley :
         self.bgTOP = PhotoImage(file = "image/BGTop.png")
         self.bgBOTTOM = PhotoImage(file = "image/BGBottom.png")
         self.imgMicro = PhotoImage(file="image/imgMicro.png")
-        self.listLanguage = ["all","python","javascript","html","cpp","c","css","php","openjdk"]
+        self.listLanguage = ["all","python","javascript","html","cpp","c","css","php","openjdk","microsoft"]
         self.varLanguage = StringVar(self.screen)
         self.screen.title("Ryley")
         self.screen.config(bg=mainColor)
@@ -49,7 +49,7 @@ class Ryley :
         self.fichierMenu.add_command(label="Paramétre",command=Setting)
         self.fichierMenu.add_command(label="Test Internet",command=TestInternet)
         
-        self.appMenu.add_command(label="Calculatrice",command=Calcule)
+        self.appMenu.add_command(label="Calculatrice",command=lambda : Calcule(mainColor,mainTextColor,"Ryley : Calculatrice"))
         
         self.codeHelpMenu.add_command(label="Recherche de documentation",command=lambda : CodeHelp.rechercheDoc(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.nameAssistant,self.envoi))
         self.codeHelpMenu.add_command(label="Connextion a github",command=lambda : CodeHelp.PageGithub(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.nameAssistant,self.envoi,self.labelIndication,))

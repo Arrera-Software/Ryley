@@ -120,6 +120,7 @@ class CodeHelp:
         RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
         def send():
             url = "https://devdocs.io/#q="
+            urlMicrosoft = "https://learn.microsoft.com/en-us/search/?terms="
             requette = entry.get()
             if "quitter" in requette:
                 entry.delete(0,END)
@@ -137,14 +138,18 @@ class CodeHelp:
                     label.config(text="Fonction pour faire des recherche directement dans \nl'API DevDocs :\n  -all = Recheche sur tout les docs\n  -python = recherche sur la docs python\n  -javascript = recherche sur la docs javascript\n  -html = recherche sur la docs html \n  -cpp = recherche sur la docs C++\n  -php = recherche sur la docs PHP\n  -openjdk = recherche sur la docs java"
                                  ,justify="left")
                 else :
-                    entry.delete(0,END)
                     language = varchoix.get()
-                    if language == "all":
-                        fullUrl = url+requette
+                    if language == "microsoft":
+                        fullUrl = urlMicrosoft+requette
                         webbrowser.open(fullUrl)
-                    else :
-                        fullUrl = url+language+" "+requette
-                        webbrowser.open(fullUrl)
+                    else : 
+                        if language == "all":
+                            fullUrl = url+requette
+                            webbrowser.open(fullUrl)
+                        else :
+                            fullUrl = url+language+" "+requette
+                            webbrowser.open(fullUrl)
+                    entry.delete(0,END)
         entry.place_forget()
         entry.config(width=25)
         entry.place(x="115",y="70")
