@@ -1,3 +1,4 @@
+#fichier
 from function.JSON import*
 from setting.setting import*
 from function.internet import*
@@ -8,10 +9,10 @@ from neuronRyley.neuronMain import*
 from neuronRyley.neuronSearch import*
 from neuronRyley.neuronTime import*
 from neuronRyley.neuroneCodeHelp import*
+from function.detectionTouche import *
+#module
 from tkinter import*
-
 from src.ryleySRC import*
-
 import random
 import datetime
 class Ryley :
@@ -75,6 +76,8 @@ class Ryley :
         self.barreR.place(x="5",y="70")
         self.boutonEnvoyer.place(x="400",y="65")
         self.boutonMicro.place(x="25",y="115")
+        #Prise en charge tout entrer
+        Touche(self.screen,self.envoi,13)
         #Fin de la boucle
         self.screen.mainloop()
         

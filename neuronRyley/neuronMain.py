@@ -74,23 +74,33 @@ def Main(var,fenetre,user,label,nom):
                                             nameSoft4 = lectureJSON("setting/config.json","nameSoft4")
                                             nameSoft5 = lectureJSON("setting/config.json","nameSoft5")
                                             if nameSoft1 in var :
-                                                openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft1"))
+                                                emplacement1 = lectureJSON("setting/config.json","EmplacementSoft1")
+                                                if emplacement1 != "":
+                                                    openSoftwareRacourcie(emplacement1)
                                                 return 1
                                             else :
                                                 if nameSoft2 in var :
-                                                    openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft2"))
+                                                    emplacement2 = lectureJSON("setting/config.json","EmplacementSoft2")
+                                                    if emplacement2 != "":
+                                                        openSoftwareRacourcie(emplacement2)
                                                     return 1
                                                 else :
                                                     if nameSoft3 in var :
-                                                        openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft3"))
+                                                        emplacement3 = lectureJSON("setting/config.json","EmplacementSoft2")
+                                                        if emplacement3 != "":
+                                                            openSoftwareRacourcie(emplacement3)
                                                         return 1
                                                     else :
                                                         if nameSoft4 in var :
-                                                            openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft4"))
+                                                            emplacement4 = lectureJSON("setting/config.json","EmplacementSoft2")
+                                                            if emplacement4 != "":
+                                                                openSoftwareRacourcie(emplacement4)
                                                             return 1
                                                         else :
                                                             if nameSoft5 in var :
-                                                                openSoftwareRacourcie(lectureJSON("setting/config.json","EmplacementSoft5"))
+                                                                emplacement5 = lectureJSON("setting/config.json","EmplacementSoft2")
+                                                                if emplacement5 != "":
+                                                                    openSoftwareRacourcie(emplacement5)
                                                                 return 1
                                                             else :
                                                                 return 0
