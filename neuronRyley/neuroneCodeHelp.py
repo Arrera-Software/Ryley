@@ -5,7 +5,7 @@ def neuronCodeHelp(var,fenetre,user,label,nom,entry,cadre,button,optionMenu,varC
         CodeHelp.rechercheDoc(cadre,entry,label,button,optionMenu,varChoix,nom,fnc)
         return 2
     else :
-        if "codeHelp" in var or "codehelp" in var :
+        if "codeHelp" in var or "codehelp" in var or "Codehelp" in var:
             CodeHelp(cadre2,entry,label,button,optionMenu,varChoix,nom,fnc,labelIndication,"1",menu,fenetre)
             return 1
         else :
