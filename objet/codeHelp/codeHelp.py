@@ -8,6 +8,7 @@ from github import Github
 from function.JSON import *
 from tkinter import colorchooser
 from tkinter import filedialog
+from function.detectionTouche import*
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import *
 class CodeHelp:
@@ -116,7 +117,7 @@ class CodeHelp:
         menu.add_command(label="Quitter Codehelp",command=QuitterCodehelp)
         
       
-    def rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc):
+    def rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc,screen = Tk):
         RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
         def send():
             url = "https://devdocs.io/#q="
@@ -131,6 +132,7 @@ class CodeHelp:
                 label.place(x="10",y="300")
                 optionMenu.place_forget()
                 button.config(command=oldfnc)
+                Touche(screen,oldfnc,13)
             else :
                 if "help" in requette :
                     entry.delete(0,END)
@@ -150,13 +152,14 @@ class CodeHelp:
                             fullUrl = url+language+" "+requette
                             webbrowser.open(fullUrl)
                     entry.delete(0,END)
+        Touche(screen,send,13)
         entry.place_forget()
         entry.config(width=25)
         entry.place(x="115",y="70")
         optionMenu.place(x="5",y="70")
         button.config(command=send)
         
-    def PageGithub(carde,entry,label,button,nom,oldfnc,labelIndication):
+    def PageGithub(carde,entry,label,button,nom,oldfnc,labelIndication,screen = Tk):
         RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
         verifToken = lectureJSON("objet/codeHelp/codehelp.json","token") != ""
         verifUser = lectureJSON("objet/codeHelp/codehelp.json","user") != ""
@@ -170,7 +173,7 @@ class CodeHelp:
             label.place(x="10",y="300")
             button.config(command=oldfnc)
             labelIndication.place_forget()
-        
+            Touche(screen,oldfnc,13)
         def send():
             requette = str(entry.get())
             entry.delete(0,END)
@@ -222,6 +225,7 @@ class CodeHelp:
             Quitte()
             RyleySRC.speak("Il n'a pas de token enregistrer taper \n'tokenSave' ou 'userSave pour l'enregister vos information",label,nom)
             button.config(command=oldfnc)
+        Touche(screen,send,13)
     
     def githubSaveToken(carde,entry,label,button,nom,oldfnc,labelIndication):
         RyleySRC.speak("Taper votre token",label,nom)
