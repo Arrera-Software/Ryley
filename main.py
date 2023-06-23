@@ -42,13 +42,18 @@ class Ryley :
         self.labelParole = Label(self.top,text=self.nameAssistant+":",bg=mainColor,fg=mainTextColor,font=("arial","14"))
         self.labelIndication = Label(self.bottom,bg=secondColor,fg=secondTextColor,font=("arial","14"))
         #Menu
+        
         self.ryleyMenu = Menu(self.screen,bg="white",fg="black")
         self.fichierMenu = Menu(self.ryleyMenu,tearoff=0)
         self.appMenu = Menu(self.ryleyMenu,tearoff=0)
         self.codeHelpMenu = Menu(self.appMenu,tearoff=0)
+        self.helpMenu = Menu(self.appMenu,tearoff=0)
         
         self.fichierMenu.add_command(label="Paramétre",command=Setting)
         self.fichierMenu.add_command(label="Test Internet",command=TestInternet)
+        
+        self.helpMenu.add_command(label="Documentation")
+        self.helpMenu.add_command(label="A propos",command=self.APropos)
         
         self.appMenu.add_command(label="Calculatrice",command=lambda : Calcule(mainColor,mainTextColor,"Ryley : Calculatrice"))
         
@@ -62,7 +67,8 @@ class Ryley :
         self.ryleyMenu.add_cascade(label="Fichier",menu=self.fichierMenu)
         self.ryleyMenu.add_cascade(label="Fonction",menu=self.appMenu)
         self.appMenu.add_cascade(label="codeHelp",menu=self.codeHelpMenu)
-        self.ryleyMenu.add_command(label="A propos",command=self.APropos)
+        self.ryleyMenu.add_cascade(label="Aide",menu=self.helpMenu)
+        
         self.screen.config(menu=self.ryleyMenu)
         #bouton
         self.boutonEnvoyer=Button(self.bottom,text="Envoyer",command=self.envoi,bg=secondColor,fg=secondTextColor,font=("arial","15"))
