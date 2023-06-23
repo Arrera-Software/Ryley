@@ -12,6 +12,7 @@ from neuronRyley.neuroneCodeHelp import*
 from function.detectionTouche import *
 #module
 from tkinter import*
+from PIL import Image, ImageTk
 from src.ryleySRC import*
 import random
 import datetime
@@ -60,8 +61,10 @@ class Ryley :
         
         #Ajout des command au menu appMenu
         self.appMenu.add_command(label="Calculatrice",command=lambda : Calcule(mainColor,mainTextColor,"Ryley : Calculatrice"))
+        self.appMenu.add_cascade(label="codeHelp",menu=self.codeHelpMenu)
         
         #Ajout des command au menu codeHelpMenu
+        self.codeHelpMenu.add_command(label="Lancer CodeHelp",command=lambda : CodeHelp(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.ryleyMenu,self.choixLanguage,self.nameAssistant,self.envoi,self.labelIndication,"1",self.ryleyMenu,self.screen))
         self.codeHelpMenu.add_command(label="Recherche de documentation",command=lambda : CodeHelp.rechercheDoc(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.nameAssistant,self.envoi))
         self.codeHelpMenu.add_command(label="Connextion a github",command=lambda : CodeHelp.PageGithub(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.nameAssistant,self.envoi,self.labelIndication,))
         self.codeHelpMenu.add_command(label="Librairy",command=lambda : webbrowser.open("https://github.com/baptistepau/RyleyCodeHelpLibrairy"))
@@ -72,7 +75,6 @@ class Ryley :
         #Ajout au menu principale tout les menu deroulant      
         self.ryleyMenu.add_cascade(label="Fichier",menu=self.fichierMenu)
         self.ryleyMenu.add_cascade(label="Fonction",menu=self.appMenu)
-        self.appMenu.add_cascade(label="codeHelp",menu=self.codeHelpMenu)
         self.ryleyMenu.add_cascade(label="Aide",menu=self.helpMenu)
         
         self.screen.config(menu=self.ryleyMenu)
@@ -95,13 +97,32 @@ class Ryley :
         
     
     def APropos(self):#Fonction qui correspond a la fentre apropos
-        self.screenAPropos = Toplevel()
-        self.screenAPropos.title("Ryley")
-        self.screenAPropos.maxsize(425,170)
-        self.screenAPropos.minsize(425,170)
-        self.screenAPropos.iconphoto(False,PhotoImage(file="image/Ryley.png"))
-        self.screenAPropos.config(bg=mainColor)
-        Label(self.screenAPropos,text="Assistant Personnelle Ryley\nCréer par:\nSpeedyCreator\net\nWiruto2",font=("arial","20"),bg=mainColor,fg=mainTextColor).pack()       
+        #Variable
+        nameApp = "Ryley"#Definir le nom de l'app
+        versionApp = "I2023-2.50.dev06/2023"#Definir le nom de la version
+        imagePath = "image/Ryley.png"#Indiquer l'emplacement de l'icon
+        copyrightApp = "Copyright Arrera Software by Baptiste P 2023-"
+        tailleIMG = (100,100)
+        #Creation de la fenetre
+        about = Toplevel()
+        about.title("A propos :"+nameApp)
+        about.maxsize(400,300)
+        about.minsize(400,300)
+        #Traitement Image
+        imageOrigine = Image.open(imagePath)
+        imageRedim = imageOrigine.resize(tailleIMG)
+        icon = ImageTk.PhotoImage(imageRedim)
+        #Label
+        labelIcon = Label(about,image=icon)
+        labelName = Label(about,text="\n"+nameApp+"\n",font=("arial","12"))
+        labelVersion = Label(about,text=versionApp+"\n",font=("arial","11"))
+        labelCopyright = Label(about,text=copyrightApp,font=("arial","9"))
+        #affichage
+        labelIcon.pack()
+        labelName.pack()
+        labelVersion.pack()
+        labelCopyright.pack()
+        about.mainloop()    
 
     def Introduction(self):#Fonction qui ce lance au demarage de l'assistant
         hour=datetime.datetime.now().hour
