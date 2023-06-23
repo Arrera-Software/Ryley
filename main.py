@@ -42,28 +42,34 @@ class Ryley :
         self.labelParole = Label(self.top,text=self.nameAssistant+":",bg=mainColor,fg=mainTextColor,font=("arial","14"))
         self.labelIndication = Label(self.bottom,bg=secondColor,fg=secondTextColor,font=("arial","14"))
         #Menu
-        
+        #Creation menu principale
         self.ryleyMenu = Menu(self.screen,bg="white",fg="black")
+        #Creation menu secondaire
         self.fichierMenu = Menu(self.ryleyMenu,tearoff=0)
         self.appMenu = Menu(self.ryleyMenu,tearoff=0)
         self.codeHelpMenu = Menu(self.appMenu,tearoff=0)
         self.helpMenu = Menu(self.appMenu,tearoff=0)
         
+        #Ajout des command au menu fichierMenu
         self.fichierMenu.add_command(label="Paramétre",command=Setting)
         self.fichierMenu.add_command(label="Test Internet",command=TestInternet)
         
+        #Ajout des command au menu helpMenu
         self.helpMenu.add_command(label="Documentation")
         self.helpMenu.add_command(label="A propos",command=self.APropos)
         
+        #Ajout des command au menu appMenu
         self.appMenu.add_command(label="Calculatrice",command=lambda : Calcule(mainColor,mainTextColor,"Ryley : Calculatrice"))
         
+        #Ajout des command au menu codeHelpMenu
         self.codeHelpMenu.add_command(label="Recherche de documentation",command=lambda : CodeHelp.rechercheDoc(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.nameAssistant,self.envoi))
         self.codeHelpMenu.add_command(label="Connextion a github",command=lambda : CodeHelp.PageGithub(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.nameAssistant,self.envoi,self.labelIndication,))
         self.codeHelpMenu.add_command(label="Librairy",command=lambda : webbrowser.open("https://github.com/baptistepau/RyleyCodeHelpLibrairy"))
         self.codeHelpMenu.add_command(label="Editeur de Documentation",command=CodeHelp.EditeurDoc)
         self.codeHelpMenu.add_command(label="Selectionneur de couleur",command=CodeHelp.ColorSelector)
         self.codeHelpMenu.add_command(label="Organisateur de varriable",command=CodeHelp.orgranisateurVarriable)
-                
+        
+        #Ajout au menu principale tout les menu deroulant      
         self.ryleyMenu.add_cascade(label="Fichier",menu=self.fichierMenu)
         self.ryleyMenu.add_cascade(label="Fonction",menu=self.appMenu)
         self.appMenu.add_cascade(label="codeHelp",menu=self.codeHelpMenu)
@@ -88,7 +94,7 @@ class Ryley :
         self.screen.mainloop()
         
     
-    def APropos(self):
+    def APropos(self):#Fonction qui correspond a la fentre apropos
         self.screenAPropos = Toplevel()
         self.screenAPropos.title("Ryley")
         self.screenAPropos.maxsize(425,170)
@@ -97,7 +103,7 @@ class Ryley :
         self.screenAPropos.config(bg=mainColor)
         Label(self.screenAPropos,text="Assistant Personnelle Ryley\nCréer par:\nSpeedyCreator\net\nWiruto2",font=("arial","20"),bg=mainColor,fg=mainTextColor).pack()       
 
-    def Introduction(self):
+    def Introduction(self):#Fonction qui ce lance au demarage de l'assistant
         hour=datetime.datetime.now().hour
         if hour >= 0 and hour <=5:
             RyleySRC.speak("Zzzz "+self.user+" Il faut peut etre dormir non?",self.labelParole,self.nameAssistant)
@@ -120,7 +126,7 @@ class Ryley :
                                 RyleySRC.speak("Salut "+self.user,self.labelParole,self.nameAssistant)
     
     
-    def phraseAttent(self):
+    def phraseAttent(self):#Fonction qui permet a l'assistant de dire une phrase entre chaque demande de service
         nbrad = random.randrange(1,6)
         if nbrad == 1 :
             RyleySRC.speak("En quoi je peux d'aider "+self.user,self.labelParole,self.nameAssistant)
@@ -139,10 +145,10 @@ class Ryley :
                         else :
                             RyleySRC.speak("J'espere que mon uttilisation te sois utile "+self.user,self.labelParole,self.nameAssistant)
     
-    def micro(self):
+    def micro(self):#Fontion prise de command par la voix
         RyleySRC.takeCommand(self.barreR)
     
-    def envoi(self):
+    def envoi(self):#Fonction qui correspond a l'envoi des requette au neuron de traitement de l'assistant
         requete=str(self.barreR.get())
         self.barreR.delete(0,END)
         varRyley = Main(requete,self.screen,self.user,self.labelParole,self.nameAssistant)
