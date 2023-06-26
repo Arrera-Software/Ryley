@@ -12,6 +12,7 @@ listMoteur = "google" , "duckduckgo" , "ecosia" , "qwant" , "bing"
 def Setting():#fonction parametre
     ScreenPara = Toplevel()
     ScreenPara.title("Ryley: Parametre")
+    ScreenPara.iconphoto(False,PhotoImage(file="image/Ryley.png"))
     ScreenPara.maxsize(700,700)
     ScreenPara.minsize(700,700)
     left = Frame(ScreenPara,width=200,height=700,bg=secondColor) 
