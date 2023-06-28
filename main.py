@@ -16,6 +16,10 @@ from PIL import Image, ImageTk
 from src.ryleySRC import*
 import random
 import datetime
+def openSoftware(name):
+    name = str(name)
+    subprocess.Popen(["cmd", "/c", "start", name])
+    
 class Ryley :
     def __init__(self):
         self.nameAssistant = lectureJSON("setting/config.json","nomAssistant")
@@ -53,10 +57,10 @@ class Ryley :
         
         #Ajout des command au menu fichierMenu
         self.fichierMenu.add_command(label="Paramétre",command=Setting)
-        self.fichierMenu.add_command(label="Test Internet",command=TestInternet)
+        self.fichierMenu.add_command(label="Test de connexion",command=TestInternet)
         
         #Ajout des command au menu helpMenu
-        self.helpMenu.add_command(label="Documentation")
+        self.helpMenu.add_command(label="Documentation",command=lambda : openSoftware("Documentation/RyleyDoc.pdf"))
         self.helpMenu.add_command(label="A propos",command=self.APropos)
         
         #Ajout des command au menu appMenu
@@ -101,10 +105,11 @@ class Ryley :
         nameApp = "Ryley"#Definir le nom de l'app
         versionApp = "I2023-2.50.dev06/2023"#Definir le nom de la version
         imagePath = "image/Ryley.png"#Indiquer l'emplacement de l'icon
-        copyrightApp = "Copyright Arrera Software by Baptiste P 2023-"
+        copyrightApp = "Copyright Arrera Software by Baptiste P and Wiruto2 2023-"
         tailleIMG = (100,100)
         #Creation de la fenetre
         about = Toplevel()
+        about.config(bg="white")
         about.title("A propos :"+nameApp)
         about.maxsize(400,300)
         about.minsize(400,300)
@@ -113,10 +118,10 @@ class Ryley :
         imageRedim = imageOrigine.resize(tailleIMG)
         icon = ImageTk.PhotoImage(imageRedim)
         #Label
-        labelIcon = Label(about,image=icon)
-        labelName = Label(about,text="\n"+nameApp+"\n",font=("arial","12"))
-        labelVersion = Label(about,text=versionApp+"\n",font=("arial","11"))
-        labelCopyright = Label(about,text=copyrightApp,font=("arial","9"))
+        labelIcon = Label(about,image=icon,bg="white")
+        labelName = Label(about,text="\n"+nameApp+"\n",font=("arial","12"),bg="white")
+        labelVersion = Label(about,text=versionApp+"\n",font=("arial","11"),bg="white")
+        labelCopyright = Label(about,text=copyrightApp,font=("arial","9"),bg="white")
         #affichage
         labelIcon.pack()
         labelName.pack()
