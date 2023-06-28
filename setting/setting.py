@@ -1,11 +1,11 @@
 from tkinter import*
-from setting.assistant import*
+from setting.settingAssistant import*
 from setting.view import*
-from setting.internet import*
-from setting.meteo import*
-from setting.traduction import *
+from setting.settingInternet import*
+from setting.settingMeteo import*
+from setting.settingTraduction import *
 from src.varriable import*
-from setting.software import*
+from setting.settingSoftware import*
 
 listMoteur = "google" , "duckduckgo" , "ecosia" , "qwant" , "bing"
     
