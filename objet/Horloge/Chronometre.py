@@ -25,12 +25,14 @@ class CHRONOMETRE:
     def start(self):
         if not self.is_running:
             self.start_time = t.time()
+            self.reset_button.place_forget()
             self.is_running = True
             self.UpdateTemps()
 
     def stop(self):
         if self.is_running:
             self.is_running = False
+            self.reset_button.place(x=215,y=315)
 
     def reset(self):
         self.current_time = 0

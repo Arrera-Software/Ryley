@@ -36,11 +36,20 @@ class MINUTEUR:
             self.UpdateHorloge()
 
     def stop(self):
-        self.label.place_forget()
-        self.stop_button.place_forget()
-        self.reset_button.place_forget()
         if self.is_running:
             self.is_running = False
+            self.label.place_forget()
+            self.start_button.place_forget()
+            self.stop_button.place_forget()
+            self.reset_button.place_forget()
+            AppMinuteur(self.master,self.mainColor,self.textColor)
+        else :
+            self.label.place_forget()
+            self.start_button.place_forget()
+            self.stop_button.place_forget()
+            self.reset_button.place_forget()
+            AppMinuteur(self.master,self.mainColor,self.textColor)
+                
 
     def reset(self):
         self.current_time = 0
@@ -79,8 +88,8 @@ class AppMinuteur :
         self.mainColor = mainColor
         self.textColor = textColor
         self.zoneEntrer = Frame(master,bg=mainColor)
-        self.entryMin = Entry(self.zoneEntrer,width=5,font=("arial","15"))
-        self.entrySec = Entry(self.zoneEntrer,width=5,font=("arial","15"))
+        self.entryMin = Entry(self.zoneEntrer,width=5,font=("arial","15"),highlightbackground="black", highlightthickness=1)
+        self.entrySec = Entry(self.zoneEntrer,width=5,font=("arial","15"),highlightbackground="black", highlightthickness=1)
         self.labelMin = Label(self.zoneEntrer,text="min",font=("arial","15"),bg=mainColor,fg=textColor)
         self.labelSec = Label(self.zoneEntrer,text="s",font=("arial","15"),bg=mainColor,fg=textColor)
         self.btnBoot = Button(master,text="Demarrer",bg=mainColor,fg=textColor,font=("arial","15"),command=self.boot)
@@ -112,7 +121,13 @@ class AppMinuteur :
     
     def boot(self):
         self.noAffichage()
-        min = int(self.entryMin.get())*60
-        sec = int(self.entrySec.get())       
+        if self.entryMin.get() == "":
+            min = 0
+        else :
+            min = int(self.entryMin.get())*60
+        if self.entrySec.get() == "" :
+            sec = 0
+        else :
+            sec = int(self.entrySec.get())       
         temps = min + sec
         MINUTEUR(self.master,self.mainColor,self.textColor,temps)
