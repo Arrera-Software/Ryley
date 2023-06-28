@@ -19,7 +19,7 @@ import datetime
 def openSoftware(name):
     name = str(name)
     subprocess.Popen(["cmd", "/c", "start", name])
-    
+
 class Ryley :
     def __init__(self):
         self.nameAssistant = lectureJSON("setting/config.json","nomAssistant")
@@ -32,6 +32,7 @@ class Ryley :
         self.imgMicro = PhotoImage(file="image/imgMicro.png")
         self.listLanguage = ["all","python","javascript","html","cpp","c","css","php","openjdk","microsoft"]
         self.varLanguage = StringVar(self.screen)
+        #Parametre Interface
         self.screen.title("Ryley")
         self.screen.config(bg=mainColor)
         self.screen.maxsize(500,600)
@@ -57,7 +58,7 @@ class Ryley :
         
         #Ajout des command au menu fichierMenu
         self.fichierMenu.add_command(label="Paramétre",command=Setting)
-        self.fichierMenu.add_command(label="Test de connexion",command=TestInternet)
+        self.fichierMenu.add_command(label="Test de connexion",command=self.InterfaceTestConnection)
         
         #Ajout des command au menu helpMenu
         self.helpMenu.add_command(label="Documentation",command=lambda : openSoftware("Documentation/RyleyDoc.pdf"))
@@ -127,8 +128,24 @@ class Ryley :
         labelName.pack()
         labelVersion.pack()
         labelCopyright.pack()
-        about.mainloop()    
-
+        about.mainloop() 
+        
+    def InterfaceTestConnection(self):
+        screenInternet = Toplevel()
+        network = internet
+        screenInternet.title("Ryley")
+        screenInternet.maxsize(425,70)
+        screenInternet.minsize(425,70)
+        screenInternet.iconphoto(False,PhotoImage(file="image/Ryley.png"))
+        screenInternet.config(bg=MainColor)
+        labelInfo = Label(screenInternet,font=("arial","20"),bg=MainColor,fg=MainTextColor)
+        testing = network.testInternet()
+        if testing == True :
+            labelInfo.config(text="Internet disponible")
+        else :
+            labelInfo.config(text="Internet non disponible")
+        labelInfo.pack()
+        
     def Introduction(self):#Fonction qui ce lance au demarage de l'assistant
         hour=datetime.datetime.now().hour
         if hour >= 0 and hour <=5:
@@ -181,7 +198,7 @@ class Ryley :
         if varRyley == 1 :
             self.phraseAttent()
         else :
-            varRyley = search(requete,self.screen,self.user,self.labelParole,self.nameAssistant)
+            varRyley = Neuronsearch(requete,self.screen,self.user,self.labelParole,self.nameAssistant)
             if varRyley == 1 :
                 self.phraseAttent()
             else :
