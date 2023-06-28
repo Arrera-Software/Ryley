@@ -1,31 +1,34 @@
-import requests
-import webbrowser
 import re
 from function.JSON import*
 from function.internet import*
+from src.ryleySRC import*
 
-def search(var,fenetre,user,label,nom):
+def Neuronsearch(var,fenetre,user,label,nom):
     moteurActuel = lectureJSON("setting/config.json","nameMoteur")
-    
     if "recherche" in var or "Recherche" in var :
         if "recherche" in var :
             recherche = re.sub("recherche ","",var)
         else : 
             recherche = re.sub("Recherche ","",var)
-        
+        moteur = search(recherche)
         if moteurActuel == "duckduckgo" :
-            duckduckgoSearch(recherche)
+             moteur.duckduckgoSearch()
         else :
            if moteurActuel == "google" :
-               googleSearch(recherche) 
+                moteur.googleSearch() 
            else : 
                if moteurActuel == "qwant" :
-                   QwantSearch(recherche)
+                    moteur.QwantSearch()
                else :
                    if moteurActuel == "ecosia":
-                        EcosiaSearch(recherche)
+                        moteur.EcosiaSearch()
                    else :
-                       braveSearch(recherche)             
+                       if moteurActuel == "brave":
+                             moteur.braveSearch()
+                       else :
+                           if moteurActuel == "bing":
+                                moteur.bingSearch()   
+        RyleySRC.speak("Voici le resultat de ta recherche")           
         return 1
     else :
         if "bigsearch" in var or "Bigsearch" in var :
@@ -33,6 +36,6 @@ def search(var,fenetre,user,label,nom):
                     recherche = re.sub("bigsearch ","",var)
                 else : 
                     recherche = re.sub("Bigsearch ","",var)
-                GrandRecherche(recherche)
+                search(recherche).GrandRecherche()
         else :
             return 0
