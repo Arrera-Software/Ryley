@@ -106,7 +106,7 @@ class Ryley :
     def APropos(self):#Fonction qui correspond a la fentre apropos
         #Variable
         nameApp = "Ryley"#Definir le nom de l'app
-        versionApp = "I2023-2.50.dev06/2023"#Definir le nom de la version
+        versionApp = "I2023-2.50"#Definir le nom de la version
         imagePath = "image/Ryley.png"#Indiquer l'emplacement de l'icon
         copyrightApp = "Copyright Arrera Software by Baptiste P and Wiruto2 2023-"
         tailleIMG = (100,100)
