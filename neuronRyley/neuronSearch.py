@@ -3,7 +3,7 @@ from function.JSON import*
 from function.internet import*
 from src.ryleySRC import*
 
-def Neuronsearch(var,fenetre,user,label,nom):
+def Neuronsearch(var,fenetre,user,srcRyley:RyleySRC):
     moteurActuel = lectureJSON("setting/config.json","nameMoteur")
     if "recherche" in var or "Recherche" in var :
         if "recherche" in var :
@@ -28,7 +28,7 @@ def Neuronsearch(var,fenetre,user,label,nom):
                        else :
                            if moteurActuel == "bing":
                                 moteur.bingSearch()   
-        RyleySRC.speak("Voici le resultat de ta recherche")           
+        srcRyley.speak("Voici le resultat de ta recherche")           
         return 1
     else :
         if "bigsearch" in var or "Bigsearch" in var :
@@ -37,5 +37,6 @@ def Neuronsearch(var,fenetre,user,label,nom):
                 else : 
                     recherche = re.sub("Bigsearch ","",var)
                 search(recherche).GrandRecherche()
+                srcRyley.speak("Voici les resultat de ta grand recherche")
         else :
             return 0

@@ -47,6 +47,8 @@ class Ryley :
         #Label
         self.labelParole = Label(self.top,text=self.nameAssistant+":",bg=mainColor,fg=mainTextColor,font=("arial","14"))
         self.labelIndication = Label(self.bottom,bg=secondColor,fg=secondTextColor,font=("arial","14"))
+        #objet 
+        self.sourceRyley = RyleySRC(self.labelParole,self.nameAssistant)
         #Menu
         #Creation menu principale
         self.ryleyMenu = Menu(self.screen,bg="white",fg="black")
@@ -149,60 +151,60 @@ class Ryley :
     def Introduction(self):#Fonction qui ce lance au demarage de l'assistant
         hour=datetime.datetime.now().hour
         if hour >= 0 and hour <=5:
-            RyleySRC.speak("Zzzz "+self.user+" Il faut peut etre dormir non?",self.labelParole,self.nameAssistant)
+            self.sourceRyley.speak("Zzzz "+self.user+" Il faut peut etre dormir non?",)
         else :
             if hour >= 6 and hour <= 9 :
-                RyleySRC.speak("Hey "+self.user+" as-tu bien dormi?",self.labelParole,self.nameAssistant)
+                self.sourceRyley.speak("Hey "+self.user+" as-tu bien dormi?")
             else :
                 if hour >= 10 and hour <= 12:
-                    RyleySRC.speak("Salut "+self.user+" comment ce passe ta matinée?",self.labelParole,self.nameAssistant)
+                    self.sourceRyley.speak("Salut "+self.user+" comment ce passe ta matinée?")
                 else :
                     if hour >= 13 and hour <= 17:
-                        RyleySRC.speak("Alors "+self.user+" pret a travailler?",self.labelParole,self.nameAssistant)
+                        self.sourceRyley.speak("Alors "+self.user+" pret a travailler?")
                     else :
                         if hour >= 18 and hour <= 21 :
-                            RyleySRC.speak("Alors "+self.user+" que veut-tu faire ce soir ?",self.labelParole,self.nameAssistant)
+                            self.sourceRyley.speak("Alors "+self.user+" que veut-tu faire ce soir ?")
                         else :
                             if hour >= 22 and hour <= 23:
-                                RyleySRC.speak("*baille* "+self.user+" ? Que fais tu si tard?",self.labelParole,self.nameAssistant)
+                                self.sourceRyley.speak("*baille* "+self.user+" ? Que fais tu si tard?")
                             else :
-                                RyleySRC.speak("Salut "+self.user,self.labelParole,self.nameAssistant)
+                               self.sourceRyley.speak("Salut "+self.user)
     
     
     def phraseAttent(self):#Fonction qui permet a l'assistant de dire une phrase entre chaque demande de service
         nbrad = random.randrange(1,6)
         if nbrad == 1 :
-            RyleySRC.speak("En quoi je peux d'aider "+self.user,self.labelParole,self.nameAssistant)
+            self.sourceRyley.speak("En quoi je peux d'aider "+self.user)
         else :
             if nbrad == 2 :
-                RyleySRC.speak("J'espére que j'ai pu d'aider "+self.user,self.labelParole,self.nameAssistant)
+                self.sourceRyley.speak("J'espére que j'ai pu d'aider "+self.user)
             else :
                 if nbrad == 3 :
-                    RyleySRC.speak("En quoi je peux encore d'aider "+self.user,self.labelParole,self.nameAssistant) 
+                    self.sourceRyley.speak("En quoi je peux encore d'aider "+self.user) 
                 else :
                     if nbrad == 4 :
-                        RyleySRC.speak("Je peux encore plus d'aider "+self.user,self.labelParole,self.nameAssistant)
+                        self.sourceRyley.speak("Je peux encore plus d'aider "+self.user)
                     else :
                         if nbrad == 5 :
-                            RyleySRC.speak("Dit-moi si je peux d'aider "+self.user,self.labelParole,self.nameAssistant)
+                            self.sourceRyley.speak("Dit-moi si je peux d'aider "+self.user)
                         else :
-                            RyleySRC.speak("J'espere que mon uttilisation te sois utile "+self.user,self.labelParole,self.nameAssistant)
+                            self.sourceRyley.speak("J'espere que mon uttilisation te sois utile "+self.user)
     
     def micro(self):#Fontion prise de command par la voix
-        RyleySRC.takeCommand(self.barreR)
+        Micro(self.barreR).takeCommand()
     
     def envoi(self):#Fonction qui correspond a l'envoi des requette au neuron de traitement de l'assistant
         requete=str(self.barreR.get())
         self.barreR.delete(0,END)
-        varRyley = Main(requete,self.screen,self.user,self.labelParole,self.nameAssistant)
+        varRyley = Main(requete,self.screen,self.user,self.sourceRyley)
         if varRyley == 1 :
             self.phraseAttent()
         else :
-            varRyley = Neuronsearch(requete,self.screen,self.user,self.labelParole,self.nameAssistant)
+            varRyley = Neuronsearch(requete,self.screen,self.user,self.sourceRyley)
             if varRyley == 1 :
                 self.phraseAttent()
             else :
-                varRyley = Time(requete,self.screen,self.user,self.labelParole,self.nameAssistant)
+                varRyley = Time(requete,self.screen,self.user,self.sourceRyley)
                 if varRyley == 1 :
                     self.phraseAttent()
                 else :
@@ -211,7 +213,7 @@ class Ryley :
                         self.phraseAttent()
                     else :
                         if (varRyley != 2):
-                            RyleySRC.speak("Je peux pas répondre a ta requette "+self.user,self.labelParole,self.nameAssistant)
+                            self.sourceRyley.speak("Je peux pas répondre a ta requette "+self.user)
 
 
 

@@ -11,31 +11,31 @@ api_key="ecffd157b2cc9eacbd0d35a45c3dc047"
 base_url="https://api.openweathermap.org/data/2.5/weather?"
 
 
-def Meteo(label,nom):
+def Meteo(srcRyley:RyleySRC):
     
     varVille = lectureJSON("setting/config.json","ville")
-    RyleySRC.speak("Il fait "+meteo(ville(varVille).lat(),ville(varVille).long()).temperature()+"°C",label,nom)
+    srcRyley.speak("Il fait "+meteo(ville(varVille).lat(),ville(varVille).long()).temperature()+"°C")
     time.sleep(1.5)
-    RyleySRC.speak("Le temps est "+meteo(ville(varVille).lat(),ville(varVille).long()).description(),label,nom)
+    srcRyley.speak("Le temps est "+meteo(ville(varVille).lat(),ville(varVille).long()).description())
     time.sleep(1.5)
-    RyleySRC.speak("Avec un taux d'humidité de "+meteo(ville(varVille).lat(),ville(varVille).long()).humiditer()+" %",label,nom)
+    srcRyley.speak("Avec un taux d'humidité de "+meteo(ville(varVille).lat(),ville(varVille).long()).humiditer()+" %")
     time.sleep(1.5) 
 
-def Resumeactu(label,nom):
-    RyleySRC.speak("Voyons voir, quoi de neuf aujourd'hui?",label,nom)
+def Resumeactu(srcRyley:RyleySRC):
+    srcRyley.speak("Voyons voir, quoi de neuf aujourd'hui?")
     liste = Actualiter().recuperation()
     time.sleep(2)
-    RyleySRC.speak(liste[0],label,nom)
+    srcRyley.speak(liste[0])
     time.sleep(4)
-    RyleySRC.speak(liste[1],label,nom)
+    srcRyley.speak(liste[1])
     time.sleep(4)
-    RyleySRC.speak(liste[2],label,nom)
+    srcRyley.speak(liste[2])
     time.sleep(4)
-    RyleySRC.speak(liste[3],label,nom)
+    srcRyley.speak(liste[3])
     time.sleep(4)
-    RyleySRC.speak(liste[4],label,nom)
+    srcRyley.speak(liste[4])
     time.sleep(4)
-    RyleySRC.speak(liste[5],label,nom)
+    srcRyley.speak(liste[5])
     time.sleep(4)
-    RyleySRC.speak("Voici les actualités de ce moment.",label,nom)
+    srcRyley.speak("Voici les actualités de ce moment.")
     

@@ -13,6 +13,8 @@ from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import *
 class CodeHelp:
     def __init__(carde,cadre2,entry,label,button,optionMenu,varchoix,nom,oldfnc,labelIndication,mode,menu,screen = Tk) :
+        #objet 
+        sourceRyley = RyleySRC(label,nom)
         def resetRyley():
             button.config(command=oldfnc)
             optionMenu.place_forget()
@@ -118,7 +120,9 @@ class CodeHelp:
         
       
     def rechercheDoc(carde,entry,label,button,optionMenu,varchoix,nom,oldfnc,screen = Tk):
-        RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
+        #objet 
+        sourceRyley = RyleySRC(label,nom)
+        sourceRyley.speak("Taper la commande 'help' si tu as besoin d'aide") 
         def send():
             url = "https://devdocs.io/#q="
             urlMicrosoft = "https://learn.microsoft.com/en-us/search/?terms="
@@ -128,7 +132,7 @@ class CodeHelp:
                 entry.place_forget()
                 entry.config(width=35)
                 entry.place(x="5",y="70")
-                RyleySRC.speak("J'espere que sa pu t'etre utile",label,nom)
+                sourceRyley.speak("J'espere que sa pu t'etre utile")
                 label.place(x="10",y="300")
                 optionMenu.place_forget()
                 button.config(command=oldfnc)
@@ -160,7 +164,9 @@ class CodeHelp:
         button.config(command=send)
         
     def PageGithub(carde,entry,label,button,nom,oldfnc,labelIndication,screen = Tk):
-        RyleySRC.speak("Taper la commande 'help' si tu as besoin d'aide",label,nom) 
+        #objet 
+        sourceRyley = RyleySRC(label,nom)
+        sourceRyley.speak("Taper la commande 'help' si tu as besoin d'aide") 
         verifToken = lectureJSON("objet/codeHelp/codehelp.json","token") != ""
         verifUser = lectureJSON("objet/codeHelp/codehelp.json","user") != ""
         listRepo = []
@@ -179,12 +185,12 @@ class CodeHelp:
             entry.delete(0,END)
             if "quitter" in requette :
                 label.config(justify="center")
-                RyleySRC.speak("J'espere que sa pu t'etre utile",label,nom)
+                sourceRyley.speak("J'espere que sa pu t'etre utile")
                 Quitte()
             else :
                 if "liste" in requette :
                     label.config(justify="center")
-                    RyleySRC.speak("Tu as "+str(i)+" depot dans ton github\nTaper repos (Le numero) pour voir son nom",label,nom)
+                    sourceRyley.speak("Tu as "+str(i)+" depot dans ton github\nTaper repos (Le numero) pour voir son nom")
                 else :
                     if "help" in requette :
                         label.config(text="- Liste : donner le nombre de repos github que tu as\n- search : Faire une recherche dans github\n- repos : afficher le nom d'un repos")
@@ -202,13 +208,13 @@ class CodeHelp:
                                 requette = requette.replace("repos ","")
                                 requette = int(requette)
                                 if requette == 0:
-                                    RyleySRC.speak("Tu peux pas avoir ZERO depot",label,nom)
+                                    sourceRyley.speak("Tu peux pas avoir ZERO depot")
                                 else :
                                     requette = requette - 1
-                                    RyleySRC.speak("Le nom du depos "+str(requette+1)+" est "+listRepo[requette],label,nom)
+                                    sourceRyley.speak("Le nom du depos "+str(requette+1)+" est "+listRepo[requette])
                             else :
                                 if "open" in requette or "ouvrir" :
-                                    RyleySRC.speak("Ok je t'ouvre github",label,nom)
+                                    sourceRyley.speak("Ok je t'ouvre github")
                                     webbrowser.open("https://github.com/")
         labelIndication.config(text="GitHub")
         entry.place_forget()
@@ -223,28 +229,32 @@ class CodeHelp:
                 i = i +1
         else : 
             Quitte()
-            RyleySRC.speak("Il n'a pas de token enregistrer taper \n'tokenSave' ou 'userSave pour l'enregister vos information",label,nom)
+            sourceRyley.speak("Il n'a pas de token enregistrer taper \n'tokenSave' ou 'userSave pour l'enregister vos information")
             button.config(command=oldfnc)
         Touche(screen,send,13)
     
     def githubSaveToken(carde,entry,label,button,nom,oldfnc,labelIndication):
-        RyleySRC.speak("Taper votre token",label,nom)
+        #objet 
+        sourceRyley = RyleySRC(label,nom)
+        sourceRyley.speak("Taper votre token")
         def Save():
             val = str(entry.get())
             entry.delete(0,END)
             EcritureJSON("objet/codeHelp/codehelp.json","token",val)
             button.config(command=oldfnc)
-            RyleySRC.speak("Votre token est enregister",label,nom)
+            sourceRyley.speak("Votre token est enregister")
         button.config(command=Save)
         
     def githubSaveUser(carde,entry,label,button,nom,oldfnc,labelIndication):
-        RyleySRC.speak("Taper votre nom d'uttilisateur github",label,nom)
+        #objet 
+        sourceRyley = RyleySRC(label,nom)
+        sourceRyley.speak("Taper votre nom d'uttilisateur github")
         def Save():
             val = str(entry.get())
             entry.delete(0,END)
             EcritureJSON("objet/codeHelp/codehelp.json","user",val)
             button.config(command=oldfnc)
-            RyleySRC.speak("Votre nom d'uttilisateur est enregister",label,nom)
+            sourceRyley.speak("Votre nom d'uttilisateur est enregister")
         button.config(command=Save)
         
     def ColorSelector():
