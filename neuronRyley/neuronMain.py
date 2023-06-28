@@ -17,10 +17,11 @@ def Main(var,fenetre,user,label,nom):
     lienSite3 = lectureJSON("setting/config.json","lienSite3")
     nameSite3 = lectureJSON("setting/config.json","NameSite3")
     if "Calcule" in var or "calcule" in var and "Calcul" in var or "calcul" in var :
+        RyleySRC.speak("Ok je t'ouvre la calculatrice ",label,nom)
         Calcule(mainColor,mainTextColor,"Ryley : Calculatrice")
         return 1
     else :
-        if "meteo" in var:
+        if "meteo" in var or "météo" in var:
             Meteo(label,nom)
             return 1
         else :
@@ -28,8 +29,8 @@ def Main(var,fenetre,user,label,nom):
                 Traduction()
                 return 1
             else :
-                if "Drive" in var or "Google Drive" in var or "drive" in var:
-                    RyleySRC.speak("Voici Google Drive ;)",label,nom)
+                if "Drive" in var or "drive" in var or "Cloud" in var or "cloud" in var:
+                    RyleySRC.speak("Voici votre systeme de stokage en ligne",label,nom)
                     time.sleep(1.75)
                     webbrowser.open(gDrive)
                     return 1
