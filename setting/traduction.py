@@ -101,7 +101,7 @@ def Trad(cadre,screen,btn1,btn2,btn3,btn4,btn5):
     btnTradValider = Button(section,text="Valider",bg=secondColor,font=("arial","15"),fg=secondTextColor)
     #Label
     labelIndication =Label(section,text="Modifier la langue de l'outil \nde traduction de l'assistant",bg=mainColor,font=("arial","15"),fg=mainTextColor)
-    labelTrad1 = Label(section,text="Langue du systeme",bg=mainColor,font=("arial","15"),fg=mainTextColor)
+    labelTrad1 = Label(section,text="Langue du source",bg=mainColor,font=("arial","15"),fg=mainTextColor)
     labelTrad2 = Label(section,text="Langue principale",bg=mainColor,font=("arial","15"),fg=mainTextColor)
     labelTrad3 = Label(section,text="Langue secondaire",bg=mainColor,font=("arial","15"),fg=mainTextColor)
     labelTrad4 = Label(section,text="Langue :",bg=mainColor,font=("arial","15"),fg=mainTextColor)
