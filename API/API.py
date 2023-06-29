@@ -1,7 +1,6 @@
 from tkinter import*
-from src.varriable import*
+from src.systeme import*
 from function.JSON import*
-import requests
 import time
 from src.ryleySRC import *
 from objet.actualiterMeteo.actuMeteo import*

@@ -2,8 +2,7 @@ from tkinter import*
 import webbrowser
 import requests
 from src.ryleySRC import*
-from src.varriable import*
-from function.opensoft import*
+from src.systeme import*
 from github import Github
 from function.JSON import *
 from tkinter import colorchooser
@@ -11,6 +10,11 @@ from tkinter import filedialog
 from function.detectionTouche import*
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import *
+import os
+
+def openHTMLPage(file):
+    os.system("start " + file)
+    
 class CodeHelp:
     def __init__(carde,cadre2,entry,label,button,optionMenu,varchoix,nom,oldfnc,labelIndication,mode,menu,screen = Tk) :
         #objet 
@@ -350,7 +354,7 @@ class CodeHelp:
                 labelFonction.pack_forget()
                 zoneText.grid(row=0, column=0, sticky='nsew')
             def buttonHelp():
-                openSoft("objet/codehelp/EditeurDoc/help.html")
+                openHTMLPage("objet/codehelp/EditeurDoc/help.html")
             boutonExit.config(command=exit)
             boutonOpen.config(command=buttonHelp)
         

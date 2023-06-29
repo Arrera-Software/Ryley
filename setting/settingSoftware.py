@@ -1,13 +1,13 @@
 from tkinter import *
 from function.JSON import*
 from setting.view import*
-from src.varriable import*
-from tkinter.filedialog import askopenfilename
+from src.systeme import*
 
 def Software(cadre,screen,btn1,btn2,btn3,btn4,btn5):
     cadre.pack_forget()
     section= Frame(screen,width=500,height=700,bg=mainColor)
     section.pack(side="right")
+    
     #fonction
     def exit():
         section.pack_forget()
@@ -40,6 +40,7 @@ def Software(cadre,screen,btn1,btn2,btn3,btn4,btn5):
     
     def SoftView():
         labelSoftName.place(x=20,y=125)
+        entryName.delete(0,END)
         entryName.place(x=100,y=230)
         btnSoftValider.place(x=225,y=300)
     def NoSoftView():
@@ -57,9 +58,8 @@ def Software(cadre,screen,btn1,btn2,btn3,btn4,btn5):
         SoftView()
         btnSoftQuit.config(command=ExitModif)
         def validerEtape():
-            EcritureJSON("setting/config.json","nameSoft1",entryName.get())
-            var = askopenfilename(defaultextension=".lnk", filetypes=[("Racourcie", ".lnk"),("All Files", "*.*")])
-            EcritureJSON("setting/config.json","EmplacementSoft1",var)
+            EcritureJSON("setting/config.json","nameSoft1",str(entryName.get()))
+            software1.saveSoftware()
             ExitModif()
         btnSoftValider.config(command=validerEtape)
         
@@ -68,9 +68,8 @@ def Software(cadre,screen,btn1,btn2,btn3,btn4,btn5):
         SoftView()
         btnSoftQuit.config(command=ExitModif)
         def validerEtape():
-            EcritureJSON("setting/config.json","nameSoft2",entryName.get())
-            var = askopenfilename(defaultextension=".lnk", filetypes=[("Racourcie", ".lnk"),("All Files", "*.*")])
-            EcritureJSON("setting/config.json","EmplacementSoft2",var)
+            EcritureJSON("setting/config.json","nameSoft2",str(entryName.get()))
+            software2.saveSoftware()
             ExitModif()
         btnSoftValider.config(command=validerEtape)
         
@@ -79,9 +78,8 @@ def Software(cadre,screen,btn1,btn2,btn3,btn4,btn5):
         SoftView()
         btnSoftQuit.config(command=ExitModif)
         def validerEtape():
-            EcritureJSON("setting/config.json","nameSoft3",entryName.get())
-            var = askopenfilename(defaultextension=".lnk", filetypes=[("Racourcie", ".lnk"),("All Files", "*.*")])
-            EcritureJSON("setting/config.json","EmplacementSoft3",var)
+            EcritureJSON("setting/config.json","nameSoft3",str(entryName.get()))
+            software3.saveSoftware()
             ExitModif()
         btnSoftValider.config(command=validerEtape)
         
@@ -90,9 +88,8 @@ def Software(cadre,screen,btn1,btn2,btn3,btn4,btn5):
         SoftView()
         btnSoftQuit.config(command=ExitModif)
         def validerEtape():
-            EcritureJSON("setting/config.json","nameSoft4",entryName.get())
-            var = askopenfilename(defaultextension=".lnk", filetypes=[("Racourcie", ".lnk"),("All Files", "*.*")])
-            EcritureJSON("setting/config.json","EmplacementSoft4",var)
+            EcritureJSON("setting/config.json","nameSoft4",str(entryName.get()))
+            software4.saveSoftware()
             ExitModif()
         btnSoftValider.config(command=validerEtape)
         
@@ -101,9 +98,8 @@ def Software(cadre,screen,btn1,btn2,btn3,btn4,btn5):
         SoftView()
         btnSoftQuit.config(command=ExitModif)
         def validerEtape():
-            EcritureJSON("setting/config.json","nameSoft5",entryName.get())
-            var = askopenfilename(defaultextension=".lnk", filetypes=[("Racourcie", ".lnk"),("All Files", "*.*")])
-            EcritureJSON("setting/config.json","EmplacementSoft5",var)
+            EcritureJSON("setting/config.json","nameSoft5",str(entryName.get()))
+            software5.saveSoftware()
             ExitModif()
         btnSoftValider.config(command=validerEtape)
     

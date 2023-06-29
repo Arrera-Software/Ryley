@@ -4,7 +4,7 @@ from function.traduction import*
 from function.internet import*
 import webbrowser
 from objet.Calcule.calcule import*
-from function.opensoft import *
+from src.systeme import software1,software2,software3,software4,software5
 
 def Main(var,fenetre,user,srcRyley:RyleySRC):
     gDrive = lectureJSON("setting/config.json","lienDrive")
@@ -75,38 +75,32 @@ def Main(var,fenetre,user,srcRyley:RyleySRC):
                                             nameSoft4 = lectureJSON("setting/config.json","nameSoft4")
                                             nameSoft5 = lectureJSON("setting/config.json","nameSoft5")
                                             if nameSoft1 != "" and nameSoft1 in var :
-                                                emplacement1 = lectureJSON("setting/config.json","EmplacementSoft1")
-                                                if emplacement1 != "":
-                                                    srcRyley.speak("Ok j'ouvre "+nameSoft1)
-                                                    openSoftwareRacourcie(emplacement1)
+                                                srcRyley.speak("Ok je t'ouvre "+nameSoft1)
+                                                software1.openSoftware()
+                                                srcRyley.speak("Et voici !")
                                                 return 1
                                             else :
                                                 if nameSoft2 != "" and nameSoft2 in var :
-                                                    emplacement2 = lectureJSON("setting/config.json","EmplacementSoft2")
-                                                    if emplacement2 != "":
-                                                        srcRyley.speak("Ok j'ouvre "+nameSoft2)
-                                                        openSoftwareRacourcie(emplacement2)
+                                                    srcRyley.speak("Ok je t'ouvre "+nameSoft2)
+                                                    software2.openSoftware()
                                                     return 1
                                                 else :
                                                     if nameSoft3 != "" and nameSoft3 in var :
-                                                        emplacement3 = lectureJSON("setting/config.json","EmplacementSoft2")
-                                                        if emplacement3 != "":
-                                                            srcRyley.speak("Ok j'ouvre "+nameSoft3)
-                                                            openSoftwareRacourcie(emplacement3)
+                                                        srcRyley.speak("Ok je t'ouvre "+nameSoft3)
+                                                        software3.openSoftware()
+                                                        srcRyley.speak("Et voici !")
                                                         return 1
                                                     else :
                                                         if nameSoft4 != "" and nameSoft4 in var :
-                                                            emplacement4 = lectureJSON("setting/config.json","EmplacementSoft2")
-                                                            if emplacement4 != "":
-                                                                srcRyley.speak("Ok j'ouvre "+nameSoft4)
-                                                                openSoftwareRacourcie(emplacement4)
+                                                            srcRyley.speak("Ok je t'ouvre "+nameSoft4)
+                                                            software4.openSoftware()
+                                                            srcRyley.speak("Et voici !")
                                                             return 1
                                                         else :
                                                             if nameSoft5 != "" and nameSoft5 in var :
-                                                                emplacement5 = lectureJSON("setting/config.json","EmplacementSoft2")
-                                                                if emplacement5 != "":
-                                                                    srcRyley.speak("Ok j'ouvre "+nameSoft5)
-                                                                    openSoftwareRacourcie(emplacement5)
+                                                                srcRyley.speak("Ok je t'ouvre "+nameSoft5)
+                                                                software5.openSoftware()
+                                                                srcRyley.speak("Et voici !")
                                                                 return 1
                                                             else :
                                                                 return 0

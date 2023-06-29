@@ -4,7 +4,7 @@ from setting.setting import*
 from function.internet import*
 from function.traduction import*
 from API.API import*
-from src.varriable import*
+from src.systeme import*
 from neuronRyley.neuronMain import*
 from neuronRyley.neuronSearch import*
 from neuronRyley.neuronTime import*
