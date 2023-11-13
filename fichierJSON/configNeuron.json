@@ -1,0 +1,17 @@
+{
+   "name" : "",
+   "lang" :"",
+   "nombreVilleMeteo":"",
+   "lieuDomicile":"",
+   "lieuTravail":"",
+   "iconAssistant":"",
+   "interfaceColor" : "",
+   "interfaceTextColor":"",
+   "utilisationVous":"",
+   "bute":"",
+   "createur":"",
+   "listFonction":[],
+   "toucheCalculatrice":"",
+   "moteurRechercheDefault":"",
+   "emplacementSoftWindows":""
+}
