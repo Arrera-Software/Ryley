@@ -1,11 +1,13 @@
 from tkinter import*
 from src.gestionRyley import*
 from librairy.travailJSON import*
-from PIL import Image, ImageTk 
+from PIL import Image, ImageTk
+from  ObjetsNetwork.arreraNeuron import*
 
 class interfaceRyley:
-    def __init__(self,gestionnaire:gestionRL):
+    def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
         self.gestionnaire = gestionnaire
+        self.arreraNetwork = networkNeuron
         self.gestionnaire.setTheme()
         self.mainColor = self.gestionnaire.getMaincolor()
         self.secondColor = self.gestionnaire.getSecondColor()
@@ -35,7 +37,7 @@ class interfaceRyley:
         self.bottom = Canvas( self.screen, width = 500,height = 200,bg=self.secondColor, highlightthickness=0)
         self.bottom.create_image( 0, 0, image = self.bgBOTTOM, anchor = "nw")
         #Label
-        labelParole = Label(self.top,text="Ryley "+":",bg=self.mainColor,fg=self.mainTextColor,font=("arial","14"))
+        self.labelParole = Label(self.top,text="Ryley "+": "+self.arreraNetwork.boot(),bg=self.mainColor,fg=self.mainTextColor,font=("arial","14"), anchor="w")
         labelIndication = Label(self.bottom,bg=self.secondColor,fg=self.secondTextColor,font=("arial","14"))
         #Menu
         #Creation menu principale
@@ -77,7 +79,7 @@ class interfaceRyley:
         
         self.screen.configure(menu=ryleyMenu)
         #bouton
-        boutonEnvoyer=Button(self.bottom,text="Envoyer",bg=self.secondColor,fg=self.secondTextColor,font=("arial","15"))
+        boutonEnvoyer=Button(self.bottom,text="Envoyer",bg=self.secondColor,fg=self.secondTextColor,font=("arial","15"),command=self.envoi)
         #boutonMicro = Button(self.bottom,image=self.imgMicro,command=self.micro)
         #option menu
         choixLanguage = OptionMenu(self.bottom,self.varLanguage,*self.listLanguage)
@@ -85,13 +87,11 @@ class interfaceRyley:
         self.top.place(x=0,y=0)
         self.bottom.place(x=0,y=400)
 
-        barreR = Entry(self.bottom,width=35,font=("arial","15"),relief=SOLID)
-        labelParole.place(x="10",y="300")
-        barreR.place(x="5",y="70")
+        self.barreR = Entry(self.bottom,width=35,font=("arial","15"),relief=SOLID)
+        self.labelParole.place(x="10",y="300")
+        self.barreR.place(x="5",y="70")
         boutonEnvoyer.place(x="400",y="65")
-        #boutonMicro.place(x="25",y="115")
-        #Prise en charge tout entrer
-        #self._detectionTouche(self.screen,self.envoi,13)
+        self._detectionTouche(self.screen,self.envoi,13)
         #Fin de la boucle
 
     def activeRyley(self):
@@ -102,4 +102,30 @@ class interfaceRyley:
             if event.keycode == touche:
                 fonc()               
         fenetre.bind("<Key>", anychar)
-        
+
+    def envoi(self):
+        statement = self.barreR.get()
+        self.barreR.delete("0",END)
+        var,texte = self.arreraNetwork.neuron(statement)
+        finalTexte = self._formatageText(texte)
+        self.labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
+
+    def _formatageText(self,texte):
+        if int(len(texte)) > 6 :
+            texte1,texte2 = self._division(texte,6)
+            allTexte = texte1+"\n"+texte2
+            if int(len(texte2)) > 6 :
+                texte2,texte3 = self._division(texte2,6)
+                allTexte = texte1+"\n"+texte2+"\n"+texte3
+                if int(len(texte3)) > 6 :
+                    texte3,texte4 = self._division(texte3,6)
+                    allTexte = texte1+"\n"+texte2+"\n"+texte3+"\n"+texte4
+        else :
+            allTexte = texte
+        return str(allTexte)
+
+    def _division(self,text, nombre):
+        mots = text.split()
+        premierPartie = mots[:nombre]
+        deuxiemePartie = mots[nombre:]
+        return ' '.join(premierPartie), ' '.join(deuxiemePartie)

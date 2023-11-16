@@ -25,5 +25,5 @@
     "nbSite":"0",
     "dictSite":{},
     "moteurRecherche":"",
-    "emplacementEvenenement" :""
+    "emplacementEvenenement" :"fichierJSON/evenementUser.json"
 }
