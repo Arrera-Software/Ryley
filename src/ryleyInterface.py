@@ -1,6 +1,8 @@
 from tkinter import*
 from src.gestionRyley import*
 from librairy.travailJSON import*
+from setting.arreraAssistantSetting import*
+import time as t
 from PIL import Image, ImageTk
 from  ObjetsNetwork.arreraNeuron import*
 
@@ -8,6 +10,7 @@ class interfaceRyley:
     def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
         self.gestionnaire = gestionnaire
         self.arreraNetwork = networkNeuron
+        self.objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
         self.gestionnaire.setTheme()
         self.mainColor = self.gestionnaire.getMaincolor()
         self.secondColor = self.gestionnaire.getSecondColor()
@@ -43,14 +46,14 @@ class interfaceRyley:
         #Creation menu principale
         ryleyMenu = Menu(self.screen,bg="white",fg="black")
         #Creation menu secondaire
-        fichierMenu = Menu(ryleyMenu,tearoff=0)
+        self.fichierMenu = Menu(ryleyMenu,tearoff=0)
         appMenu = Menu(ryleyMenu,tearoff=0)
         codeHelpMenu = Menu(appMenu,tearoff=0)
         helpMenu = Menu(appMenu,tearoff=0)
         
         #Ajout des command au menu fichierMenu
-        fichierMenu.add_command(label="Paramétre")
-        fichierMenu.add_command(label="Test de connexion")
+        self.fichierMenu.add_command(label="Paramétre",command=self.activePara)
+        self.fichierMenu.add_command(label="Test de connexion")
         
         #Ajout des command au menu helpMenu
         helpMenu.add_command(label="Documentation")
@@ -73,11 +76,13 @@ class interfaceRyley:
         
         
         #Ajout au menu principale tout les menu deroulant      
-        ryleyMenu.add_cascade(label="Fichier",menu=fichierMenu)
+        ryleyMenu.add_cascade(label="Fichier",menu=self.fichierMenu)
         ryleyMenu.add_cascade(label="Fonction",menu=appMenu)
         ryleyMenu.add_cascade(label="Aide",menu=helpMenu)
         
         self.screen.configure(menu=ryleyMenu)
+        #parametrage parametre
+        self.objetSetting.passageFonctionQuitter(self.desactiverPara)
         #bouton
         boutonEnvoyer=Button(self.bottom,text="Envoyer",bg=self.secondColor,fg=self.secondTextColor,font=("arial","15"),command=self.envoi)
         #boutonMicro = Button(self.bottom,image=self.imgMicro,command=self.micro)
@@ -94,6 +99,25 @@ class interfaceRyley:
         self._detectionTouche(self.screen,self.envoi,13)
         #Fin de la boucle
 
+    def activePara(self):
+        self.top.place_forget()
+        self.bottom.place_forget()
+        self.screen.maxsize(500,600)
+        self.screen.minsize(500,600)
+        self.fichierMenu.entryconfigure("Paramétre",label="Ryley",command=self.objetSetting.quittePara)
+        self.screen.update()
+        self.objetSetting.windows(self.screen)
+    
+    def desactiverPara(self):
+        self.top.place(x=0,y=0)
+        self.bottom.place(x=0,y=400)
+        self.screen.maxsize(500,600)
+        self.screen.minsize(500,600)
+        self.fichierMenu.entryconfigure("Ryley",label="Paramétre",command=self.activePara)
+        self.screen.update()
+
+    
+
     def activeRyley(self):
         self.screen.mainloop()
 
@@ -104,10 +128,15 @@ class interfaceRyley:
         fenetre.bind("<Key>", anychar)
 
     def envoi(self):
-        statement = self.barreR.get()
+        statement = self.barreR.get().lower
         self.barreR.delete("0",END)
         var,texte = self.arreraNetwork.neuron(statement)
         finalTexte = self._formatageText(texte)
+        if var == 15 :
+            self.labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
+            self.screen.update()
+            t.sleep(1.5)
+            self.screen.destroy()
         self.labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
 
     def _formatageText(self,texte):
