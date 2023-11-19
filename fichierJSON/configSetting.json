@@ -1,0 +1,11 @@
+{
+    "color1":"white",
+    "color2":"blue",
+    "textColor1":"black",
+    "textColor2":"white",
+    "colorInterface":"1",
+    "setIcon":"0",
+    "iconAssistant":"",
+    "listeTheme":["light","dark"],
+    "listGenre":["monsieur","madame","maitre"]
+}
