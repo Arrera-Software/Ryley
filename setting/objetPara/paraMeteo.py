@@ -134,7 +134,6 @@ class SettingMeteo :
             if len(str(self.configFile.lectureJSON("lieuTravail")))>0 :
                 listeVille.append("Travail")
             listeVille = listeVille + self.configFile.lectureJSONList("listVille")
-            print(listeVille)
             self.menuVille = OptionMenu(self.supprFrame,self.varSuppr,*listeVille)
             self.menuVille.place(relx=0.5,rely=0.5,anchor="center")
             self.varSuppr.set(listeVille[0])
