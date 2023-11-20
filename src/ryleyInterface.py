@@ -10,6 +10,7 @@ class interfaceRyley:
         self.gestionnaire = gestionnaire
         self.arreraNetwork = networkNeuron
         self.objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
+        self.objetNetwork = network()
         self.gestionnaire.setTheme()
         self.mainColor = self.gestionnaire.getMaincolor()
         self.secondColor = self.gestionnaire.getSecondColor()
@@ -24,12 +25,13 @@ class interfaceRyley:
         #var
         self.bgTOP = PhotoImage(file = self.BGTop)
         self.bgBOTTOM = PhotoImage(file = self.BGBottom)
+        self.iconWindows = PhotoImage(file="asset/Ryley.png")
         #Parametre Interface
         self.screen.title("Ryley")
         self.screen.config(bg=self.mainColor)
         self.screen.maxsize(500,600)
         self.screen.minsize(500,600)
-        self.screen.iconphoto(False,PhotoImage(file="asset/Ryley.png"))
+        self.screen.iconphoto(False,self.iconWindows)
         #Canvas
         self.top = Canvas( self.screen, width = 500,height = 400,bg=self.mainColor, highlightthickness=0)
         self.top.create_image( 0, 0, image = self.bgTOP, anchor = "nw")
@@ -45,8 +47,8 @@ class interfaceRyley:
         helpMenu = Menu(ryleyMenu,tearoff=0)
         #Ajout des command au menu fichierMenu
         self.fichierMenu.add_command(label="Paramétre",command=self.activePara)
-        self.fichierMenu.add_command(label="Test de connexion")
-        self.fichierMenu.add_command(label="Calculatrice")
+        self.fichierMenu.add_command(label="Test de connexion",command=self.windowsEtatNetwork)
+        self.fichierMenu.add_command(label="Calculatrice",command=self.ouvertureCalculatrice)
         self.fichierMenu.add_command(label="Codehelp")
         #Ajout des command au menu helpMenu
         helpMenu.add_command(label="Documentation")
@@ -85,7 +87,19 @@ class interfaceRyley:
         self.fichierMenu.entryconfigure("Ryley",label="Paramétre",command=self.activePara)
         self.screen.update()
 
-    
+    def windowsEtatNetwork(self):
+        wNetwork = Toplevel()
+        wNetwork.title("Ryley : Reseau")
+        wNetwork.iconphoto(False,self.iconWindows)
+        wNetwork.maxsize(450,100)
+        wNetwork.minsize(450,100)
+        wNetwork.configure(bg=self.mainColor)
+        labelReseau = Label(wNetwork,fg=self.mainTextColor,bg=self.mainColor,font=("arial","15"))
+        if self.objetNetwork.getEtatInternet() == True :
+            labelReseau.configure(text="Connecter a internet")
+        else :
+            labelReseau.configure(text="Non connecter a internet")
+        labelReseau.place(relx=0.5,rely=0.5,anchor="center")
 
     def activeRyley(self):
         self.screen.mainloop()
@@ -97,7 +111,7 @@ class interfaceRyley:
         fenetre.bind("<Key>", anychar)
 
     def envoi(self):
-        statement = self.barreR.get().lower
+        statement = self.barreR.get()
         self.barreR.delete("0",END)
         var,texte = self.arreraNetwork.neuron(statement)
         finalTexte = self._formatageText(texte)
@@ -108,6 +122,11 @@ class interfaceRyley:
             self.screen.destroy()
         self.labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
 
+    def ouvertureCalculatrice(self):
+        var,texte = self.arreraNetwork.neuron("calculatrice")
+        finalTexte = self._formatageText(texte)
+        self.labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
+    
     def _formatageText(self,texte):
         if int(len(texte)) > 6 :
             texte1,texte2 = self._division(texte,6)
