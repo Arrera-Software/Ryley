@@ -47,39 +47,18 @@ class interfaceRyley:
         ryleyMenu = Menu(self.screen,bg="white",fg="black")
         #Creation menu secondaire
         self.fichierMenu = Menu(ryleyMenu,tearoff=0)
-        appMenu = Menu(ryleyMenu,tearoff=0)
-        codeHelpMenu = Menu(appMenu,tearoff=0)
-        helpMenu = Menu(appMenu,tearoff=0)
-        
+        helpMenu = Menu(ryleyMenu,tearoff=0)
         #Ajout des command au menu fichierMenu
         self.fichierMenu.add_command(label="Paramétre",command=self.activePara)
         self.fichierMenu.add_command(label="Test de connexion")
-        
+        self.fichierMenu.add_command(label="Calculatrice")
+        self.fichierMenu.add_command(label="Codehelp")
         #Ajout des command au menu helpMenu
         helpMenu.add_command(label="Documentation")
         helpMenu.add_command(label="A propos")
-        
-        #Ajout des command au menu appMenu
-        appMenu.add_command(label="Calculatrice")
-        appMenu.add_cascade(label="codeHelp")
-        
-        #Ajout des command au menu codeHelpMenu
-        """
-        self.codeHelpMenu.add_command(label="Lancer CodeHelp",command=lambda : CodeHelp(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.ryleyMenu,self.choixLanguage,self.nameAssistant,self.envoi,self.labelIndication,"1",self.ryleyMenu,self.screen))
-        self.codeHelpMenu.add_command(label="Recherche de documentation",command=lambda : CodeHelp.rechercheDoc(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.choixLanguage,self.varLanguage,self.nameAssistant,self.envoi))
-        self.codeHelpMenu.add_command(label="Connextion a github",command=lambda : CodeHelp.PageGithub(self.top,self.barreR,self.labelParole,self.boutonEnvoyer,self.nameAssistant,self.envoi,self.labelIndication,))
-        self.codeHelpMenu.add_command(label="Librairy",command=lambda : webbrowser.open("https://github.com/baptistepau/RyleyCodeHelpLibrairy"))
-        self.codeHelpMenu.add_command(label="Editeur de Documentation",command=CodeHelp.EditeurDoc)
-        self.codeHelpMenu.add_command(label="Selectionneur de couleur",command=CodeHelp.ColorSelector)
-        self.codeHelpMenu.add_command(label="Organisateur de varriable",command=CodeHelp.orgranisateurVarriable)
-        """
-        
-        
         #Ajout au menu principale tout les menu deroulant      
         ryleyMenu.add_cascade(label="Fichier",menu=self.fichierMenu)
-        ryleyMenu.add_cascade(label="Fonction",menu=appMenu)
         ryleyMenu.add_cascade(label="Aide",menu=helpMenu)
-        
         self.screen.configure(menu=ryleyMenu)
         #parametrage parametre
         self.objetSetting.passageFonctionQuitter(self.desactiverPara)
@@ -91,13 +70,11 @@ class interfaceRyley:
         #Afichage
         self.top.place(x=0,y=0)
         self.bottom.place(x=0,y=400)
-
         self.barreR = Entry(self.bottom,width=35,font=("arial","15"),relief=SOLID)
         self.labelParole.place(x="10",y="300")
         self.barreR.place(x="5",y="70")
         boutonEnvoyer.place(x="400",y="65")
         self._detectionTouche(self.screen,self.envoi,13)
-        #Fin de la boucle
 
     def activePara(self):
         self.top.place_forget()
