@@ -3,7 +3,6 @@ from src.gestionRyley import*
 from librairy.travailJSON import*
 from setting.arreraAssistantSetting import*
 import time as t
-from PIL import Image, ImageTk
 from  ObjetsNetwork.arreraNeuron import*
 
 class interfaceRyley:
@@ -25,9 +24,6 @@ class interfaceRyley:
         #var
         self.bgTOP = PhotoImage(file = self.BGTop)
         self.bgBOTTOM = PhotoImage(file = self.BGBottom)
-        #self.imgMicro = PhotoImage(file="image/imgMicro.png")
-        self.listLanguage = ["all","python","javascript","html","cpp","c","css","php","openjdk","microsoft"]
-        self.varLanguage = StringVar(self.screen)
         #Parametre Interface
         self.screen.title("Ryley")
         self.screen.config(bg=self.mainColor)
@@ -41,7 +37,6 @@ class interfaceRyley:
         self.bottom.create_image( 0, 0, image = self.bgBOTTOM, anchor = "nw")
         #Label
         self.labelParole = Label(self.top,text="Ryley "+": "+self.arreraNetwork.boot(),bg=self.mainColor,fg=self.mainTextColor,font=("arial","14"), anchor="w")
-        labelIndication = Label(self.bottom,bg=self.secondColor,fg=self.secondTextColor,font=("arial","14"))
         #Menu
         #Creation menu principale
         ryleyMenu = Menu(self.screen,bg="white",fg="black")
@@ -64,9 +59,6 @@ class interfaceRyley:
         self.objetSetting.passageFonctionQuitter(self.desactiverPara)
         #bouton
         boutonEnvoyer=Button(self.bottom,text="Envoyer",bg=self.secondColor,fg=self.secondTextColor,font=("arial","15"),command=self.envoi)
-        #boutonMicro = Button(self.bottom,image=self.imgMicro,command=self.micro)
-        #option menu
-        choixLanguage = OptionMenu(self.bottom,self.varLanguage,*self.listLanguage)
         #Afichage
         self.top.place(x=0,y=0)
         self.bottom.place(x=0,y=400)
