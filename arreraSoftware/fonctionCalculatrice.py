@@ -14,7 +14,7 @@ class fncCalculatrice :
         
         
     def calculatrice(self,mode):
-        self.screen = Tk()
+        self.screen = Toplevel()
         self.imageTouche()
         self.screen.title(self.name+" : Calculatrice")
         self.screen.iconphoto(False,PhotoImage(file=self.icon))
@@ -259,7 +259,7 @@ class fncCalculatrice :
         self.imgARCTAN = PhotoImage(file=self.emplacementTouche+"tchARCTAN.png")
     
     def carractereInterdit(self,event):
-        carractereSpeciaux = "',?;§!ùµ*£$¤¨@ç|~&²¹#`\_°"
+        carractereSpeciaux = "'_,?;§!ùµ*£$¤¨@ç|~&²¹#`\°"
         carractereSpeciaux2 = '"'
         if event.char.isalpha():
             return "break"
