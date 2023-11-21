@@ -25,6 +25,7 @@ class interfaceRyley:
         self.__screen = Tk()
         #objet
         self.objetCodeHelp = CCodeHelp(self.__screen,self.__gestionnaire)
+        self.objetCodeHelp.setFonctionback(self.__unViewCodehelp)
         #var
         self.bgTOP = PhotoImage(file = self.__BGTop)
         self.bgBOTTOM = PhotoImage(file = self.__BGBottom)
@@ -86,6 +87,7 @@ class interfaceRyley:
     
     def __unViewCodehelp(self):
         self.fichierMenu.entryconfigure("Ryley",label="Codehelp",command=self.__viewCodeHelp)
+        self.objetCodeHelp.unView()
         self.bootRyley()
 
     def __activePara(self):
