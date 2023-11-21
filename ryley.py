@@ -15,5 +15,11 @@ class Ryley :
 
 
     def bootAssistant(self):
-        self.GUI.fenetreRyley()
-        self.GUI.activeRyley()
+        self.GUI.windows()
+        self.GUI.bootRyley()
+        self.GUI.enableWindows()
+
+    def bootCodeHelp(self):
+        self.GUI.windows()
+        self.GUI.bootCodehelp()
+        self.GUI.enableWindows()

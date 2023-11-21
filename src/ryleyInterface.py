@@ -1,6 +1,7 @@
 from tkinter import*
 from src.gestionRyley import*
 from librairy.travailJSON import*
+from objet.codeHelp.codeHelp import*
 from setting.arreraAssistantSetting import*
 import time as t
 from  ObjetsNetwork.arreraNeuron import*
@@ -19,9 +20,11 @@ class interfaceRyley:
         self.BGTop = self.gestionnaire.getBGTop()
         self.BGBottom = self.gestionnaire.getBGBottom()
 
-    def fenetreRyley(self):
+    def windows(self):
         #Definition fenetre Tkinter
         self.screen = Tk()
+        #objet
+        self.objetCodeHelp = CCodeHelp(self.screen,self.gestionnaire)
         #var
         self.bgTOP = PhotoImage(file = self.BGTop)
         self.bgBOTTOM = PhotoImage(file = self.BGBottom)
@@ -49,7 +52,7 @@ class interfaceRyley:
         self.fichierMenu.add_command(label="Paramétre",command=self.activePara)
         self.fichierMenu.add_command(label="Test de connexion",command=self.windowsEtatNetwork)
         self.fichierMenu.add_command(label="Calculatrice",command=self.ouvertureCalculatrice)
-        self.fichierMenu.add_command(label="Codehelp")
+        self.fichierMenu.add_command(label="Codehelp",command=self.viewCodeHelp)
         #Ajout des command au menu helpMenu
         helpMenu.add_command(label="Documentation")
         helpMenu.add_command(label="A propos")
@@ -62,20 +65,35 @@ class interfaceRyley:
         #bouton
         boutonEnvoyer=Button(self.bottom,text="Envoyer",bg=self.secondColor,fg=self.secondTextColor,font=("arial","15"),command=self.envoi)
         #Afichage
-        self.top.place(x=0,y=0)
-        self.bottom.place(x=0,y=400)
         self.barreR = Entry(self.bottom,width=35,font=("arial","15"),relief=SOLID)
         self.labelParole.place(x="10",y="300")
         self.barreR.place(x="5",y="70")
         boutonEnvoyer.place(x="400",y="65")
+
+    def bootCodehelp(self):
+        self.fichierMenu.entryconfigure("Codehelp",label="Ryley",command=self.unViewCodehelp)
+        self.objetCodeHelp.view()
+    
+    def bootRyley(self):
+        self.top.place(x=0,y=0)
+        self.bottom.place(x=0,y=400)
         self._detectionTouche(self.screen,self.envoi,13)
+    
+    def viewCodeHelp(self):
+        self.top.place_forget()
+        self.bottom.place_forget()
+        self.bootCodehelp()
+    
+    def unViewCodehelp(self):
+        self.fichierMenu.entryconfigure("Ryley",label="Codehelp",command=self.viewCodeHelp)
+        self.bootRyley()
 
     def activePara(self):
         self.top.place_forget()
         self.bottom.place_forget()
         self.screen.maxsize(500,600)
         self.screen.minsize(500,600)
-        self.fichierMenu.entryconfigure("Paramétre",label="Ryley",command=self.objetSetting.quittePara)
+        self.fichierMenu.entryconfigure("Paramétre",label="Acceuil",command=self.objetSetting.quittePara)
         self.screen.update()
         self.objetSetting.windows(self.screen)
     
@@ -84,7 +102,7 @@ class interfaceRyley:
         self.bottom.place(x=0,y=400)
         self.screen.maxsize(500,600)
         self.screen.minsize(500,600)
-        self.fichierMenu.entryconfigure("Ryley",label="Paramétre",command=self.activePara)
+        self.fichierMenu.entryconfigure("Acceuil",label="Paramétre",command=self.activePara)
         self.screen.update()
 
     def windowsEtatNetwork(self):
@@ -101,7 +119,7 @@ class interfaceRyley:
             labelReseau.configure(text="Non connecter a internet")
         labelReseau.place(relx=0.5,rely=0.5,anchor="center")
 
-    def activeRyley(self):
+    def enableWindows(self):
         self.screen.mainloop()
 
     def _detectionTouche(self,fenetre,fonc,touche):
