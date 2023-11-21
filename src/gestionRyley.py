@@ -2,79 +2,79 @@ from librairy.travailJSON import*
 
 class gestionRL :
     def __init__(self,configRyley:jsonWork) :
-        self.configFile = configRyley
-        self.BGBottom = str
-        self.BGTop = str
-        self.BGTopCodehelpRight = str
-        self.BGTopCodehelpLeft = str
-        self.BGBottomCodehelp = str
-        self.mainColor = str
-        self.secondColor = str
-        self.mainTextColor = str
-        self.secondTextColor = str
-        self.themeSet = False
+        self.__configFile = configRyley
+        self.__BGBottom = str
+        self.__BGTop = str
+        self.__BGTopCodehelpRight = str
+        self.__BGTopCodehelpLeft = str
+        self.__BGBottomCodehelp = str
+        self.__mainColor = str
+        self.__secondColor = str
+        self.__mainTextColor = str
+        self.__secondTextColor = str
+        self.__themeSet = False
 
     def setTheme(self):
         emplacementImage = "asset/interface/"
         emplacementImageCodehelp = "asset/codeHelp/"
-        self.BGBottom = emplacementImage+"BGBottom.png"
-        self.BGBottomCodehelp = emplacementImageCodehelp + "BGBottomCodeHelp.png"
-        self.secondColor = "#081ec7"
-        self.secondTextColor = "#ffffff"
-        if self.configFile.lectureJSON("theme") == "light":
-            self.BGTop = emplacementImage + "BGTop-light.png"
-            self.BGTopCodehelpLeft = emplacementImageCodehelp+"BGTopCodeHelp-light-left.png"
-            self.BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-light-right.png"
-            self.mainColor = "#ffffff"
-            self.mainTextColor = "#000000"
+        self.__BGBottom = emplacementImage+"BGBottom.png"
+        self.__BGBottomCodehelp = emplacementImageCodehelp + "BGBottomCodeHelp.png"
+        self.__secondColor = "#081ec7"
+        self.__secondTextColor = "#ffffff"
+        if self.__configFile.lectureJSON("theme") == "light":
+            self.__BGTop = emplacementImage + "BGTop-light.png"
+            self.__BGTopCodehelpLeft = emplacementImageCodehelp+"BGTopCodeHelp-light-left.png"
+            self.__BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-light-right.png"
+            self.__mainColor = "#ffffff"
+            self.__mainTextColor = "#000000"
         else :
-            if self.configFile.lectureJSON("theme") == "dark":
-                self.BGTop = emplacementImage + "BGTop-dark.png"
-                self.BGTopCodehelpLeft = emplacementImageCodehelp+"BGTopCodeHelp-dark-left.png"
-                self.BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-dark-right.png"
-                self.mainColor = "#000000"
-                self.mainTextColor = "#ffffff"
+            if self.__configFile.lectureJSON("theme") == "dark":
+                self.__BGTop = emplacementImage + "BGTop-dark.png"
+                self.__BGTopCodehelpLeft = emplacementImageCodehelp+"BGTopCodeHelp-dark-left.png"
+                self.__BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-dark-right.png"
+                self.__mainColor = "#000000"
+                self.__mainTextColor = "#ffffff"
             else :
-                self.BGTop = emplacementImage + "BGTop-light.png"
-                self.BGTopCodehelpLeft = emplacementImageCodehelp+""
-                self.BGTopCodehelpRight = emplacementImageCodehelp+""
-                self.mainColor = "#ffffff"
-                self.mainTextColor = "#000000"
+                self.__BGTop = emplacementImage + "BGTop-light.png"
+                self.__BGTopCodehelpLeft = emplacementImageCodehelp+""
+                self.__BGTopCodehelpRight = emplacementImageCodehelp+""
+                self.__mainColor = "#ffffff"
+                self.__mainTextColor = "#000000"
         
-        self.themeSet = True
+        self.__themeSet = True
     
     def getBGTop(self):
-        if self.themeSet == True :
-            return self.BGTop
+        if self.__themeSet == True :
+            return self.__BGTop
     
     def getBGBottom(self):
-        if self.themeSet == True :
-            return self.BGBottom
+        if self.__themeSet == True :
+            return self.__BGBottom
     
     def getMaincolor(self):
-        if self.themeSet == True :
-            return self.mainColor
+        if self.__themeSet == True :
+            return self.__mainColor
     
     def getMainTextcolor(self):
-        if self.themeSet == True :
-            return self.mainTextColor
+        if self.__themeSet == True :
+            return self.__mainTextColor
     
     def getSecondColor(self):
-        if self.themeSet == True :
-            return self.secondColor
+        if self.__themeSet == True :
+            return self.__secondColor
     
     def getSecondTextColor(self):
-        if self.themeSet == True :
-            return self.secondTextColor
+        if self.__themeSet == True :
+            return self.__secondTextColor
     
     def getBGTopCodeHelpLeft(self):
-        if self.themeSet == True :
-            return self.BGTopCodehelpLeft 
+        if self.__themeSet == True :
+            return self.__BGTopCodehelpLeft 
     
     def getBGBottomCodeHelp(self):
-        if self.themeSet == True :
-            return self.BGBottomCodehelp
+        if self.__themeSet == True :
+            return self.__BGBottomCodehelp
     
     def getBGTopCodeHelpRight(self):
-        if self.themeSet == True : 
-            return self.BGTopCodehelpRight
+        if self.__themeSet == True : 
+            return self.__BGTopCodehelpRight
