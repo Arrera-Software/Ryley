@@ -13,7 +13,6 @@ class Ryley :
         self.networkNeuron = ArreraNetwork("fichierJSON/configUser.json","fichierJSON/configNeuron.json","fichierJSON/listFete.json")
         self.GUI = interfaceRyley(self.gestionnaire,self.networkNeuron)
 
-
     def bootAssistant(self):
         self.GUI.windows()
         self.GUI.bootRyley()
