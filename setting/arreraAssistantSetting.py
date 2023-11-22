@@ -291,5 +291,6 @@ class ArreraSettingAssistant :
         self.cadreGPS.destroy()
         self.cadreRecherche.destroy()
         self.cadreSoft.destroy()
+        self.cadreTheme.destroy()
         self.fnc()    
         return True 
