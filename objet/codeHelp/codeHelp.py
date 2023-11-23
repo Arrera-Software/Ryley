@@ -8,69 +8,76 @@ class CCodeHelp :
         self.__gestionnaireRyley = gestionnaireRL
         #image 
         self.__icon = PhotoImage(file="asset/codehelp/codeHelpIcon.png")
-        self.__mainColor = self.__gestionnaireRyley.getMaincolor()
-        self.__mainTextColor = self.__gestionnaireRyley.getMainTextcolor()
-        #objet 
-        selecteurColor = CCHcolorSelector(self.__mainColor,self.__mainTextColor)
         #Creation Canvas
         #fondBGTopLeft
-        self.__fondBGTopLeft = Canvas(self.__wScreen,width=150,height=600,bg=self.__mainColor, highlightthickness=0)
-        BGTopLeft = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpLeft(),master=self.__fondBGTopLeft)
-        self.__fondBGTopLeft.image_names = BGTopLeft
-        self.__fondBGTopLeft.create_image(0,0,image=BGTopLeft,anchor="nw")
+        self.__fondBGTopLeft = Canvas(self.__wScreen,width=150,height=600, highlightthickness=0)
         #fondBGTopRight
-        self.__fondBGTopRight = Canvas(self.__wScreen,width=350,height=400,bg=self.__mainColor, highlightthickness=0)
-        BGTopRight = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpRight(),master=self.__fondBGTopRight)
-        self.__fondBGTopRight.image_names = BGTopRight
-        self.__fondBGTopRight.create_image(0,0,image=BGTopRight,anchor="nw")
+        self.__fondBGTopRight = Canvas(self.__wScreen,width=350,height=400, highlightthickness=0)
         #fondBGBottom
-        self.__fondBGBottom = Canvas(self.__wScreen,width=350,height=200,bg=self.__mainColor, highlightthickness=0)
-        BGBottom = PhotoImage(file=self.__gestionnaireRyley.getBGBottomCodeHelp(),master=self.__fondBGBottom)
-        self.__fondBGBottom.image_names = BGBottom
-        self.__fondBGBottom.create_image(0,0,image=BGBottom,anchor="nw")
+        self.__fondBGBottom = Canvas(self.__wScreen,width=350,height=200, highlightthickness=0)
         # BTN App sur Canvas fondBGTopLeft
-        btnBack = Button(self.__fondBGTopLeft,command=self.backRyley)
-        IMGBack = PhotoImage(file=self.__gestionnaireRyley.getBTNIconBack(),master=btnBack)
-        btnBack.image_names = IMGBack
-        btnBack.configure(image=IMGBack)
-
-        btnColorSelector = Button(self.__fondBGTopLeft,command=lambda:selecteurColor.bootSelecteur())
-        IMGColorSelector = PhotoImage(file=self.__gestionnaireRyley.getBTNIconColorSelector(),master=btnColorSelector)
-        btnColorSelector.image_names = IMGColorSelector
-        btnColorSelector.configure(image=IMGColorSelector)
-
-        btnEditeurDoc = Button(self.__fondBGTopLeft)
-        IMGEditeurDoc = PhotoImage(file=self.__gestionnaireRyley.getBTNIconEditeurDoc(),master=btnEditeurDoc)
-        btnEditeurDoc.image_names = IMGEditeurDoc
-        btnEditeurDoc.configure(image=IMGEditeurDoc)#
-
-        btnGithub = Button(self.__fondBGTopLeft)
-        IMGGithub = PhotoImage(file=self.__gestionnaireRyley.getBTNIconGitHub(),master=btnGithub)
-        btnGithub.image_names = IMGGithub
-        btnGithub.configure(image=IMGGithub)#
-
-        btnLibrairy = Button(self.__fondBGTopLeft)
-        IMGLibrairy = PhotoImage(file=self.__gestionnaireRyley.getBTNIconLibrairy(),master=btnLibrairy)
-        btnLibrairy.image_names = IMGLibrairy
-        btnLibrairy.configure(image=IMGLibrairy)#
-
-        btnOrgaVar = Button(self.__fondBGTopLeft)
-        IMGOrgaVar = PhotoImage(file=self.__gestionnaireRyley.getBTNIconOrgaVar(),master=btnOrgaVar)
-        btnOrgaVar.image_names = IMGOrgaVar
-        btnOrgaVar.configure(image=IMGOrgaVar)#
-
+        self.__btnBack = Button(self.__fondBGTopLeft,command=self.backRyley)
+        self.__btnColorSelector = Button(self.__fondBGTopLeft,command=lambda:self.__selecteurColor.bootSelecteur())
+        self.__btnEditeurDoc = Button(self.__fondBGTopLeft)
+        self.__btnGithub = Button(self.__fondBGTopLeft)
+        self.__btnLibrairy = Button(self.__fondBGTopLeft)
+        self.__btnOrgaVar = Button(self.__fondBGTopLeft)
         #Affichage BTN 
         largeurFondAPP = self.__fondBGTopLeft.winfo_reqwidth()
-        btnEditeurDoc.place(x=((largeurFondAPP-btnEditeurDoc.winfo_reqwidth())//2),y=100)
-        btnGithub.place(x=((largeurFondAPP-btnGithub.winfo_reqwidth())//2),y=170)
-        btnLibrairy.place(x=((largeurFondAPP-btnLibrairy.winfo_reqwidth())//2),y=240)
-        btnOrgaVar.place(x=((largeurFondAPP-btnOrgaVar.winfo_reqwidth())//2),y=310)
-        btnColorSelector.place(x=((largeurFondAPP-btnColorSelector.winfo_reqwidth())//2),y=380)
-        btnBack.place(x=((largeurFondAPP-btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-btnBack.winfo_reqheight()-20))
+        self.__btnEditeurDoc.place(x=((largeurFondAPP-self.__btnEditeurDoc.winfo_reqwidth())//2),y=100)
+        self.__btnGithub.place(x=((largeurFondAPP-self.__btnGithub.winfo_reqwidth())//2),y=170)
+        self.__btnLibrairy.place(x=((largeurFondAPP-self.__btnLibrairy.winfo_reqwidth())//2),y=240)
+        self.__btnOrgaVar.place(x=((largeurFondAPP-self.__btnOrgaVar.winfo_reqwidth())//2),y=310)
+        self.__btnColorSelector.place(x=((largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=380)
+        self.__btnBack.place(x=((largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-20))
 
     def setFonctionback(self,fnc):
         self.__fncBack = fnc
 
+    def setTheme(self):
+        self.__mainColor = self.__gestionnaireRyley.getMaincolor()
+        self.__mainTextColor = self.__gestionnaireRyley.getMainTextcolor()
+        #objet 
+        self.__selecteurColor = CCHcolorSelector(self.__mainColor,self.__mainTextColor)
+        #fondBGTopLeft
+        BGTopLeft = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpLeft(),master=self.__fondBGTopLeft)
+        self.__fondBGTopLeft.image_names = BGTopLeft
+        self.__fondBGTopLeft.create_image(0,0,image=BGTopLeft,anchor="nw")
+        #fondBGTopRight
+        BGTopRight = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpRight(),master=self.__fondBGTopRight)
+        self.__fondBGTopRight.image_names = BGTopRight
+        self.__fondBGTopRight.create_image(0,0,image=BGTopRight,anchor="nw")
+        #fondBGBottom
+        BGBottom = PhotoImage(file=self.__gestionnaireRyley.getBGBottomCodeHelp(),master=self.__fondBGBottom)
+        self.__fondBGBottom.image_names = BGBottom
+        self.__fondBGBottom.create_image(0,0,image=BGBottom,anchor="nw")
+        # BTN App sur Canvas fondBGTopLeft
+        #__btnBack
+        IMGBack = PhotoImage(file=self.__gestionnaireRyley.getBTNIconBack(),master=self.__btnBack)
+        self.__btnBack.image_names = IMGBack
+        self.__btnBack.configure(image=IMGBack)
+        #__btnColorSelector
+        IMGColorSelector = PhotoImage(file=self.__gestionnaireRyley.getBTNIconColorSelector(),master=self.__btnColorSelector)
+        self.__btnColorSelector.image_names = IMGColorSelector
+        self.__btnColorSelector.configure(image=IMGColorSelector)
+        #__btnEditeurDoc
+        IMGEditeurDoc = PhotoImage(file=self.__gestionnaireRyley.getBTNIconEditeurDoc(),master=self.__btnEditeurDoc)
+        self.__btnEditeurDoc.image_names = IMGEditeurDoc
+        self.__btnEditeurDoc.configure(image=IMGEditeurDoc)#
+        #__btnGithub
+        IMGGithub = PhotoImage(file=self.__gestionnaireRyley.getBTNIconGitHub(),master=self.__btnGithub)
+        self.__btnGithub.image_names = IMGGithub
+        self.__btnGithub.configure(image=IMGGithub)#
+        #__btnLibrairy
+        IMGLibrairy = PhotoImage(file=self.__gestionnaireRyley.getBTNIconLibrairy(),master=self.__btnLibrairy)
+        self.__btnLibrairy.image_names = IMGLibrairy
+        self.__btnLibrairy.configure(image=IMGLibrairy)#
+        #__btnOrgaVar
+        IMGOrgaVar = PhotoImage(file=self.__gestionnaireRyley.getBTNIconOrgaVar(),master=self.__btnOrgaVar)
+        self.__btnOrgaVar.image_names = IMGOrgaVar
+        self.__btnOrgaVar.configure(image=IMGOrgaVar)#
+        
+    
     def view(self):
         #Modification de la fenetre 
         self.__wScreen.title("Ryley : Codehelp")

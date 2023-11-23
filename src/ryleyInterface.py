@@ -30,6 +30,7 @@ class interfaceRyley:
         self.__bottom.create_image( 0, 0, image = self.bgBOTTOM, anchor = "nw")
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.objetCodeHelp.setTheme()
         if self.__mainColor == "#ffffff" :
             self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSettingLight.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
         else :
@@ -73,11 +74,11 @@ class interfaceRyley:
         self.__screen.configure(menu=self.__ryleyMenu)
         #parametrage parametre
         self.__boutonEnvoyer=Button(self.__bottom,text="Envoyer",font=("arial","15"),command=self.__envoi)
-        #Application du theme
-        self.__setTheme()
         #objet codehelp
         self.objetCodeHelp = CCodeHelp(self.__screen,self.__gestionnaire)
         self.objetCodeHelp.setFonctionback(self.__unViewCodehelp)
+        #Application du theme
+        self.__setTheme()
         #Afichage
         self.__barreR = Entry(self.__bottom,width=35,font=("arial","15"),relief=SOLID)
         self.__labelParole.place(x="10",y="300")
