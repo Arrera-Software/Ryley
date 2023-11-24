@@ -15,21 +15,37 @@ class CCodeHelp :
         self.__fondBGTopRight = Canvas(self.__wScreen,width=350,height=400, highlightthickness=0)
         #fondBGBottom
         self.__fondBGBottom = Canvas(self.__wScreen,width=350,height=200, highlightthickness=0)
+        #Frame parametre
+        self.__framePara = Frame(self.__wScreen,width=500,height=600)
+        #widget parametre
+        self.__labelPara = Label(self.__framePara,text="Parametre CodeHelp",font=("arial","15"))
+        self.__btnQuitterPara = Button(self.__framePara,text="Quitter",font=("arial","15"),command=self.unViewPara)
         # BTN App sur Canvas fondBGTopLeft
         self.__btnBack = Button(self.__fondBGTopLeft,command=self.backRyley)
         self.__btnColorSelector = Button(self.__fondBGTopLeft,command=lambda:self.__selecteurColor.bootSelecteur())
         self.__btnEditeurDoc = Button(self.__fondBGTopLeft)
         self.__btnGithub = Button(self.__fondBGTopLeft)
         self.__btnLibrairy = Button(self.__fondBGTopLeft)
-        self.__btnOrgaVar = Button(self.__fondBGTopLeft)
-        #Affichage BTN 
-        largeurFondAPP = self.__fondBGTopLeft.winfo_reqwidth()
-        self.__btnEditeurDoc.place(x=((largeurFondAPP-self.__btnEditeurDoc.winfo_reqwidth())//2),y=100)
-        self.__btnGithub.place(x=((largeurFondAPP-self.__btnGithub.winfo_reqwidth())//2),y=170)
-        self.__btnLibrairy.place(x=((largeurFondAPP-self.__btnLibrairy.winfo_reqwidth())//2),y=240)
-        self.__btnOrgaVar.place(x=((largeurFondAPP-self.__btnOrgaVar.winfo_reqwidth())//2),y=310)
-        self.__btnColorSelector.place(x=((largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=380)
-        self.__btnBack.place(x=((largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-20))
+        self.__btnOrgaVar = Button(self.__fondBGTopLeft) 
+    
+    def __affichage(self):
+        self.setTheme()
+        self.__largeurFondAPP = self.__fondBGTopLeft.winfo_reqwidth()
+        self.__btnEditeurDoc.place(x=((self.__largeurFondAPP-self.__btnEditeurDoc.winfo_reqwidth())//2),y=100)
+        self.__btnGithub.place(x=((self.__largeurFondAPP-self.__btnGithub.winfo_reqwidth())//2),y=170)
+        self.__btnLibrairy.place(x=((self.__largeurFondAPP-self.__btnLibrairy.winfo_reqwidth())//2),y=240)
+        self.__btnOrgaVar.place(x=((self.__largeurFondAPP-self.__btnOrgaVar.winfo_reqwidth())//2),y=310)
+        self.__btnColorSelector.place(x=((self.__largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=380)
+        self.__btnBack.place(x=((self.__largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-20))
+
+    def __clearView(self):
+        self.__btnEditeurDoc.place_forget()
+        self.__btnGithub.place_forget()
+        self.__btnLibrairy.place_forget()
+        self.__btnOrgaVar.place_forget()
+        self.__btnColorSelector.place_forget()
+        self.__btnBack.place_forget()
+
 
     def setFonctionback(self,fnc):
         self.__fncBack = fnc
@@ -39,6 +55,11 @@ class CCodeHelp :
         self.__mainTextColor = self.__gestionnaireRyley.getMainTextcolor()
         #objet 
         self.__selecteurColor = CCHcolorSelector(self.__mainColor,self.__mainTextColor)
+        #Frame parametre
+        self.__framePara.configure(bg=self.__mainColor)
+        #Widget parametre
+        self.__btnQuitterPara.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.__labelPara.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         #fondBGTopLeft
         BGTopLeft = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpLeft(),master=self.__fondBGTopLeft)
         self.__fondBGTopLeft.image_names = BGTopLeft
@@ -77,15 +98,37 @@ class CCodeHelp :
         self.__btnOrgaVar.image_names = IMGOrgaVar
         self.__btnOrgaVar.configure(image=IMGOrgaVar)#
         
+    def viewPara(self):
+        self.__wScreen.title("Codehelp : Parametre")
+        self.__framePara.pack()
+        self.__fondBGTopLeft.place_forget()
+        self.__fondBGTopRight.place_forget()
+        self.__fondBGBottom.place_forget()
     
+    def unViewPara(self):
+        self.__wScreen.title("Ryley : Codehelp")
+        self.__framePara.pack_forget()
+        self.__clearView()
+        self.__affichage()
+        self.__fondBGTopLeft.place(x=0,y=0)
+        self.__fondBGTopRight.place(x=150,y=0)
+        self.__fondBGBottom.place(x=150,y=400)
+
     def view(self):
         #Modification de la fenetre 
         self.__wScreen.title("Ryley : Codehelp")
         self.__wScreen.iconphoto(False,self.__icon)
         self.__wScreen.update()
+        self.__clearView()
+        self.__affichage()
         self.__fondBGTopLeft.place(x=0,y=0)
         self.__fondBGTopRight.place(x=150,y=0)
         self.__fondBGBottom.place(x=150,y=400)
+        #Calcule frame para
+        lageurFrame = self.__framePara.winfo_reqwidth()
+        hauteurFrame = self.__framePara.winfo_reqheight()
+        self.__btnQuitterPara.place(x=((lageurFrame-self.__btnQuitterPara.winfo_reqwidth())//2),y=(hauteurFrame-self.__btnQuitterPara.winfo_reqheight()))
+        self.__labelPara.place(x=((lageurFrame-self.__labelPara.winfo_reqwidth())//2),y=0)
     
     def backRyley(self):
         self.__fncBack()

@@ -88,6 +88,7 @@ class interfaceRyley:
 
     def bootCodehelp(self):
         self.__fichierMenu.entryconfigure("Codehelp",label="Ryley",command=self.__unViewCodehelp)
+        self.__fichierMenu.entryconfigure("Paramétre",label="Paramétre",command=self.objetCodeHelp.viewPara)
         self.objetCodeHelp.view()
     
     def bootRyley(self):
