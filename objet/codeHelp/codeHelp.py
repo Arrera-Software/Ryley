@@ -4,6 +4,7 @@ from tkinter.filedialog import*
 from tkinter.messagebox import*
 from librairy.travailJSON import*
 from src.gestionRyley import *
+import webbrowser as w
 
 class CCodeHelp :
     def __init__(self,screen:Tk,gestionnaireRL:gestionRL) :
@@ -28,8 +29,8 @@ class CCodeHelp :
         self.__btnColorSelector = Button(self.__fondBGTopLeft,command=lambda:self.__selecteurColor.bootSelecteur())
         self.__btnEditeurDoc = Button(self.__fondBGTopLeft)
         self.__btnGithub = Button(self.__fondBGTopLeft)
-        self.__btnLibrairy = Button(self.__fondBGTopLeft)
-        self.__btnOrgaVar = Button(self.__fondBGTopLeft,command=lambda : self.orgaVar.bootOrganisateur()) 
+        self.__btnLibrairy = Button(self.__fondBGTopLeft,command=lambda : self.__lib.librairy())
+        self.__btnOrgaVar = Button(self.__fondBGTopLeft,command=lambda : self.__orgaVar.bootOrganisateur()) 
     
     def __affichage(self):
         self.setTheme()
@@ -58,7 +59,8 @@ class CCodeHelp :
         self.__mainTextColor = self.__gestionnaireRyley.getMainTextcolor()
         #objet 
         self.__selecteurColor = CCHcolorSelector(self.__mainColor,self.__mainTextColor)
-        self.orgaVar = CHOrgraVarriable(self.__mainColor,self.__mainTextColor)
+        self.__orgaVar = CHOrgraVarriable(self.__mainColor,self.__mainTextColor)
+        self.__lib = CHLibrairy(self.__mainColor,self.__mainTextColor)
         #Frame parametre
         self.__framePara.configure(bg=self.__mainColor)
         #Widget parametre
@@ -141,7 +143,6 @@ class CCodeHelp :
         self.__fondBGTopLeft.place_forget()
         self.__fondBGTopRight.place_forget()
         self.__fondBGBottom.place_forget()
-
     
 class CCHcolorSelector:
     def __init__(self,mainColor:str,textColor:str):
@@ -380,3 +381,49 @@ class CHOrgraVarriable:
             self.__listSuppr = ["","",""]
             self.__menuSuppr = OptionMenu(self.__frameSuppr,self.__varSuppr,*self.__listSuppr)
             self.__menuSuppr.place(relx=0.5,rely=0.5,anchor="center")
+
+class CHLibrairy:
+    def __init__(self,mainColor:str,textColor:str):
+        self.__lienLibrairy = "https://github.com/Arrera-Software/Arrera-librairy"
+        self.__lienReadme =  "https://github.com/Arrera-Software/Arrera-librairy/blob/main/README.md"
+        self.__lienObjetPython = "https://github.com/Arrera-Software/Arrera-librairy/tree/main/python"
+        self.__lienObjetCPP = "https://github.com/Arrera-Software/Arrera-librairy/tree/main/C%2B%2B"
+        self.__mainColor = mainColor
+        self.__textColor = textColor
+    
+    def librairy(self):
+        self.__screenLibrairy = Toplevel()
+        self.__screenLibrairy.title("CodeHelp : librairy")
+        self.__screenLibrairy.minsize(700,500)
+        self.__screenLibrairy.configure(bg=self.__mainColor)
+        #widget
+        btnlib = Button(self.__screenLibrairy,text="Librairy",bg=self.__mainColor,fg=self.__textColor,font=("arial","15"),command=self.__openLib)
+        btnReadme = Button(self.__screenLibrairy,text="Readme",bg=self.__mainColor,fg=self.__textColor,font=("arial","15"),command=self.__openReadme)
+        btnObjetPyton = Button(self.__screenLibrairy,text="Objet Python",bg=self.__mainColor,fg=self.__textColor,font=("arial","15"),command=self.__openObjPython)
+        btnObjetCPP = Button(self.__screenLibrairy,text="Objet C++",bg=self.__mainColor,fg=self.__textColor,font=("arial","15"),command=self.__openObjCPP)
+        #affichage
+        btnlib.place(relx=0.1, rely=0.1)
+        btnObjetPyton.place(relx=0.1, rely=0.8)
+        btnObjetCPP.place(relx=0.8, rely=0.1)
+        btnReadme.place(relx=0.8, rely=0.8)
+
+    def __destroyWindows(self):
+        self.__screenLibrairy.destroy()
+
+    def __openLib(self):
+        w.open(self.__lienLibrairy)
+        self.__destroyWindows()
+    
+    def __openReadme(self):
+        w.open(self.__lienReadme)
+        self.__destroyWindows()
+    
+    def __openObjPython(self):
+        w.open(self.__lienObjetPython)
+        self.__destroyWindows()
+    
+    def __openObjCPP(self):
+        w.open(self.__lienObjetCPP)
+        self.__destroyWindows()
+
+
