@@ -10,6 +10,8 @@ class CCodeHelp :
     def __init__(self,screen:Tk,gestionnaireRL:gestionRL) :
         self.__wScreen = screen
         self.__gestionnaireRyley = gestionnaireRL
+        #Fichier Para Codehelp
+        self.__fileParaCode = jsonWork("objet/codeHelp/codehelp.json")
         #image 
         self.__icon = PhotoImage(file="asset/codehelp/codeHelpIcon.png")
         #Creation Canvas
@@ -22,8 +24,11 @@ class CCodeHelp :
         #Frame parametre
         self.__framePara = Frame(self.__wScreen,width=500,height=600)
         #widget parametre
-        self.__labelPara = Label(self.__framePara,text="Parametre CodeHelp",font=("arial","15"))
-        self.__btnQuitterPara = Button(self.__framePara,text="Quitter",font=("arial","15"),command=self.unViewPara)
+        self.__PlabelPara = Label(self.__framePara,text="Parametre CodeHelp",font=("arial","15"))
+        self.__PentryTokenGitHub = Entry(self.__framePara,font=("arial","15"),relief=SOLID)
+        self.__PlabelToken = Label(self.__framePara,font=("arial","15"),text="Token GitHub :")
+        self.__PbtnQuitterPara = Button(self.__framePara,text="Quitter",font=("arial","15"),command=self.unViewPara)
+        self.__PBTNSaveToken = Button(self.__framePara,text="Enregistrer",font=("arial","15"),command=self.setToken)
         # BTN App sur Canvas fondBGTopLeft
         self.__btnBack = Button(self.__fondBGTopLeft,command=self.backRyley)
         self.__btnColorSelector = Button(self.__fondBGTopLeft,command=lambda:self.__selecteurColor.bootSelecteur())
@@ -41,7 +46,7 @@ class CCodeHelp :
         self.__btnOrgaVar.place(x=((self.__largeurFondAPP-self.__btnOrgaVar.winfo_reqwidth())//2),y=310)
         self.__btnColorSelector.place(x=((self.__largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=380)
         self.__btnBack.place(x=((self.__largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-20))
-
+    
     def __clearView(self):
         self.__btnEditeurDoc.place_forget()
         self.__btnGithub.place_forget()
@@ -64,8 +69,10 @@ class CCodeHelp :
         #Frame parametre
         self.__framePara.configure(bg=self.__mainColor)
         #Widget parametre
-        self.__btnQuitterPara.configure(bg=self.__mainColor,fg=self.__mainTextColor)
-        self.__labelPara.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.__PbtnQuitterPara.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.__PlabelPara.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.__PlabelToken.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.__PBTNSaveToken.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         #fondBGTopLeft
         BGTopLeft = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpLeft(),master=self.__fondBGTopLeft)
         self.__fondBGTopLeft.image_names = BGTopLeft
@@ -133,8 +140,11 @@ class CCodeHelp :
         #Calcule frame para
         lageurFrame = self.__framePara.winfo_reqwidth()
         hauteurFrame = self.__framePara.winfo_reqheight()
-        self.__btnQuitterPara.place(x=((lageurFrame-self.__btnQuitterPara.winfo_reqwidth())//2),y=(hauteurFrame-self.__btnQuitterPara.winfo_reqheight()))
-        self.__labelPara.place(x=((lageurFrame-self.__labelPara.winfo_reqwidth())//2),y=0)
+        self.__PbtnQuitterPara.place(x=((lageurFrame-self.__PbtnQuitterPara.winfo_reqwidth())//2),y=(hauteurFrame-self.__PbtnQuitterPara.winfo_reqheight()))
+        self.__PlabelPara.place(x=((lageurFrame-self.__PlabelPara.winfo_reqwidth())//2),y=0)
+        self.__PlabelToken.place(x=0,y=60)
+        self.__PentryTokenGitHub.place(x=(self.__PlabelToken.winfo_reqwidth()),y=60)
+        self.__PBTNSaveToken.place(x=(self.__PlabelToken.winfo_reqwidth()+self.__PentryTokenGitHub.winfo_reqwidth()+5),y=60)
     
     def backRyley(self):
         self.__fncBack()
@@ -143,6 +153,15 @@ class CCodeHelp :
         self.__fondBGTopLeft.place_forget()
         self.__fondBGTopRight.place_forget()
         self.__fondBGBottom.place_forget()
+    
+    def setToken(self):
+        token = self.__PentryTokenGitHub.get()
+        if token :
+            self.__fileParaCode.EcritureJSON("token",token)
+            self.__PentryTokenGitHub.delete("0",END)
+            showinfo("Token enregistrer","Votre token github est enregistrer")
+        else :
+            showerror("Aucun token entrer","Veuillez entrer le token")
     
 class CCHcolorSelector:
     def __init__(self,mainColor:str,textColor:str):
@@ -426,4 +445,9 @@ class CHLibrairy:
         w.open(self.__lienObjetCPP)
         self.__destroyWindows()
 
-
+class CHGithub:
+    def __init__(self,mainColor:str,textColor:str):
+        self.__mainColor = mainColor
+        self.__mainTextColor = textColor
+        
+        
