@@ -13,7 +13,7 @@ class CCodeHelp :
         #Fichier Para Codehelp
         self.__fileParaCode = jsonWork("objet/codeHelp/codehelp.json")
         #image 
-        self.__icon = PhotoImage(file="asset/codehelp/codeHelpIcon.png")
+        self.__icon = PhotoImage(file="asset/codeHelpIcon.png")
         #Creation Canvas
         #fondBGTopLeft
         self.__fondBGTopLeft = Canvas(self.__wScreen,width=150,height=600, highlightthickness=0)
