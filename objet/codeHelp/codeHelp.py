@@ -467,6 +467,8 @@ class CHGithub:
         self.__frameSearch = Frame(self.__screenGH,bg=self.__mainColor,width=500,height=500)
         self.__frameError = Frame(self.__screenGH,bg=self.__mainColor,width=500,height=500)
         self.__frameList = Frame(self.__screenGH,bg=self.__mainColor,width=500,height=500)
+        #scrollbar
+        self.__scroll = Scrollbar(self.__frameList,orient="vertical")
         #widget
         labelAcceuil = Label(self.__mainFrame,text="GitHub",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","25"))
         btnList = Button(self.__mainFrame,text="Vos depot",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),command=self.__GUIListDepos)
@@ -477,6 +479,7 @@ class CHGithub:
         labelError = Label(self.__frameError,text="Aucun token enregistrer\nRendez-vous\ndans les parametre pour\nl'enregistrer",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","25"))
         btnError = Button(self.__frameError,text="Quitter",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),command=self.__backMain)
         btnListQuit = Button(self.__frameList,text="Quitter",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),width=self.__frameList.winfo_reqwidth(),command=self.__backMain)
+        self.boxlistDepot = Listbox(self.__frameList,width=500,height=500)
         #Affichage
         labelAcceuil.place(x=((self.__mainFrame.winfo_reqwidth()-labelAcceuil.winfo_reqwidth())//2),y=0)
         btnList.place(x=((self.__mainFrame.winfo_reqwidth()-btnList.winfo_reqwidth())-15),y=((self.__mainFrame.winfo_reqheight()-btnList.winfo_reqheight())//2))
@@ -487,6 +490,8 @@ class CHGithub:
         labelError.place(relx=0.5,rely=0.5,anchor="center")
         btnError.place(x=((self.__frameError.winfo_reqwidth()-btnError.winfo_reqwidth())//2),y=((self.__frameError.winfo_reqheight()-btnError.winfo_reqheight())))
         btnListQuit.place(x=((self.__frameList.winfo_reqwidth()-btnListQuit.winfo_reqwidth())//2),y=((self.__frameList.winfo_reqheight()-btnListQuit.winfo_reqheight())))
+        self.boxlistDepot.place(relx=0, rely=0, relwidth=0.95, relheight=1)
+        self.__scroll.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
         self.__mainFrame.place(relx=0.5,rely=0.5,anchor="center")
 
     def search(self,requette:str):
@@ -531,4 +536,8 @@ class CHGithub:
             self.__frameError.place(relx=0.5,rely=0.5,anchor="center")
         else :
             self.__frameList.place(relx=0.5,rely=0.5,anchor="center")
+            for i in range(0,(len(self.__listDepo)-1)) :
+                self.boxlistDepot.insert(END,self.__listDepo[i])
+            self.__scroll.configure(command=self.boxlistDepot.yview)
+
         
