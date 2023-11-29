@@ -5,6 +5,8 @@ from tkinter.messagebox import*
 from librairy.travailJSON import*
 from src.gestionRyley import *
 import webbrowser as w
+import requests
+from github import Github
 
 class CCodeHelp :
     def __init__(self,screen:Tk,gestionnaireRL:gestionRL) :
@@ -33,7 +35,7 @@ class CCodeHelp :
         self.__btnBack = Button(self.__fondBGTopLeft,command=self.backRyley)
         self.__btnColorSelector = Button(self.__fondBGTopLeft,command=lambda:self.__selecteurColor.bootSelecteur())
         self.__btnEditeurDoc = Button(self.__fondBGTopLeft)
-        self.__btnGithub = Button(self.__fondBGTopLeft)
+        self.__btnGithub = Button(self.__fondBGTopLeft,command=lambda:self.__github.GUI())
         self.__btnLibrairy = Button(self.__fondBGTopLeft,command=lambda : self.__lib.librairy())
         self.__btnOrgaVar = Button(self.__fondBGTopLeft,command=lambda : self.__orgaVar.bootOrganisateur()) 
     
@@ -66,6 +68,7 @@ class CCodeHelp :
         self.__selecteurColor = CCHcolorSelector(self.__mainColor,self.__mainTextColor)
         self.__orgaVar = CHOrgraVarriable(self.__mainColor,self.__mainTextColor)
         self.__lib = CHLibrairy(self.__mainColor,self.__mainTextColor)
+        self.__github = CHGithub(self.__mainColor,self.__mainTextColor,self.__fileParaCode)
         #Frame parametre
         self.__framePara.configure(bg=self.__mainColor)
         #Widget parametre
@@ -446,8 +449,67 @@ class CHLibrairy:
         self.__destroyWindows()
 
 class CHGithub:
-    def __init__(self,mainColor:str,textColor:str):
+    def __init__(self,mainColor:str,textColor:str,configCodehelp:jsonWork):
         self.__mainColor = mainColor
         self.__mainTextColor = textColor
+        self.configFile = configCodehelp
+        self.__listDepo = []
+
+    def GUI(self):
+        self.__screenGH = Toplevel()
+        self.__screenGH.title("Codehelp : Github")
+        self.__screenGH.configure(bg=self.__mainColor)
+        self.__screenGH.iconphoto(False,PhotoImage(file="asset/codeHelpIcon.png"))
+        self.__screenGH.maxsize(500,500)
+        self.__screenGH.minsize(500,500)
+        #Frame
+        self.__mainFrame = Frame(self.__screenGH,bg=self.__mainColor,width=500,height=500)
+        self.__frameSearch = Frame(self.__screenGH,bg=self.__mainColor,width=500,height=500)
+        self.__frameError = Frame(self.__screenGH,bg=self.__mainColor,width=500,height=500)
+        #widget
+        labelAcceuil = Label(self.__mainFrame,text="GitHub",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","25"))
+        btnList = Button(self.__mainFrame,text="Vos depot",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"))
+        btnRecherche = Button(self.__mainFrame,text="Recherche",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),command=self.__GUISearch)
+        self.__entrySeach = Entry(self.__frameSearch,font=("arial","15"),relief=SOLID)
+        labelSearch = Label(self.__frameSearch,text="Recherche sur Github",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","25"))
+        btnSearch = Button(self.__frameSearch,text="Valider",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),command=self.__search)
+        labelError = Label(self.__frameError,text="Aucun token enregistrer\nRenndez-vous\ndans les parametre pour\nl'enregistrer",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","25"))
+        btnError = Button(self.__frameError,text="Quitter",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),command=lambda: self.__screenGH.destroy())
+        #Affichage
+        labelAcceuil.place(x=((self.__mainFrame.winfo_reqwidth()-labelAcceuil.winfo_reqwidth())//2),y=0)
+        btnList.place(x=((self.__mainFrame.winfo_reqwidth()-btnList.winfo_reqwidth())-15),y=((self.__mainFrame.winfo_reqheight()-btnList.winfo_reqheight())//2))
+        btnRecherche.place(x=15,y=((self.__mainFrame.winfo_reqheight()-btnRecherche.winfo_reqheight())//2))
+        labelSearch.place(x=((self.__frameSearch.winfo_reqwidth()-labelSearch.winfo_reqwidth())//2),y=0)
+        self.__entrySeach.place(relx=0.5,rely=0.5,anchor="center")
+        btnSearch.place(x=((self.__frameSearch.winfo_reqwidth()-btnSearch.winfo_reqwidth())//2),y=self.__frameSearch.winfo_reqheight()-btnSearch.winfo_reqheight())
+        labelError.place(relx=0.5,rely=0.5,anchor="center")
+        btnError.place(x=((self.__frameError.winfo_reqwidth()-btnError.winfo_reqwidth())//2),y=((self.__frameError.winfo_reqheight()-btnError.winfo_reqheight())))
+        self.__frameError.place(relx=0.5,rely=0.5,anchor="center")
+
+    def search(self,requette:str):
+        urllink = requests.get("https://github.com/search?q="+requette)
+        urllink = urllink.url
+        w.open(urllink)
+    
+    def __GUISearch(self):
+        self.__mainFrame.place_forget()
+        self.__frameSearch.place(relx=0.5,rely=0.5,anchor="center")
+    
+    def __search(self):
+        self.__mainFrame.place(relx=0.5,rely=0.5,anchor="center")
+        self.__frameSearch.place_forget()
+        self.search(str(self.__entrySeach.get()))
+        self.__entrySeach.delete("0",END)
+
+    def setListDepos(self)->bool:
+        if self.configFile.lectureJSON("token") :
+            access = Github(self.configFile.lectureJSON("token"))
+            for repo in access.get_user().get_repos():
+                self.__listDepo.append(str(repo.name))
+                i = i +1
+            return True
+        else :
+            return False
+
         
         
