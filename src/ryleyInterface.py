@@ -94,7 +94,7 @@ class interfaceRyley:
     def bootRyley(self):
         self.__top.place(x=0,y=0)
         self.__bottom.place(x=0,y=400)
-        self.__detectionTouche(self.__screen,self.__envoi,13)
+        self.__gestionnaire.detectionTouche(self.__screen,self.__envoi,13)
     
     def __viewCodeHelp(self):
         self.__top.place_forget()
@@ -151,12 +151,6 @@ class interfaceRyley:
 
     def enableWindows(self):
         self.__screen.mainloop()
-
-    def __detectionTouche(self,fenetre,fonc,touche):
-        def anychar(event):
-            if event.keycode == touche:
-                fonc()               
-        fenetre.bind("<Key>", anychar)
 
     def __envoi(self):
         statement = self.__barreR.get()

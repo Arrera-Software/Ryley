@@ -39,10 +39,12 @@ class CCodeHelp :
         self.__btnLibrairy = Button(self.__fondBGTopLeft,command=lambda : self.__lib.librairy())
         self.__btnOrgaVar = Button(self.__fondBGTopLeft,command=lambda : self.__orgaVar.bootOrganisateur())
         #fondBGTopRight
-        self.labelRetour = Label(self.__fondBGTopRight,font=("arial","15"))
+        self.__labelRetour = Label(self.__fondBGTopRight,font=("arial","15"))
         #fondBGBottom
         self.__bar = Entry(self.__fondBGBottom,font=("arial","15"),relief=SOLID,width=23)
-        self.__btnSend =  Button(self.__fondBGBottom,font=("arial","15"),text="Envoyer",command=self.sendCodeHelp)
+        self.__btnSend =  Button(self.__fondBGBottom,font=("arial","15"),text="envoyer",command=self.__sendCodeHelp)
+        #var
+        self.__quitter = False
     
     def __affichage(self):
         self.setTheme()
@@ -53,7 +55,8 @@ class CCodeHelp :
         self.__btnColorSelector.place(x=((self.__largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=310)
         self.__btnBack.place(x=((self.__largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-20))
         self.__bar.place(x=0,y=((self.__fondBGBottom.winfo_reqheight()-self.__bar.winfo_reqheight())//2))
-        self.__btnSend.place(x=self.__bar.winfo_reqwidth(),y=((self.__fondBGBottom.winfo_reqheight()-self.__btnSend.winfo_reqheight())//2))
+        self.__btnSend.place(x=self.__bar.winfo_reqwidth()+5,y=((self.__fondBGBottom.winfo_reqheight()-self.__btnSend.winfo_reqheight())//2))
+        self.__labelRetour.place(x="10",y="300")
 
     def __clearView(self):
         self.__btnGithub.place_forget()
@@ -82,6 +85,9 @@ class CCodeHelp :
         self.__PlabelPara.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__PlabelToken.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__PBTNSaveToken.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        #fondBGTopRight
+        self.__labelRetour.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.__btnSend.configure(bg="grey",fg="white")
         #fondBGTopLeft
         BGTopLeft = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpLeft(),master=self.__fondBGTopLeft)
         self.__fondBGTopLeft.image_names = BGTopLeft
@@ -150,6 +156,8 @@ class CCodeHelp :
         self.__PlabelToken.place(x=0,y=60)
         self.__PentryTokenGitHub.place(x=(self.__PlabelToken.winfo_reqwidth()),y=60)
         self.__PBTNSaveToken.place(x=(self.__PlabelToken.winfo_reqwidth()+self.__PentryTokenGitHub.winfo_reqwidth()+5),y=60)
+        self.__labelRetour.configure(text="Bienvenu sur CodeHelp")
+        self.__gestionnaireRyley.detectionTouche(self.__wScreen,self.__sendCodeHelp,13)
     
     def backRyley(self):
         self.__fncBack()
@@ -168,27 +176,58 @@ class CCodeHelp :
         else :
             showerror("Aucun token entrer","Veuillez entrer le token")
         
-    def sendCodeHelp(self):
+    def __sendCodeHelp(self):
+        texte = ""
         requette = self.__bar.get()
-        if (("doc microsoft" in requette )or ("learn" in requette) or ("visual" in requette)) :
-            requette.replace("doc microsoft","")
-            requette.replace("learn","")
-            requette.replace("visual","")
-            retour  = self.searchDoc.rechercheMicrosoft(requette)
-        else :
-            if ("doc" in requette) : 
-                requette.replace("doc","")
-                retour = self.searchDoc.rechercheDevDoc(requette)
-            else :
-                if "liste depos" in requette or "depos github" in requette :
-                    self.__github.GUI()
-                    self.__github.GUIListDepos()
+        if self.__quitter == False :
+            if (("doc microsoft" in requette )or ("learn" in requette) or ("visual" in requette)) :
+                requette = requette.replace("doc microsoft","")
+                requette = requette.replace("learn","")
+                requette = requette.replace("visual","")
+                if self.searchDoc.rechercheMicrosoft(requette) == True :
+                    texte = "Ouverture de la documentation de microsoft"
                 else :
-                    if "github search" in requette : 
-                        requette.replace("github search","")
-                        self.__github.search(requette)
-                        
+                    texte = "Une erreur c'est produite lors\nde l'Ouverture de la documentation de microsoft"
+            
+            else :
+                if ("doc" in requette) : 
+                    requette = requette.replace("doc","")
+                    print(requette)
+                    if self.searchDoc.rechercheDevDoc(requette) == True :
+                        texte = "Recherche sur DevDoc"
+                    else :
+                        texte = "Une erreur c'est produite"
+                else :
+                    if "liste depos" in requette or "depos github" in requette or "github depos" in requette :
+                        texte = "Voici la liste de vos depot"
+                        self.__github.GUI()
+                        self.__github.GUIListDepos()
+                    else :
+                        if "github search" in requette : 
+                            texte = "Recherche sur github"
+                            requette.replace("github search","")
+                            self.__github.search(requette)
+                        else :
+                            if "quitter" in requette :
+                                texte = "Taper le numero qui correspond : \n1.Aller sur ryley\n2.Quitter Ryley/CodeHelp\n3.Annuler"
+                                self.__quitter = True
+        else :
+            if requette == "1" :
+                texte="retour sur ryley"
+                self.backRyley()
+                self.__quitter = False
+            else :
+                if requette == "2" :
+                    texte="au revoir"
+                    self.__wScreen.destroy()
+                else :
+                    if requette == "3" :
+                        texte="annuler"
+                        self.__quitter = False
+                    else :
+                        texte = "Annuler mauvaise valeur entrer"          
         self.__bar.delete("0",END)
+        self.__labelRetour.configure(text=texte)
                 
 
 

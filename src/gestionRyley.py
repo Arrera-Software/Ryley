@@ -126,3 +126,9 @@ class gestionRL :
     def getBTNIconNoIcon(self):
         if self.__themeSet == True : 
             return self.__BTNIconNoIcon
+    
+    def detectionTouche(self,fenetre,fonc,touche):
+        def anychar(event):
+            if event.keycode == touche:
+                fonc()               
+        fenetre.bind("<Key>", anychar)
