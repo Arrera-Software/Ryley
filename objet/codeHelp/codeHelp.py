@@ -6,6 +6,7 @@ from librairy.travailJSON import*
 from src.gestionRyley import *
 import webbrowser as w
 import requests
+import os
 from github import Github
 
 class CCodeHelp :
@@ -34,7 +35,6 @@ class CCodeHelp :
         # BTN App sur Canvas fondBGTopLeft
         self.__btnBack = Button(self.__fondBGTopLeft,command=self.backRyley)
         self.__btnColorSelector = Button(self.__fondBGTopLeft,command=lambda:self.__selecteurColor.bootSelecteur())
-        self.__btnEditeurDoc = Button(self.__fondBGTopLeft)
         self.__btnGithub = Button(self.__fondBGTopLeft,command=lambda:self.__github.GUI())
         self.__btnLibrairy = Button(self.__fondBGTopLeft,command=lambda : self.__lib.librairy())
         self.__btnOrgaVar = Button(self.__fondBGTopLeft,command=lambda : self.__orgaVar.bootOrganisateur()) 
@@ -42,15 +42,13 @@ class CCodeHelp :
     def __affichage(self):
         self.setTheme()
         self.__largeurFondAPP = self.__fondBGTopLeft.winfo_reqwidth()
-        self.__btnEditeurDoc.place(x=((self.__largeurFondAPP-self.__btnEditeurDoc.winfo_reqwidth())//2),y=100)
-        self.__btnGithub.place(x=((self.__largeurFondAPP-self.__btnGithub.winfo_reqwidth())//2),y=170)
-        self.__btnLibrairy.place(x=((self.__largeurFondAPP-self.__btnLibrairy.winfo_reqwidth())//2),y=240)
-        self.__btnOrgaVar.place(x=((self.__largeurFondAPP-self.__btnOrgaVar.winfo_reqwidth())//2),y=310)
-        self.__btnColorSelector.place(x=((self.__largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=380)
+        self.__btnGithub.place(x=((self.__largeurFondAPP-self.__btnGithub.winfo_reqwidth())//2),y=100)
+        self.__btnLibrairy.place(x=((self.__largeurFondAPP-self.__btnLibrairy.winfo_reqwidth())//2),y=170)
+        self.__btnOrgaVar.place(x=((self.__largeurFondAPP-self.__btnOrgaVar.winfo_reqwidth())//2),y=240)
+        self.__btnColorSelector.place(x=((self.__largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=310)
         self.__btnBack.place(x=((self.__largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-20))
     
     def __clearView(self):
-        self.__btnEditeurDoc.place_forget()
         self.__btnGithub.place_forget()
         self.__btnLibrairy.place_forget()
         self.__btnOrgaVar.place_forget()
@@ -97,10 +95,6 @@ class CCodeHelp :
         IMGColorSelector = PhotoImage(file=self.__gestionnaireRyley.getBTNIconColorSelector(),master=self.__btnColorSelector)
         self.__btnColorSelector.image_names = IMGColorSelector
         self.__btnColorSelector.configure(image=IMGColorSelector)
-        #__btnEditeurDoc
-        IMGEditeurDoc = PhotoImage(file=self.__gestionnaireRyley.getBTNIconEditeurDoc(),master=self.__btnEditeurDoc)
-        self.__btnEditeurDoc.image_names = IMGEditeurDoc
-        self.__btnEditeurDoc.configure(image=IMGEditeurDoc)#
         #__btnGithub
         IMGGithub = PhotoImage(file=self.__gestionnaireRyley.getBTNIconGitHub(),master=self.__btnGithub)
         self.__btnGithub.image_names = IMGGithub
@@ -539,5 +533,3 @@ class CHGithub:
             for i in range(0,(len(self.__listDepo)-1)) :
                 self.boxlistDepot.insert(END,self.__listDepo[i])
             self.__scroll.configure(command=self.boxlistDepot.yview)
-
-        

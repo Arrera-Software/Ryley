@@ -10,7 +10,6 @@ class gestionRL :
         self.__BGBottomCodehelp = str
         self.__BTNIconBack = str
         self.__BTNIconColorSelector = str
-        self.__BTNIconEditeurDoc = str
         self.__BTNIconGitHub = str
         self.__BTNIconLibrairy = str
         self.__BTNIconOrgaVar = str
@@ -36,7 +35,6 @@ class gestionRL :
             self.__BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-light-right.png"
             self.__BTNIconBack = emplacementImageCodehelpBTN + "BTNback.png"
             self.__BTNIconColorSelector = emplacementImageCodehelpBTN + "BTNColorSelector.png"
-            self.__BTNIconEditeurDoc = emplacementImageCodehelpBTN + "BTNEditeurDoc.png"
             self.__BTNIconGitHub = emplacementImageCodehelpBTN + "BTNGithub.png"
             self.__BTNIconLibrairy = emplacementImageCodehelpBTN + "BTNLibrairy.png"
             self.__BTNIconOrgaVar = emplacementImageCodehelpBTN + "BTNOrgaVar.png"
@@ -50,7 +48,6 @@ class gestionRL :
                 self.__BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-dark-right.png"
                 self.__BTNIconBack = emplacementImageCodehelpBTN + "BTNback.png"
                 self.__BTNIconColorSelector = emplacementImageCodehelpBTN + "BTNColorSelector.png"
-                self.__BTNIconEditeurDoc = emplacementImageCodehelpBTN + "BTNEditeurDoc.png"
                 self.__BTNIconGitHub = emplacementImageCodehelpBTN + "BTNGithub.png"
                 self.__BTNIconLibrairy = emplacementImageCodehelpBTN + "BTNLibrairy.png"
                 self.__BTNIconOrgaVar = emplacementImageCodehelpBTN + "BTNOrgaVar.png"
@@ -63,7 +60,6 @@ class gestionRL :
                 self.__BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-light-right.png"
                 self.__BTNIconBack = emplacementImageCodehelpBTN + "BTNback.png"
                 self.__BTNIconColorSelector = emplacementImageCodehelpBTN + "BTNColorSelector.png"
-                self.__BTNIconEditeurDoc = emplacementImageCodehelpBTN + "BTNEditeurDoc.png"
                 self.__BTNIconGitHub = emplacementImageCodehelpBTN + "BTNGithub.png"
                 self.__BTNIconLibrairy = emplacementImageCodehelpBTN + "BTNLibrairy.png"
                 self.__BTNIconOrgaVar = emplacementImageCodehelpBTN + "BTNOrgaVar.png"
@@ -114,10 +110,6 @@ class gestionRL :
     def getBTNIconColorSelector(self):
         if self.__themeSet == True : 
             return self.__BTNIconColorSelector
-        
-    def getBTNIconEditeurDoc(self):
-        if self.__themeSet == True : 
-            return self.__BTNIconEditeurDoc
         
     def getBTNIconGitHub(self):
         if self.__themeSet == True : 
