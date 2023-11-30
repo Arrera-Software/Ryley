@@ -37,7 +37,12 @@ class CCodeHelp :
         self.__btnColorSelector = Button(self.__fondBGTopLeft,command=lambda:self.__selecteurColor.bootSelecteur())
         self.__btnGithub = Button(self.__fondBGTopLeft,command=lambda:self.__github.GUI())
         self.__btnLibrairy = Button(self.__fondBGTopLeft,command=lambda : self.__lib.librairy())
-        self.__btnOrgaVar = Button(self.__fondBGTopLeft,command=lambda : self.__orgaVar.bootOrganisateur()) 
+        self.__btnOrgaVar = Button(self.__fondBGTopLeft,command=lambda : self.__orgaVar.bootOrganisateur())
+        #fondBGTopRight
+        self.labelRetour = Label(self.__fondBGTopRight,font=("arial","15"))
+        #fondBGBottom
+        self.__bar = Entry(self.__fondBGBottom,font=("arial","15"),relief=SOLID,width=23)
+        self.__btnSend =  Button(self.__fondBGBottom,font=("arial","15"),text="Envoyer",command=self.sendCodeHelp)
     
     def __affichage(self):
         self.setTheme()
@@ -47,7 +52,9 @@ class CCodeHelp :
         self.__btnOrgaVar.place(x=((self.__largeurFondAPP-self.__btnOrgaVar.winfo_reqwidth())//2),y=240)
         self.__btnColorSelector.place(x=((self.__largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=310)
         self.__btnBack.place(x=((self.__largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-20))
-    
+        self.__bar.place(x=0,y=((self.__fondBGBottom.winfo_reqheight()-self.__bar.winfo_reqheight())//2))
+        self.__btnSend.place(x=self.__bar.winfo_reqwidth(),y=((self.__fondBGBottom.winfo_reqheight()-self.__btnSend.winfo_reqheight())//2))
+
     def __clearView(self):
         self.__btnGithub.place_forget()
         self.__btnLibrairy.place_forget()
@@ -67,6 +74,7 @@ class CCodeHelp :
         self.__orgaVar = CHOrgraVarriable(self.__mainColor,self.__mainTextColor)
         self.__lib = CHLibrairy(self.__mainColor,self.__mainTextColor)
         self.__github = CHGithub(self.__mainColor,self.__mainTextColor,self.__fileParaCode)
+        self.searchDoc = CHsearchDoc()
         #Frame parametre
         self.__framePara.configure(bg=self.__mainColor)
         #Widget parametre
@@ -159,6 +167,31 @@ class CCodeHelp :
             showinfo("Token enregistrer","Votre token github est enregistrer")
         else :
             showerror("Aucun token entrer","Veuillez entrer le token")
+        
+    def sendCodeHelp(self):
+        requette = self.__bar.get()
+        if (("doc microsoft" in requette )or ("learn" in requette) or ("visual" in requette)) :
+            requette.replace("doc microsoft","")
+            requette.replace("learn","")
+            requette.replace("visual","")
+            retour  = self.searchDoc.rechercheMicrosoft(requette)
+        else :
+            if ("doc" in requette) : 
+                requette.replace("doc","")
+                retour = self.searchDoc.rechercheDevDoc(requette)
+            else :
+                if "liste depos" in requette or "depos github" in requette :
+                    self.__github.GUI()
+                    self.__github.GUIListDepos()
+                else :
+                    if "github search" in requette : 
+                        requette.replace("github search","")
+                        self.__github.search(requette)
+                        
+        self.__bar.delete("0",END)
+                
+
+
     
 class CCHcolorSelector:
     def __init__(self,mainColor:str,textColor:str):
@@ -465,7 +498,7 @@ class CHGithub:
         self.__scroll = Scrollbar(self.__frameList,orient="vertical")
         #widget
         labelAcceuil = Label(self.__mainFrame,text="GitHub",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","25"))
-        btnList = Button(self.__mainFrame,text="Vos depot",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),command=self.__GUIListDepos)
+        btnList = Button(self.__mainFrame,text="Vos depot",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),command=self.GUIListDepos)
         btnRecherche = Button(self.__mainFrame,text="Recherche",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","15"),command=self.__GUISearch)
         self.__entrySeach = Entry(self.__frameSearch,font=("arial","15"),relief=SOLID)
         labelSearch = Label(self.__frameSearch,text="Recherche sur Github",bg=self.__mainColor,fg=self.__mainTextColor,font=("arial","25"))
@@ -503,7 +536,7 @@ class CHGithub:
         self.search(str(self.__entrySeach.get()))
         self.__entrySeach.delete("0",END)
 
-    def setListDepos(self)->bool:
+    def __setListDepos(self)->bool:
         if self.configFile.lectureJSON("token") :
             access = Github(self.configFile.lectureJSON("token"))
             for repo in access.get_user().get_repos():
@@ -517,19 +550,26 @@ class CHGithub:
         self.__frameError.place_forget()
         self.__frameSearch.place_forget()
         self.__mainFrame.place(relx=0.5,rely=0.5,anchor="center")
-
-    def getListDepos(self):
-        if self.setListDepos() == True :
-            return self.__listDepo 
-        else :
-            return []
         
-    def __GUIListDepos(self):
+    def GUIListDepos(self):
         self.__mainFrame.place_forget()
-        if self.setListDepos() == False :
+        if self.__setListDepos() == False :
             self.__frameError.place(relx=0.5,rely=0.5,anchor="center")
         else :
             self.__frameList.place(relx=0.5,rely=0.5,anchor="center")
             for i in range(0,(len(self.__listDepo)-1)) :
                 self.boxlistDepot.insert(END,self.__listDepo[i])
             self.__scroll.configure(command=self.boxlistDepot.yview)
+
+class CHsearchDoc :
+    def __init__(self):
+        self.__lienDevDoc = "https://devdocs.io/#q="
+        self.__lienMicrosoft = "https://learn.microsoft.com/en-us/search/?terms="
+
+    def rechercheDevDoc(self,recherche:str)->bool:
+        url = self.__lienDevDoc+recherche
+        return w.open(url)
+    
+    def rechercheMicrosoft(self,recherche:str)->bool:
+        url = self.__lienMicrosoft+recherche
+        return w.open(url)
