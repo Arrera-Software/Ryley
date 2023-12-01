@@ -76,7 +76,7 @@ class CCodeHelp :
         self.__mainTextColor = self.__gestionnaire.getMainTextcolor()
         #objet 
         self.__selecteurColor = CCHcolorSelector(self.__mainColor,self.__mainTextColor)
-        self.__orgaVar = CHOrgraVarriable(self.__mainColor,self.__mainTextColor)
+        self.__orgaVar = CHOrgraVarriable(self.__mainColor,self.__mainTextColor,self.__objetDectOS)
         self.__lib = CHLibrairy(self.__mainColor,self.__mainTextColor)
         self.__github = CHGithub(self.__mainColor,self.__mainTextColor,self.__fileParaCode)
         self.searchDoc = CHsearchDoc()
@@ -303,11 +303,12 @@ class CCHcolorSelector:
         self.__screenColor.clipboard_append(self.__colorRGB)
     
 class CHOrgraVarriable:
-        def __init__(self,mainColor:str,textColor:str):
+        def __init__(self,mainColor:str,textColor:str,dectOS:OS):
             self.__mainColor = mainColor
             self.__mainTextColor = textColor
             self.__docOpen = False
             self.__file = ""
+            self.__objetOS = dectOS
         
         def bootOrganisateur(self):
             self.__docOpen = False
@@ -342,7 +343,7 @@ class CHOrgraVarriable:
             #Widget frameAdd
             labelAdd = Label(frameAdd,text="Ajouter une varriable",font=("arial","25"),bg=self.__mainColor,fg=self.__mainTextColor)
             btnAdd = Button(frameAdd,text="Valider",font=("arial","15"),bg=self.__mainColor,fg=self.__mainTextColor,command=self.__addValeur)
-            frameEntry = Frame(frameAdd,bg=self.__mainColor,width=450,height=70)
+            frameEntry = Frame(frameAdd,bg=self.__mainColor,width=485,height=70)
             self.__entryName = Entry(frameEntry,font=("arial","13"),relief=SOLID)
             self.__entryValeur = Entry(frameEntry,font=("arial","13"),relief=SOLID)
             menuType = OptionMenu(frameEntry,self.__varType,*self.__listType)
@@ -352,8 +353,13 @@ class CHOrgraVarriable:
             self.__menuSuppr = OptionMenu(self.__frameSuppr,self.__varSuppr,*self.__listSuppr)
             #Affichage
             self.__frameNoOpenDoc.place(relx=0, rely=0, relwidth=0.5, relheight=1)
-            frameAdd.place(x=self.__screenOrganisateurVar.winfo_width()/2, y=0)
-            self.__frameSuppr.place(x=self.__screenOrganisateurVar.winfo_width()/2, y=self.__screenOrganisateurVar.winfo_height()/2)
+            if (self.__objetOS.osWindows()==True):
+                frameAdd.place(x=(self.__screenOrganisateurVar.winfo_width()/2), y=0)
+                self.__frameSuppr.place(x=self.__screenOrganisateurVar.winfo_width()/2, y=self.__screenOrganisateurVar.winfo_height()/2)
+            else :
+                if (self.__objetOS.osLinux()==True):
+                    frameAdd.place(x=500, y=0)
+                    self.__frameSuppr.place(x=500, y=350)
             #frameAdd
             labelAdd.place(x=((frameAdd.winfo_reqwidth()-labelAdd.winfo_reqwidth())//2),y=2)
             btnAdd.place(x=((frameAdd.winfo_reqwidth()-btnAdd.winfo_reqwidth())//2),y=(frameAdd.winfo_reqheight()-btnAdd.winfo_reqheight()-2))
@@ -364,7 +370,11 @@ class CHOrgraVarriable:
             #frameSuppr
             labelSuppr.place(x=((self.__frameSuppr.winfo_reqwidth()-labelSuppr.winfo_reqwidth())//2),y=0)
             self.__menuSuppr.place(relx=0.5,rely=0.5,anchor="center")
-            btnSuppr.place(x=((self.__frameSuppr.winfo_reqwidth()-btnSuppr.winfo_reqwidth())//2),y=(self.__frameSuppr.winfo_reqheight()-btnSuppr.winfo_reqheight()-10))
+            if (self.__objetOS.osWindows()==True):
+                btnSuppr.place(x=((self.__frameSuppr.winfo_reqwidth()-btnSuppr.winfo_reqwidth())//2),y=(self.__frameSuppr.winfo_reqheight()-btnSuppr.winfo_reqheight()-10))
+            else :
+                if (self.__objetOS.osLinux()==True):
+                    btnSuppr.place(x=((self.__frameSuppr.winfo_reqwidth()-btnSuppr.winfo_reqwidth())//2),y=(self.__frameSuppr.winfo_reqheight()-btnSuppr.winfo_reqheight()-40))
             #frameNoOpenDoc
             labelNoDoc.place(relx=0.5,rely=0.5,anchor="center")
             #Ajout de menu a la fenetre
@@ -406,6 +416,7 @@ class CHOrgraVarriable:
                 self.__frameNoOpenDoc.place_forget()
                 self.__zoneEcriture.place(relx=0, rely=0, relwidth=0.5, relheight=1)
                 self.__refreshSuppr()
+                self.__saveOnFile()
             else :
                 showwarning("Aucun document enregister","Veuillez enregister un document")
 
