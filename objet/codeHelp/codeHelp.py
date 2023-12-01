@@ -217,6 +217,23 @@ class CCodeHelp :
                             if "quitter" in requette :
                                 texte = "Taper le numero qui correspond : \n1.Aller sur ryley\n2.Quitter Ryley/CodeHelp\n3.Annuler"
                                 self.__quitter = True
+                            else :
+                                if "couleur" in requette :
+                                    texte ="Ouverture du colors selector"
+                                    self.__selecteurColor.bootSelecteur()
+                                else :
+                                    if "organisateur de varriable" in requette or "orga var" in requette :
+                                        texte ="Ouverture de l'organisateur de varriable"
+                                        self.__orgaVar.bootOrganisateur()
+                                    else :
+                                        if "librairy" in requette or "lib" in requette :
+                                            texte = "Ouverture de la librairy Arrera"
+                                            self.__lib.librairy()
+                                        else :
+                                            if "github" in requette :
+                                                texte = "Ouverture de l'interface github"
+                                                self.__github.GUI()
+                    
         else :
             if requette == "1" :
                 texte="retour sur ryley"
@@ -247,7 +264,7 @@ class CCHcolorSelector:
         self.__screenColor = Toplevel()
         self.__screenColor.title("CodeHelp : selecteur de couleur")
         self.__screenColor.config(bg=self.__mainColor)
-        self.__screenColor.iconphoto(False,PhotoImage(file="asset/codehelp/codeHelpIcon.png"))
+        self.__screenColor.iconphoto(False,PhotoImage(file="asset/codeHelpIcon.png"))
         self.__screenColor.maxsize(800,500)
         self.__screenColor.minsize(800,500)
         #fonction
@@ -299,7 +316,7 @@ class CHOrgraVarriable:
             self.__screenOrganisateurVar.minsize(1000,700)
             self.__screenOrganisateurVar.maxsize(1000,700)
             self.__screenOrganisateurVar.title("CodeHelp : Organisateur de varriable")
-            self.__screenOrganisateurVar.iconphoto(False,PhotoImage(file="asset/codehelp/codeHelpIcon.png"))
+            self.__screenOrganisateurVar.iconphoto(False,PhotoImage(file="asset/codeHelpIcon.png"))
             self.__screenOrganisateurVar.config(bg="red")
             #var
             self.__varType = StringVar(self.__screenOrganisateurVar)
