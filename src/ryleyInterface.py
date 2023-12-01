@@ -5,12 +5,14 @@ from objet.codeHelp.codeHelp import*
 from setting.arreraAssistantSetting import*
 import time as t
 from  ObjetsNetwork.arreraNeuron import*
+from librairy.dectectionOS import*
 
 class interfaceRyley:
     def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
         self.__gestionnaire = gestionnaire
         self.__arreraNetwork = networkNeuron
         self.__objetNetwork = network()
+        self.__objetDectOS = OS()
     
     def __setTheme(self):
         self.__gestionnaire.setTheme()
@@ -75,7 +77,7 @@ class interfaceRyley:
         #parametrage parametre
         self.__boutonEnvoyer=Button(self.__bottom,text="Envoyer",font=("arial","15"),command=self.__envoi)
         #objet codehelp
-        self.objetCodeHelp = CCodeHelp(self.__screen,self.__gestionnaire)
+        self.objetCodeHelp = CCodeHelp(self.__screen,self.__gestionnaire,self.__objetDectOS)
         self.objetCodeHelp.setFonctionback(self.__unViewCodehelp)
         #Application du theme
         self.__setTheme()
@@ -94,7 +96,11 @@ class interfaceRyley:
     def bootRyley(self):
         self.__top.place(x=0,y=0)
         self.__bottom.place(x=0,y=400)
-        self.__gestionnaire.detectionTouche(self.__screen,self.__envoi,13)
+        if (self.__objetDectOS.osWindows()==True) and (self.__objetDectOS.osLinux()==False) : 
+            self.__gestionnaire.detectionTouche(self.__screen,self.__envoi,13)
+        else :
+            if (self.__objetDectOS.osWindows()==False) and (self.__objetDectOS.osLinux()==True) :
+                self.__gestionnaire.detectionTouche(self.__screen,self.__envoi,36)
     
     def __viewCodeHelp(self):
         self.__top.place_forget()

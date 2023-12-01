@@ -3,6 +3,7 @@ from tkinter import colorchooser
 from tkinter.filedialog import*
 from tkinter.messagebox import*
 from librairy.travailJSON import*
+from librairy.dectectionOS import*
 from src.gestionRyley import *
 import webbrowser as w
 import requests
@@ -10,9 +11,10 @@ import os
 from github import Github
 
 class CCodeHelp :
-    def __init__(self,screen:Tk,gestionnaireRL:gestionRL) :
+    def __init__(self,screen:Tk,gestionnaireRL:gestionRL,dectOS:OS) :
         self.__wScreen = screen
-        self.__gestionnaireRyley = gestionnaireRL
+        self.__gestionnaire = gestionnaireRL
+        self.__objetDectOS = dectOS
         #Fichier Para Codehelp
         self.__fileParaCode = jsonWork("objet/codeHelp/codehelp.json")
         #image 
@@ -70,8 +72,8 @@ class CCodeHelp :
         self.__fncBack = fnc
 
     def setTheme(self):
-        self.__mainColor = self.__gestionnaireRyley.getMaincolor()
-        self.__mainTextColor = self.__gestionnaireRyley.getMainTextcolor()
+        self.__mainColor = self.__gestionnaire.getMaincolor()
+        self.__mainTextColor = self.__gestionnaire.getMainTextcolor()
         #objet 
         self.__selecteurColor = CCHcolorSelector(self.__mainColor,self.__mainTextColor)
         self.__orgaVar = CHOrgraVarriable(self.__mainColor,self.__mainTextColor)
@@ -89,36 +91,36 @@ class CCodeHelp :
         self.__labelRetour.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__btnSend.configure(bg="grey",fg="white")
         #fondBGTopLeft
-        BGTopLeft = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpLeft(),master=self.__fondBGTopLeft)
+        BGTopLeft = PhotoImage(file=self.__gestionnaire.getBGTopCodeHelpLeft(),master=self.__fondBGTopLeft)
         self.__fondBGTopLeft.image_names = BGTopLeft
         self.__fondBGTopLeft.create_image(0,0,image=BGTopLeft,anchor="nw")
         #fondBGTopRight
-        BGTopRight = PhotoImage(file=self.__gestionnaireRyley.getBGTopCodeHelpRight(),master=self.__fondBGTopRight)
+        BGTopRight = PhotoImage(file=self.__gestionnaire.getBGTopCodeHelpRight(),master=self.__fondBGTopRight)
         self.__fondBGTopRight.image_names = BGTopRight
         self.__fondBGTopRight.create_image(0,0,image=BGTopRight,anchor="nw")
         #fondBGBottom
-        BGBottom = PhotoImage(file=self.__gestionnaireRyley.getBGBottomCodeHelp(),master=self.__fondBGBottom)
+        BGBottom = PhotoImage(file=self.__gestionnaire.getBGBottomCodeHelp(),master=self.__fondBGBottom)
         self.__fondBGBottom.image_names = BGBottom
         self.__fondBGBottom.create_image(0,0,image=BGBottom,anchor="nw")
         # BTN App sur Canvas fondBGTopLeft
         #__btnBack
-        IMGBack = PhotoImage(file=self.__gestionnaireRyley.getBTNIconBack(),master=self.__btnBack)
+        IMGBack = PhotoImage(file=self.__gestionnaire.getBTNIconBack(),master=self.__btnBack)
         self.__btnBack.image_names = IMGBack
         self.__btnBack.configure(image=IMGBack)
         #__btnColorSelector
-        IMGColorSelector = PhotoImage(file=self.__gestionnaireRyley.getBTNIconColorSelector(),master=self.__btnColorSelector)
+        IMGColorSelector = PhotoImage(file=self.__gestionnaire.getBTNIconColorSelector(),master=self.__btnColorSelector)
         self.__btnColorSelector.image_names = IMGColorSelector
         self.__btnColorSelector.configure(image=IMGColorSelector)
         #__btnGithub
-        IMGGithub = PhotoImage(file=self.__gestionnaireRyley.getBTNIconGitHub(),master=self.__btnGithub)
+        IMGGithub = PhotoImage(file=self.__gestionnaire.getBTNIconGitHub(),master=self.__btnGithub)
         self.__btnGithub.image_names = IMGGithub
         self.__btnGithub.configure(image=IMGGithub)#
         #__btnLibrairy
-        IMGLibrairy = PhotoImage(file=self.__gestionnaireRyley.getBTNIconLibrairy(),master=self.__btnLibrairy)
+        IMGLibrairy = PhotoImage(file=self.__gestionnaire.getBTNIconLibrairy(),master=self.__btnLibrairy)
         self.__btnLibrairy.image_names = IMGLibrairy
         self.__btnLibrairy.configure(image=IMGLibrairy)#
         #__btnOrgaVar
-        IMGOrgaVar = PhotoImage(file=self.__gestionnaireRyley.getBTNIconOrgaVar(),master=self.__btnOrgaVar)
+        IMGOrgaVar = PhotoImage(file=self.__gestionnaire.getBTNIconOrgaVar(),master=self.__btnOrgaVar)
         self.__btnOrgaVar.image_names = IMGOrgaVar
         self.__btnOrgaVar.configure(image=IMGOrgaVar)#
         
@@ -157,7 +159,11 @@ class CCodeHelp :
         self.__PentryTokenGitHub.place(x=(self.__PlabelToken.winfo_reqwidth()),y=60)
         self.__PBTNSaveToken.place(x=(self.__PlabelToken.winfo_reqwidth()+self.__PentryTokenGitHub.winfo_reqwidth()+5),y=60)
         self.__labelRetour.configure(text="Bienvenu sur CodeHelp")
-        self.__gestionnaireRyley.detectionTouche(self.__wScreen,self.__sendCodeHelp,13)
+        if (self.__objetDectOS.osWindows()==True) and (self.__objetDectOS.osLinux()==False) : 
+            self.__gestionnaire.detectionTouche(self.__wScreen,self.__sendCodeHelp,13)
+        else :
+            if (self.__objetDectOS.osWindows()==False) and (self.__objetDectOS.osLinux()==True) :
+                self.__gestionnaire.detectionTouche(self.__wScreen,self.__sendCodeHelp,36)
     
     def backRyley(self):
         self.__fncBack()
