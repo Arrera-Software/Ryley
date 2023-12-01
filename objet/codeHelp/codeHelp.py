@@ -40,6 +40,7 @@ class CCodeHelp :
         self.__btnGithub = Button(self.__fondBGTopLeft,command=lambda:self.__github.GUI())
         self.__btnLibrairy = Button(self.__fondBGTopLeft,command=lambda : self.__lib.librairy())
         self.__btnOrgaVar = Button(self.__fondBGTopLeft,command=lambda : self.__orgaVar.bootOrganisateur())
+        self.__btnObjetCode = Button(self.__fondBGTopLeft,command=lambda : self.__objGUI.bootObjCreator())
         #fondBGTopRight
         self.__labelRetour = Label(self.__fondBGTopRight,font=("arial","15"))
         #fondBGBottom
@@ -55,7 +56,8 @@ class CCodeHelp :
         self.__btnLibrairy.place(x=((self.__largeurFondAPP-self.__btnLibrairy.winfo_reqwidth())//2),y=170)
         self.__btnOrgaVar.place(x=((self.__largeurFondAPP-self.__btnOrgaVar.winfo_reqwidth())//2),y=240)
         self.__btnColorSelector.place(x=((self.__largeurFondAPP-self.__btnColorSelector.winfo_reqwidth())//2),y=310)
-        self.__btnBack.place(x=((self.__largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-20))
+        self.__btnObjetCode.place(x=((self.__largeurFondAPP-self.__btnObjetCode.winfo_reqwidth())//2),y=380)
+        self.__btnBack.place(x=((self.__largeurFondAPP-self.__btnBack.winfo_reqwidth())//2),y=(self.__fondBGTopLeft.winfo_reqheight()-self.__btnBack.winfo_reqheight()-25))
         self.__bar.place(x=0,y=((self.__fondBGBottom.winfo_reqheight()-self.__bar.winfo_reqheight())//2))
         self.__btnSend.place(x=self.__bar.winfo_reqwidth()+5,y=((self.__fondBGBottom.winfo_reqheight()-self.__btnSend.winfo_reqheight())//2))
         self.__labelRetour.place(x="10",y="300")
@@ -80,6 +82,7 @@ class CCodeHelp :
         self.__lib = CHLibrairy(self.__mainColor,self.__mainTextColor)
         self.__github = CHGithub(self.__mainColor,self.__mainTextColor,self.__fileParaCode)
         self.searchDoc = CHsearchDoc()
+        self.__objGUI = CHObjCreator(self.__mainColor,self.__mainTextColor)
         #Frame parametre
         self.__framePara.configure(bg=self.__mainColor)
         #Widget parametre
@@ -646,3 +649,54 @@ class CHsearchDoc :
     def rechercheMicrosoft(self,recherche:str)->bool:
         url = self.__lienMicrosoft+recherche
         return w.open(url)
+    
+class CHObjCreator:
+    def __init__(self,mainColor:str,textColor:str):
+        self.__mainColor = mainColor
+        self.__textColor = textColor
+
+    def bootObjCreator(self):
+        self.__wScreen = Toplevel()
+        self.__wScreen.title("CodeHelp : Objet createur")
+        self.__wScreen.iconphoto(False,PhotoImage(file="asset/codeHelpIcon.png"))
+        self.__wScreen.minsize(1000,700)
+        self.__wScreen.maxsize(1000,700)
+        self.__wScreen.configure(bg="red")
+        #frame 
+        self.__frameClass = Frame(self.__wScreen,width=500,height=700,bg=self.__mainColor)
+        self.__frameAddSuppr = Frame(self.__wScreen,width=500,height=700,bg=self.__mainColor)
+        #menu
+        menuobjetCreator = Menu(self.__wScreen,bg=self.__mainColor,fg=self.__textColor)
+        menuobjetCreator.add_command(label="nouveau")
+        menuobjetCreator.add_command(label="ouvrir")
+        self.__wScreen.configure(menu=menuobjetCreator)
+        #widget
+        #frameClass
+        self.__labelClassName = Label(self.__frameClass,bg=self.__mainColor,fg=self.__textColor,font=("arial","15"))
+        self.__labelprivate = Label(self.__frameClass,bg=self.__mainColor,fg=self.__textColor,font=("arial","15"))
+        self.__labelpublic = Label(self.__frameClass,bg=self.__mainColor,fg=self.__textColor,font=("arial","15"))
+        self.__labelLigne1 = Label(self.__frameClass,bg="grey",width=500,height=1)
+        self.__labelLigne2 = Label(self.__frameClass,bg="grey",width=500,height=1)
+        #rameAddSuppr
+        self.btnAdd = Button(self.__frameAddSuppr,bg=self.__mainColor,fg=self.__textColor,text="Ajouter",font=("arial","15"))
+        self.btnSuppr = Button(self.__frameAddSuppr,bg=self.__mainColor,fg=self.__textColor,text="Supprimer",font=("arial","15"))
+        self.__affichageObj()
+        #frameAdd
+        #Affichage
+        #frameClass
+        self.__labelClassName.place(x=0,y=0)
+        self.__labelLigne1.place(x=0,y=self.__labelClassName.winfo_reqheight())
+        self.__labelprivate.place(x=15,y=self.__labelClassName.winfo_reqheight()+self.__labelLigne1.winfo_reqheight())
+        self.__labelLigne2.place(x=0,y=self.__labelClassName.winfo_reqheight()+self.__labelLigne1.winfo_reqheight()+self.__labelprivate.winfo_reqheight())
+        self.__labelpublic.place(x=15,y=self.__labelClassName.winfo_reqheight()+self.__labelLigne1.winfo_reqheight()+self.__labelprivate.winfo_reqheight()+self.__labelLigne2.winfo_reqheight())
+        #rameAddSuppr
+        self.btnAdd.place(x=((self.__frameAddSuppr.winfo_reqwidth()-self.btnAdd.winfo_reqwidth())//2),y=200)
+        self.btnSuppr.place(x=((self.__frameAddSuppr.winfo_reqwidth()-self.btnSuppr.winfo_reqwidth())//2),y=300)
+        #main
+        self.__frameClass.pack(side="left")
+        self.__frameAddSuppr.pack(side="right")
+
+    def __affichageObj(self):
+        self.__labelClassName.configure(text="class")
+        self.__labelprivate.configure(text="private :")
+        self.__labelpublic.configure(text="public :")
