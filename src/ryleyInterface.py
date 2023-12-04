@@ -32,7 +32,7 @@ class interfaceRyley:
         self.__bottom.create_image( 0, 0, image = self.bgBOTTOM, anchor = "nw")
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
-        self.objetCodeHelp.setTheme()
+        self.__objetCodeHelp.setTheme()
         if self.__mainColor == "#ffffff" :
             self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSettingLight.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
         else :
@@ -77,8 +77,8 @@ class interfaceRyley:
         #parametrage parametre
         self.__boutonEnvoyer=Button(self.__bottom,text="Envoyer",font=("arial","15"),command=self.__envoi)
         #objet codehelp
-        self.objetCodeHelp = CCodeHelp(self.__screen,self.__gestionnaire,self.__objetDectOS)
-        self.objetCodeHelp.setFonctionback(self.__unViewCodehelp)
+        self.__objetCodeHelp = CCodeHelp(self.__screen,self.__gestionnaire,self.__objetDectOS)
+        self.__objetCodeHelp.setFonctionback(self.__unViewCodehelp)
         #Application du theme
         self.__setTheme()
         #Afichage
@@ -90,8 +90,8 @@ class interfaceRyley:
 
     def bootCodehelp(self):
         self.__fichierMenu.entryconfigure("Codehelp",label="Ryley",command=self.__unViewCodehelp)
-        self.__fichierMenu.entryconfigure("Paramétre",label="Paramétre",command=self.objetCodeHelp.viewPara)
-        self.objetCodeHelp.view()
+        self.__fichierMenu.entryconfigure("Paramétre",label="Paramétre",command=self.__objetCodeHelp.viewPara)
+        self.__objetCodeHelp.view()
     
     def bootRyley(self):
         self.__top.place(x=0,y=0)
@@ -109,7 +109,7 @@ class interfaceRyley:
     
     def __unViewCodehelp(self):
         self.__fichierMenu.entryconfigure("Ryley",label="Codehelp",command=self.__viewCodeHelp)
-        self.objetCodeHelp.unView()
+        self.__objetCodeHelp.unView()
         self.bootRyley()
         self.__screen.title("Ryley")
         self.__screen.iconphoto(False,self.__iconWindows)
@@ -161,9 +161,14 @@ class interfaceRyley:
     def __envoi(self):
         statement = self.__barreR.get()
         self.__barreR.delete("0",END)
-        var,texte = self.objetCodeHelp.neuron(statement)
+        if "codehelp" in statement :
+            var = 0 
+            texte = "OK je t'ouvre codehelp"
+            self.bootCodehelp()
         if var == 0 :
-            var,texte = self.__arreraNetwork.neuron(statement)
+            var,texte = self.__objetCodeHelp.neuron(statement)
+            if var == 0 :
+                var,texte = self.__arreraNetwork.neuron(statement)
         finalTexte = self.__formatageText(texte)
         if var == 15 :
             self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
