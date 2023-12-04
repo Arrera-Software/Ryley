@@ -7,7 +7,7 @@ from librairy.dectectionOS import*
 from src.gestionRyley import *
 import webbrowser as w
 import requests
-import os
+from neuron.neuroneCodeHelp import*
 from github import Github
 
 class CCodeHelp :
@@ -83,6 +83,8 @@ class CCodeHelp :
         self.__github = CHGithub(self.__mainColor,self.__mainTextColor,self.__fileParaCode)
         self.searchDoc = CHsearchDoc()
         #self.__objGUI = CHObjCreator(self.__mainColor,self.__mainTextColor)
+        #objet neuron
+        self.__neuronCodeHelp = codeHelpNeuron(self.searchDoc,self.__github,self.__selecteurColor,self.__lib,self.__orgaVar)
         #Frame parametre
         self.__framePara.configure(bg=self.__mainColor)
         #Widget parametre
@@ -189,54 +191,13 @@ class CCodeHelp :
         texte = ""
         requette = self.__bar.get()
         if self.__quitter == False :
-            if (("doc microsoft" in requette )or ("learn" in requette) or ("visual" in requette)) :
-                requette = requette.replace("doc microsoft","")
-                requette = requette.replace("learn","")
-                requette = requette.replace("visual","")
-                if self.searchDoc.rechercheMicrosoft(requette) == True :
-                    texte = "Ouverture de la documentation de microsoft"
-                else :
-                    texte = "Une erreur c'est produite lors\nde l'Ouverture de la documentation de microsoft"
-            
+            if "quitter" in requette :
+                texte = "Taper le numero qui correspond : \n1.Aller sur ryley\n2.Quitter Ryley/CodeHelp\n3.Annuler"
+                self.__quitter = True 
             else :
-                if ("doc" in requette) : 
-                    requette = requette.replace("doc","")
-                    print(requette)
-                    if self.searchDoc.rechercheDevDoc(requette) == True :
-                        texte = "Recherche sur DevDoc"
-                    else :
-                        texte = "Une erreur c'est produite"
-                else :
-                    if "liste depos" in requette or "depos github" in requette or "github depos" in requette :
-                        texte = "Voici la liste de vos depot"
-                        self.__github.GUI()
-                        self.__github.GUIListDepos()
-                    else :
-                        if "github search" in requette : 
-                            texte = "Recherche sur github"
-                            requette.replace("github search","")
-                            self.__github.search(requette)
-                        else :
-                            if "quitter" in requette :
-                                texte = "Taper le numero qui correspond : \n1.Aller sur ryley\n2.Quitter Ryley/CodeHelp\n3.Annuler"
-                                self.__quitter = True
-                            else :
-                                if "couleur" in requette :
-                                    texte ="Ouverture du colors selector"
-                                    self.__selecteurColor.bootSelecteur()
-                                else :
-                                    if "organisateur de varriable" in requette or "orga var" in requette :
-                                        texte ="Ouverture de l'organisateur de varriable"
-                                        self.__orgaVar.bootOrganisateur()
-                                    else :
-                                        if "librairy" in requette or "lib" in requette :
-                                            texte = "Ouverture de la librairy Arrera"
-                                            self.__lib.librairy()
-                                        else :
-                                            if "github" in requette :
-                                                texte = "Ouverture de l'interface github"
-                                                self.__github.GUI()
-                    
+                var ,texte = self.neuron(requette)
+                if var == 0 :
+                    texte = "Imposible de faire ce que tu demande"
         else :
             if requette == "1" :
                 texte="retour sur ryley"
@@ -254,6 +215,9 @@ class CCodeHelp :
                         texte = "Annuler mauvaise valeur entrer"          
         self.__bar.delete("0",END)
         self.__labelRetour.configure(text=texte)
+    
+    def neuron(self,text:str):
+        return self.__neuronCodeHelp.neuron(text)
                 
 
 
