@@ -81,10 +81,10 @@ class CCodeHelp :
         self.__orgaVar = CHOrgraVarriable(self.__mainColor,self.__mainTextColor,self.__objetDectOS)
         self.__lib = CHLibrairy(self.__mainColor,self.__mainTextColor)
         self.__github = CHGithub(self.__mainColor,self.__mainTextColor,self.__fileParaCode)
-        self.searchDoc = CHsearchDoc()
+        self.__searchDoc = CHsearchDoc()
         #self.__objGUI = CHObjCreator(self.__mainColor,self.__mainTextColor)
         #objet neuron
-        self.__neuronCodeHelp = codeHelpNeuron(self.searchDoc,self.__github,self.__selecteurColor,self.__lib,self.__orgaVar)
+        self.__neuronCodeHelp = codeHelpNeuron(self.__searchDoc,self.__github,self.__selecteurColor,self.__lib,self.__orgaVar)
         #Frame parametre
         self.__framePara.configure(bg=self.__mainColor)
         #Widget parametre
