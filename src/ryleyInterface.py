@@ -161,7 +161,9 @@ class interfaceRyley:
     def __envoi(self):
         statement = self.__barreR.get()
         self.__barreR.delete("0",END)
-        var,texte = self.__arreraNetwork.neuron(statement)
+        var,texte = self.objetCodeHelp.neuron(statement)
+        if var == 0 :
+            var,texte = self.__arreraNetwork.neuron(statement)
         finalTexte = self.__formatageText(texte)
         if var == 15 :
             self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
