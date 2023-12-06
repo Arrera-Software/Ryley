@@ -8,6 +8,7 @@ class gestionRL :
         self.__BGTopCodehelpRight = str
         self.__BGTopCodehelpLeft = str
         self.__BGBottomCodehelp = str
+        self.__BGActu = str
         self.__BTNIconBack = str
         self.__BTNIconColorSelector = str
         self.__BTNIconGitHub = str
@@ -33,6 +34,7 @@ class gestionRL :
             self.__BGTop = emplacementImage + "BGTop-light.png"
             self.__BGTopCodehelpLeft = emplacementImageCodehelp+"BGTopCodeHelp-light-left.png"
             self.__BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-light-right.png"
+            self.__BGActu = emplacementImage+"BGActu-light.png"
             self.__BTNIconBack = emplacementImageCodehelpBTN + "BTNback.png"
             self.__BTNIconColorSelector = emplacementImageCodehelpBTN + "BTNColorSelector.png"
             self.__BTNIconGitHub = emplacementImageCodehelpBTN + "BTNGithub.png"
@@ -44,6 +46,7 @@ class gestionRL :
             if self.__configFile.lectureJSON("theme") == "dark":
                 emplacementImageCodehelpBTN = emplacementImageCodehelp+"BTN/Dark/"
                 self.__BGTop = emplacementImage + "BGTop-dark.png"
+                self.__BGActu = emplacementImage+"BGActu-dark.png"
                 self.__BGTopCodehelpLeft = emplacementImageCodehelp+"BGTopCodeHelp-dark-left.png"
                 self.__BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-dark-right.png"
                 self.__BTNIconBack = emplacementImageCodehelpBTN + "BTNback.png"
@@ -56,6 +59,7 @@ class gestionRL :
             else :
                 emplacementImageCodehelpBTN = emplacementImageCodehelp+"BTN/Light/"
                 self.__BGTop = emplacementImage + "BGTop-light.png"
+                self.__BGActu = emplacementImage+"BGActu-light.png"
                 self.__BGTopCodehelpLeft = emplacementImageCodehelp+"BGTopCodeHelp-light-left.png"
                 self.__BGTopCodehelpRight = emplacementImageCodehelp+"BGTopCodeHelp-light-right.png"
                 self.__BTNIconBack = emplacementImageCodehelpBTN + "BTNback.png"
@@ -127,6 +131,10 @@ class gestionRL :
         if self.__themeSet == True : 
             return self.__BTNIconNoIcon
     
+    def getBGActu(self):
+        if self.__themeSet == True :
+            return self.__BGActu    
+
     def detectionTouche(self,fenetre,fonc,touche):
         def anychar(event):
             if event.keycode == touche:

@@ -22,14 +22,20 @@ class interfaceRyley:
         self.__secondTextColor = self.__gestionnaire.getSecondTextColor()
         self.__BGTop = self.__gestionnaire.getBGTop()
         self.__BGBottom = self.__gestionnaire.getBGBottom()
+        self.__BGActu = self.__gestionnaire.getBGActu()
         self.__screen.config(bg=self.__mainColor)
-        self.bgTOP = PhotoImage(file = self.__BGTop)
-        self.bgBOTTOM = PhotoImage(file = self.__BGBottom)
+        self.__bgTOP = PhotoImage(file = self.__BGTop)
+        self.__bgBOTTOM = PhotoImage(file = self.__BGBottom)
+        self.__bgActu = PhotoImage(file=self.__BGActu)
         self.__boutonEnvoyer.configure(bg=self.__secondColor,fg=self.__secondTextColor)
         self.__top.configure(bg=self.__mainColor)
         self.__bottom.configure(bg=self.__secondColor)
-        self.__top.create_image( 0, 0, image = self.bgTOP, anchor = "nw")
-        self.__bottom.create_image( 0, 0, image = self.bgBOTTOM, anchor = "nw")
+        self.__btnBackActu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.__actu.configure(bg=self.__mainColor)
+        self.__actu.create_image( 0, 0, image = self.__bgActu, anchor = "nw")
+        self.__top.create_image( 0, 0, image = self.__bgTOP, anchor = "nw")
+        self.__bottom.create_image( 0, 0, image = self.__bgBOTTOM, anchor = "nw")
+        self.__labelActu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__objetCodeHelp.setTheme()
@@ -54,8 +60,12 @@ class interfaceRyley:
         #Canvas
         self.__top = Canvas( self.__screen, width = 500,height = 400, highlightthickness=0)
         self.__bottom = Canvas( self.__screen, width = 500,height = 200, highlightthickness=0)
+        self.__actu =  Canvas( self.__screen, width = 500,height = 600, highlightthickness=0)
         #Label
         self.__labelParole = Label(self.__top,text="Ryley "+": "+self.__arreraNetwork.boot(),font=("arial","14"), anchor="w")
+        self.__labelActu = Label(self.__actu,font=("arial","14"), anchor="w")
+        #button
+        self.__btnBackActu = Button(self.__actu,text="Retour",command=self.__unViewActu,font=("arial","15"))
         #Menu
         #Creation menu principale
         self.__ryleyMenu = Menu(self.__screen)
@@ -84,8 +94,10 @@ class interfaceRyley:
         #Afichage
         self.__barreR = Entry(self.__bottom,width=35,font=("arial","15"),relief=SOLID)
         self.__labelParole.place(x="10",y="300")
+        self.__labelActu.place(x="80",y="5")
         self.__barreR.place(x="5",y="70")
         self.__boutonEnvoyer.place(x="400",y="65")
+        self.__btnBackActu.place(x=((self.__actu.winfo_reqwidth()-self.__btnBackActu.winfo_reqwidth())//2),y="520")
     
 
     def bootCodehelp(self):
@@ -128,6 +140,30 @@ class interfaceRyley:
         self.__objetSetting.mainView() 
         self.__screen.mainloop()
         
+    def __viewActu(self,sortie:list,valeur:int):
+        self.__top.place_forget()
+        self.__bottom.place_forget()
+        self.__actu.place(x=0,y=0)
+        if (valeur==3):
+            text = self.__formatageText(sortie[0])+"\n\n"+self.__formatageText(sortie[1])+"\n\n"+self.__formatageText(sortie[2])
+            self.__labelActu.configure(text=text, anchor="w")
+        else :
+            if valeur == 11 :
+                self.__actu.place_forget()
+                self.__top.place(x=0,y=0)
+                self.__bottom.place(x=0,y=400)
+                self.__labelParole.configure(text="Ryley "+":"+"Une erreur c'est produite", anchor="w")
+            else :
+                if valeur == 12 :
+                    text = self.__formatageText(sortie[0])+"\n"+self.__formatageText(sortie[1])+"\n La fete du jour est : "+self.__formatageText(sortie[2])+"\n"+self.__formatageText(sortie[3])+"\n"+self.__formatageText(sortie[4])+"\n\n"+self.__formatageText(sortie[5])
+                    self.__labelActu.configure(text=text, anchor="w")
+
+    
+    def __unViewActu(self):
+        self.__actu.place_forget()
+        self.__top.place(x=0,y=0)
+        self.__bottom.place(x=0,y=400)
+        self.__labelParole.configure(text="Ryley "+":"+"J'espere que sa vous été utile", anchor="w")
     
     def __desactiverPara(self):
         #Application du theme
@@ -161,22 +197,30 @@ class interfaceRyley:
     def __envoi(self):
         statement = self.__barreR.get()
         self.__barreR.delete("0",END)
+        var = 0
         if "codehelp" in statement :
-            var = 0 
+            var = 1
             texte = "OK je t'ouvre codehelp"
             self.bootCodehelp()
         if var == 0 :
             var,texte = self.__objetCodeHelp.neuron(statement)
             if var == 0 :
-                var,texte = self.__arreraNetwork.neuron(statement)
-        finalTexte = self.__formatageText(texte)
+                var,listOut = self.__arreraNetwork.neuron(statement)
+                if (var == 12 or var == 11):
+                    self.__viewActu(listOut,var)
+                else :
+                    if (var == 3) : 
+                        self.__viewActu(listOut,var)
+                    else :
+                        texte = listOut[0]
+                        finalTexte = self.__formatageText(texte)
+                        self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
         if var == 15 :
             self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
             self.__screen.update()
             t.sleep(1.5)
             self.__screen.destroy()
-        self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
-
+    
     def __ouvertureCalculatrice(self):
         var,texte = self.__arreraNetwork.neuron("calculatrice")
         finalTexte = self.__formatageText(texte)
