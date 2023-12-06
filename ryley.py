@@ -23,17 +23,21 @@ class Ryley :
 
     def __activeLynx(self,mode:int):
         screen = Tk()
-        ArreraLynx(screen,self.__fichierLynx,self.__configUser,self.__configNeuron).active()
+        lynx = ArreraLynx(screen,self.__fichierLynx,self.__configUser,self.__configNeuron)
+        lynx.active()
         screen.mainloop()
-        if mode == 1 :
-            self.GUI.windows()
-            self.GUI.bootRyley()
-            self.GUI.enableWindows()
-        else :
-            if mode == 2 :
+        if lynx.confiCreate() == True :
+            if mode == 1 :
                 self.GUI.windows()
-                self.GUI.bootCodehelp()
+                self.GUI.bootRyley()
                 self.GUI.enableWindows()
+            else :
+                if mode == 2 :
+                    self.GUI.windows()
+                    self.GUI.bootCodehelp()
+                    self.GUI.enableWindows()
+        else :
+            showwarning("La configuration mauvaise","Vous avez pas entre votre nom et genre dans l'outil de configuration")
 
     def bootAssistant(self):
         if self.__verifBoot() == True : 
