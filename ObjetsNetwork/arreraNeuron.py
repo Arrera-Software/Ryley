@@ -49,7 +49,7 @@ class ArreraNetwork :
         return str(text)
     
     def setOld(self,requette:str,sortie:str):
-        self.oldRequette = requette
+        self.__oldRequette = requette
         self.__oldSorti = sortie
     
     def shutdown(self):
@@ -95,7 +95,7 @@ class ArreraNetwork :
                                 else :
                                     valeur = 0
                                 if valeur == 0 :
-                                    if "stop" in requette or "au revoir" in requette or "quitter" in requette or "bonne nuit" in requette or "adieu" in requette or "bonne soirée" in requette :
+                                    if "stop" in requette or "au revoir" in requette or "quitter" in requette or "bonne nuit" in requette or "adieu" in requette or "bonne soirée" in requette or "arreter" in requette :
                                         text = self.__formuleNeuron.aurevoir(datetime.datetime.now().hour)
                                         valeur = 15
                                     else : 
