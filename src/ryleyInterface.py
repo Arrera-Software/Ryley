@@ -8,6 +8,7 @@ from  ObjetsNetwork.arreraNeuron import*
 from librairy.dectectionOS import*
 from PIL import Image, ImageTk
 
+VERSIONAPP = ""
 class interfaceRyley:
     def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
         self.__gestionnaire = gestionnaire
@@ -55,8 +56,8 @@ class interfaceRyley:
         self.__iconWindows = PhotoImage(file="asset/Ryley.png")
         #Parametre Interface
         self.__screen.title("Ryley")
-        self.__screen.maxsize(500,600)
-        self.__screen.minsize(500,600)
+        self.__screen.maxsize(500,610)
+        self.__screen.minsize(500,610)
         self.__screen.iconphoto(False,self.__iconWindows)
         #Canvas
         self.__top = Canvas( self.__screen, width = 500,height = 400, highlightthickness=0)
@@ -251,13 +252,14 @@ class interfaceRyley:
     def __Apropop(self):
         #Variable
         nameApp = "Ryley"#Definir le nom de l'app
-        versionApp = ""#Definir le nom de la version
+        versionApp = VERSIONAPP
         imagePath = "asset/Ryley.png"#Indiquer l'emplacement de l'icon
         copyrightApp = "Copyright Arrera Software by Baptiste P 2023-2024"
         tailleIMG = (100,100)
         #Creation de la fenetre
         about = Tk()
-        about.title("A propos :"+nameApp)
+        about.title("A propos : "+nameApp)
+        about.configure(bg=self.__mainColor)
         about.maxsize(400,300)
         about.minsize(400,300)
         #Traitement Image
@@ -265,13 +267,13 @@ class interfaceRyley:
         imageRedim = imageOrigine.resize(tailleIMG)
         icon = ImageTk.PhotoImage(imageRedim)
         #Label
-        labelIcon = Label(about)
+        labelIcon = Label(about,bg=self.__mainColor,fg=self.__mainTextColor)
         icon = ImageTk.PhotoImage(imageRedim,master=labelIcon)
         labelIcon.image_names = icon
         labelIcon.configure(image=icon)
-        labelName = Label(about,text="\n"+nameApp+"\n",font=("arial","12"))
-        labelVersion = Label(about,text=versionApp+"\n",font=("arial","11"))
-        labelCopyright = Label(about,text=copyrightApp,font=("arial","9"))
+        labelName = Label(about,text="\n"+nameApp+"\n",font=("arial","12"),bg=self.__mainColor,fg=self.__mainTextColor)
+        labelVersion = Label(about,text=versionApp+"\n",font=("arial","11"),bg=self.__mainColor,fg=self.__mainTextColor)
+        labelCopyright = Label(about,text=copyrightApp,font=("arial","9"),bg=self.__mainColor,fg=self.__mainTextColor)
         #affichage
         labelIcon.pack()
         labelName.pack()
