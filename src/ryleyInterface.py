@@ -6,6 +6,7 @@ from setting.arreraAssistantSetting import*
 import time as t
 from  ObjetsNetwork.arreraNeuron import*
 from librairy.dectectionOS import*
+from PIL import Image, ImageTk
 
 class interfaceRyley:
     def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
@@ -83,6 +84,7 @@ class interfaceRyley:
         #Ajout au menu principale tout les menu deroulant      
         self.__ryleyMenu.add_cascade(label="Fichier",menu=self.__fichierMenu)
         self.__ryleyMenu.add_cascade(label="Aide",menu=helpMenu)
+        self.__ryleyMenu.add_command(label="A propos",command=self.__Apropop)
         self.__screen.configure(menu=self.__ryleyMenu)
         #parametrage parametre
         self.__boutonEnvoyer=Button(self.__bottom,text="Envoyer",font=("arial","15"),command=self.__envoi)
@@ -245,3 +247,34 @@ class interfaceRyley:
         premierPartie = mots[:nombre]
         deuxiemePartie = mots[nombre:]
         return ' '.join(premierPartie), ' '.join(deuxiemePartie)
+
+    def __Apropop(self):
+        #Variable
+        nameApp = "Ryley"#Definir le nom de l'app
+        versionApp = ""#Definir le nom de la version
+        imagePath = "asset/Ryley.png"#Indiquer l'emplacement de l'icon
+        copyrightApp = "Copyright Arrera Software by Baptiste P 2023-2024"
+        tailleIMG = (100,100)
+        #Creation de la fenetre
+        about = Tk()
+        about.title("A propos :"+nameApp)
+        about.maxsize(400,300)
+        about.minsize(400,300)
+        #Traitement Image
+        imageOrigine = Image.open(imagePath)    
+        imageRedim = imageOrigine.resize(tailleIMG)
+        icon = ImageTk.PhotoImage(imageRedim)
+        #Label
+        labelIcon = Label(about)
+        icon = ImageTk.PhotoImage(imageRedim,master=labelIcon)
+        labelIcon.image_names = icon
+        labelIcon.configure(image=icon)
+        labelName = Label(about,text="\n"+nameApp+"\n",font=("arial","12"))
+        labelVersion = Label(about,text=versionApp+"\n",font=("arial","11"))
+        labelCopyright = Label(about,text=copyrightApp,font=("arial","9"))
+        #affichage
+        labelIcon.pack()
+        labelName.pack()
+        labelVersion.pack()
+        labelCopyright.pack()
+        about.mainloop()
