@@ -7,5 +7,7 @@ match var :
         ryley.bootAssistant()
     case 2 :
         ryley.bootCodeHelp()
+    case 3 :
+        ryley.bootPara()
     case other :
         print("Erreur")

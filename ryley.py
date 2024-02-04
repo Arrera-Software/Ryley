@@ -54,3 +54,8 @@ class Ryley :
             self.GUI.enableWindows()
         else :
             self.__activeLynx(2)
+    
+    def bootPara(self):
+        self.GUI.windows()
+        self.GUI.bootPara()
+        self.GUI.enableWindows()

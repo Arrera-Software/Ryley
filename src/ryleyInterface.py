@@ -48,7 +48,6 @@ class interfaceRyley:
                 self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSettingDark.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
             else :
                 self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSettingLight.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
-        self.__objetSetting.passageFonctionQuitter(self.__desactiverPara)
     
     def windows(self):
         #Definition fenetre Tkinter
@@ -86,7 +85,6 @@ class interfaceRyley:
         self.__ryleyMenu.add_cascade(label="Fichier",menu=self.__fichierMenu)
         self.__ryleyMenu.add_cascade(label="Aide",menu=helpMenu)
         self.__ryleyMenu.add_command(label="A propos",command=self.__Apropop)
-        self.__screen.configure(menu=self.__ryleyMenu)
         #parametrage parametre
         self.__boutonEnvoyer=Button(self.__bottom,text="Envoyer",font=("arial","15"),command=self.__envoi)
         #objet codehelp
@@ -106,21 +104,39 @@ class interfaceRyley:
     def bootCodehelp(self):
         self.__fichierMenu.entryconfigure("Codehelp",label="Ryley",command=self.__unViewCodehelp)
         self.__fichierMenu.entryconfigure("Paramétre",label="Paramétre",command=self.__objetCodeHelp.viewPara)
+        self.__objetSetting.passageFonctionQuitter(self.__desactiverPara)
         self.__objetCodeHelp.view()
+        self.__screen.configure(menu=self.__ryleyMenu)
     
     def bootRyley(self):
         self.__top.place(x=0,y=0)
         self.__bottom.place(x=0,y=400)
+        self.__objetSetting.passageFonctionQuitter(self.__desactiverPara)
+        self.__screen.configure(menu=self.__ryleyMenu)
         if (self.__objetDectOS.osWindows()==True) and (self.__objetDectOS.osLinux()==False) : 
             self.__gestionnaire.detectionTouche(self.__screen,self.__envoi,13)
         else :
             if (self.__objetDectOS.osWindows()==False) and (self.__objetDectOS.osLinux()==True) :
                 self.__gestionnaire.detectionTouche(self.__screen,self.__envoi,36)
+
+    def bootPara(self):
+        def destroyWin():
+            self.__screen.destroy()
+        self.__top.place_forget()
+        self.__bottom.place_forget()
+        self.__screen.maxsize(500,600)
+        self.__screen.minsize(500,600)
+        self.__screen.update()
+        self.__objetSetting.passageFonctionQuitter(destroyWin)
+        self.__objetSetting.windows(self.__screen)
+        self.__objetSetting.mainView() 
+        self.__screen.mainloop()
     
     def __viewCodeHelp(self):
         self.__top.place_forget()
         self.__bottom.place_forget()
         self.bootCodehelp()
+        
     
     def __unViewCodehelp(self):
         self.__fichierMenu.entryconfigure("Ryley",label="Codehelp",command=self.__viewCodeHelp)
