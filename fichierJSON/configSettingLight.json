@@ -7,5 +7,6 @@
     "setIcon":"0",
     "iconAssistant":"",
     "listeTheme":["light","dark"],
-    "listGenre":["monsieur","madame","maitre"]
+    "listGenre":["monsieur","madame","maitre"],
+    "gestionMicro":"0"
 }

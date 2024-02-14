@@ -14,5 +14,12 @@
    "toucheCalculatrice":"asset/calculatrice",
    "moteurRechercheDefault":"duckduckgo",
    "emplacementAssetHorloge":"asset/assetHorloge",
-   "emplacementSoftWindows":""
+   "emplacementSoftWindows":"",
+   "etatService":"1",
+   "etatSoftware":"1",
+   "etatTime":"1",
+   "etatOpen":"1",
+   "etatSearch":"1",
+   "etatChatbot":"1",
+   "etatApi":"1"
 }
