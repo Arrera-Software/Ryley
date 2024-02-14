@@ -140,6 +140,7 @@ class interfaceRyley:
     
     def __unViewCodehelp(self):
         self.__fichierMenu.entryconfigure("Ryley",label="Codehelp",command=self.__viewCodeHelp)
+        self.__fichierMenu.entryconfigure("Paramétre",label="Paramétre",command = self.__activePara)
         self.__objetCodeHelp.unView()
         self.bootRyley()
         self.__screen.title("Ryley")
@@ -153,6 +154,7 @@ class interfaceRyley:
         self.__bottom.place_forget()
         self.__screen.maxsize(500,600)
         self.__screen.minsize(500,600)
+        self.__objetSetting.passageFonctionQuitter(self.__desactiverPara)
         self.__fichierMenu.entryconfigure("Paramétre",label="Acceuil",command=self.__objetSetting.quittePara)
         self.__screen.update()
         self.__objetSetting.windows(self.__screen)
