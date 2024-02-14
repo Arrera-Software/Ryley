@@ -107,17 +107,19 @@ class interfaceRyley:
         self.__objetSetting.passageFonctionQuitter(self.__desactiverPara)
         self.__objetCodeHelp.view()
         self.__screen.configure(menu=self.__ryleyMenu)
+        self.__screen.update()
     
     def bootRyley(self):
         self.__top.place(x=0,y=0)
         self.__bottom.place(x=0,y=400)
         self.__objetSetting.passageFonctionQuitter(self.__desactiverPara)
-        self.__screen.configure(menu=self.__ryleyMenu)
         if (self.__objetDectOS.osWindows()==True) and (self.__objetDectOS.osLinux()==False) : 
             self.__gestionnaire.detectionTouche(self.__screen,self.__envoi,13)
         else :
             if (self.__objetDectOS.osWindows()==False) and (self.__objetDectOS.osLinux()==True) :
                 self.__gestionnaire.detectionTouche(self.__screen,self.__envoi,36)
+        self.__screen.configure(menu=self.__ryleyMenu)
+        self.__screen.update()
 
     def bootPara(self):
         def destroyWin():
@@ -195,7 +197,7 @@ class interfaceRyley:
         self.__screen.maxsize(500,600)
         self.__screen.minsize(500,600)
         self.__fichierMenu.entryconfigure("Acceuil",label="Paramétre",command=self.__activePara)
-        self.__screen.update()
+        
         self.__screen.title("Ryley")
 
     def __windowsEtatNetwork(self):
