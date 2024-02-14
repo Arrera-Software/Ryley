@@ -8,7 +8,7 @@ from  ObjetsNetwork.arreraNeuron import*
 from librairy.dectectionOS import*
 from PIL import Image, ImageTk
 
-VERSIONAPP = ""
+VERSIONAPP = "I2025-3.05"
 class interfaceRyley:
     def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
         self.__gestionnaire = gestionnaire
