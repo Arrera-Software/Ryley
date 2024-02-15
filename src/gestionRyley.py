@@ -19,6 +19,7 @@ class gestionRL :
         self.__secondColor = str
         self.__mainTextColor = str
         self.__secondTextColor = str
+        self.__colorTheme = str
         self.__themeSet = False
 
     def setTheme(self):
@@ -70,6 +71,7 @@ class gestionRL :
                 self.__mainColor = "#ffffff"
                 self.__mainTextColor = "#000000"    
         self.__themeSet = True
+        self.__colorTheme = self.__configFile.lectureJSON("theme")
     
     def getBGTop(self):
         if self.__themeSet == True :
@@ -133,7 +135,11 @@ class gestionRL :
     
     def getBGActu(self):
         if self.__themeSet == True :
-            return self.__BGActu    
+            return self.__BGActu   
+
+    def getThemeMode(self):
+        if self.__themeSet == True :
+            return self.__colorTheme 
 
     def detectionTouche(self,fenetre,fonc,touche):
         def anychar(event):

@@ -41,13 +41,7 @@ class interfaceRyley:
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__objetCodeHelp.setTheme()
-        if self.__mainColor == "#ffffff" :
-            self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSettingLight.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
-        else :
-            if self.__mainColor == "#000000" :
-                self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSettingDark.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
-            else :
-                self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSettingLight.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
+        self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
     
     def windows(self):
         #Definition fenetre Tkinter
@@ -159,7 +153,7 @@ class interfaceRyley:
         self.__objetSetting.passageFonctionQuitter(self.__desactiverPara)
         self.__fichierMenu.entryconfigure("Paramétre",label="Acceuil",command=self.__objetSetting.quittePara)
         self.__screen.update()
-        self.__objetSetting.windows(self.__screen)
+        self.__objetSetting.windows(self.__screen,self.__gestionnaire.getThemeMode())
         self.__objetSetting.mainView() 
         self.__screen.mainloop()
         
