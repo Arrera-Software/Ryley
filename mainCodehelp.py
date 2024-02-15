@@ -1,4 +1,4 @@
 from ryley import*
 
 ryley = Ryley()
-ryley.bootAssistant()
+ryley.bootCodeHelp()
