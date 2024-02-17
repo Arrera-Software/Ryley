@@ -124,7 +124,7 @@ class interfaceRyley:
         self.__screen.minsize(500,600)
         self.__screen.update()
         self.__objetSetting.passageFonctionQuitter(destroyWin)
-        self.__objetSetting.windows(self.__screen)
+        self.__objetSetting.windows(self.__screen,"light")
         self.__objetSetting.mainView() 
         self.__screen.mainloop()
     
