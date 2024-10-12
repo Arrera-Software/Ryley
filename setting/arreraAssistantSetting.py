@@ -16,12 +16,6 @@ class ArreraSettingAssistant :
         self.__icon = bool 
         self.__fileIcon = str
         self.__fnc = None
-
-        self.__nameApp = str
-        self.__versionApp = str
-        self.__copyrightApp = "Copyright Arrera Software by Baptiste P 2023-2024"
-
-         
         #overture des fichier
         self.__settingFile = jsonWork(configSettingFile)
         self.__fileNeuronConfig = jsonWork(configFile)
@@ -193,7 +187,7 @@ class ArreraSettingAssistant :
                 boutonMenu9.place(x=xBoutonMenu,y=400)
             else :
                 boutonMenu9.place(x=xBoutonMenu,y=450)
-        boutonQuitter.place(x=xBoutonMenu,y=yBTNQuitter)
+        boutonQuitter.place(relx=0.5, rely=1.0, anchor="s")
         #Affichage cadre principal
         self.__cadreMenu.pack(side="left")
         return True 
