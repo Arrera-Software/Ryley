@@ -1,0 +1,15 @@
+yt_dlp
+pathlib
+tkcalendar
+datetime
+geocoder
+requests
+playsound==1.3.0
+gTTS
+translate
+python-docx
+odfpy
+openpyxl
+PyGithub
+language_tool_python
+pyperclip
