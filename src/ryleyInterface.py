@@ -1,7 +1,6 @@
 from tkinter import*
 from src.gestionRyley import*
 from librairy.travailJSON import*
-from objet.codeHelp.codeHelp import*
 from setting.arreraAssistantSetting import*
 import time as t
 from  ObjetsNetwork.arreraNeuron import*
@@ -40,7 +39,6 @@ class interfaceRyley:
         self.__labelActu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
-        self.__objetCodeHelp.setTheme()
         self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
     
     def windows(self):
@@ -57,7 +55,7 @@ class interfaceRyley:
         self.__bottom = Canvas( self.__screen, width = 500,height = 200, highlightthickness=0)
         self.__actu =  Canvas( self.__screen, width = 500,height = 600, highlightthickness=0)
         #Label
-        self.__labelParole = Label(self.__top,text="Ryley "+": "+self.__arreraNetwork.boot(),font=("arial","14"), anchor="w")
+        self.__labelParole = Label(self.__top,text="Ryley "+": "+self.__arreraNetwork.boot(2),font=("arial","14"), anchor="w")
         self.__labelActu = Label(self.__actu,font=("arial","14"), anchor="w")
         #button
         self.__btnBackActu = Button(self.__actu,text="Retour",command=self.__unViewActu,font=("arial","15"))
@@ -71,7 +69,6 @@ class interfaceRyley:
         self.__fichierMenu.add_command(label="Paramétre",command=self.__activePara)
         self.__fichierMenu.add_command(label="Test de connexion",command=self.__windowsEtatNetwork)
         self.__fichierMenu.add_command(label="Calculatrice",command=self.__ouvertureCalculatrice)
-        self.__fichierMenu.add_command(label="Codehelp",command=self.__viewCodeHelp)
         #Ajout des command au menu helpMenu
         helpMenu.add_command(label="Documentation")
         helpMenu.add_command(label="A propos")
@@ -81,9 +78,6 @@ class interfaceRyley:
         self.__ryleyMenu.add_command(label="A propos",command=self.__Apropop)
         #parametrage parametre
         self.__boutonEnvoyer=Button(self.__bottom,text="Envoyer",font=("arial","15"),command=self.__envoi)
-        #objet codehelp
-        self.__objetCodeHelp = CCodeHelp(self.__screen,self.__gestionnaire,self.__objetDectOS)
-        self.__objetCodeHelp.setFonctionback(self.__unViewCodehelp)
         #Application du theme
         self.__setTheme()
         #Afichage
@@ -94,14 +88,6 @@ class interfaceRyley:
         self.__boutonEnvoyer.place(x="400",y="65")
         self.__btnBackActu.place(x=((self.__actu.winfo_reqwidth()-self.__btnBackActu.winfo_reqwidth())//2),y="520")
     
-
-    def bootCodehelp(self):
-        self.__fichierMenu.entryconfigure("Codehelp",label="Ryley",command=self.__unViewCodehelp)
-        self.__fichierMenu.entryconfigure("Paramétre",label="Paramétre",command=self.__objetCodeHelp.viewPara)
-        self.__objetSetting.passageFonctionQuitter(self.__desactiverPara)
-        self.__objetCodeHelp.view()
-        self.__screen.configure(menu=self.__ryleyMenu)
-        self.__screen.update()
     
     def bootRyley(self):
         self.__top.place(x=0,y=0)
@@ -128,20 +114,6 @@ class interfaceRyley:
         self.__objetSetting.mainView() 
         self.__screen.mainloop()
     
-    def __viewCodeHelp(self):
-        self.__top.place_forget()
-        self.__bottom.place_forget()
-        self.bootCodehelp()
-        
-    
-    def __unViewCodehelp(self):
-        self.__fichierMenu.entryconfigure("Ryley",label="Codehelp",command=self.__viewCodeHelp)
-        self.__fichierMenu.entryconfigure("Paramétre",label="Paramétre",command = self.__activePara)
-        self.__objetCodeHelp.unView()
-        self.bootRyley()
-        self.__screen.title("Ryley")
-        self.__screen.iconphoto(False,self.__iconWindows)
-        self.__screen.update()
 
     def __activePara(self):
         #fichierConfigSetting = jsonWork("fichierJSON/configSetting.json")
@@ -214,24 +186,19 @@ class interfaceRyley:
     def __envoi(self):
         statement = self.__barreR.get()
         self.__barreR.delete("0",END)
-        var = 0
-        if "codehelp" in statement :
-            var = 1
-            texte = "OK je t'ouvre codehelp"
-            self.bootCodehelp()
-        if var == 0 :
-            var,texte = self.__objetCodeHelp.neuron(statement)
-            if var == 0 :
-                var,listOut = self.__arreraNetwork.neuron(statement)
-                if (var == 12 or var == 11):
-                    self.__viewActu(listOut,var)
-                else :
-                    if (var == 3) : 
-                        self.__viewActu(listOut,var)
-                    else :
-                        texte = listOut[0]
-                        finalTexte = self.__formatageText(texte)
-                        self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
+        var = 0 
+        self.__arreraNetwork.neuron(statement)
+        listOut = self.__arreraNetwork.getListSortie()
+        var = self.__arreraNetwork.getValeurSortie()
+        if (var == 12 or var == 11):
+            self.__viewActu(listOut,var)
+        else :
+            if (var == 3) : 
+                self.__viewActu(listOut,var)
+            else :
+                texte = listOut[0]
+                finalTexte = self.__formatageText(texte)
+                self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
         if var == 15 :
             self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
             self.__screen.update()
