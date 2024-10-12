@@ -1,32 +1,30 @@
 {
-    "user":"",
-    "genre":"",
-    "listVille":["",""],
-    "lieuDomicile":"",
-    "lieuTravail":"",
-    "adresseDomicile" : "",
-    "adresseTravail":"",
-    "dictSoftWindows" :{
-    },
-    "dictSoftLinux" :{
-        
-    },
-    "diapoLinux" :"",
-    "diapoWindows":"",
-    "browserLinux":"",
-    "browserWindows":"",
-    "noteLinux":"",
-    "noteWindows":"",
-    "musicLinux":"",
-    "musicWindows":"",
-    "lienCloud":"",
-    "dictSite":{
-        
-    },
-    "moteurRecherche":"",
-    "emplacementEvenenement" :"evenementUser.json",
-    "emplacementTache":"tache.json",
-    "tokenGithub":"",
-    "wordFolder":"",
-    "videoDownloadFolder":""
+  "user": "Dev",
+  "genre": "monsieur",
+  "listVille": [
+    "",
+    ""
+  ],
+  "lieuDomicile": "",
+  "lieuTravail": "",
+  "adresseDomicile": "",
+  "adresseTravail": "",
+  "dictSoftWindows": {},
+  "dictSoftLinux": {},
+  "diapoLinux": "",
+  "diapoWindows": "",
+  "browserLinux": "",
+  "browserWindows": "",
+  "noteLinux": "",
+  "noteWindows": "",
+  "musicLinux": "",
+  "musicWindows": "",
+  "lienCloud": "",
+  "dictSite": {},
+  "moteurRecherche": "",
+  "emplacementEvenenement": "evenementUser.json",
+  "emplacementTache": "tache.json",
+  "tokenGithub": "",
+  "wordFolder": "",
+  "videoDownloadFolder": ""
 }
