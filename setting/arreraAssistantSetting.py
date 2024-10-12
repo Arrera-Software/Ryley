@@ -40,9 +40,7 @@ class ArreraSettingAssistant :
         self.__nameAssistant = self.__fileNeuronConfig.lectureJSON("name")
         if self.__icon == True :
             self.__fileIcon = self.__assistantFile.lectureJSON("iconAssistant")
-         
-       
-            
+                  
     def windows(self,windows:Tk,mode:str) ->bool :
         # Recuperation de la couleur
         if (mode == "light" ) :
@@ -57,7 +55,6 @@ class ArreraSettingAssistant :
             self.__textColorSecondaire = self.__settingFile.lectureJSON("textColorDark2")
         #variable
         xlabel2 = int 
-        yBTNQuitter = int 
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         self.__varRecherche = StringVar(windows)
         self.__varTheme = StringVar(windows)
