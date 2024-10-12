@@ -3,6 +3,11 @@ import json
 class jsonWork : 
     def __init__(self,file):
         self.fichier = file
+    
+    def getContenuJSON(self):
+        with open(self.fichier, 'r' , encoding='utf-8') as openfile:
+            dict = json.load(openfile)
+        return dict
         
     def lectureJSON(self,flag): # Permet de lire la valeur du flag defini a l'appel de la fonction
         with open(self.fichier, 'r' , encoding='utf-8') as openfile:
@@ -105,3 +110,39 @@ class jsonWork :
             writeFile = open(self.fichier, 'w', encoding='utf-8')
             json.dump(newDict,writeFile,indent=2)
             writeFile.close()
+    
+    def creerFlagDictionnaire(self, flag):
+        # Lecture du fichier JSON
+        with open(self.fichier, 'r', encoding='utf-8') as fichier_json:
+            data = json.load(fichier_json)
+
+        # Vérification et création du flag
+        if flag not in data or not isinstance(data[flag], dict):
+            data[flag] = {}
+            # Écriture des modifications dans le fichier JSON
+            with open(self.fichier, 'w', encoding='utf-8') as fichier_modifie:
+                json.dump(data, fichier_modifie, indent=2)
+    
+    def ajouterFlagDict(self, flag, cle, valeur):
+        with open(self.fichier, 'r', encoding='utf-8') as fichier_json:
+            data = json.load(fichier_json)
+
+        # Vérification que le flag existe et est un dictionnaire
+        if flag in data and isinstance(data[flag], dict):
+            data[flag][cle] = valeur  # Ajout de la nouvelle clé-valeur
+
+            # Écriture des modifications dans le fichier JSON
+            with open(self.fichier, 'w', encoding='utf-8') as fichier_modifie:
+                json.dump(data, fichier_modifie, indent=2)
+    
+    def supprDictByFlag(self,flag, name):
+        with open(self.fichier, 'r', encoding='utf-8') as fichier_json:
+            data = json.load(fichier_json)
+        
+        for key, value in data.items():
+            if value.get(flag) == name:
+                self.supprDictReorg(key)
+    
+    def writeDictOnJson(self,dict:dict):
+        with open(self.fichier, 'w', encoding='utf-8') as fichier_modifie:
+                json.dump(dict, fichier_modifie, indent=2)
