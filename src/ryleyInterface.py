@@ -36,7 +36,7 @@ class interfaceRyley:
         self.__actu.create_image( 0, 0, image = self.__bgActu, anchor = "nw")
         self.__top.create_image( 0, 0, image = self.__bgTOP, anchor = "nw")
         self.__bottom.create_image( 0, 0, image = self.__bgBOTTOM, anchor = "nw")
-        self.__labelActu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
+        self.__labelResumer.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
@@ -59,8 +59,8 @@ class interfaceRyley:
         self.__bottom = Canvas( self.__screen, width = 500,height = 200, highlightthickness=0)
         self.__actu =  Canvas( self.__screen, width = 500,height = 600, highlightthickness=0)
         #Label
-        self.__labelParole = Label(self.__top,text="Ryley "+": "+self.__arreraNetwork.boot(2),font=("arial","14"), justify="left",wraplength=500)
-        self.__labelActu = Label(self.__actu,font=("arial","14"), justify="left",wraplength=500)
+        self.__labelParole = Label(self.__top,text="Ryley "+": "+self.__arreraNetwork.boot(2),font=("arial","14"), justify="left",wraplength=450)
+        self.__labelResumer = Label(self.__actu,font=("arial","14"), justify="left",wraplength=400)
         #button
         self.__btnBackActu = Button(self.__actu,text="Retour",command=self.__unViewActu,font=("arial","15"))
         #Menu
@@ -87,7 +87,7 @@ class interfaceRyley:
         #Afichage
         self.__barreR = Entry(self.__bottom,width=35,font=("arial","15"),relief=SOLID)
         self.__labelParole.place(x="10",y="300")
-        self.__labelActu.place(x="80",y="5")
+        self.__labelResumer.place(x="80",y="5")
         self.__barreR.place(x="5",y="70")
         self.__boutonEnvoyer.place(x="400",y="65")
         self.__btnBackActu.place(x=((self.__actu.winfo_reqwidth()-self.__btnBackActu.winfo_reqwidth())//2),y="520")
@@ -133,27 +133,41 @@ class interfaceRyley:
         self.__objetSetting.mainView() 
         self.__screen.mainloop()
         
-    def __viewActu(self,sortie:list,valeur:int):
+    def __viewResumer(self,sortie:list,valeur:int):
         self.__top.place_forget()
         self.__bottom.place_forget()
         self.__actu.place(x=0,y=0)
         if (valeur==3):
-            self.__setText(sortie[0]+"\n\n"+sortie[1]+"\n\n"+sortie[2])
+            self.__labelResumer.configure(text=sortie[0]+"\n\n"+sortie[1]+"\n\n"+sortie[2])
         else :
-            if valeur == 11 :
+            if ((valeur == 11) or (valeur == 20)):
                 self.__actu.place_forget()
                 self.__top.place(x=0,y=0)
                 self.__bottom.place(x=0,y=400)
-                self.__labelParole.configure(text="Ryley "+":"+"Une erreur c'est produite")
+                self.__setText("Une erreur c'est produite")
             else :
-                if valeur == 12 :
-                    self.__setText(sortie[0]+"\n"+sortie[1]+"\n La fete du jour est : "+sortie[2]+"\n"+sortie[3]+"\n"+sortie[4]+"\n\n"+sortie[5])
+                if (valeur == 12) :
+                    if (sortie[0] == "error"):
+                        self.__labelResumer.configure(text=sortie[1]+"\n La fete du jour est : "+sortie[2]+"\n"+sortie[3]+"\n"+sortie[4]+"\n\n"+sortie[5])
+                    else :
+                        self.__labelResumer.configure(text=sortie[0]+"\n"+sortie[1]+"\n La fete du jour est : "+sortie[2]+"\n"+sortie[3]+"\n"+sortie[4]+"\n\n"+sortie[5])
+                else :
+                    if (valeur == 19):
+                        self.__setText(sortie[6])
+                        if sortie[0] == "error":
+                            self.__labelResumer.configure(text=sortie[1]+"\nFête du jour : "+sortie[2]+"\n"+sortie[3]+"\n"+sortie[4]+"\n"+sortie[5]+"\n"+sortie[7]+"\n"+sortie[8])
+                        else :
+                            self.__labelResumer.configure(text=sortie[0]+"\n"+sortie[1]+"\nFête du jour : "+sortie[2]+"\n"+sortie[3]+"\n"+sortie[4]+"\n"+sortie[5]+"\n"+sortie[7]+"\n"+sortie[8])
+                    else :
+                        if (valeur==18):
+                            self.__setText("J'espère que se résumé ta bien aider")
+                            self.__labelResumer.configure(text=sortie[0]+"\n"+sortie[1])
+                        
     
     def __unViewActu(self):
         self.__actu.place_forget()
         self.__top.place(x=0,y=0)
         self.__bottom.place(x=0,y=400)
-        self.__labelParole.configure(text="Ryley "+":"+"J'espere que sa vous été utile", anchor="w")
     
     def __desactiverPara(self):
         #Application du theme
@@ -192,10 +206,10 @@ class interfaceRyley:
         listOut = self.__arreraNetwork.getListSortie()
         var = self.__arreraNetwork.getValeurSortie()
         if (var == 12 or var == 11):
-            self.__viewActu(listOut,var)
+            self.__viewResumer(listOut,var)
         else :
             if (var == 3 or var == 12 or var == 18 or var == 19) : 
-                self.__viewActu(listOut,var)
+                self.__viewResumer(listOut,var)
             else :
                 texte = listOut[0]
                 self.__setText(texte)
