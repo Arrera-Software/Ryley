@@ -22,8 +22,8 @@
   "lienCloud": "",
   "dictSite": {},
   "moteurRecherche": "",
-  "emplacementEvenenement": "evenementUser.json",
-  "emplacementTache": "tache.json",
+  "emplacementEvenenement": "fichierJSON/evenementUser.json",
+  "emplacementTache": "fichierJSON/tache.json",
   "tokenGithub": "",
   "wordFolder": "",
   "videoDownloadFolder": ""
