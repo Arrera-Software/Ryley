@@ -47,8 +47,12 @@ class interfaceRyley:
         self.__iconWindows = PhotoImage(file="asset/Ryley.png")
         #Parametre Interface
         self.__screen.title("Ryley")
-        self.__screen.maxsize(500,610)
-        self.__screen.minsize(500,610)
+        if (OS().osLinux() == True):
+            self.__screen.maxsize(500,635)
+            self.__screen.minsize(500,635)
+        else :
+            self.__screen.maxsize(500,610)
+            self.__screen.minsize(500,610)
         self.__screen.iconphoto(False,self.__iconWindows)
         #Canvas
         self.__top = Canvas( self.__screen, width = 500,height = 400, highlightthickness=0)
@@ -134,8 +138,7 @@ class interfaceRyley:
         self.__bottom.place_forget()
         self.__actu.place(x=0,y=0)
         if (valeur==3):
-            text = self.__setText(sortie[0])+"\n\n"+self.__setText(sortie[1])+"\n\n"+self.__setText(sortie[2])
-            self.__labelActu.configure(text=text)
+            self.__setText(sortie[0]+"\n\n"+sortie[1]+"\n\n"+sortie[2])
         else :
             if valeur == 11 :
                 self.__actu.place_forget()
@@ -144,9 +147,7 @@ class interfaceRyley:
                 self.__labelParole.configure(text="Ryley "+":"+"Une erreur c'est produite")
             else :
                 if valeur == 12 :
-                    text = self.__setText(sortie[0])+"\n"+self.__setText(sortie[1])+"\n La fete du jour est : "+self.__setText(sortie[2])+"\n"+self.__setText(sortie[3])+"\n"+self.__setText(sortie[4])+"\n\n"+self.__setText(sortie[5])
-                    self.__labelActu.configure(text=text)
-
+                    self.__setText(sortie[0]+"\n"+sortie[1]+"\n La fete du jour est : "+sortie[2]+"\n"+sortie[3]+"\n"+sortie[4]+"\n\n"+sortie[5])
     
     def __unViewActu(self):
         self.__actu.place_forget()
