@@ -55,8 +55,8 @@ class interfaceRyley:
         self.__bottom = Canvas( self.__screen, width = 500,height = 200, highlightthickness=0)
         self.__actu =  Canvas( self.__screen, width = 500,height = 600, highlightthickness=0)
         #Label
-        self.__labelParole = Label(self.__top,text="Ryley "+": "+self.__arreraNetwork.boot(2),font=("arial","14"), anchor="w")
-        self.__labelActu = Label(self.__actu,font=("arial","14"), anchor="w")
+        self.__labelParole = Label(self.__top,text="Ryley "+": "+self.__arreraNetwork.boot(2),font=("arial","14"), justify="left",wraplength=500)
+        self.__labelActu = Label(self.__actu,font=("arial","14"), justify="left",wraplength=500)
         #button
         self.__btnBackActu = Button(self.__actu,text="Retour",command=self.__unViewActu,font=("arial","15"))
         #Menu
@@ -134,18 +134,18 @@ class interfaceRyley:
         self.__bottom.place_forget()
         self.__actu.place(x=0,y=0)
         if (valeur==3):
-            text = self.__formatageText(sortie[0])+"\n\n"+self.__formatageText(sortie[1])+"\n\n"+self.__formatageText(sortie[2])
-            self.__labelActu.configure(text=text, anchor="w")
+            text = self.__setText(sortie[0])+"\n\n"+self.__setText(sortie[1])+"\n\n"+self.__setText(sortie[2])
+            self.__labelActu.configure(text=text)
         else :
             if valeur == 11 :
                 self.__actu.place_forget()
                 self.__top.place(x=0,y=0)
                 self.__bottom.place(x=0,y=400)
-                self.__labelParole.configure(text="Ryley "+":"+"Une erreur c'est produite", anchor="w")
+                self.__labelParole.configure(text="Ryley "+":"+"Une erreur c'est produite")
             else :
                 if valeur == 12 :
-                    text = self.__formatageText(sortie[0])+"\n"+self.__formatageText(sortie[1])+"\n La fete du jour est : "+self.__formatageText(sortie[2])+"\n"+self.__formatageText(sortie[3])+"\n"+self.__formatageText(sortie[4])+"\n\n"+self.__formatageText(sortie[5])
-                    self.__labelActu.configure(text=text, anchor="w")
+                    text = self.__setText(sortie[0])+"\n"+self.__setText(sortie[1])+"\n La fete du jour est : "+self.__setText(sortie[2])+"\n"+self.__setText(sortie[3])+"\n"+self.__setText(sortie[4])+"\n\n"+self.__setText(sortie[5])
+                    self.__labelActu.configure(text=text)
 
     
     def __unViewActu(self):
@@ -193,42 +193,23 @@ class interfaceRyley:
         if (var == 12 or var == 11):
             self.__viewActu(listOut,var)
         else :
-            if (var == 3) : 
+            if (var == 3 or var == 12 or var == 18 or var == 19) : 
                 self.__viewActu(listOut,var)
             else :
                 texte = listOut[0]
-                finalTexte = self.__formatageText(texte)
-                self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
+                self.__setText(texte)
         if var == 15 :
-            self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
             self.__screen.update()
             t.sleep(1.5)
             self.__screen.destroy()
     
     def __ouvertureCalculatrice(self):
-        var,texte = self.__arreraNetwork.neuron("calculatrice")
-        finalTexte = self.__formatageText(texte)
-        self.__labelParole.configure(text="Ryley "+":"+finalTexte, anchor="w")
+        self.__arreraNetwork.neuron("calculatrice")
+        texte = self.__arreraNetwork.getListSortie()[0]
+        self.__setText(texte)
     
-    def __formatageText(self,texte):
-        if int(len(texte)) > 6 :
-            texte1,texte2 = self.__division(texte,6)
-            allTexte = texte1+"\n"+texte2
-            if int(len(texte2)) > 6 :
-                texte2,texte3 = self.__division(texte2,6)
-                allTexte = texte1+"\n"+texte2+"\n"+texte3
-                if int(len(texte3)) > 6 :
-                    texte3,texte4 = self.__division(texte3,6)
-                    allTexte = texte1+"\n"+texte2+"\n"+texte3+"\n"+texte4
-        else :
-            allTexte = texte
-        return str(allTexte)
-
-    def __division(self,text, nombre):
-        mots = text.split()
-        premierPartie = mots[:nombre]
-        deuxiemePartie = mots[nombre:]
-        return ' '.join(premierPartie), ' '.join(deuxiemePartie)
+    def __setText(self,texte:str):
+        self.__labelParole.configure(text="Ryley "+": "+texte)
 
     def __Apropop(self):
         #Variable
