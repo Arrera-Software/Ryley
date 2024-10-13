@@ -11,9 +11,9 @@ class SettingUser :
         self.__listGenre = list(self.__settingFile.lectureJSONList("listGenre"))
         #declaration cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame =  Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__prenomFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__genreFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+        self.__acceuilFrame =  Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__prenomFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__genreFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
         #widget 
         labelTitre = [
             Label(self.__acceuilFrame,text="Parametre Utilisateur",bg=color,fg=textColor,font=("arial","20")),
@@ -44,13 +44,13 @@ class SettingUser :
         #prenomFrame
         labelTitre[1].place(x=((largeur-labelTitre[1].winfo_reqwidth())//2),y=0)
         self.entryName.place(relx=0.5,rely=0.5,anchor="center")
-        btnValiderName.place(x=0,y=(hauteur-btnValiderName.winfo_reqheight()))
-        btnRetour[0].place(x=(largeur-btnRetour[0].winfo_reqwidth()),y=(hauteur-btnRetour[0].winfo_reqheight()))
+        btnValiderName.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[0].place(relx=0.0, rely=1.0, anchor='sw')
         #genreFrame
         labelTitre[2].place(x=((largeur-labelTitre[2].winfo_reqwidth())//2),y=0)
         menuGenre.place(relx=0.5,rely=0.5,anchor="center")
-        btnValiderGenre .place(x=0,y=(hauteur-btnValiderGenre.winfo_reqheight()))
-        btnRetour[1].place(x=(largeur-btnRetour[1].winfo_reqwidth()),y=(hauteur-btnRetour[0].winfo_reqheight()))
+        btnValiderGenre .place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[1].place(relx=0.0, rely=1.0, anchor='sw')
 
     def _backAcceuil(self)->bool:
         self.__prenomFrame.place_forget()

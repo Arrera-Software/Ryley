@@ -10,7 +10,7 @@ class SettingTheme :
         self.__listTheme = listeTheme
         #cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
         #widget 
         labelTitre = Label(self.__acceuilFrame,text="Choix du theme",bg=color,fg=textColor,font=("arial","20"))
         self.menuTheme = OptionMenu(self.__acceuilFrame,self.__varTheme,*self.__listTheme)
@@ -21,7 +21,7 @@ class SettingTheme :
         #affichage
         labelTitre.place(x=((largeur-labelTitre.winfo_reqwidth())//2),y=0)
         self.menuTheme.place(relx=0.5,rely=0.5,anchor="center")
-        btnValider.place(x=((largeur-labelTitre.winfo_reqwidth())//2),y=(hauteur-labelTitre.winfo_reqheight()))
+        btnValider.place(relx=0.5, rely=1.0, anchor='s')
         
         
     def view(self)->bool:
@@ -33,5 +33,6 @@ class SettingTheme :
         valeur = self.__varTheme.get()
         if valeur :
             self.__configAssistant.EcritureJSON("theme",valeur)
+            messagebox.showinfo("Theme","Theme changer")
         else :
             messagebox.showerror("Erreur","Veuillez selectionner un theme")

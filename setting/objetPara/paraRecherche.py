@@ -10,7 +10,7 @@ class SettingRecherche :
         self.__choixVar = StringVar(windows)
         #declaration cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
         #widget 
         labelTitre = Label(self.__acceuilFrame,text="Choisisser\nle moteur de recherche",bg=color,fg=textColor,font=("arial","20"))
         menuMoteur = OptionMenu(self.__acceuilFrame,self.__choixVar,*self.__listMoteur)
@@ -20,7 +20,7 @@ class SettingRecherche :
         #Affichage 
         labelTitre.place(x=((largeurAcceuilFrame-labelTitre.winfo_reqwidth())//2),y=0)
         menuMoteur.place(relx=0.5,rely=0.5,anchor="center")
-        btnValider.place(x=((largeurAcceuilFrame-btnValider.winfo_reqwidth())//2),y=(self.__acceuilFrame.winfo_reqheight()-btnValider.winfo_reqheight()))
+        btnValider.place(relx=0.5, rely=1.0, anchor='s')
         
     def view(self)->bool:
         self.__mainFrame.pack(side="left")

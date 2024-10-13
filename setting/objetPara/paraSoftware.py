@@ -31,11 +31,11 @@ class SettingSoftware :
         ]
         #declaration cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__addLinuxFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__supprSpeFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__addLinuxFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__supprSpeFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
         #objet detction 
         self.__dectOS = OS()
         #widget
@@ -91,22 +91,22 @@ class SettingSoftware :
         labelTitre[1].place(x=((largeurFrame-labelTitre[1].winfo_reqwidth())//2),y=0)
         menuTypeSoft.place(x=10,y=((labelTitre[1].winfo_reqheight()+menuTypeSoft.winfo_reqheight())+5))
         self.__entryNameSoft.place(relx=0.5,rely=0.5,anchor="center")
-        btnValiderAdd.place(x=0,y=(hauteurFrame-btnValiderAdd.winfo_reqheight()))
-        btnRetour[0].place(x=(largeurFrame-btnRetour[0].winfo_reqwidth()),y=(hauteurFrame-btnRetour[0].winfo_reqheight()))
+        btnValiderAdd.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[0].place(relx=0.0, rely=1.0, anchor='sw')
         #suppr Frame
         labelTitre[2].place(x=((largeurFrame-labelTitre[2].winfo_reqwidth())//2),y=0)
-        btnValiderSuppr.place(x=0,y=(hauteurFrame-btnValiderSuppr.winfo_reqheight()))
-        btnRetour[1].place(x=(largeurFrame-btnRetour[1].winfo_reqwidth()),y=(hauteurFrame-btnRetour[1].winfo_reqheight()))
+        btnValiderSuppr.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[1].place(relx=0.0, rely=1.0, anchor='sw')
         #addLinuxFrame
         labelTitre[3].place(x=((largeurFrame-labelTitre[3].winfo_reqwidth())//2),y=0)
         self.__entryCommandSoft.place(relx=0.5,rely=0.5,anchor="center")
-        btnSaveLinux.place(x=0,y=(hauteurFrame-btnSaveLinux.winfo_reqheight()))
-        btnRetour[2].place(x=(largeurFrame-btnRetour[2].winfo_reqwidth()),y=(hauteurFrame-btnRetour[1].winfo_reqheight()))
+        btnSaveLinux.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[2].place(relx=0.0, rely=1.0, anchor='sw')
         #varSupprSpe
         labelTitre[4].place(x=((largeurFrame-labelTitre[3].winfo_reqwidth())//2),y=0)
         menuSupprSpe.place(relx=0.5,rely=0.5,anchor="center")
-        btnValiderSupprSpe.place(x=0,y=(hauteurFrame-btnValiderSupprSpe.winfo_reqheight()))
-        btnRetour[3].place(x=(largeurFrame-btnRetour[3].winfo_reqwidth()),y=(hauteurFrame-btnRetour[1].winfo_reqheight()))
+        btnValiderSupprSpe.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[3].place(relx=0.0, rely=1.0, anchor='sw')
     
     def view(self)->bool:
         self.__mainFrame.pack(side="left")
@@ -200,13 +200,9 @@ class SettingSoftware :
             name = self.__varSuppr.get()
             self.__config.supprJSONList("dictSoftWindows",name)
             self.__softWin.supprSoft(name)
-            nbSoft = int(self.__config.lectureJSON("nbSoft"))
-            self.__config.EcritureJSON("nbSoft",str(nbSoft-1))
         else :
             if (self.__dectOS.osLinux()==True):
                 self.__config.supprJSONList("dictSoftLinux",self.__varSuppr.get())
-                nbSoft = int(self.__config.lectureJSON("nbSoft"))
-                self.__config.EcritureJSON("nbSoft",str(nbSoft-1))
         self._backAcceuil()
         self.menuSuppr.destroy() 
         return True 
@@ -223,8 +219,6 @@ class SettingSoftware :
         if typeSoft == self.__listTypeSoft[0]:
             name = self.__entryNameSoft.get()
             self.__config.EcritureJSONDictionnaire("dictSoftLinux",name,command)
-            nbSoft = int(self.__config.lectureJSON("nbSoft"))
-            self.__config.EcritureJSON("nbSoft",str(nbSoft+1))
         else :
             if typeSoft == self.__listTypeSoft[1]:
                 self.__config.EcritureJSON("wordLinux",command)

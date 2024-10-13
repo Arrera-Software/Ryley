@@ -8,9 +8,9 @@ class SettingGPS:
         self.__configFile = config
         #cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__addresseDomicile = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__addresseWork = Frame(self.__mainFrame,bg=color,width=350,height=600)
+        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__addresseDomicile = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__addresseWork = Frame(self.__mainFrame,bg=color,width=350,height=565)
         #widget
         labelTitre = [
             Label(self.__acceuilFrame,text="Parametre GPS",bg=color,fg=textColor,font=("arial","20")),
@@ -48,13 +48,13 @@ class SettingGPS:
         #addresseDomicile
         labelTitre[1].place(x=((centrageAcceuil-labelTitre[1].winfo_reqwidth())//2),y=0)
         self.__entryAdresse[0].place(relx=0.5,rely=0.5,anchor="center")
-        btnRetour[0].place(x=(largeurCadre-btnRetour[0].winfo_reqwidth()),y=(hauteurCadre-btnRetour[0].winfo_reqheight()))
+        btnRetour[0].place(relx=1.0, rely=1.0, anchor='se')
         btnValider[0].place(x=((centrageAcceuil-btnValider[0].winfo_reqwidth())//2),y=325)
         btnSuppr[0].place(x=((centrageAcceuil-btnSuppr[0].winfo_reqwidth())//2),y=375)
         #addressWork
         labelTitre[2].place(x=((centrageAcceuil-labelTitre[2].winfo_reqwidth())//2),y=0)
         self.__entryAdresse[1].place(relx=0.5,rely=0.5,anchor="center")
-        btnRetour[1].place(x=(largeurCadre-btnRetour[1].winfo_reqwidth()),y=(hauteurCadre-btnRetour[1].winfo_reqheight()))
+        btnRetour[1].place(relx=1.0, rely=1.0, anchor='se')
         btnValider[1].place(x=((centrageAcceuil-btnValider[0].winfo_reqwidth())//2),y=325)
         btnSuppr[1].place(x=((centrageAcceuil-btnSuppr[0].winfo_reqwidth())//2),y=375)
      

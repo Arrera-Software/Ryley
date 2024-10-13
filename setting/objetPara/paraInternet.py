@@ -12,9 +12,9 @@ class SettingInternet :
                          "Stokage en ligne"]
         #declaration cadre 
         self.__mainFrame = cadre 
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
         #widget 
         labelTitre = [
             Label(self.__acceuilFrame,text="Paramétre d'internet",bg=color,fg=textColor,font=("arial","20")),
@@ -48,12 +48,12 @@ class SettingInternet :
         self.__menuType.place(x=0,y=((labelTitre[1].winfo_reqheight()+self.__menuType.winfo_reqheight())+10))
         self.__edtName.place(x=((largeurCadre-self.__edtName.winfo_reqwidth())//2),y=200)
         self.__edtLien.place(x=((largeurCadre-self.__edtLien.winfo_reqwidth())//2),y=275)
-        btnValiderAdd.place(x=0,y=(hauteurCadre-btnValiderAdd.winfo_reqheight()))
-        btnRetour[0].place(x=(largeurCadre-btnRetour[0].winfo_reqwidth()),y=(hauteurCadre-btnRetour[0].winfo_reqheight()))
+        btnValiderAdd.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[0].place(relx=0.0, rely=1.0, anchor='sw')
         #supprFrame
         labelTitre[2].place(x=((largeurCadre-labelTitre[2].winfo_reqwidth())//2),y=0)
-        btnValiderSuppr.place(x=0,y=(hauteurCadre-btnValiderSuppr.winfo_reqheight()))
-        btnRetour[1].place(x=(largeurCadre-btnRetour[1].winfo_reqwidth()),y=(hauteurCadre-btnRetour[1].winfo_reqheight()))
+        btnValiderSuppr.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[1].place(relx=0.0, rely=1.0, anchor='sw')
         
     def _backAcceuil(self)->bool:
         self.__addFrame.place_forget()

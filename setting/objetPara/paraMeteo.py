@@ -12,10 +12,10 @@ class SettingMeteo :
         self.__listChoixLieu = ["Simple","Domicile","Travail"]
         #declaration cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__listFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
-        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__listFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
         labelTitre = [
             Label(self.__acceuilFrame,text="Parametre Meteo",bg=color,fg=textColor,font=("arial","20")),
             Label(self.__listFrame,text="Liste de ville enregistrer",bg=color,fg=textColor,font=("arial","20")),
@@ -55,17 +55,17 @@ class SettingMeteo :
         # listFrame
         labelTitre[1].place(x=((self.__listFrame.winfo_reqwidth()-labelTitre[1].winfo_reqwidth())//2),y=0)
         self.__labelListe.place(x=0,y=(labelTitre[1].winfo_reqheight()+10))
-        btnRetour[0].place(x=(largeurCadre-largeurRetour),y=(hauteurCadre-hauteurRetour))
+        btnRetour[0].place(relx=0.0, rely=1.0, anchor='sw')
         # addVilleFrame
         labelTitre[2].place(x=((centrageAddVille-labelTitre[2].winfo_reqwidth())//2),y=0)
         menuChoixLieu.place(x=15,y=((labelTitre[2].winfo_reqheight()+menuChoixLieu.winfo_reqheight())+15))
         self.__entryVille.place(relx=0.5,rely=0.5,anchor="center")
-        btnAddValidate.place(x=0,y=(hauteurCadre-btnAddValidate.winfo_reqheight()))
-        btnRetour[1].place(x=(largeurCadre-largeurRetour),y=(hauteurCadre-hauteurRetour))
+        btnAddValidate.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[1].place(relx=0.0, rely=1.0, anchor='sw')
         # supprFrame
         labelTitre[3].place(x=((centrageAddVille-labelTitre[3].winfo_reqwidth())//2),y=0)
-        btnSupprValidate.place(x=0,y=(hauteurCadre-btnSupprValidate.winfo_reqheight()))
-        btnRetour[2].place(x=(largeurCadre-largeurRetour),y=(hauteurCadre-hauteurRetour))
+        btnSupprValidate.place(relx=1.0, rely=1.0, anchor='se')
+        btnRetour[2].place(relx=0.0, rely=1.0, anchor='sw')
         
         
     def view(self)->bool:
