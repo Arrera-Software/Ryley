@@ -1,4 +1,5 @@
 from tkinter import *
+from librairy.dectectionOS import*
 from librairy.travailJSON import *
 from setting.objetPara.paraUser import*
 from setting.objetPara.paraMeteo import*
@@ -21,6 +22,7 @@ class ArreraSettingAssistant :
         self.__fileNeuronConfig = jsonWork(configFile)
         self.__assistantFile = jsonWork(configAssistant)
         self.__fileUser = jsonWork(fichierConfigUser)
+        self.__os = OS()
         #Recuperarton donner
         if self.__settingFile.lectureJSON("colorInterface") == "1" :
             self.__changeColor =  True 
@@ -71,14 +73,15 @@ class ArreraSettingAssistant :
         self.__cadreTheme = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
         self.__cadreMicro = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
         #initilisation objet para
-        self.__paraUser = SettingUser(windows,self.__cadreUser,self.__fileUser,self.__settingFile,self.__textColorPrimaire,self.__colorPrimaire)
-        self.__paraMeteo = SettingMeteo(windows,self.__cadreMeteo,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire)
-        self.__paraGPS = SettingGPS(windows,self.__cadreGPS,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire)
-        self.__paraRecherche = SettingRecherche(windows,self.__cadreRecherche,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire,listMoteur)
-        self.__paraSoftware = SettingSoftware(windows,self.__cadreSoft,self.__fileUser,self.__settingFile, self.__fileNeuronConfig,self.__textColorPrimaire,self.__colorPrimaire)
-        self.__paraInternet = SettingInternet(windows,self.__cadreInternet,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire)
+        linuxOs = self.__os.osLinux()
+        self.__paraUser = SettingUser(windows,self.__cadreUser,self.__fileUser,self.__settingFile,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
+        self.__paraMeteo = SettingMeteo(windows,self.__cadreMeteo,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
+        self.__paraGPS = SettingGPS(windows,self.__cadreGPS,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
+        self.__paraRecherche = SettingRecherche(windows,self.__cadreRecherche,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire,listMoteur,linuxOs)
+        self.__paraSoftware = SettingSoftware(windows,self.__cadreSoft,self.__fileUser,self.__settingFile, self.__fileNeuronConfig,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
+        self.__paraInternet = SettingInternet(windows,self.__cadreInternet,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
         if self.__changeColor == True:
-            self.__paraTheme = SettingTheme(windows,self.__cadreTheme,self.__listTheme,self.__assistantFile,self.__textColorPrimaire,self.__colorPrimaire)
+            self.__paraTheme = SettingTheme(windows,self.__cadreTheme,self.__listTheme,self.__assistantFile,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
         if self.__controleMicro == True :
             self.__paraMicro = SettingMicro(self.__cadreMicro,self.__assistantFile,self.__textColorPrimaire,self.__colorPrimaire)
         #cadre interne a l'acceuil

@@ -3,14 +3,17 @@ from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingRecherche :
-    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str,liste:list):
+    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str,liste:list,linux:bool):
         #varriable
         self.__configFile = config
         self.__listMoteur = liste
         self.__choixVar = StringVar(windows)
         #declaration cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        if (linux==True):
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        else :
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
         #widget 
         labelTitre = Label(self.__acceuilFrame,text="Choisisser\nle moteur de recherche",bg=color,fg=textColor,font=("arial","20"))
         menuMoteur = OptionMenu(self.__acceuilFrame,self.__choixVar,*self.__listMoteur)

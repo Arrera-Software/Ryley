@@ -5,7 +5,7 @@ from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingSoftware :
-    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,settingConfig:jsonWork,neuronFile:jsonWork,textColor:str,color:str):
+    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,settingConfig:jsonWork,neuronFile:jsonWork,textColor:str,color:str,linux:bool):
         #varriable
         self.__config = config
         self.__assistantFile = neuronFile
@@ -31,11 +31,18 @@ class SettingSoftware :
         ]
         #declaration cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__addLinuxFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__supprSpeFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        if (linux == True):
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__addLinuxFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__supprSpeFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        else :
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__addLinuxFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__supprSpeFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
         #objet detction 
         self.__dectOS = OS()
         #widget

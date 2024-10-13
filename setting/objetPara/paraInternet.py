@@ -3,7 +3,7 @@ from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingInternet :
-    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str):
+    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str,linux:bool):
         #variable 
         self.__config = config
         self.__varType = StringVar(windows)
@@ -12,9 +12,14 @@ class SettingInternet :
                          "Stokage en ligne"]
         #declaration cadre 
         self.__mainFrame = cadre 
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        if (linux == True):
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        else :
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
         #widget 
         labelTitre = [
             Label(self.__acceuilFrame,text="Paramétre d'internet",bg=color,fg=textColor,font=("arial","20")),

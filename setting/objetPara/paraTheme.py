@@ -3,14 +3,17 @@ from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingTheme :
-    def __init__(self,windows:Tk,cadre:Frame,listeTheme:list,configAssistant:jsonWork,textColor:str,color:str):
+    def __init__(self,windows:Tk,cadre:Frame,listeTheme:list,configAssistant:jsonWork,textColor:str,color:str,linux:bool):
         #varriable
         self.__varTheme = StringVar(windows)
         self.__configAssistant = configAssistant
         self.__listTheme = listeTheme
         #cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        if (linux==True):
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        else :
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
         #widget 
         labelTitre = Label(self.__acceuilFrame,text="Choix du theme",bg=color,fg=textColor,font=("arial","20"))
         self.menuTheme = OptionMenu(self.__acceuilFrame,self.__varTheme,*self.__listTheme)

@@ -4,7 +4,7 @@ from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingMeteo :
-    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str):
+    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str,linux:bool):
         #varriable
         self.__varSuppr = StringVar(windows)
         self.__varChoixLieu = StringVar(windows)
@@ -12,10 +12,16 @@ class SettingMeteo :
         self.__listChoixLieu = ["Simple","Domicile","Travail"]
         #declaration cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__listFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        if (linux == True) :
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__listFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        else :
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__listFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__addFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__supprFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
         labelTitre = [
             Label(self.__acceuilFrame,text="Parametre Meteo",bg=color,fg=textColor,font=("arial","20")),
             Label(self.__listFrame,text="Liste de ville enregistrer",bg=color,fg=textColor,font=("arial","20")),

@@ -3,14 +3,19 @@ from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingGPS:
-    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str):
+    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str,linux:bool):
         #variable
         self.__configFile = config
         #cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__addresseDomicile = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__addresseWork = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        if (linux == True):
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__addresseDomicile = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__addresseWork = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        else :
+            self.__acceuilFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__addresseDomicile = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__addresseWork = Frame(self.__mainFrame,bg=color,width=350,height=600)
         #widget
         labelTitre = [
             Label(self.__acceuilFrame,text="Parametre GPS",bg=color,fg=textColor,font=("arial","20")),

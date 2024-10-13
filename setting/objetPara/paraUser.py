@@ -3,7 +3,7 @@ from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingUser :
-    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,settingConfigFile:jsonWork,textColor:str,color:str):
+    def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,settingConfigFile:jsonWork,textColor:str,color:str,linux:bool):
         #varriable 
         self.__varGenre = StringVar(windows)
         self.__configFile = config
@@ -11,9 +11,14 @@ class SettingUser :
         self.__listGenre = list(self.__settingFile.lectureJSONList("listGenre"))
         #declaration cadre
         self.__mainFrame = cadre
-        self.__acceuilFrame =  Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__prenomFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
-        self.__genreFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        if (linux == True):
+            self.__acceuilFrame =  Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__prenomFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+            self.__genreFrame = Frame(self.__mainFrame,bg=color,width=350,height=565)
+        else :
+            self.__acceuilFrame =  Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__prenomFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
+            self.__genreFrame = Frame(self.__mainFrame,bg=color,width=350,height=600)
         #widget 
         labelTitre = [
             Label(self.__acceuilFrame,text="Parametre Utilisateur",bg=color,fg=textColor,font=("arial","20")),
