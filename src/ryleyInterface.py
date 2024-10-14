@@ -162,6 +162,9 @@ class interfaceRyley:
                         if (valeur==18):
                             self.__setText("J'espère que se résumé ta bien aider")
                             self.__labelResumer.configure(text=sortie[0]+"\n"+sortie[1])
+                        else :
+                            if (valeur == 17):
+                                self.__labelResumer.configure(text=sortie[0])
                         
     
     def __unViewActu(self):
@@ -208,7 +211,7 @@ class interfaceRyley:
         if (var == 12 or var == 11):
             self.__viewResumer(listOut,var)
         else :
-            if (var == 3 or var == 12 or var == 18 or var == 19) : 
+            if ((var == 3) or (var == 12) or (var == 18) or (var == 19) or (var == 17)) : 
                 self.__viewResumer(listOut,var)
             else :
                 texte = listOut[0]
