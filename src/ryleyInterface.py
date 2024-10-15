@@ -162,9 +162,6 @@ class interfaceRyley:
                         if (valeur==18):
                             self.__setText("J'espère que se résumé ta bien aider")
                             self.__labelResumer.configure(text=sortie[0]+"\n"+sortie[1])
-                        else :
-                            if (valeur == 17):
-                                self.__labelResumer.configure(text=sortie[0])
                         
     
     def __unViewActu(self):
@@ -211,11 +208,14 @@ class interfaceRyley:
         if (var == 12 or var == 11):
             self.__viewResumer(listOut,var)
         else :
-            if ((var == 3) or (var == 12) or (var == 18) or (var == 19) or (var == 17)) : 
+            if ((var == 3) or (var == 12) or (var == 18) or (var == 19)) : 
                 self.__viewResumer(listOut,var)
             else :
-                texte = listOut[0]
-                self.__setText(texte)
+                if (var == 17):
+                    self.__windowsHelp(listOut)
+                else :
+                    texte = listOut[0]
+                    self.__setText(texte)
         if var == 15 :
             self.__screen.update()
             t.sleep(1.5)
@@ -260,3 +260,52 @@ class interfaceRyley:
         labelVersion.pack()
         labelCopyright.pack()
         about.mainloop()
+    
+    def __windowsHelp(self,list:list):
+        texte = list[0]
+        winHelp = Toplevel()
+        winHelp.title("Ryley : Aide")
+        winHelp.iconphoto(False,self.__iconWindows)
+        winHelp.configure(bg=self.__mainColor)
+        if (list[1]=="tableur"):
+            if (OS().osLinux() == True):
+                winHelp.maxsize(800,835)
+                winHelp.minsize(800,835)
+            else :
+                winHelp.maxsize(800,810)
+                winHelp.minsize(800,810)
+            warp = 795
+        else :
+            if (list[1]=="word"):
+                if (OS().osLinux() == True):
+                    winHelp.maxsize(600,635)
+                    winHelp.minsize(600,635)
+                else :
+                    winHelp.maxsize(600,610)
+                    winHelp.minsize(600,610)
+                warp = 580
+            else :
+                if (list[1]== "fichier" or list[1] == "radio"):
+                    if (OS().osLinux() == True):
+                        winHelp.maxsize(500,635)
+                        winHelp.minsize(500,635)
+                    else :
+                        winHelp.maxsize(500,610)
+                        winHelp.minsize(500,610)
+                    warp = 450
+                else :
+                    if (list[1]=="projet"):
+                        if (OS().osLinux() == True):
+                            winHelp.maxsize(1050,890)
+                            winHelp.minsize(1050,890)
+                        else :
+                            winHelp.maxsize(1050,865)
+                            winHelp.minsize(1050,865)
+                        warp = 1040
+        
+        labelHelp = Label(winHelp,text=texte,wraplength=warp,font=("arial","15"),
+                          bg=self.__mainColor,fg=self.__mainTextColor,justify="left")
+        
+        labelHelp.place(x=0,y=0)
+        
+        
