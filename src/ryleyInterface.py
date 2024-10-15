@@ -275,6 +275,7 @@ class interfaceRyley:
                 winHelp.maxsize(800,810)
                 winHelp.minsize(800,810)
             warp = 795
+            self.__setText("Je t'ai ouvert une fenêtre avec tout ce que tu peux faire avec un fichier tableur.")
         else :
             if (list[1]=="word"):
                 if (OS().osLinux() == True):
@@ -284,6 +285,7 @@ class interfaceRyley:
                     winHelp.maxsize(600,610)
                     winHelp.minsize(600,610)
                 warp = 580
+                self.__setText("Voici la fenêtre d'aide pour la gestion des fichiers de traitement de texte avec moi.")
             else :
                 if (list[1]== "fichier" or list[1] == "radio"):
                     if (OS().osLinux() == True):
@@ -293,6 +295,11 @@ class interfaceRyley:
                         winHelp.maxsize(500,610)
                         winHelp.minsize(500,610)
                     warp = 450
+                    match list[1] :
+                        case "fichier" :
+                            self.__setText("Je t'ai ouvert une fenêtre avec la liste de tous les fichiers que je peux créer dans un projet.")
+                        case "radio" :
+                            self.__setText("Voici la liste des radios que je peux te lancer à l'écoute.")
                 else :
                     if (list[1]=="projet"):
                         if (OS().osLinux() == True):
@@ -301,6 +308,7 @@ class interfaceRyley:
                         else :
                             winHelp.maxsize(1050,865)
                             winHelp.minsize(1050,865)
+                        self.__setText("Je t'ai ouvert une fenêtre avec toutes les fonctions du projet Arrera.")
                         warp = 1040
         
         labelHelp = Label(winHelp,text=texte,wraplength=warp,font=("arial","15"),
