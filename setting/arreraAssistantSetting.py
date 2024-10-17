@@ -131,7 +131,7 @@ class ArreraSettingAssistant :
         boutonMenu6=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Software",command=lambda :self.softwareView())
         boutonMenu7 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Internet",command=lambda :self.internetView())
         boutonMenu8=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Theme",command=lambda :self.themeView())
-        boutonMenu9  = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Micro",command=lambda:self.microView())
+        boutonMenu9  = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Beta Setting")
         boutonQuitter = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Quitter",command=lambda :self.quittePara())
         #formatage de la fenetre
         windows.maxsize(500,600)
@@ -180,13 +180,7 @@ class ArreraSettingAssistant :
         boutonMenu5.place(x=xBoutonMenu,y=250)
         boutonMenu6.place(x=xBoutonMenu,y=300)
         boutonMenu7.place(x=xBoutonMenu,y=350)
-        if self.__changeColor == True :
-            boutonMenu8.place(x=xBoutonMenu,y=400)
-        if self.__controleMicro == True :
-            if self.__changeColor == False :
-                boutonMenu9.place(x=xBoutonMenu,y=400)
-            else :
-                boutonMenu9.place(x=xBoutonMenu,y=450)
+        boutonMenu9.place(x=xBoutonMenu,y=400)
         boutonQuitter.place(relx=0.5, rely=1.0, anchor="s")
         #Affichage cadre principal
         self.__cadreMenu.pack(side="left")
