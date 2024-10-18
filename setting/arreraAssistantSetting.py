@@ -134,7 +134,7 @@ class ArreraSettingAssistant :
         boutonMenu6=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Software",command=lambda :self.softwareView())
         boutonMenu7 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Internet",command=lambda :self.internetView())
         boutonMenu8=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Theme",command=lambda :self.themeView())
-        boutonMenu9  = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Beta Setting")
+        boutonMenu9  = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Beta Setting",command=lambda : self.betaView())
         boutonQuitter = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Quitter",command=lambda :self.quittePara())
         #formatage de la fenetre
         windows.maxsize(500,600)
@@ -198,6 +198,7 @@ class ArreraSettingAssistant :
         self.__cadreSoft.pack_forget()
         self.__cadreInternet.pack_forget()
         self.__cadreTheme.pack_forget()
+        self.__cadreBeta.pack_forget()
         
               
     def mainView(self) -> bool :
@@ -205,7 +206,13 @@ class ArreraSettingAssistant :
         self.__cadreAcceuil.pack(side="left")
         self.__cadreAcceuil.update()
         return True 
-    
+
+    def betaView(self)->bool:
+        self._unView()
+        self.__paraBeta.view()
+        self.__cadreBeta.update()
+        return True
+
     def userView(self)->bool:
         self._unView()
         self.__paraUser.view()
@@ -307,13 +314,16 @@ class ArreraSettingAssistant :
         self.__fnc = fonctionQuitter
     
     def quittePara(self)->bool :
+        self.__cadreMenu.destroy()
         self.__cadreAcceuil.destroy()
         self.__cadreUser.destroy()
         self.__cadreMeteo.destroy()
-        self.__cadreMenu.destroy()
         self.__cadreGPS.destroy()
         self.__cadreRecherche.destroy()
         self.__cadreSoft.destroy()
+        self.__cadreInternet.destroy()
         self.__cadreTheme.destroy()
+        self.__cadreMicro.destroy()
+        self.__cadreBeta.destroy()
         self.__fnc()    
         return True 
