@@ -71,18 +71,24 @@ class interfaceRyley:
         #Creation menu secondaire
         self.__fichierMenu = Menu(self.__ryleyMenu,tearoff=0)
         helpMenu = Menu(self.__ryleyMenu,tearoff=0)
+        debugMenu = Menu(self.__ryleyMenu,tearoff=0)
         #Ajout des command au menu fichierMenu
         self.__fichierMenu.add_command(label="Paramétre",command=self.__activePara)
         self.__fichierMenu.add_command(label="Test de connexion",command=self.__windowsEtatNetwork)
         self.__fichierMenu.add_command(label="Calculatrice",command=self.__ouvertureCalculatrice)
+        # Menu debugMenu
+        debugMenu.add_command(label="Documentation")
+        debugMenu.add_command(label="Instruction beta testeur")
+        debugMenu.add_command(label="Historique requette/reponse")
         #Ajout des command au menu helpMenu
         helpMenu.add_command(label="Documentation")
         helpMenu.add_command(label="A propos")
         #Ajout au menu principale tout les menu deroulant      
         self.__ryleyMenu.add_cascade(label="Fichier",menu=self.__fichierMenu)
         self.__ryleyMenu.add_cascade(label="Aide",menu=helpMenu)
+        self.__ryleyMenu.add_cascade(label="Debug",menu=debugMenu)
+        self.__ryleyMenu.add_command(label="Reporter au developpeur", command=lambda: self.__debugWindows.active())
         self.__ryleyMenu.add_command(label="A propos",command=self.__Apropop)
-        self.__ryleyMenu.add_command(label="Reporter au developpeur",command=lambda : self.__debugWindows.active())
         #parametrage parametre
         self.__boutonEnvoyer=Button(self.__bottom,text="Envoyer",font=("arial","15"),command=self.__envoi)
         #Application du theme
@@ -318,5 +324,3 @@ class interfaceRyley:
                           bg=self.__mainColor,fg=self.__mainTextColor,justify="left")
         
         labelHelp.place(x=0,y=0)
-        
-        
