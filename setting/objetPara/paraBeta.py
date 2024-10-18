@@ -21,7 +21,7 @@ class SettingBETA:
 
         # Widget
         labelTitre = [
-            Label(self.__acceuilFrame,text="Parametre\nde la beta",bg=color,fg=textColor,font=("arial","20")),
+            Label(self.__acceuilFrame,text="Parametre de la beta",bg=color,fg=textColor,font=("arial","20")),
             Label(self.__tokenGithub, text="Entrer votre\ntoken github", bg=color, fg=textColor, font=("arial", "20")),
             Label(self.__workFolder, text="Selectionner votre\ndossier de travail", bg=color, fg=textColor, font=("arial", "20")),
             Label(self.__videoDownload, text="Selectionner le dossier\nde telechargement des video", bg=color, fg=textColor, font=("arial", "20"))
@@ -36,6 +36,41 @@ class SettingBETA:
 
         btnChoiseFolderWork = Button(self.__workFolder,text="Choisir le dossier\nde travail", bg=color, fg=textColor, font=("arial", "15"))
         btnChoiseFolderVideo = Button(self.__videoDownload,text="Choisir le dossier\nde telechargement", bg=color, fg=textColor, font=("arial", "15"))
+
+        # Varriable
+        centrageAcceuil = self.__acceuilFrame.winfo_reqwidth()
+
+        # Bouton Acceuil
+        btnToken = Button(self.__acceuilFrame,text="Enregistrement du\ntoken github", bg=color,
+                          fg=textColor, font=("arial", "15"),command= self.__viewTokenGithub)
+        btnWord = Button(self.__acceuilFrame,text="Parametre Arrera Work", bg=color,
+                         fg=textColor, font=("arial", "15"),command= self.__viewTokenWork)
+        btnVideo = Button(self.__acceuilFrame,text="Parametre Arrera\nvideo download", bg=color,
+                          fg=textColor, font=("arial", "15"),command= self.__viewTokenVideo)
+
+        self.__entryToken = Entry(self.__tokenGithub, font=("arial", "15"), borderwidth=2, relief="solid")
+
+        # Affichage
+        labelTitre[0].place(relx=0.5, rely=0.0, anchor="n")
+        labelTitre[1].place(relx=0.5, rely=0.0, anchor="n")
+        labelTitre[2].place(relx=0.5, rely=0.0, anchor="n")
+        labelTitre[3].place(relx=0.5, rely=0.0, anchor="n")
+
+        btnToken.place(x=((centrageAcceuil - btnToken.winfo_reqwidth()) // 2), y=150)
+        btnWord.place(x=((centrageAcceuil-btnWord.winfo_reqwidth())//2),y=250)
+        btnVideo.place(x=((centrageAcceuil - btnVideo.winfo_reqwidth()) // 2), y=350)
+
+        btnRetour[0].place(relx=0, rely=1, anchor='sw')
+        btnRetour[1].place(relx=0, rely=1, anchor='sw')
+        btnRetour[2].place(relx=0, rely=1, anchor='sw')
+        btnRetour[3].place(relx=0, rely=1, anchor='sw')
+
+        btnChoiseFolderWork.place(relx=0.5, rely=0.5, anchor="center")
+        btnChoiseFolderVideo.place(relx=0.5, rely=0.5, anchor="center")
+
+        btnValiderToken.place(relx=1, rely=1, anchor='se')
+
+        self.__entryToken.place(relx=0.5, rely=0.5, anchor="center")
 
     def view(self):
         self.__mainFrame.pack(side="left")
@@ -53,4 +88,16 @@ class SettingBETA:
         self.__tokenGithub.place(x=0, y=0)
         self.__workFolder.place_forget()
         self.__videoDownload.place_forget()
+        self.__acceuilFrame.place_forget()
+
+    def __viewTokenWork(self):
+        self.__tokenGithub.place_forget()
+        self.__workFolder.place(x=0, y=0)
+        self.__videoDownload.place_forget()
+        self.__acceuilFrame.place_forget()
+
+    def __viewTokenVideo(self):
+        self.__tokenGithub.place_forget()
+        self.__workFolder.place_forget()
+        self.__videoDownload.place(x=0, y=0)
         self.__acceuilFrame.place_forget()
