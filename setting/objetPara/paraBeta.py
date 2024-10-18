@@ -1,6 +1,10 @@
 from tkinter import*
+
+from openpyxl.styles.builtins import comma
+
 from librairy.travailJSON import*
 from tkinter import messagebox
+from tkinter import filedialog
 
 class SettingBETA:
     def __init__(self,windows:Tk,cadre:Frame,config:jsonWork,textColor:str,color:str,linux:bool):
@@ -32,10 +36,12 @@ class SettingBETA:
             Button(self.__workFolder, text="Annuler", bg=color, fg=textColor, font=("arial", "15"),command=self.__backAcceuil),
             Button(self.__videoDownload, text="Annuler", bg=color, fg=textColor, font=("arial", "15"),command=self.__backAcceuil)
         ]
-        btnValiderToken = Button(self.__tokenGithub,text="Valider", bg=color, fg=textColor, font=("arial", "15"))
+        btnValiderToken = Button(self.__tokenGithub,text="Valider", bg=color, fg=textColor, font=("arial", "15"),command=self.__setTokenGithub)
 
-        btnChoiseFolderWork = Button(self.__workFolder,text="Choisir le dossier\nde travail", bg=color, fg=textColor, font=("arial", "15"))
-        btnChoiseFolderVideo = Button(self.__videoDownload,text="Choisir le dossier\nde telechargement", bg=color, fg=textColor, font=("arial", "15"))
+        btnChoiseFolderWork = Button(self.__workFolder,text="Choisir le dossier\nde travail",
+                                     bg=color, fg=textColor, font=("arial", "15"),command=self.__setFolderWork)
+        btnChoiseFolderVideo = Button(self.__videoDownload,text="Choisir le dossier\nde telechargement",
+                                      bg=color, fg=textColor, font=("arial", "15"),command=self.__setFolderDownload)
 
         # Varriable
         centrageAcceuil = self.__acceuilFrame.winfo_reqwidth()
@@ -101,3 +107,31 @@ class SettingBETA:
         self.__workFolder.place_forget()
         self.__videoDownload.place(x=0, y=0)
         self.__acceuilFrame.place_forget()
+
+    def __setFolderWork(self):
+        workFolder = filedialog.askdirectory(title="Choix dossier de travail Arrera Work")
+        if workFolder :
+            self.__configFile.EcritureJSON("wordFolder",workFolder)
+            messagebox.showinfo("Arrera Work","Votre dossier a été bien enregistrée")
+        else :
+            messagebox.showerror("Arrera Work","Impossible d'enregistrer le dossier")
+        self.__backAcceuil()
+
+    def __setFolderDownload(self):
+        downloadFolder = filedialog.askdirectory(title="Choix dossier de telechargement")
+        if downloadFolder :
+            self.__configFile.EcritureJSON("videoDownloadFolder",downloadFolder)
+            messagebox.showinfo("Arrera Video Download","Votre dossier a été bien enregistrée")
+        else :
+            messagebox.showerror("Arrera Video Download","Impossible d'enregistrer le dossier")
+        self.__backAcceuil()
+
+    def __setTokenGithub(self):
+        token = self.__entryToken.get()
+        if token:
+            self.__configFile.EcritureJSON("tokenGithub",token)
+            messagebox.showinfo("Token github","Enregistrement du token")
+            self.__entryToken.delete(0,END)
+        else :
+            messagebox.showerror("Token githib","Impossible d'enregistrer un token null")
+        self.__backAcceuil()
