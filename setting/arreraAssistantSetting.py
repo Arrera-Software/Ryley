@@ -1,6 +1,7 @@
 from tkinter import *
 from librairy.dectectionOS import*
 from librairy.travailJSON import *
+from setting.objetPara.paraBeta import SettingBETA
 from setting.objetPara.paraUser import*
 from setting.objetPara.paraMeteo import*
 from setting.objetPara.paraGPS import*
@@ -72,6 +73,7 @@ class ArreraSettingAssistant :
         self.__cadreInternet = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
         self.__cadreTheme = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
         self.__cadreMicro = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
+        self.__cadreBeta = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
         #initilisation objet para
         linuxOs = self.__os.osLinux()
         self.__paraUser = SettingUser(windows,self.__cadreUser,self.__fileUser,self.__settingFile,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
@@ -84,6 +86,7 @@ class ArreraSettingAssistant :
             self.__paraTheme = SettingTheme(windows,self.__cadreTheme,self.__listTheme,self.__assistantFile,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
         if self.__controleMicro == True :
             self.__paraMicro = SettingMicro(self.__cadreMicro,self.__assistantFile,self.__textColorPrimaire,self.__colorPrimaire)
+        self.__paraBeta = SettingBETA(windows,self.__cadreBeta,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire,linuxOs)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.__cadreAcceuil,width=175,height=200,bg=self.__colorPrimaire,borderwidth=1, relief="solid"),
