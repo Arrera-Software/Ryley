@@ -6,6 +6,7 @@ import time as t
 from  ObjetsNetwork.arreraNeuron import*
 from librairy.dectectionOS import*
 from PIL import Image, ImageTk
+from debug.CArreraReturnToolKit import *
 
 VERSIONAPP = ""
 class interfaceRyley:
@@ -14,6 +15,7 @@ class interfaceRyley:
         self.__arreraNetwork = networkNeuron
         self.__objetNetwork = network()
         self.__objetDectOS = OS()
+        self.__debugWindows = CArreraReturnToolKit("fichierJSON/debugConf.json")
     
     def __setTheme(self):
         self.__gestionnaire.setTheme()
@@ -80,6 +82,7 @@ class interfaceRyley:
         self.__ryleyMenu.add_cascade(label="Fichier",menu=self.__fichierMenu)
         self.__ryleyMenu.add_cascade(label="Aide",menu=helpMenu)
         self.__ryleyMenu.add_command(label="A propos",command=self.__Apropop)
+        self.__ryleyMenu.add_command(label="Reporter au developpeur",command=lambda : self.__debugWindows.active())
         #parametrage parametre
         self.__boutonEnvoyer=Button(self.__bottom,text="Envoyer",font=("arial","15"),command=self.__envoi)
         #Application du theme
