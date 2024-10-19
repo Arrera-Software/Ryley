@@ -5,11 +5,12 @@ from setting.arreraAssistantSetting import*
 import time as t
 from  ObjetsNetwork.arreraNeuron import*
 from librairy.dectectionOS import*
-from PIL import Image, ImageTk
 from debug.CArreraReturnToolKit import *
 from tkinter import scrolledtext
+from PIL import Image, ImageTk
 
-VERSIONAPP = ""
+
+VERSIONAPP = "I2024-1.00-BETA-TESTNEURON"
 class interfaceRyley:
     def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
         self.__gestionnaire = gestionnaire
