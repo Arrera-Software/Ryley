@@ -7,6 +7,7 @@ from  ObjetsNetwork.arreraNeuron import*
 from librairy.dectectionOS import*
 from PIL import Image, ImageTk
 from debug.CArreraReturnToolKit import *
+from tkinter import scrolledtext
 
 VERSIONAPP = ""
 class interfaceRyley:
@@ -16,7 +17,10 @@ class interfaceRyley:
         self.__objetNetwork = network()
         self.__objetDectOS = OS()
         self.__debugWindows = CArreraReturnToolKit("fichierJSON/debugConf.json")
-    
+        self.__dictHist = {}
+        self.__reponse = ""
+        self.__requette = ""
+
     def __setTheme(self):
         self.__gestionnaire.setTheme()
         self.__mainColor = self.__gestionnaire.getMaincolor()
@@ -83,7 +87,7 @@ class interfaceRyley:
         debugMenu.add_command(label="Documentation",
                               command=lambda : webbrowser.open("https://github.com/Arrera-Documentation/Ryley-doc/blob/master/Writerside/topics/Documentation.md"))
         debugMenu.add_command(label="Instruction beta testeur")
-        debugMenu.add_command(label="Historique requette/reponse")
+        debugMenu.add_command(label="Historique requette/reponse",command=self.__windowsHist)
         #Ajout des command au menu helpMenu
         helpMenu.add_command(label="Documentation")
         helpMenu.add_command(label="A propos")
@@ -219,15 +223,19 @@ class interfaceRyley:
         listOut = self.__arreraNetwork.getListSortie()
         var = self.__arreraNetwork.getValeurSortie()
         if (var == 12 or var == 11):
+            self.setHist("resumer",statement)
             self.__viewResumer(listOut,var)
         else :
-            if ((var == 3) or (var == 12) or (var == 18) or (var == 19)) : 
+            if ((var == 3) or (var == 12) or (var == 18) or (var == 19)) :
+                self.setHist("resumer",statement)
                 self.__viewResumer(listOut,var)
             else :
                 if (var == 17):
+                    self.setHist("help",statement)
                     self.__windowsHelp(listOut)
                 else :
                     texte = listOut[0]
+                    self.setHist(texte,statement)
                     self.__setText(texte)
         if var == 15 :
             self.__screen.update()
@@ -328,3 +336,46 @@ class interfaceRyley:
                           bg=self.__mainColor,fg=self.__mainTextColor,justify="left")
         
         labelHelp.place(x=0,y=0)
+
+    def setHist(self,reponse:str,requette:str):
+        if (reponse and requette):
+            self.__dictHist[requette] = reponse
+            self.__requette = requette
+            self.__reponse = reponse
+            return  True
+        else :
+            return False
+
+    def __windowsHist(self):
+        if (self.__requette and self.__reponse ):
+            win = Toplevel()
+            if (OS().osLinux() == True):
+                width=500
+                height = 635
+            else:
+                width = 500
+                height = 610
+            win.minsize(width, height)
+            win.maxsize(width, height)
+
+            ftext = Frame(win, bg=self.__mainColor, width=width, height=height - 40)
+            fbottom = Frame(win, bg=self.__mainColor, width=width, height=40)
+
+            # Zone de texte avec défilement
+            histView = scrolledtext.ScrolledText(ftext, wrap=WORD)
+            histView.pack(padx=10, pady=10, fill=BOTH, expand=True)  # Ajustement automatique
+
+            # Bouton dans le frame du bas
+            btnCopy = Button(fbottom, bg=self.__mainColor, fg=self.__mainTextColor,
+                             text="Copier le dernier échange", font=("arial", "15"))
+            btnCopy.place(relx=0.5, rely=0.5, anchor="center")
+
+            # Pack les frames
+            ftext.pack(side="top", fill=BOTH, expand=True)  # Ajustement automatique de ce frame
+            fbottom.pack(side="bottom", fill=X)
+
+            # Lancer la boucle principale
+            win.mainloop()
+            return True
+        else :
+            return False
