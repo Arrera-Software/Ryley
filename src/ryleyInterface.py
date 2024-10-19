@@ -41,7 +41,10 @@ class interfaceRyley:
         self.__labelResumer.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
-        self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json","fichierJSON/configNeuron.json","fichierJSON/ryleyConfig.json","fichierJSON/configUser.json")
+        self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json"
+                                                     ,"fichierJSON/configNeuron.json"
+                                                     ,"fichierJSON/ryleyConfig.json"
+                                                     ,"fichierJSON/configUser.json")
     
     def windows(self):
         #Definition fenetre Tkinter
@@ -77,7 +80,8 @@ class interfaceRyley:
         self.__fichierMenu.add_command(label="Test de connexion",command=self.__windowsEtatNetwork)
         self.__fichierMenu.add_command(label="Calculatrice",command=self.__ouvertureCalculatrice)
         # Menu debugMenu
-        debugMenu.add_command(label="Documentation")
+        debugMenu.add_command(label="Documentation",
+                              command=lambda : webbrowser.open("https://github.com/Arrera-Documentation/Ryley-doc/blob/master/Writerside/topics/Documentation.md"))
         debugMenu.add_command(label="Instruction beta testeur")
         debugMenu.add_command(label="Historique requette/reponse")
         #Ajout des command au menu helpMenu

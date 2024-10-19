@@ -24,7 +24,7 @@
    "etatApi":"1",
    "etatCodehelp":"1",
    "etatWork":"1",
-   "lienDoc":"",
+   "lienDoc":"https://github.com/Arrera-Documentation/Ryley-doc/blob/master/Writerside/topics/Documentation.md",
    "emplacementFileHist":"fichierJSON/neuronHist.json",
    "emplacementFileRoutine":""
 }
