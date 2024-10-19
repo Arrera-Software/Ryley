@@ -2,12 +2,12 @@
   "NameSoft": "Beta Arrera Neuron Network",
   "color": "white",
   "textColor":"black",
-  "btn1Text": "",
-  "btn3Text": "",
-  "btn2Text": "",
-  "btn4Text": "",
-  "btn1Link": "",
-  "btn3Link": "",
-  "btn2Link": "",
-  "btn4Link": ""
+  "btn1Text": "Rapport de bug",
+  "btn3Text": "Rapport de faute",
+  "btn2Text": "Ameloration",
+  "btn4Text": "Rajout",
+  "btn1Link": "https://forms.gle/RF887LBNiAGiyxrg6",
+  "btn3Link": "https://forms.gle/HTerLFzagnjdYcrh7",
+  "btn2Link": "https://forms.gle/STmsRQgEh5QZ2WzH6",
+  "btn4Link": "https://forms.gle/DVj3uuQKW2hwUfjA8"
 }

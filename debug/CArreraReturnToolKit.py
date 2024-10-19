@@ -45,7 +45,7 @@ class CArreraReturnToolKit :
                       bg=self.__color, fg=self.__textcolor,wraplength=100,
                       command= lambda : wb.open(self.__linkBTN[1]))
         btn3 = Button(frameBTN, text=self.__txtBTN[2], font=self.__styleText,
-                      bg=self.__color, fg=self.__textcolor,wraplength=100,
+                      bg=self.__color, fg=self.__textcolor,wraplength=120,
                       command= lambda : wb.open(self.__linkBTN[2]))
         btn4 = Button(frameBTN, text=self.__txtBTN[3], font=self.__styleText,
                       bg=self.__color, fg=self.__textcolor,wraplength=100,
