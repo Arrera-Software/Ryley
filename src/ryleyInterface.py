@@ -348,6 +348,7 @@ class interfaceRyley:
 
     def __windowsHist(self):
         if (self.__requette and self.__reponse ):
+            # Declaration de la fentre
             win = Toplevel()
             if (OS().osLinux() == True):
                 width=500
@@ -357,25 +358,31 @@ class interfaceRyley:
                 height = 610
             win.minsize(width, height)
             win.maxsize(width, height)
-
+            # Declaration des frame
             ftext = Frame(win, bg=self.__mainColor, width=width, height=height - 40)
             fbottom = Frame(win, bg=self.__mainColor, width=width, height=40)
-
             # Zone de texte avec défilement
             histView = scrolledtext.ScrolledText(ftext, wrap=WORD)
-            histView.pack(padx=10, pady=10, fill=BOTH, expand=True)  # Ajustement automatique
-
             # Bouton dans le frame du bas
             btnCopy = Button(fbottom, bg=self.__mainColor, fg=self.__mainTextColor,
-                             text="Copier le dernier échange", font=("arial", "15"))
+                             text="Copier le dernier échange", font=("arial", "15"),command=self.__copyLastEchange)
+            # Ajout de l'historique dans histView
+            histView.config(state=NORMAL)
+            histView.delete(1.0, END)
+            for index, valeur in self.__dictHist.items():
+                histView.insert(END, f'Requette :"{index}"\nReponse :"{valeur}"\n\n')
+            histView.config(state=DISABLED)
+            # Placement des wigdet et des frame
+            histView.pack(padx=10, pady=10, fill=BOTH, expand=True)
             btnCopy.place(relx=0.5, rely=0.5, anchor="center")
-
             # Pack les frames
             ftext.pack(side="top", fill=BOTH, expand=True)  # Ajustement automatique de ce frame
             fbottom.pack(side="bottom", fill=X)
 
-            # Lancer la boucle principale
-            win.mainloop()
             return True
         else :
             return False
+
+    def __copyLastEchange(self):
+        pyperclip.copy("Requette : "+self.__requette+"\nReponse : "+self.__reponse)
+        showinfo("Ryley","Dernier echange avec Ryley copier")
