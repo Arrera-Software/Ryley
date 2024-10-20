@@ -21,20 +21,23 @@ class CArreraReturnToolKit :
         win = Toplevel()
         win.title(self.__name)
         if (OS().osLinux() == True):
-            win.maxsize(500, 635)
-            win.minsize(500, 635)
+            width = 500
+            height = 635
         else:
-            win.maxsize(500, 610)
-            win.minsize(500, 610)
+            width = 500
+            height = 610
+        win.maxsize(width, height)
+        win.minsize(width, height)
         win.configure(bg=self.__color)
         # Frame
-        frameBTN = Frame(win,width=400,height=400,bg=self.__color)
+        mainFrame = Frame(win,width=width,height=height,bg=self.__color)
+        frameBTN = Frame(mainFrame,width=400,height=400,bg=self.__color)
         # Widget
         # Win
-        labelTitle = Label(win,text=self.__name,
+        labelTitle = Label(mainFrame,text=self.__name,
                            bg=self.__color,
                            font=self.__styleTextTitle,fg=self.__textcolor)
-        btnQuit = Button(win,text="Quitter",bg=self.__color,
+        btnQuit = Button(mainFrame,text="Quitter",bg=self.__color,
                          fg=self.__textcolor,font=self.__styleText,
                          command=lambda : win.quit())
         #BTN
@@ -51,6 +54,7 @@ class CArreraReturnToolKit :
                       bg=self.__color, fg=self.__textcolor,wraplength=100,
                       command= lambda : wb.open(self.__linkBTN[3]))
         # Affichage
+        mainFrame.place(x=0,y=0)
         frameBTN.place(relx=0.5, rely=0.5, anchor="center")
 
         if self.__txtBTN[0] and self.__linkBTN[0] :
@@ -62,5 +66,5 @@ class CArreraReturnToolKit :
         if self.__txtBTN[3] and self.__linkBTN[3]:
             btn4.place(relx=1, rely=1, anchor='se')
 
-        labelTitle.pack()
-        btnQuit.pack(side="bottom")
+        labelTitle.place(relx=0.5, rely=0.0, anchor="n")
+        btnQuit.place(relx=0.5, rely=1.0, anchor="s")
