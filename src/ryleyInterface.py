@@ -109,6 +109,7 @@ class interfaceRyley:
         self.__barreR.place(x="5",y="70")
         self.__boutonEnvoyer.place(x="400",y="65")
         self.__btnBackActu.place(x=((self.__actu.winfo_reqwidth()-self.__btnBackActu.winfo_reqwidth())//2),y="520")
+        self.__bootWindows()
     
     
     def bootRyley(self):
@@ -387,3 +388,27 @@ class interfaceRyley:
     def __copyLastEchange(self):
         pyperclip.copy("Requette : "+self.__requette+"\nReponse : "+self.__reponse)
         showinfo("Ryley","Dernier echange avec Ryley copier")
+
+    def __bootWindows(self):
+        winBoot = Toplevel()
+        if (OS().osLinux() == True):
+            width = 500
+            height = 635
+        else:
+            width = 500
+            height = 610
+        winBoot.minsize(width, height)
+        winBoot.maxsize(width, height)
+        winBoot.title("Ryley : Boot")
+        winBoot.configure(bg=self.__mainColor)
+        labelTitle = Label(winBoot,text="Ryley BETA TESTE NEURONE",
+                           bg=self.__mainColor,fg=self.__mainTextColor,font=("Arial",20))
+        labelTexte = Label(winBoot,bg=self.__mainColor,fg=self.__mainTextColor,wraplength=470,justify="left",
+                           font=("Arial",15),text="Cette version de l'assistant Ryley "
+                            "a pour but de corriger,fixer les bugs et amméliorer la nouvelle version d'Arrera Neuron Network. "
+                            "Qui sera a terme dans les prochaine version de Ryley,Six et Arrera Copilote.\n\nN'ésiter pas d'envoyer "
+                            "des retour au developpeur en utilisant le formulaire integrer dans l'assistant et qui son obtenable en "
+                            "cliquant sur Reporter au developpeur sur le menu supperieur")
+
+        labelTexte.place(x=20,y=50)
+        labelTitle.pack()
