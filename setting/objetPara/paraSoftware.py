@@ -73,7 +73,7 @@ class SettingSoftware :
         btnValiderAdd = Button(self.__addFrame,text="Ajouter",bg=color,fg=textColor,font=("arial","15")) 
         #addLinuxFram
         self.__entryCommandSoft = Entry(self.__addLinuxFrame,font=("arial","15"),borderwidth=2,relief="solid")
-        btnSaveLinux = Button(self.__addLinuxFrame,text="Enregistrer",bg=color,fg=textColor,font=("arial","15"),command=self._saveSoftLinux) 
+        btnSaveLinux = Button(self.__addLinuxFrame,text="Choisir le logiciel",bg=color,fg=textColor,font=("arial","15"),command=self._saveSoftLinux)
         #supprSpe
         menuSupprSpe = OptionMenu(self.__supprSpeFrame,self.__varSupprSpe,*self.__listTypeSoftSpe)
         btnValiderSupprSpe = Button(self.__supprSpeFrame,text="Supprimer",bg=color,fg=textColor,font=("arial","15"),command=self._supprSpeciaux)
@@ -106,8 +106,8 @@ class SettingSoftware :
         btnRetour[1].place(relx=0.0, rely=1.0, anchor='sw')
         #addLinuxFrame
         labelTitre[3].place(x=((largeurFrame-labelTitre[3].winfo_reqwidth())//2),y=0)
-        self.__entryCommandSoft.place(relx=0.5,rely=0.5,anchor="center")
-        btnSaveLinux.place(relx=1.0, rely=1.0, anchor='se')
+        btnSaveLinux.place(relx=0.5,rely=0.5,anchor="center")
+        #place(relx=1.0, rely=1.0, anchor='se')
         btnRetour[2].place(relx=0.0, rely=1.0, anchor='sw')
         #varSupprSpe
         labelTitre[4].place(x=((largeurFrame-labelTitre[3].winfo_reqwidth())//2),y=0)
@@ -221,7 +221,7 @@ class SettingSoftware :
         return True 
         
     def _saveSoftLinux(self)-> bool:
-        command = self.__entryCommandSoft.get()
+        command = filedialog.askopenfilename(title="Sélectionnez un fichier", initialdir="/bin")
         typeSoft = self.__varType.get()
         if typeSoft == self.__listTypeSoft[0]:
             name = self.__entryNameSoft.get()

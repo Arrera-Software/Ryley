@@ -10,7 +10,8 @@
   "adresseDomicile": "",
   "adresseTravail": "",
   "dictSoftWindows": {},
-  "dictSoftLinux": {},
+  "dictSoftLinux": {
+  },
   "diapoLinux": "",
   "diapoWindows": "",
   "browserLinux": "",
