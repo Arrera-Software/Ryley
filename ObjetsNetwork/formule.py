@@ -201,21 +201,21 @@ class formule :
             if self.__vous:
                 formule = "Bonjour,"
                 cmp = self.__genre + " " + self.__user
-                phrase = "Je vous ai relancée votre travail. Mais il faudrais que tu dorme."
+                phrase = "Je vous ai relancé votre travail. Mais il faudrait que vous dormiez."
             else:
                 formule = "Zzzz"
                 cmp = self.__user
-                phrase = "J'ai relancer la ou vous etais arriver. Mais il faudrais que tu dorme."
+                phrase = "J'ai relancé là où tu t'étais arrêté. Mais il faudrait que tu dormes."
         else:
             if hour >= 3 and hour <= 6:
                 if self.__vous:
                     formule = "Bonjour,"
                     cmp = self.__genre + " " + self.__user
-                    phrase = "Je vous ai relancée votre travail. Mais il faudrais que tu dorme."
+                    phrase = "Je vous ai relancé votre travail. Mais il faudrait que vous dormiez."
                 else:
                     formule = "Zzzz"
                     cmp = self.__user
-                    phrase =" J'ai relancer la ou vous etais arriver. Mais il faudrais que tu dorme."
+                    phrase ="J'ai relancé là où tu t'étais arrêté. Mais il faudrait que tu dormes."
             else:
                 if hour >= 6 and hour <= 10:
                     if self.__vous:
@@ -295,6 +295,4 @@ class formule :
                                                 formule = "Salut,"
                                                 cmp = self.__user
                                                 phrase = "Je t'ai relancer ou tu etais."
-
-            
-            return str(formule+" "+cmp+" "+phrase)
+        return str(formule+" "+cmp+" "+phrase)
