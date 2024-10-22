@@ -401,14 +401,12 @@ class interfaceRyley:
         winBoot.maxsize(width, height)
         winBoot.title("Ryley : Boot")
         winBoot.configure(bg=self.__mainColor)
-        labelTitle = Label(winBoot,text="Ryley BETA TESTE NEURONE",
+        labelTitle = Label(winBoot,text="Ryley BETA TEST NEURONE",
                            bg=self.__mainColor,fg=self.__mainTextColor,font=("Arial",20))
         labelTexte = Label(winBoot,bg=self.__mainColor,fg=self.__mainTextColor,wraplength=470,justify="left",
-                           font=("Arial",15),text="Cette version de l'assistant Ryley "
-                            "a pour but de corriger,fixer les bugs et amméliorer la nouvelle version d'Arrera Neuron Network. "
-                            "Qui sera a terme dans les prochaine version de Ryley,Six et Arrera Copilote.\n\nN'ésiter pas d'envoyer "
-                            "des retour au developpeur en utilisant le formulaire integrer dans l'assistant et qui son obtenable en "
-                            "cliquant sur Reporter au developpeur sur le menu supperieur")
+                           font=("Arial",15),text="Cette version de l'assistant Ryley  a pour objectif de corriger les bugs et d'améliorer la nouvelle version du réseau neuronal d'Arrera.\n"
+                            "Ces mises à jour seront progressivement intégrées dans les prochaines versions de Ryley, Six et Arrera Copilote.\n"
+                            "N'hésitez pas à envoyer vos retours aux développeurs en utilisant le formulaire intégré à l'assistant. Ce formulaire est accessible en cliquant sur 'Reporter au développeur' dans le menu supérieur.")
 
         labelTexte.place(x=20,y=50)
         labelTitle.pack()
