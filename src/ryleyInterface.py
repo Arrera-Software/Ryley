@@ -10,7 +10,7 @@ from tkinter import scrolledtext
 from PIL import Image, ImageTk
 
 
-VERSIONAPP = "I2024-1.00-BETA-TESTNEURON"
+VERSIONAPP = "I2024-2.00-BETA-TESTNEURON"
 class interfaceRyley:
     def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
         self.__gestionnaire = gestionnaire
@@ -87,11 +87,10 @@ class interfaceRyley:
         # Menu debugMenu
         debugMenu.add_command(label="Documentation",
                               command=lambda : webbrowser.open("https://github.com/Arrera-Documentation/Ryley-doc/blob/master/Writerside/topics/Documentation.md"))
-        debugMenu.add_command(label="Instruction beta testeur")
         debugMenu.add_command(label="Historique requette/reponse",command=self.__windowsHist)
         #Ajout des command au menu helpMenu
-        helpMenu.add_command(label="Documentation")
-        helpMenu.add_command(label="A propos")
+        helpMenu.add_command(label="Documentation" ,
+                             command=lambda : webbrowser.open("https://github.com/Arrera-Documentation/Ryley-doc/blob/master/Writerside/topics/Documentation.md"))
         #Ajout au menu principale tout les menu deroulant      
         self.__ryleyMenu.add_cascade(label="Fichier",menu=self.__fichierMenu)
         self.__ryleyMenu.add_cascade(label="Aide",menu=helpMenu)
