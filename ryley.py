@@ -6,24 +6,24 @@ from arreraLynx.arreraLynx import*
 
 class Ryley :
     def __init__(self):
-        self.__configRyley = jsonWork("fichierJSON/ryleyConfig.json")
-        self.__configUser = jsonWork("fichierJSON/configUser.json")
-        self.__configNeuron = jsonWork("fichierJSON/configNeuron.json")
-        self.__fichierLynx = jsonWork("fichierJSON/configLynx.json")
         #Objet
-        self.gestionnaire =  gestionRL(self.__configRyley) # Gestionnaire
-        self.networkNeuron = ArreraNetwork("fichierJSON/configNeuronTutoiment.json")
-        self.GUI = interfaceRyley(self.gestionnaire,self.networkNeuron)
+        gestionnaire =  gestionRL(jsonWork("fichierJSON/ryleyConfig.json")) # Gestionnaire
+        networkNeuron = ArreraNetwork("fichierJSON/configNeuronTutoiment.json")
+        self.GUI = interfaceRyley(gestionnaire,networkNeuron)
     
     def __verifBoot(self):
-        if not self.__configUser.lectureJSON("user") and not self.__configUser.lectureJSON("genre") :
+        configUser = jsonWork("fichierJSON/configUser.json")
+        if not configUser.lectureJSON("user") and not configUser.lectureJSON("genre") :
             return False
         else :
             return True
 
-    def __activeLynx(self,mode:int):
+    def __activeLynx(self):
         screen = Tk()
-        lynx = ArreraLynx(screen,self.__fichierLynx,self.__configUser,self.__configNeuron)
+        lynx = ArreraLynx(screen,
+                          jsonWork("fichierJSON/configLynx.json"),
+                          jsonWork("fichierJSON/configUser.json"),
+                          jsonWork("fichierJSON/configNeuron.json") )
         lynx.active()
         screen.mainloop()
         if lynx.confiCreate() == True :
