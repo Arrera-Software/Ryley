@@ -12,7 +12,7 @@ class Ryley :
         self.__fichierLynx = jsonWork("fichierJSON/configLynx.json")
         #Objet
         self.gestionnaire =  gestionRL(self.__configRyley) # Gestionnaire
-        self.networkNeuron = ArreraNetwork("fichierJSON/configUser.json","fichierJSON/configNeuron.json","fichierJSON/listFete.json")
+        self.networkNeuron = ArreraNetwork("fichierJSON/configNeuronTutoiment.json")
         self.GUI = interfaceRyley(self.gestionnaire,self.networkNeuron)
     
     def __verifBoot(self):
@@ -27,15 +27,9 @@ class Ryley :
         lynx.active()
         screen.mainloop()
         if lynx.confiCreate() == True :
-            if mode == 1 :
-                self.GUI.windows()
-                self.GUI.bootRyley()
-                self.GUI.enableWindows()
-            else :
-                if mode == 2 :
-                    self.GUI.windows()
-                    self.GUI.bootCodehelp()
-                    self.GUI.enableWindows()
+            self.GUI.windows()
+            self.GUI.bootRyley()
+            self.GUI.enableWindows()
         else :
             showwarning("La configuration mauvaise","Vous avez pas entre votre nom et genre dans l'outil de configuration")
 
@@ -45,15 +39,7 @@ class Ryley :
             self.GUI.bootRyley()
             self.GUI.enableWindows()
         else :
-            self.__activeLynx(1)
-
-    def bootCodeHelp(self):
-        if self.__verifBoot() == True : 
-            self.GUI.windows()
-            self.GUI.bootCodehelp()
-            self.GUI.enableWindows()
-        else :
-            self.__activeLynx(2)
+            self.__activeLynx()
     
     def bootPara(self):
         self.GUI.windows()

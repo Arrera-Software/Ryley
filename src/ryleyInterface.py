@@ -10,7 +10,7 @@ from tkinter import scrolledtext
 from PIL import Image, ImageTk
 
 
-VERSIONAPP = "I2024-2.00-BETA-TESTNEURON"
+VERSIONAPP = "I2024-2.00-BETA-2-TESTNEURON"
 class interfaceRyley:
     def __init__(self,gestionnaire:gestionRL,networkNeuron:ArreraNetwork):
         self.__gestionnaire = gestionnaire
@@ -47,7 +47,7 @@ class interfaceRyley:
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json"
-                                                     ,"fichierJSON/configNeuron.json"
+                                                     ,"fichierJSON/configNeuronTutoiment.json"
                                                      ,"fichierJSON/ryleyConfig.json"
                                                      ,"fichierJSON/configUser.json")
     
