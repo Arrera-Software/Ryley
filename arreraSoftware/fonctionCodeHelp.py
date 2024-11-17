@@ -11,7 +11,7 @@ class fncCodehelp :
         self.__searchDoc = CHsearchDoc()
         self.__colorSelector = CCHcolorSelector(configNeuron)
         self.__githubObjet = CHGithub(configNeuron,gestNeuron)
-        self.__librairyCodehelp = CHLibrairy(configNeuron)
+        self.__librairyCodehelp = CHLibrairy(configNeuron,gestNeuron)
     
     def activeOrgaVar(self):
         self.__orgaVar.bootOrganisateur()
@@ -46,4 +46,4 @@ class fncCodehelp :
         self.__githubObjet.GUI()
     
     def openOutilLibrairy(self):
-        self.__librairyCodehelp.librairy()
+        self.__librairyCodehelp.active()

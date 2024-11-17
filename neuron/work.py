@@ -5,14 +5,14 @@ from ObjetsNetwork.enabledNeuron import*
 from ObjetsNetwork.historique import*
 
 class neuronWork :
-    def __init__(self,fncArreraNetwork:fncArreraNetwork,gestionnaire:gestionNetwork,neuronGest:GestArreraNeuron,objHist:CHistorique):
+    def __init__(self, fncArreraNetwork:fncArreraNetwork, gestionnaire:gestionNetwork,objHist:CHistorique):
         #Init objet
         self.__gestionNeuron = gestionnaire
         self.__fonctionArreraNetwork = fncArreraNetwork
-        self.__gestNeuron = neuronGest
+        self.__gestNeuron = self.__gestionNeuron.getEtatNeuronObjet()
         self.__objHistorique = objHist
         self.__listSortie = ["",""]
-        self.__valeurOut = int
+        self.__valeurOut = 0
     
     def getListSortie(self)->list:
         return self.__listSortie
@@ -25,12 +25,9 @@ class neuronWork :
             #Initilisation des variable nbRand et text et valeur
             self.__valeurOut = 0
             self.__listSortie = ["",""]
-            etatVous = self.__gestionNeuron.getVous()
-            genre = self.__gestionNeuron.getGenre()
-            user = self.__gestionNeuron.getUser()
             oldRequette,oldSortie = self.__gestionNeuron.getOld()
 
-            if (("ouvre" in requette) and ((("un" in requette) and ("une" not in requette)) or ("fichier" in requette))):
+            if (("ouvre" in requette)):
                 if ((("exel" in requette) or ("tableur" in requette)) 
                     and  ("ordinateur" in requette)):
                     self.__listSortie = [self.__fonctionArreraNetwork.sortieOpenSoftTableurFile(),""]
@@ -91,10 +88,7 @@ class neuronWork :
                                 sortieTableur = self.__fonctionArreraNetwork.sortieReadTableur()
                                 if (sortieTableur[0] == "error"):
                                     self.__valeurOut = 1
-                                    if (etatVous == True):
-                                        self.__listSortie = ["Désoler "+genre+" "+user+" mais il a un probleme qui m'empéche de lire le tableur",""]
-                                    else :
-                                        self.__listSortie = ["Je ne peux pas faire ce que tu m'as demandé.",""]
+                                    self.__listSortie = self.__fonctionArreraNetwork.sortieErrorReadTableur()
                                 else :
                                     self.__listSortie = sortieTableur
                                     self.__valeurOut = 13
@@ -158,10 +152,7 @@ class neuronWork :
                                                 self.__valeurOut = 5
                                             else :
                                                 if ("fichier" in requette):
-                                                    if (etatVous == True):
-                                                        self.__listSortie = ["Quelle fichier voulez-vous que je vous montre "+genre+". Le exel ou le word ?",""]
-                                                    else : 
-                                                        self.__listSortie = ["Quelle fichier veut tu que je te montre. Le exel ou le word ?",""]
+                                                    self.__listSortie = self.__fonctionArreraNetwork.sortieBadFile()
                                                     self.__valeurOut = 1
                                     if ((("supprime" in requette) or ("suppr" in requette))
                                         and (("supprime une tache" not in requette) and ("supprimer une tache" not in requette) 
@@ -172,7 +163,7 @@ class neuronWork :
                                             self.__objHistorique.setAction("Suppression d'une valeur au tableur "+self.__fonctionArreraNetwork.getFileTableur())
                                             self.__valeurOut = 5
                                     else : 
-                                        if (((oldSortie == "Quelle fichier voulez-vous que je vous montre "+genre+". Le exel ou le word ?") or 
+                                        if ((("Quelle fichier voulez-vous que je vous montre " in oldSortie and ". Le exel ou le word ?" in oldSortie) or
                                             (oldSortie == "Quelle fichier veut tu que je te montre. Le exel ou le word ?")) and ("le" in requette)):
                                             if (("word" in requette) or ("traitement de texte" in requette) or ("document" in requette) ):
                                                 self.__listSortie = [self.__fonctionArreraNetwork.sortieOpenWordGUI(),""]
@@ -289,92 +280,22 @@ class neuronWork :
                                                                                                                      ,""]
                                                                                                 self.__valeurOut = 17 
                                                                                             else :
-                                                                                                if (("ouvre" in requette) and ("pense bete" in requette)):
-                                                                                                    if ("une" in requette):
-                                                                                                        sortie,text = self.__fonctionArreraNetwork.sortieOpenPostiteWithFile()
-                                                                                                        if (sortie == True):
-                                                                                                            self.__objHistorique.setAction("Ouverture du pense bete "+self.__fonctionArreraNetwork.getNamePenseBete())
-                                                                                                            self.__valeurOut = 5
-                                                                                                        else :
-                                                                                                            self.__valeurOut = 1
-                                                                                                    else :
-                                                                                                        text = self.__fonctionArreraNetwork.sortieOpenPostiteNoFile()
-                                                                                                        self.__objHistorique.setAction("Ouverture d'un nouveau pense bete")
-                                                                                                        self.__valeurOut = 5
-                                                                                                    self.__listSortie = [text,""]
+                                                                                                if ("aide tableur" in requette):
+                                                                                                    self.__listSortie = [self.__fonctionArreraNetwork.sortieHelpWorkTableur()
+                                                                                                        ,"tableur"]
+                                                                                                    self.__valeurOut = 17
                                                                                                 else :
-                                                                                                    if ("aide tableur" in requette):
-                                                                                                        self.__listSortie = ["Les fonction d'edition de tableur d'Arrera Work sont :"+
-                                                                                                                        "\n\n- Pour ouvrir un tableur dite 'Ouvre un fichir exel', 'Ouvre un exel', 'Ouvre un fichir tableur' ou 'Ouvre un tableur'"+
-                                                                                                                        "\n\n- Pour ouvrir le tableur sur le logiciel de l'ordinateur dit 'Ouvre le fichier tableur avec le logiciel de l'ordinateur' ou 'Ouvre le fichier tableur avec l'ordinateur'"+
-                                                                                                                        "\n\n- Fermer le tableur dit 'ferme le tableur' ou 'ferme l'exel'"+
-                                                                                                                        "\n\n- Dire le contenu du tableur 'Lis le tableur'"+
-                                                                                                                        "\n\n- Ajouter une valeur 'Ajoute une valeur au tableur', 'Rajoute une valeur au tableur' ou 'ajout une valeur au tableur'"+
-                                                                                                                        "\n\n- Ajouter une moyenne 'Ajoute une moyenne au tableur', 'Rajoute une moyenne au tableur' ou 'ajout une moyenne au tableur'"+
-                                                                                                                        "\n\n- Ajouter une somme 'Ajoute une somme au tableur', 'Rajoute une somme au tableur' ou 'ajout une somme au tableur'"+
-                                                                                                                        "\n\n- Ajouter un comptage 'Ajoute un comptage au tableur', 'Rajoute un comptage au tableur' ou 'ajout un comptage au tableur'"+
-                                                                                                                        "\n\n- Ajouter un minimun 'Ajoute un minimun au tableur', 'Rajoute un minimun au tableur' ou 'ajout un minimun au tableur'"+
-                                                                                                                        "\n\n- Ajouter un maximun 'Ajoute un maximun au tableur', 'Rajoute un maximun au tableur' ou 'ajout un maximun au tableur'"
-                                                                                                                        "\n\n- Ouvrir le tableur avec l'interface de l'assistant dite 'montre le tableur' ou 'montre l'exel'"
-                                                                                                                        "\n\n- Supprimer un valeur du tableur dite 'supprime une valeur au tableur', 'suppr une valeur au tableur', 'supprime une valeur a exel' ou 'suppr une valeur a exel'"
-                                                                                                                        ,"tableur"]
-                                                                                                        self.__valeurOut = 17 
+                                                                                                    if ("aide word" in requette):
+                                                                                                        self.__listSortie = [self.__fonctionArreraNetwork.sortieHelpWorkTraitementTexte()
+                                                                                                                    ,"word"]
+                                                                                                        self.__valeurOut = 17
                                                                                                     else :
-                                                                                                        if ("aide word" in requette):
-                                                                                                            self.__listSortie = ["Les fonction d'edition de fichier traitement de texte d'Arrera Work sont :"+
-                                                                                                                        "\n\n- Pour ouvrir un fichier word dite 'Ouvre un fichier word', 'Ouvre un fichier traitement de texte', 'Ouvre un word' ou 'Ouvre un traitement de texte'"+
-                                                                                                                        "\n\n- Pour ouvrir le traitement de texte sur le logiciel de l'ordinateur dit 'Ouvre le fichier traitement de texte avec le logiciel de l'ordinateur', 'Ouvre le fichier traitement de texte avec l'ordinateur', 'Ouvre le fichier word avec le logiciel de l'ordinateur' ou 'Ouvre le fichier word avec l'ordinateur'"+
-                                                                                                                        "\n\n- Fermer le word dit 'ferme le word' ou 'ferme le traitement de texte'"+
-                                                                                                                        "\n\n- Lire le word dite 'Lis le word'"+
-                                                                                                                        "\n\n- Ecrire dans le fichier traitement de texte 'ecrit dans le word'"+
-                                                                                                                        "\n\n- Ouvrir le traitement de texte avec l'interface de l'assistant dite 'montre le word', 'montre traitement de texte' ou 'montre document'"
-                                                                                                                        ,"word"]
+                                                                                                        if ("aide projet" in requette):
+                                                                                                            self.__listSortie = [self.__fonctionArreraNetwork.sortieHelpArreraWork()
+                                                                                                                    ,"projet"]
                                                                                                             self.__valeurOut = 17
                                                                                                         else :
-                                                                                                            if ("aide projet" in requette):
-                                                                                                                self.__listSortie = ["Les fonction de la fonctionnalités Arrera Project :"+
-                                                                                                                        "\n- Crée un projet dite 'cree un projet nommer #name#', 'cree un nouveau projet nommer #name#', 'cree un projet nomme #name#' ou 'cree un nouveau projet nomme #name#'"+
-                                                                                                                        "\n\n- Ouvrir un projet Arrera dite 'cree un projet nommer #name projet#', 'cree un nouveau projet nommer #name projet#', 'cree un projet nomme #name projet#' ou 'cree un nouveau projet nomme #name projet#'"+
-                                                                                                                        "\n\n- Mettre un type au projet quand il vien d'étre crée dite 'Le type est #type#'"+
-                                                                                                                        "\n\n- Mettre un type au projet dite 'Le type du projet est #type#'"+
-                                                                                                                        "\n\n- Crée un fichier dite 'Crée un fichier #Type file# nommer #Name file#'" +
-                                                                                                                        "\n\n- Pour voir les type de file qui peuvent etre crée dite 'Type fichier'"+
-                                                                                                                        "\n\n- Fermer le projet dite 'ferme le projet'"+
-                                                                                                                        "\n\n- Voir les fichier dans le projet dite 'ouvre le fichier du projet nommer #name file#' ou 'ouvre le fichier nommer #name file#'"+
-                                                                                                                        "\n\n- Ajouter une tache au projet dite 'ajoute une tache au projet', 'ajouter une tache au projet', 'ajout tache au projet' ou 'add tache projet'"+
-                                                                                                                        "\n\n- Supprimer une tache au projet dite 'supprime une tache au projet', 'supprimer une tache au projet','suppr une tache au projet' ou 'suppr tache projet' "+
-                                                                                                                        "\n\n- Finir une tache au projet dite 'finir une tache au projet', 'terminer une tache au projet', 'termine une tache au projet' ou 'fini une tache au projet'"+
-                                                                                                                        "\n\n- Voir les tache du projet dite 'montre mes taches du projet', 'fais voir mes taches du projet' ou 'montre les taches du projet'"+
-                                                                                                                        "\n\n- Dire les tache qu'il a faire pour aujourd'hui sur le projet dite 'Dit moi le nombre de taches que j'ai pour aujourd'hui"+
-                                                                                                                        "\n\n- Dire les tache qu'il a faire pour demain sur le projet dite 'Dit moi le nombre de taches que j'ai demain"+
-                                                                                                                        "\n\n- Dire le nombre total de tache sur le projet 'Dit moi le nombre de taches que j'ai'"
-                                                                                                                        ,"projet"]
+                                                                                                            if ("type fichier" in requette):
+                                                                                                                self.__listSortie = [self.__fonctionArreraNetwork.sortieHelpWorkType()
+                                                                                                                                    ,"fichier"]
                                                                                                                 self.__valeurOut = 17
-                                                                                                            else : 
-                                                                                                                if ("type fichier" in requette):
-                                                                                                                    self.__listSortie = ["Les type sont :"
-                                                                                                                                        +"\n- word"
-                                                                                                                                        +"\n- odt"
-                                                                                                                                        +"\n- open texte document"
-                                                                                                                                        +"\n- txt"
-                                                                                                                                        +"\n- texte"
-                                                                                                                                        +"\n- python"
-                                                                                                                                        +"\n- en tete"
-                                                                                                                                        +"\n- json"
-                                                                                                                                        +"\n- html"
-                                                                                                                                        +"\n- css"
-                                                                                                                                        +"\n- md"
-                                                                                                                                        +"\n- cpp"
-                                                                                                                                        +"\n- language c++"
-                                                                                                                                        +"\n- language c"
-                                                                                                                                        +"\n- exel"
-                                                                                                                                        +"\n- tableur"
-                                                                                                                                        +"\n- php"
-                                                                                                                                        +"\n- javascript"
-                                                                                                                                        +"\n- java script"
-                                                                                                                                        +"\n- js"
-                                                                                                                                        +"\n- java"
-                                                                                                                                        +"\n- kotlin"
-                                                                                                                                        +"\n- kt"
-                                                                                                                                        ,"fichier"]
-                                                                                                                    self.__valeurOut = 17

@@ -5,14 +5,14 @@ from ObjetsNetwork.enabledNeuron import*
 from ObjetsNetwork.historique import*
 
 class neuroneOpen :
-    def __init__(self,fncArreraNetwork:fncArreraNetwork,gestionnaire:gestionNetwork,neuronGest:GestArreraNeuron,objHist:CHistorique) :
+    def __init__(self, fncArreraNetwork:fncArreraNetwork, gestionnaire:gestionNetwork, objHist:CHistorique) :
         #Init objet
         self.__gestionNeuron = gestionnaire
         self.__fonctionArreraNetwork = fncArreraNetwork
-        self.__gestNeuron = neuronGest
+        self.__gestNeuron = self.__gestionNeuron.getEtatNeuronObjet()
         self.__objHistorique = objHist
         self.__listSortie = ["",""]
-        self.__valeurOut = int
+        self.__valeurOut = 0
 
     def getListSortie(self)->list:
         return self.__listSortie
@@ -153,10 +153,7 @@ class neuroneOpen :
                                                                                                         self.__objHistorique.setAction("Ouverture du site "+listeSite)
                                                                                                         break
                                                                                                 if (self.__gestionNeuron.verrifSortie(self.__listSortie) == 0) :
-                                                                                                    if (self.__gestionNeuron.getVous() == True) :
-                                                                                                        self.__listSortie = ["Desoler "+self.__gestionNeuron.getGenre()+" mais je ne peux pas ouvrir ce que vous me demandez",""]
-                                                                                                    else :
-                                                                                                        self.__listSortie = ["Desoler "+self.__gestionNeuron.getGenre()+" mais je ne peux pas ouvrir ce que tu me demande",""]
+                                                                                                    self.__listSortie = [self.__fonctionArreraNetwork.sortieNoOpen(),""]
             else :
                 if (("liste les logiciels" in requette)or("quelles sont les logiciels enregister" in requette) 
                     or("quelles sont les logiciel enregister" in requette) or("quelles sont les logiciels enregiste" in requette) 
@@ -171,20 +168,7 @@ class neuroneOpen :
                         self.__listSortie = [self.__fonctionArreraNetwork.sortieListSite(nbSite,listeSite),""]     
                     else :
                         if (("liste" in requette) and ("radio" in requette)):
-                            self.__listSortie = ["Les radio qui peuvent etre lancer par l'assistant sont :"
-                                                 +"\n- Europe 1"
-                                                 +"\n- Europe 2"
-                                                 +"\n- France Info"
-                                                 +"\n- France Inter"
-                                                 +"\n- France Musique"
-                                                 +"\n- France Culture"
-                                                 +"\n- France Bleu"
-                                                 +"\n- Fun Radio"
-                                                 +"\n- NRJ"
-                                                 +"\n- RFM"
-                                                 +"\n- Nostalgi"
-                                                 +"\n- Skyrock"
-                                                 +"\n- RTL"
+                            self.__listSortie = [self.__fonctionArreraNetwork.sortieListRadio()
                                                  ,"radio"]
                             self.__valeurOut = 17                         
                                             

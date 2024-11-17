@@ -1,9 +1,5 @@
-from librairy.dectectionOS import*
-from librairy.travailJSON import *
 from neuron.chatBots import*
 from ObjetsNetwork.formule import*
-from ObjetsNetwork.gestion import *
-from ObjetsNetwork.network import*
 from neuron.service import*
 from neuron.API import*
 from neuron.software import*
@@ -11,39 +7,35 @@ from neuron.open import *
 from neuron.search import*
 from neuron.time import*
 from neuron.codehelp import*
-from ObjetsNetwork.chaineCarractere import *
-from ObjetsNetwork.enabledNeuron import*
 from neuron.work import*
 
 class ArreraNetwork :
-    def __init__(self,userFile:str,fichierConfiguration:str,fileFete:str):
+    def __init__(self,fichierConfiguration:str):
         # Declaration des diferente var 
         self.__listOut =  [] 
         self.__valeurOut = int
         #Ouverture fichier de configuration
-        self.__fichierUtilisateur = jsonWork(userFile)
         self.__configNeuron = jsonWork(fichierConfiguration)
-        self.__fichierVille = jsonWork(fileFete)
+        self.__fichierUtilisateur = jsonWork(self.__configNeuron.lectureJSON("fileUser"))
+        self.__fichierVille = jsonWork(self.__configNeuron.lectureJSON("fileFete"))
+        # Gestionnaire
+        self.__gestionnaire = gestionNetwork(fichierConfiguration)
         #initilisation du gestionnaire du reseau de neuron
-        self.__detecteurOS = OS()
-        self.__etatNeuron = GestArreraNeuron(self.__configNeuron)
-        self.__gestionnaire = gestionNetwork(self.__fichierUtilisateur,self.__configNeuron,self.__detecteurOS,self.__fichierVille)
-        self.__network = network()
-        self.__fonctionAssistant = fncArreraNetwork(self.__configNeuron,self.__gestionnaire,self.__detecteurOS,self.__network)
+        self.__fonctionAssistant = fncArreraNetwork(self.__gestionnaire)
         self.__historique = CHistorique(self.__configNeuron,self.__fonctionAssistant)
-        self.__formuleNeuron = formule(self.__gestionnaire,self.__historique)  
+        self.__formuleNeuron = formule(self.__gestionnaire,self.__historique)
         #recuperation etat du reseau
-        self.__etatReseau = self.__network.getEtatInternet()
+        self.__etatReseau = self.__gestionnaire.getNetworkObjet().getEtatInternet()
         #initilisation des neuron
-        self.__chatBot = neuroneDiscution(self.__gestionnaire,self.__formuleNeuron,self.__etatNeuron)
-        self.__service = neuroneService(self.__fonctionAssistant,self.__gestionnaire,self.__etatNeuron,self.__historique)
-        self.__api = neuroneAPI(self.__fonctionAssistant,self.__gestionnaire,self.__etatNeuron,self.__historique)
-        self.__software = neuroneSoftware(self.__fonctionAssistant,self.__gestionnaire,self.__etatNeuron,self.__historique)
-        self.__open = neuroneOpen(self.__fonctionAssistant,self.__gestionnaire,self.__etatNeuron,self.__historique)
-        self.__search = neuroneSearch(self.__fonctionAssistant,self.__gestionnaire,self.__etatNeuron,self.__historique)
-        self.__time = neuroneTime(self.__fonctionAssistant,self.__gestionnaire,self.__etatNeuron,self.__historique)
-        self.__codehelp = neuroneCodehelp(self.__fonctionAssistant,self.__gestionnaire,self.__etatNeuron,self.__historique)
-        self.__work = neuronWork(self.__fonctionAssistant,self.__gestionnaire,self.__etatNeuron,self.__historique)
+        self.__chatBot = neuroneDiscution(self.__gestionnaire,self.__formuleNeuron)
+        self.__service = neuroneService(self.__fonctionAssistant,self.__gestionnaire,self.__historique)
+        self.__api = neuroneAPI(self.__fonctionAssistant,self.__gestionnaire,self.__historique)
+        self.__software = neuroneSoftware(self.__fonctionAssistant,self.__gestionnaire,self.__historique)
+        self.__open = neuroneOpen(self.__fonctionAssistant,self.__gestionnaire,self.__historique)
+        self.__search = neuroneSearch(self.__fonctionAssistant,self.__gestionnaire,self.__historique)
+        self.__time = neuroneTime(self.__fonctionAssistant,self.__gestionnaire,self.__historique)
+        self.__codehelp = neuroneCodehelp(self.__fonctionAssistant,self.__gestionnaire,self.__historique)
+        self.__work = neuronWork(self.__fonctionAssistant,self.__gestionnaire,self.__historique)
     
 
     def boot(self,mode:int):
@@ -167,7 +159,6 @@ class ArreraNetwork :
                                             else : 
                                                 self.__valeurOut = 0 
                                                 self.__listOut = [self.__formuleNeuron.nocomprehension(),""]
-                                                self.__gestionnaire.addDiscution()
                                         else :
                                             self.__listOut = self.__api.getListSortie()
                                     else :
@@ -192,5 +183,3 @@ class ArreraNetwork :
             self.__gestionnaire.setOld("requette api",requette)     
         else :
             self.__gestionnaire.setOld(self.__listOut[0],requette)
-        #Ajout d'une discution
-        self.__gestionnaire.addDiscution() 
