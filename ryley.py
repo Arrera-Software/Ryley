@@ -31,7 +31,8 @@ class Ryley :
             self.GUI.bootRyley()
             self.GUI.enableWindows()
         else :
-            showwarning("La configuration mauvaise","Vous avez pas entre votre nom et genre dans l'outil de configuration")
+            showwarning("La configuration mauvaise",
+                        "Vous avez pas entre votre nom et genre dans l'outil de configuration")
 
     def bootAssistant(self):
         if self.__verifBoot() == True : 
