@@ -5,10 +5,10 @@ from ObjetsNetwork.arreraNeuron import*
 from arreraLynx.arreraLynx import*
 
 class Ryley :
-    def __init__(self):
+    def __init__(self,fileConfig:str):
         #Objet
         gestionnaire =  gestionRL(jsonWork("fichierJSON/ryleyConfig.json")) # Gestionnaire
-        networkNeuron = ArreraNetwork("fichierJSON/configNeuronTutoiment.json")
+        networkNeuron = ArreraNetwork(fileConfig)
         self.GUI = interfaceRyley(gestionnaire,networkNeuron)
     
     def __verifBoot(self):
