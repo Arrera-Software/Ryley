@@ -150,7 +150,7 @@ class neuroneOpen :
                                                                                                 for i in range(0,nbSite):
                                                                                                     if (listeSite[i] in requette):
                                                                                                         self.__listSortie = [self.__fonctionArreraNetwork.sortieOpenSite(listeSite[i]),""]
-                                                                                                        self.__objHistorique.setAction("Ouverture du site "+listeSite)
+                                                                                                        self.__objHistorique.setAction("Ouverture du site "+listeSite[i])
                                                                                                         break
                                                                                                 if (self.__gestionNeuron.verrifSortie(self.__listSortie) == 0) :
                                                                                                     self.__listSortie = [self.__fonctionArreraNetwork.sortieNoOpen(),""]
