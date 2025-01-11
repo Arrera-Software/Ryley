@@ -30,7 +30,7 @@ class guiRyley:
 
         imgSend = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[2],
                                            pathDark=emplacementDark + listIMG[2],
-                                           tailleX=45, tailleY=30)
+                                           tailleX=30, tailleY=30)
 
         # Frame
         self.__topBackgroup = self.__arrTK.createArreraBackgroudImage(self.__screen,
@@ -46,17 +46,17 @@ class guiRyley:
                                                          bg="#081ec7",corner_radius=0)
         # Widget
         entryUser = self.__arrTK.createEntry(self.__frameBackgroud,
-                                             ppolice="Arial", ptaille=25, width=300)
+                                             ppolice="Arial", ptaille=25, width=350)
 
         btnSend = self.__arrTK.createButton(self.__frameBackgroud, text="Envoyer",
                                             ppolice="Arial", ptaille=20,
-                                            pstyle="bold", image=imgSend)
-
+                                            pstyle="bold", image=imgSend,
+                                            width=40, height=40,
+                                            bg="#3b4bca",hoverbg="#051484")
 
         # Affichage des widgets
-        #self.__arrTK.placeLeftCenter(entryUser)
-        entryUser.place(relx=0.35, rely=0.3, anchor="center")
-        self.__arrTK.placeRightCenter(btnSend)
+        entryUser.place(relx=0.40, rely=0.3, anchor="center")
+        btnSend.place(relx=0.90, rely=0.3, anchor="center")
 
     def active(self):
         self.__topBackgroup.pack()
