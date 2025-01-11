@@ -11,7 +11,7 @@ class guiRyley:
         self.__arrTK = CArreraTK()
 
         # Demarage Neuron Network
-        self.__assistant = ArreraNetwork(neuronConfigFile)
+        self.__assistantRyley = ArreraNetwork(neuronConfigFile)
 
         # Teste sur de l'OS hote
         objOS = OS()
@@ -70,9 +70,9 @@ class guiRyley:
                                              ppolice="Arial", ptaille=25, width=350)
 
         # Bouton
-        btnSend = self.__arrTK.createButton(self.__frameBackgroud,image=imgSend,
-                                            width=40, height=40,
-                                            bg="#3b4bca",hoverbg="#051484")
+        btnSend = self.__arrTK.createButton(self.__frameBackgroud, image=imgSend,
+                                            width=40, height=40, command=self.__envoi,
+                                            bg="#3b4bca", hoverbg="#051484")
 
         btnPara = self.__arrTK.createButton(self.__frameBackgroud,image=imgPara,
                                             width=40, height=40,
@@ -86,7 +86,7 @@ class guiRyley:
         self.__lparole = self.__arrTK.createLabel(self.__topBackgroup,
                                                   bg="#041f75", fg="white",
                                                   ppolice="Arial",pstyle="bold",
-                                                  ptaille=18,justify="left")
+                                                  ptaille=18,justify="left",pwraplength=400)
 
         # Affichage des widgets
         self.__entryUser.place(relx=0.40, rely=0.3, anchor="center")
@@ -95,6 +95,11 @@ class guiRyley:
 
         self.__arrTK.placeBottomLeft(btnPara)
         self.__arrTK.placeBottomRight(btnCodehelp)
+        # Bind
+        self.keyboard()
+        # Instruction a supprimer par la suite
+        self.__assistantRyley.boot(1)
+
 
     def active(self):
         self.__topBackgroup.pack()
@@ -110,8 +115,11 @@ class guiRyley:
 
     def __quitRyley(self):
         if (askyesno("Atention", "Voulez-vous vraiment fermer Ryley")):
-            self.__paroleRyley(self.__assistant.shutdown())
-            self.__screen.destroy()
+            self.__close()
+
+    def __close(self):
+        self.__paroleRyley(self.__assistantRyley.shutdown())
+        self.__screen.destroy()
 
     def __apropos(self):
         self.__arrTK.aproposWindows(
@@ -121,3 +129,92 @@ class guiRyley:
             copyright="Copyright Arrera Software by Baptiste P 2023-2025",
             linkSource="https://github.com/Arrera-Software/Ryley",
             linkWeb="https://arrera-software.fr/")
+
+    def __envoi(self):
+
+        texte = self.__entryUser.get().lower()
+        self.__entryUser.delete(0, END)
+        if ("parametre" in texte ) :
+            pass
+        else :
+            self.__assistantRyley.neuron(texte)
+            nbSortie = self.__assistantRyley.getValeurSortie()
+            listSortie = self.__assistantRyley.getListSortie()
+            match nbSortie:
+                case 0 :
+                    self.__paroleRyley(listSortie[0])
+                case 1 :
+                    self.__paroleRyley(listSortie[0])
+                case 2 :
+                    pass
+                case 3 :
+                    pass
+                    # Sequence parole pour ouverture de l'actualité
+                    # Fonction pour afficher l'actualité
+                case 4 :
+                    self.__paroleRyley(listSortie[0])
+                case 5 :
+                    self.__paroleRyley(listSortie[0])
+                case 6 :
+                    pass
+                    # Sequence parole pour ouverture d'erreur actualité
+                case 7 :
+                    self.__paroleRyley(listSortie[0])
+                    # Fonction pour mettre affichier les bouton fichier
+                case 8 :
+                    self.__paroleRyley(listSortie[0])
+                    # Fonction pour mettre affichier les bouton fichier
+                case 9 :
+                    pass
+                    # Sequence parole pour lesture de fichier
+                    # Fonction qui ouvre un fenetre pour lire le contenu du fichier
+                case 10 :
+                    self.__paroleRyley(listSortie[0])
+                    # Fonction pour mettre affichier les bouton fichier
+                case 11 :
+                    pass
+                    # Sequence parole pour erreur du resumer actualité
+                case 12 :
+                    pass
+                    # Sequence parole pour reussite du resumer actualité
+                    # Fonction qui crée pour afficher le resumer
+                case 13 :
+                    pass
+                    # Sequence parole pour lesture d'un tableur
+                    # Fonction qui ouvre un fenetre pour lire le contenu du fichier
+                case 14 :
+                    self.__paroleRyley(listSortie[0])
+                    # Fonction pour mettre affichier les bouton fichier
+                case 15 :
+                    self.__close()
+                case 16 :
+                    self.__paroleRyley(self.__assistantRyley.shutdown())
+                case 17 :
+                    pass
+                    # Ouverture d'un fenetre pour afficher l'aide
+                case 18 :
+                    pass
+                    # Sequence parole pour reussite du resumer agenda et tache
+                    # Fonction qui crée pour afficher le resumer
+                case 19 :
+                    pass
+                    # Sequence parole pour reussite du resumer total
+                    # Fonction qui crée pour afficher le resumer
+                case 20 :
+                    pass
+                    # Sequence parole du resumer totale en erreur
+                case 21 :
+                    self.__paroleRyley(listSortie[0])
+                    # Fonction pour mettre affichier les bouton fichier
+                case other :
+                    pass
+
+    def keyboard(self):
+        def anychar(event):
+            if self.__windowsOS:
+                if event.keycode == 13:
+                    self.__envoi()
+            else:
+                if event.keycode == 36:
+                    self.__envoi()
+        self.__screen.bind("<Key>", anychar)
