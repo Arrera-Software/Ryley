@@ -25,12 +25,19 @@ class guiRyley:
         emplacementLight = "asset/GUI/light/"
         emplacementDark = "asset/GUI/dark/"
 
-        listIMG = ["top.png", "bottom.png","send.png"]
+        listIMG = ["top.png", "bottom.png","send.png","settings.png","iconRyleyCodehelp.png"]
         # Creation des images
 
         imgSend = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[2],
                                            pathDark=emplacementDark + listIMG[2],
                                            tailleX=30, tailleY=30)
+        imgPara = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[3],
+                                             pathDark=emplacementDark + listIMG[3],
+                                             tailleX=30, tailleY=30)
+
+        imgCodehelp = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[4],
+                                             pathDark=emplacementDark + listIMG[4],
+                                             tailleX=30, tailleY=30)
 
         # Frame
         self.__topBackgroup = self.__arrTK.createArreraBackgroudImage(self.__screen,
@@ -48,15 +55,24 @@ class guiRyley:
         entryUser = self.__arrTK.createEntry(self.__frameBackgroud,
                                              ppolice="Arial", ptaille=25, width=350)
 
-        btnSend = self.__arrTK.createButton(self.__frameBackgroud, text="Envoyer",
-                                            ppolice="Arial", ptaille=20,
-                                            pstyle="bold", image=imgSend,
+        btnSend = self.__arrTK.createButton(self.__frameBackgroud,image=imgSend,
                                             width=40, height=40,
                                             bg="#3b4bca",hoverbg="#051484")
+
+        btnPara = self.__arrTK.createButton(self.__frameBackgroud,image=imgPara,
+                                            width=40, height=40,
+                                            bg="#3b4bca",hoverbg="#051484")
+
+        btnCodehelp = self.__arrTK.createButton(self.__frameBackgroud,image=imgCodehelp,
+                                                width=40,height=40,
+                                                bg="#3b4bca", hoverbg="#051484")
 
         # Affichage des widgets
         entryUser.place(relx=0.40, rely=0.3, anchor="center")
         btnSend.place(relx=0.90, rely=0.3, anchor="center")
+
+        self.__arrTK.placeBottomLeft(btnPara)
+        self.__arrTK.placeBottomRight(btnCodehelp)
 
     def active(self):
         self.__topBackgroup.pack()
