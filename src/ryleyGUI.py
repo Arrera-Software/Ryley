@@ -35,22 +35,27 @@ class guiRyley:
         self.__bottomBackgroup = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                          imageLight=emplacementLight + listIMG[1],
                                                                          imageDark=emplacementDark + listIMG[1],
-                                                                         width=500, height=200)
+                                                                         width=500, height=70)
+        self.__frameBackgroud = self.__arrTK.createFrame(self.__screen,
+                                                         width=500, height=130,
+                                                         bg="#081ec7",corner_radius=0)
         # Widget
-        entryUser = self.__arrTK.createEntry(self.__bottomBackgroup, ppolice="Arial", ptaille=25, width=300)
+        entryUser = self.__arrTK.createEntry(self.__frameBackgroud, ppolice="Arial", ptaille=25, width=300)
 
-        btnSend = self.__arrTK.createButton(self.__bottomBackgroup, text="Envoyer",
+        btnSend = self.__arrTK.createButton(self.__frameBackgroud, text="Envoyer",
                                             ppolice="Arial", ptaille=20,
                                             pstyle="bold", )
 
 
         # Affichage des widgets
-        self.__arrTK.placeLeftCenter(entryUser)
+        #self.__arrTK.placeLeftCenter(entryUser)
+        entryUser.place(relx=0.35, rely=0.3, anchor="center")
         self.__arrTK.placeRightCenter(btnSend)
 
     def active(self):
         self.__topBackgroup.pack()
         self.__bottomBackgroup.pack()
+        self.__frameBackgroud.pack()
         self.__arrTK.view()
 
 
