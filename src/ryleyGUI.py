@@ -25,7 +25,11 @@ class guiRyley:
         emplacementLight = "asset/GUI/light/"
         emplacementDark = "asset/GUI/dark/"
 
-        listIMG = ["top.png", "bottom.png","send.png","settings.png","iconRyleyCodehelp.png"]
+        listIMG = ["top.png",
+                   "bottom.png",
+                   "send.png",
+                   "settings.png",
+                   "iconRyleyCodehelp.png"]
         # Creation des images
 
         imgSend = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[2],
@@ -52,9 +56,11 @@ class guiRyley:
                                                          width=500, height=130,
                                                          bg="#081ec7",corner_radius=0)
         # Widget
-        entryUser = self.__arrTK.createEntry(self.__frameBackgroud,
+        # Entry
+        self.__entryUser = self.__arrTK.createEntry(self.__frameBackgroud,
                                              ppolice="Arial", ptaille=25, width=350)
 
+        # Bouton
         btnSend = self.__arrTK.createButton(self.__frameBackgroud,image=imgSend,
                                             width=40, height=40,
                                             bg="#3b4bca",hoverbg="#051484")
@@ -67,9 +73,16 @@ class guiRyley:
                                                 width=40,height=40,
                                                 bg="#3b4bca", hoverbg="#051484")
 
+        # Label
+        self.__lparole = self.__arrTK.createLabel(self.__topBackgroup,
+                                                  bg="#041f75", fg="white",
+                                                  ppolice="Arial",pstyle="bold",
+                                                  ptaille=18,justify="left")
+
         # Affichage des widgets
-        entryUser.place(relx=0.40, rely=0.3, anchor="center")
+        self.__entryUser.place(relx=0.40, rely=0.3, anchor="center")
         btnSend.place(relx=0.90, rely=0.3, anchor="center")
+        self.__lparole.place(x=55, y=280)
 
         self.__arrTK.placeBottomLeft(btnPara)
         self.__arrTK.placeBottomRight(btnCodehelp)
@@ -81,3 +94,7 @@ class guiRyley:
         self.__arrTK.view()
 
 
+    def __paroleRyley(self, text: str):
+        if text != "":
+            self.__lparole.config(text=text)
+            self.__entryUser.delete(0, END)
