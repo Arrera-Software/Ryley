@@ -5,6 +5,8 @@ VERSION = "I2025-1.00"
 
 class guiRyley:
     def __init__(self, neuronConfigFile: str):
+        # Varriable
+        self.__nameSoft = "Arrera RYLEY"
         # Boot ArreraTK
         self.__arrTK = CArreraTK()
 
@@ -18,8 +20,15 @@ class guiRyley:
         del objOS
 
         # Demarage de l'interface
-        self.__screen = self.__arrTK.aTK(0,title="Ryley", resizable=False,
+        self.__screen = self.__arrTK.aTK(0,title=self.__nameSoft, resizable=False,
                                          width=500, height=600)
+        self.__screen.protocol("WM_DELETE_WINDOW", self.__quitRyley)
+
+        # Icon
+        if self.__windowsOS:
+            self.__emplacementIcon = "asset/Ryley.ico"
+        else :
+            self.__emplacementIcon = "asset/Ryley.png"
 
         # Definition des images
         emplacementLight = "asset/GUI/light/"
@@ -96,5 +105,19 @@ class guiRyley:
 
     def __paroleRyley(self, text: str):
         if text != "":
-            self.__lparole.config(text=text)
+            self.__lparole.configure(text=text)
             self.__entryUser.delete(0, END)
+
+    def __quitRyley(self):
+        if (askyesno("Atention", "Voulez-vous vraiment fermer Ryley")):
+            self.__paroleRyley(self.__assistant.shutdown())
+            self.__screen.destroy()
+
+    def __apropos(self):
+        self.__arrTK.aproposWindows(
+            nameSoft=self.__nameSoft,
+            iconFile=self.__emplacementIcon,
+            version=VERSION,
+            copyright="Copyright Arrera Software by Baptiste P 2023-2025",
+            linkSource="https://github.com/Arrera-Software/Ryley",
+            linkWeb="https://arrera-software.fr/")
