@@ -13,3 +13,4 @@ PyGithub
 language_tool_python
 pyperclip
 pillow
+customtkinter
