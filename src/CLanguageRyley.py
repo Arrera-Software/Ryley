@@ -63,3 +63,6 @@ class CLanguageRyley :
     def getPhParametre(self):
         return self.__language.lectureJSON("phParametre")
 
+    def getFirstBoot(self,nb:int):
+        return self.__firstBoot.lectureJSON(str(nb))
+

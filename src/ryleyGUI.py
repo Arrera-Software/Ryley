@@ -22,7 +22,7 @@ class guiRyley:
         # Demarage objet language Ryley
         self.__language = CLanguageRyley("fichierJSON/paroleRyley.json",
                                               "fichierJSON/aideRyley.json",
-                                              "")
+                                              "fichierJSON/firstBootRyley.json")
 
         # Teste sur de l'OS hote
         objOS = OS()
@@ -71,6 +71,7 @@ class guiRyley:
                    "booting5.png",#13
                    "booting6.png",#14
                    "actu.png",#15
+                   "firstBoot.png",#16
                    ]
         # Creation des images
 
@@ -111,6 +112,11 @@ class guiRyley:
         self.__frameBackgroud = self.__arrTK.createFrame(self.__screen,
                                                          width=500, height=130,
                                                          bg="#081ec7",corner_radius=0)
+
+        self.__backgroundFirstboot = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[16],
+                                                                        imageDark=emplacementDark + listIMG[16],
+                                                                        width=500, height=600,bg="#041f75")
 
         self.__bottomBackgrownOpen = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                              imageLight=emplacementLight + listIMG[8],
@@ -173,6 +179,9 @@ class guiRyley:
                                                     bg="#041f75", fg="white",
                                                     ppolice="Arial", pstyle="bold",
                                                     ptaille=18, justify="left", pwraplength=400)
+        self.__labelFirstBoot = self.__arrTK.createLabel(self.__backgroundFirstboot,pwraplength=300,
+                                                        bg="#041f75", fg="white",ptaille=20,
+                                                        ppolice="Arial", pstyle="bold",justify="left")
 
         # Button
         self.__btnTableurOpen = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
@@ -198,14 +207,19 @@ class guiRyley:
         self.__arrTK.placeBottomRight(btnCodehelp)
 
         self.__labelActu.place(x=70, y=75)
+        self.__labelFirstBoot.place(x=70, y=190)
         self.__arrTK.placeBottomRight(btnQuitActu)
         # Bind
         self.keyboard()
         # Instruction a supprimer par la suite
 
 
-    def active(self):
-        thboot = th.Thread(target=self.__sequenceBoot)
+    def active(self, firstStart: bool):
+        if firstStart :
+            thboot = th.Thread(target=self.__sequenceFirstBoot)
+        else :
+            thboot = th.Thread(target=self.__sequenceBoot)
+
         thboot.start()
         self.__arrTK.view()
 
@@ -227,6 +241,35 @@ class guiRyley:
         time.sleep(0.2)
         self.__backgroudBoot5.pack_forget()
         self.__paroleRyley(self.__assistantRyley.boot(2))
+        self.__viewNormal()
+        self.setButtonOpen()
+
+    def __sequenceFirstBoot(self):
+        self.__disableAllFrame()
+        self.__backgroudBoot1.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot1.pack_forget()
+        self.__backgroudBoot2.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot2.pack_forget()
+        self.__backgroudBoot3.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot3.pack_forget()
+        self.__backgroudBoot4.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot4.pack_forget()
+        self.__backgroudBoot5.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot5.pack_forget()
+        self.__backgroundFirstboot.pack()
+        self.__labelFirstBoot.configure(text=self.__language.getFirstBoot(1))
+        time.sleep(3)
+        self.__labelFirstBoot.configure(text=self.__language.getFirstBoot(2))
+        time.sleep(3)
+        self.__labelFirstBoot.configure(text=self.__language.getFirstBoot(3))
+        time.sleep(3)
+        self.__paroleRyley(self.__assistantRyley.boot(2))
+        self.__disableAllFrame()
         self.__viewNormal()
         self.setButtonOpen()
 
@@ -262,6 +305,7 @@ class guiRyley:
         self.__frameBackgroud.pack_forget()
         self.__bottomBackgrownOpen.pack_forget()
         self.__backgroundActu.pack_forget()
+        self.__backgroundFirstboot.pack_forget()
 
     def __viewNormal(self):
         self.__topBackgrown.pack()

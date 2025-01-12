@@ -1,8 +1,7 @@
-from src.ryleyGUI import *
+from src.ryleyBoot import *
 
 def main():
-    ryley = guiRyley("fichierJSON/configNeuron.json")
-    ryley.active()
+    ryleyBoot().active()
 
 if __name__ == "__main__":
     main()
