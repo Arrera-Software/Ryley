@@ -1,5 +1,6 @@
 from librairy.arrera_tk import CArreraTK
 from ObjetsNetwork.arreraNeuron import *
+from src.CLanguageRyley import *
 
 VERSION = "I2025-1.00"
 
@@ -12,6 +13,11 @@ class guiRyley:
 
         # Demarage Neuron Network
         self.__assistantRyley = ArreraNetwork(neuronConfigFile)
+
+        # Demarage objet language Ryley
+        self.__language = CLanguageRyley("",
+                                              "fichierJSON/aideRyley.json",
+                                              "")
 
         # Teste sur de l'OS hote
         objOS = OS()
@@ -109,15 +115,15 @@ class guiRyley:
 
         # Button
         self.__btnTableurOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
-                                                          image=imgTableurOpen,
+                                                          image=imgTableurOpen,command=lambda : self.__winHelpFileAndProjet(1),
                                                           bg="#3b4bca",hoverbg="#051484")
 
         self.__btnWordOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
-                                                       image=imgWordOpen,
+                                                       image=imgWordOpen,command=lambda : self.__winHelpFileAndProjet(2),
                                                        bg="#3b4bca",hoverbg="#051484")
 
         self.__btnProjetOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
-                                                         image=imgProjetOpen,
+                                                         image=imgProjetOpen,command=lambda : self.__winHelpFileAndProjet(3),
                                                          bg="#3b4bca",hoverbg="#051484")
 
         # Affichage des widgets
@@ -288,3 +294,56 @@ class guiRyley:
         else :
             self.__disableAllFrame()
             self.__viewNormal()
+
+    def __winHelpFileAndProjet(self, mode: int):
+        """
+        :param mode:
+            1. Tableur
+            2. Word
+            3. Projet
+        :return:
+        """
+        winHelp = self.__arrTK.aTopLevel(width=500, height=600,
+                                         resizable=False,
+                                         icon=self.__emplacementIcon)
+
+        labelTitleHelp = self.__arrTK.createLabel(winHelp, ppolice="Arial", ptaille=25, pstyle="bold")
+        aideView = self.__arrTK.createTextBox(winHelp, width=475, height=500,
+                                              wrap="word", ppolice="Arial",
+                                              ptaille=20, pstyle="normal")
+        match mode:
+            case 1:
+                winHelp.title("Arrera Ryley : Aide Tableur")
+                labelTitleHelp.configure(text="Aide Tableur")
+                self.__arrTK.insertTextOnTextBox(aideView,
+                                                 self.__traitementTextHelpFileAndProjet(
+                                                     self.__language.getHelpTableur()))
+            case 2:
+                winHelp.title("Arrera Ryley : Aide Traitement de texte")
+                labelTitleHelp.configure(text="Aide Traitement de texte")
+                self.__arrTK.insertTextOnTextBox(aideView,
+                                                 self.__traitementTextHelpFileAndProjet(
+                                                     self.__language.getHelpWord()))
+            case 3:
+                winHelp.title("Arrera Ryley : Aide Arrera Projet")
+                labelTitleHelp.configure(text="Aide Arrera Projet")
+                self.__arrTK.insertTextOnTextBox(aideView,
+                                                 self.__traitementTextHelpFileAndProjet(
+                                                     self.__language.getHelpProjet()))
+
+        self.__arrTK.placeTopCenter(labelTitleHelp)
+        self.__arrTK.placeCenter(aideView)
+
+    def __traitementTextHelpFileAndProjet(self, liste:list):
+        newText = ""
+        for i in range(0, len(liste)):
+            text = liste[i]
+            if text[0] == "-" :
+                text = text.replace("-", "").strip().lstrip()
+                newText += "\n"+text+"\n"
+            else :
+                if text[0]== "*":
+                    text = text.replace("*","").strip().lstrip()
+                    newText += "    "+text+"\n"
+
+        return newText.strip()
