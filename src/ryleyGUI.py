@@ -1,6 +1,7 @@
 from librairy.arrera_tk import CArreraTK
 from ObjetsNetwork.arreraNeuron import *
 from src.CLanguageRyley import *
+import threading as th
 
 VERSION = "I2025-1.00"
 
@@ -49,6 +50,12 @@ class guiRyley:
                    "word.png",#6
                    "projet.png",#7
                    "bottomOpen.png",#8
+                   "booting1.png",#9
+                   "booting2.png",#10
+                   "booting3.png",#11
+                   "booting4.png",#12
+                   "booting5.png",#13
+                   "booting6.png",#14
                    ]
         # Creation des images
 
@@ -73,11 +80,11 @@ class guiRyley:
                                                     tailleX=30, tailleY=30)
 
         # Frame
-        self.__topBackgroup = self.__arrTK.createArreraBackgroudImage(self.__screen,
+        self.__topBackgrown = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                       imageLight=emplacementLight + listIMG[0],
                                                                       imageDark=emplacementDark + listIMG[0],
-                                                                      width=500, height=400)
-        self.__bottomBackgroup = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                      width=500, height=400,bg="#041f75")
+        self.__bottomBackgrown = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                          imageLight=emplacementLight + listIMG[1],
                                                                          imageDark=emplacementDark + listIMG[1],
                                                                          width=500, height=70)
@@ -85,10 +92,37 @@ class guiRyley:
                                                          width=500, height=130,
                                                          bg="#081ec7",corner_radius=0)
 
-        self.__frameBottomOpen = self.__arrTK.createArreraBackgroudImage(self.__screen,
-                                                                         imageLight=emplacementLight + listIMG[8],
-                                                                         imageDark=emplacementDark + listIMG[8],
-                                                                         width=500, height=70,bg="#081ec7")
+        self.__bottomBackgrownOpen = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                             imageLight=emplacementLight + listIMG[8],
+                                                                             imageDark=emplacementDark + listIMG[8],
+                                                                             width=500, height=70, bg="#081ec7")
+
+        self.__backgroudBoot1 = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[9],
+                                                                        imageDark=emplacementDark + listIMG[9],
+                                                                        width=500, height=600)
+
+        self.__backgroudBoot2 = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[10],
+                                                                        imageDark=emplacementDark + listIMG[10],
+                                                                        width=500, height=600)
+        self.__backgroudBoot3 = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[11],
+                                                                        imageDark=emplacementDark + listIMG[11],
+                                                                        width=500, height=600)
+        self.__backgroudBoot4 = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[12],
+                                                                        imageDark=emplacementDark + listIMG[12],
+                                                                        width=500, height=600)
+        self.__backgroudBoot5 = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[13],
+                                                                        imageDark=emplacementDark + listIMG[13],
+                                                                        width=500, height=600)
+        self.__backgroudBoot6 = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[14],
+                                                                        imageDark=emplacementDark + listIMG[14],
+                                                                        width=500, height=600)
+
         # Widget
         # Entry
         self.__entryUser = self.__arrTK.createEntry(self.__frameBackgroud,
@@ -108,23 +142,23 @@ class guiRyley:
                                                 bg="#3b4bca", hoverbg="#051484")
 
         # Label
-        self.__lparole = self.__arrTK.createLabel(self.__topBackgroup,
+        self.__lparole = self.__arrTK.createLabel(self.__topBackgrown,
                                                   bg="#041f75", fg="white",
-                                                  ppolice="Arial",pstyle="bold",
-                                                  ptaille=18,justify="left",pwraplength=400)
+                                                  ppolice="Arial", pstyle="bold",
+                                                  ptaille=18, justify="left", pwraplength=400)
 
         # Button
-        self.__btnTableurOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
-                                                          image=imgTableurOpen,command=lambda : self.__winHelpFileAndProjet(1),
-                                                          bg="#3b4bca",hoverbg="#051484")
+        self.__btnTableurOpen = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
+                                                          image=imgTableurOpen, command=lambda : self.__winHelpFileAndProjet(1),
+                                                          bg="#3b4bca", hoverbg="#051484")
 
-        self.__btnWordOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
-                                                       image=imgWordOpen,command=lambda : self.__winHelpFileAndProjet(2),
-                                                       bg="#3b4bca",hoverbg="#051484")
+        self.__btnWordOpen = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
+                                                       image=imgWordOpen, command=lambda : self.__winHelpFileAndProjet(2),
+                                                       bg="#3b4bca", hoverbg="#051484")
 
-        self.__btnProjetOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
-                                                         image=imgProjetOpen,command=lambda : self.__winHelpFileAndProjet(3),
-                                                         bg="#3b4bca",hoverbg="#051484")
+        self.__btnProjetOpen = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
+                                                         image=imgProjetOpen, command=lambda : self.__winHelpFileAndProjet(3),
+                                                         bg="#3b4bca", hoverbg="#051484")
 
         # Affichage des widgets
         self.__entryUser.place(relx=0.40, rely=0.3, anchor="center")
@@ -136,26 +170,48 @@ class guiRyley:
         # Bind
         self.keyboard()
         # Instruction a supprimer par la suite
-        self.__assistantRyley.boot(1)
+
 
     def active(self):
-        self.__viewNormal()
+        thboot = th.Thread(target=self.__sequenceBoot)
+        thboot.start()
         self.__arrTK.view()
 
+    def __sequenceBoot(self):
+        self.__disableAllFrame()
+        self.__backgroudBoot1.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot1.pack_forget()
+        self.__backgroudBoot2.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot2.pack_forget()
+        self.__backgroudBoot3.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot3.pack_forget()
+        self.__backgroudBoot4.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot4.pack_forget()
+        self.__backgroudBoot5.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot5.pack_forget()
+        self.__paroleRyley(self.__assistantRyley.boot(1))
+        self.__viewNormal()
+
+
     def __disableAllFrame(self):
-        self.__topBackgroup.pack_forget()
-        self.__bottomBackgroup.pack_forget()
+        self.__topBackgrown.pack_forget()
+        self.__bottomBackgrown.pack_forget()
         self.__frameBackgroud.pack_forget()
-        self.__frameBottomOpen.pack_forget()
+        self.__bottomBackgrownOpen.pack_forget()
 
     def __viewNormal(self):
-        self.__topBackgroup.pack()
-        self.__bottomBackgroup.pack()
+        self.__topBackgrown.pack()
+        self.__bottomBackgrown.pack()
         self.__frameBackgroud.pack()
 
     def __viewOpen(self):
-        self.__topBackgroup.pack()
-        self.__frameBottomOpen.pack()
+        self.__topBackgrown.pack()
+        self.__bottomBackgrownOpen.pack()
         self.__frameBackgroud.pack()
 
     def __paroleRyley(self, text: str):
