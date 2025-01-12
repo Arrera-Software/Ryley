@@ -5,5 +5,11 @@
   "phResumerActu": "Voila ton un resumer des actualités du jour.",
   "phResumerAgenda": "Voila ton resumer des taches et des evenements du jour.",
   "phResumerAll": "Voila j'épere que ton resumer totale du jour te sera utile",
-  "phErreurResumerAll": "Desoler mais je recompte un probleme qui m'empeche de te donner ton resumer totale du jour"
+  "phErreurResumerAll": "Desoler mais je recompte un probleme qui m'empeche de te donner ton resumer totale du jour",
+  "phOpenAideTableur": "Voici l'aide pour travailler sur un tableur avec moi",
+  "phOpenAideWord": "Je t'ai ouvrert l'aide pour d'aider a manipuler des fichier de traitement de texte avec moi",
+  "phOpenAideFichier": "Je t'ai ouvert la liste des type de fichier que je peux te crée dans un projet.",
+  "phOpenAideRadio": "Voici la liste des radios que je peux te lancer pour d'aider a te détendre",
+  "phOpenAideProjet": "Voici l'aide pour qu'on puisse crée des projet ensemble",
+  "phOpenAideWork": "Je t'ai ouvert l'aide pour utiliser la fonction Arrera Word"
 }

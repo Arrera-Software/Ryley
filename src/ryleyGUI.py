@@ -342,7 +342,7 @@ class guiRyley:
                     self.__paroleRyley(self.__assistantRyley.shutdown())
                 case 17 :
                     pass
-                    # Ouverture d'un fenetre pour afficher l'aide
+                    self.__windowsHelp(listSortie)
                 case 18 :
                     self.__paroleRyley(self.__language.getPhResumerAgenda())
                     self.__viewResumer(listSortie,3)
@@ -486,3 +486,40 @@ class guiRyley:
     def __backActu(self):
         self.__disableAllFrame()
         self.__viewNormal()
+
+    def __windowsHelp(self, list: list):
+        winHelp = self.__arrTK.aTopLevel(width=500, height=600,
+                                         title="Arrera RYLEY : Aide",
+                                         resizable=False,
+                                         icon=self.__emplacementIcon)
+        labelTitleHelp = self.__arrTK.createLabel(winHelp, ppolice="Arial", ptaille=25, pstyle="bold")
+        aideView = self.__arrTK.createTextBox(winHelp, width=450, height=500,
+                                              wrap="word", ppolice="Arial",
+                                              ptaille=20, pstyle="normal")
+        self.__arrTK.insertTextOnTextBox(aideView, list[0])
+
+        textSpeak = ""
+
+        match list[1]:
+            case "tableur":
+                textSpeak = self.__language.getPhOpenAideTableur()
+                labelTitleHelp.configure(text="Aide Tableur")
+            case "word":
+                textSpeak = self.__language.getPhOpenAideWord()
+                labelTitleHelp.configure(text="Aide Traitement de texte")
+            case "fichier":
+                textSpeak = self.__language.getPhOpenAideFichier()
+                labelTitleHelp.configure(text="Types créables par Arrera RYLEY")
+            case "radio":
+                textSpeak = self.__language.getPhOpenAideRadio()
+                labelTitleHelp.configure(text="Radio disponible avec Arrera RYLEY")
+            case "projet" :
+                textSpeak = self.__language.getPhOpenAideProjet()
+                labelTitleHelp.configure(text="Aide Arrera Projet")
+            case "work" :
+                textSpeak = self.__language.getPhOpenAideWork()
+                labelTitleHelp.configure(text="Aide fonction Arrera Work")
+
+        self.__arrTK.placeTopCenter(labelTitleHelp)
+        self.__arrTK.placeCenter(aideView)
+        self.__paroleRyley(textSpeak)

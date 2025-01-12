@@ -35,3 +35,22 @@ class CLanguageRyley :
 
     def getPhErreurResumerAll(self):
         return self.__language.lectureJSON("phErreurResumerAll")
+
+    def getPhOpenAideTableur(self):
+        return self.__language.lectureJSON("phOpenAideTableur")
+
+    def getPhOpenAideWord(self):
+        return self.__language.lectureJSON("phOpenAideWord")
+
+    def getPhOpenAideFichier(self):
+        return self.__language.lectureJSON("phOpenAideFichier")
+
+    def getPhOpenAideRadio(self):
+        return self.__language.lectureJSON("phOpenAideRadio")
+
+    def getPhOpenAideProjet(self):
+        return self.__language.lectureJSON("phOpenAideProjet")
+
+    def getPhOpenAideWork(self):
+        return self.__language.lectureJSON("phOpenAideWork")
+
