@@ -1,8 +1,11 @@
+import time
+
 from librairy.arrera_tk import CArreraTK
 from ObjetsNetwork.arreraNeuron import *
 from src.CLanguageRyley import *
 import threading as th
 import signal
+from setting.CArreraGazelleUIRyleyCopilote import *
 
 VERSION = "I2025-1.00"
 
@@ -32,6 +35,15 @@ class guiRyley:
                                          width=500, height=600)
 
         self.__screen.protocol("WM_DELETE_WINDOW", self.__quitRyley)
+
+        # Demage de l'objet parametre
+
+        self.__arrGazelle = CArreraGazelleUIRyleyCopilote(self.__arrTK, self.__screen,
+                                                          "fichierJSON/configUser.json",
+                                                          "fichierJSON/configNeuron.json",
+                                                          "fichierJSON/ryleyConfig.json",
+                                                          "fichierJSON/configSetting.json")
+        self.__arrGazelle.passApropos(self.__apropos)
 
         # Icon
         if self.__windowsOS:
@@ -142,7 +154,7 @@ class guiRyley:
                                             bg="#3b4bca", hoverbg="#051484")
 
         btnPara = self.__arrTK.createButton(self.__frameBackgroud,image=imgPara,
-                                            width=40, height=40,
+                                            width=40, height=40,command=self.__viewParametre,
                                             bg="#3b4bca",hoverbg="#051484")
 
         btnCodehelp = self.__arrTK.createButton(self.__frameBackgroud,image=imgCodehelp,
@@ -557,3 +569,14 @@ class guiRyley:
 
         self.__arrTK.placeCenter(content)
         self.__arrTK.placeTopCenter(labelTitleRead)
+
+    def __viewParametre(self):
+        self.__disableAllFrame()
+        self.__arrGazelle.active()
+        self.__arrGazelle.passQUITFNC(self.__quitParametre)
+
+    def __quitParametre(self):
+        self.__screen.protocol("WM_DELETE_WINDOW", self.__quitRyley)
+        self.__screen.maxsize(500, 600)
+        self.__viewNormal()
+        self.__paroleRyley(self.__language.getPhParametre())

@@ -1,16 +1,7 @@
 {
-    "colorLight1":"white",
-    "colorLight2":"#081ec7",
-    "colorDark1":"black",
-    "colorDark2":"#081ec7",
-    "textColorDark1":"white",
-    "textColorDark2":"white",
-    "textColorLight1":"black",
-    "textColorLight2":"white",
-    "colorInterface":"1",
-    "setIcon":"0",
-    "iconAssistant":"",
-    "listeTheme":["light","dark"],
+    "gestionMicro":"0",
+    "listeTheme":["Dark","Light"],
     "listGenre":["monsieur","madame","maitre"],
-    "gestionMicro":"0"
+    "iconSoft": "asset/Ryley.png",
+    "listMoteurRecherche": ["google","brave","duckduckgo","qwant","ecosia","bing","perplexity"]
 }

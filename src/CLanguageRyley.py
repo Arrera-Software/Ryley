@@ -60,3 +60,6 @@ class CLanguageRyley :
     def getPhReadTableur(self):
         return self.__language.lectureJSON("phReadTableur")
 
+    def getPhParametre(self):
+        return self.__language.lectureJSON("phParametre")
+
