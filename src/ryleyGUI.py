@@ -2,6 +2,7 @@ from librairy.arrera_tk import CArreraTK
 from ObjetsNetwork.arreraNeuron import *
 from src.CLanguageRyley import *
 import threading as th
+import signal
 
 VERSION = "I2025-1.00"
 
@@ -197,6 +198,29 @@ class guiRyley:
         self.__paroleRyley(self.__assistantRyley.boot(1))
         self.__viewNormal()
 
+    def __sequenceStop(self):
+        self.__paroleRyley(self.__assistantRyley.shutdown())
+        time.sleep(3)
+        self.__disableAllFrame()
+        self.__backgroudBoot5.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot5.pack_forget()
+        self.__backgroudBoot4.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot4.pack_forget()
+        self.__backgroudBoot3.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot3.pack_forget()
+        self.__backgroudBoot2.pack()
+        time.sleep(0.2)
+        self.__backgroudBoot2.pack_forget()
+        self.__backgroudBoot1.pack()
+        if (self.__windowsOS==True) and (self.__linuxOS==False) :
+            os.kill(os.getpid(), signal.SIGINT)
+        else :
+            if (self.__windowsOS==False) and (self.__linuxOS==True) :
+                os.kill(os.getpid(), signal.SIGKILL)
+
 
     def __disableAllFrame(self):
         self.__topBackgrown.pack_forget()
@@ -224,8 +248,8 @@ class guiRyley:
             self.__close()
 
     def __close(self):
-        self.__paroleRyley(self.__assistantRyley.shutdown())
-        self.__screen.destroy()
+        thSTop = th.Thread(target=self.__sequenceStop)
+        thSTop.start()
 
     def __apropos(self):
         self.__arrTK.aproposWindows(
