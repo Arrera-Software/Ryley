@@ -34,11 +34,16 @@ class guiRyley:
         emplacementLight = "asset/GUI/light/"
         emplacementDark = "asset/GUI/dark/"
 
-        listIMG = ["top.png",
-                   "bottom.png",
-                   "send.png",
-                   "settings.png",
-                   "iconRyleyCodehelp.png"]
+        listIMG = ["top.png",#0
+                   "bottom.png",#1
+                   "send.png",#2
+                   "settings.png",#3
+                   "iconRyleyCodehelp.png",#4
+                   "tableur.png",#5
+                   "word.png",#6
+                   "projet.png",#7
+                   "bottomOpen.png",#8
+                   ]
         # Creation des images
 
         imgSend = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[2],
@@ -51,6 +56,15 @@ class guiRyley:
         imgCodehelp = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[4],
                                              pathDark=emplacementDark + listIMG[4],
                                              tailleX=30, tailleY=30)
+        imgTableurOpen = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[5],
+                                                    pathDark=emplacementDark + listIMG[5],
+                                                    tailleX=30, tailleY=30)
+        imgWordOpen = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[6],
+                                                    pathDark=emplacementDark + listIMG[6],
+                                                    tailleX=30, tailleY=30)
+        imgProjetOpen = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[7],
+                                                    pathDark=emplacementDark + listIMG[7],
+                                                    tailleX=30, tailleY=30)
 
         # Frame
         self.__topBackgroup = self.__arrTK.createArreraBackgroudImage(self.__screen,
@@ -64,6 +78,11 @@ class guiRyley:
         self.__frameBackgroud = self.__arrTK.createFrame(self.__screen,
                                                          width=500, height=130,
                                                          bg="#081ec7",corner_radius=0)
+
+        self.__frameBottomOpen = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                         imageLight=emplacementLight + listIMG[8],
+                                                                         imageDark=emplacementDark + listIMG[8],
+                                                                         width=500, height=70,bg="#081ec7")
         # Widget
         # Entry
         self.__entryUser = self.__arrTK.createEntry(self.__frameBackgroud,
@@ -88,6 +107,19 @@ class guiRyley:
                                                   ppolice="Arial",pstyle="bold",
                                                   ptaille=18,justify="left",pwraplength=400)
 
+        # Button
+        self.__btnTableurOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
+                                                          image=imgTableurOpen,
+                                                          bg="#3b4bca",hoverbg="#051484")
+
+        self.__btnWordOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
+                                                       image=imgWordOpen,
+                                                       bg="#3b4bca",hoverbg="#051484")
+
+        self.__btnProjetOpen = self.__arrTK.createButton(self.__frameBottomOpen, width=35, height=35,
+                                                         image=imgProjetOpen,
+                                                         bg="#3b4bca",hoverbg="#051484")
+
         # Affichage des widgets
         self.__entryUser.place(relx=0.40, rely=0.3, anchor="center")
         btnSend.place(relx=0.90, rely=0.3, anchor="center")
@@ -100,13 +132,25 @@ class guiRyley:
         # Instruction a supprimer par la suite
         self.__assistantRyley.boot(1)
 
-
     def active(self):
+        self.__viewNormal()
+        self.__arrTK.view()
+
+    def __disableAllFrame(self):
+        self.__topBackgroup.pack_forget()
+        self.__bottomBackgroup.pack_forget()
+        self.__frameBackgroud.pack_forget()
+        self.__frameBottomOpen.pack_forget()
+
+    def __viewNormal(self):
         self.__topBackgroup.pack()
         self.__bottomBackgroup.pack()
         self.__frameBackgroud.pack()
-        self.__arrTK.view()
 
+    def __viewOpen(self):
+        self.__topBackgroup.pack()
+        self.__frameBottomOpen.pack()
+        self.__frameBackgroud.pack()
 
     def __paroleRyley(self, text: str):
         if text != "":
@@ -160,10 +204,10 @@ class guiRyley:
                     # Sequence parole pour ouverture d'erreur actualité
                 case 7 :
                     self.__paroleRyley(listSortie[0])
-                    # Fonction pour mettre affichier les bouton fichier
+                    self.setButtonOpen()
                 case 8 :
                     self.__paroleRyley(listSortie[0])
-                    # Fonction pour mettre affichier les bouton fichier
+                    self.setButtonOpen()
                 case 9 :
                     pass
                     # Sequence parole pour lesture de fichier
@@ -184,7 +228,7 @@ class guiRyley:
                     # Fonction qui ouvre un fenetre pour lire le contenu du fichier
                 case 14 :
                     self.__paroleRyley(listSortie[0])
-                    # Fonction pour mettre affichier les bouton fichier
+                    self.setButtonOpen()
                 case 15 :
                     self.__close()
                 case 16 :
@@ -205,7 +249,7 @@ class guiRyley:
                     # Sequence parole du resumer totale en erreur
                 case 21 :
                     self.__paroleRyley(listSortie[0])
-                    # Fonction pour mettre affichier les bouton fichier
+                    self.setButtonOpen()
                 case other :
                     pass
 
@@ -220,17 +264,27 @@ class guiRyley:
         self.__screen.bind("<Key>", anychar)
 
     def setButtonOpen(self):
-        if self.__assistantRyley.getTableur() :
-            self.__arrTK.placeBottomRight(self.__btnTableurOpen)
+        tableur = self.__assistantRyley.getTableur()
+        word = self.__assistantRyley.getWord()
+        projet = self.__assistantRyley.getProject()
+        if tableur :
+            self.__arrTK.placeTopRight(self.__btnTableurOpen)
         else :
             self.__btnTableurOpen.place_forget()
 
-        if self.__assistantRyley.getWord():
-            self.__arrTK.placeBottomLeft(self.__btnWordOpen)
+        if word:
+            self.__arrTK.placeTopLeft(self.__btnWordOpen)
         else :
             self.__btnWordOpen.place_forget()
 
-        if self.__assistantRyley.getProject():
-            self.__arrTK.placeBottomCenter(self.__btnProjetOpen)
+        if projet:
+            self.__arrTK.placeTopCenter(self.__btnProjetOpen)
         else :
             self.__btnProjetOpen.place_forget()
+
+        if tableur or word or projet :
+            self.__disableAllFrame()
+            self.__viewOpen()
+        else :
+            self.__disableAllFrame()
+            self.__viewNormal()
