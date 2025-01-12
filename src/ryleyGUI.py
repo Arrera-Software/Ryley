@@ -17,7 +17,7 @@ class guiRyley:
         self.__assistantRyley = ArreraNetwork(neuronConfigFile)
 
         # Demarage objet language Ryley
-        self.__language = CLanguageRyley("",
+        self.__language = CLanguageRyley("fichierJSON/paroleRyley.json",
                                               "fichierJSON/aideRyley.json",
                                               "")
 
@@ -30,6 +30,7 @@ class guiRyley:
         # Demarage de l'interface
         self.__screen = self.__arrTK.aTK(0,title=self.__nameSoft, resizable=False,
                                          width=500, height=600)
+
         self.__screen.protocol("WM_DELETE_WINDOW", self.__quitRyley)
 
         # Icon
@@ -57,6 +58,7 @@ class guiRyley:
                    "booting4.png",#12
                    "booting5.png",#13
                    "booting6.png",#14
+                   "actu.png",#15
                    ]
         # Creation des images
 
@@ -89,6 +91,11 @@ class guiRyley:
                                                                          imageLight=emplacementLight + listIMG[1],
                                                                          imageDark=emplacementDark + listIMG[1],
                                                                          width=500, height=70)
+        self.__backgroundActu = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[15],
+                                                                        imageDark=emplacementDark + listIMG[15],
+                                                                        width=500, height=600,bg="white")
+
         self.__frameBackgroud = self.__arrTK.createFrame(self.__screen,
                                                          width=500, height=130,
                                                          bg="#081ec7",corner_radius=0)
@@ -142,11 +149,18 @@ class guiRyley:
                                                 width=40,height=40,
                                                 bg="#3b4bca", hoverbg="#051484")
 
+        btnQuitActu = self.__arrTK.createButton(self.__backgroundActu, text="Retour",
+                                                command=self.__backActu)
+
         # Label
         self.__lparole = self.__arrTK.createLabel(self.__topBackgrown,
                                                   bg="#041f75", fg="white",
                                                   ppolice="Arial", pstyle="bold",
                                                   ptaille=18, justify="left", pwraplength=400)
+        self.__labelActu = self.__arrTK.createLabel(self.__backgroundActu,
+                                                    bg="#041f75", fg="white",
+                                                    ppolice="Arial", pstyle="bold",
+                                                    ptaille=18, justify="left", pwraplength=400)
 
         # Button
         self.__btnTableurOpen = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
@@ -161,6 +175,8 @@ class guiRyley:
                                                          image=imgProjetOpen, command=lambda : self.__winHelpFileAndProjet(3),
                                                          bg="#3b4bca", hoverbg="#051484")
 
+
+
         # Affichage des widgets
         self.__entryUser.place(relx=0.40, rely=0.3, anchor="center")
         btnSend.place(relx=0.90, rely=0.3, anchor="center")
@@ -168,6 +184,9 @@ class guiRyley:
 
         self.__arrTK.placeBottomLeft(btnPara)
         self.__arrTK.placeBottomRight(btnCodehelp)
+
+        self.__labelActu.place(x=70, y=75)
+        self.__arrTK.placeBottomRight(btnQuitActu)
         # Bind
         self.keyboard()
         # Instruction a supprimer par la suite
@@ -199,8 +218,10 @@ class guiRyley:
         self.__viewNormal()
 
     def __sequenceStop(self):
+        self.__screen.configure(bg_color="#081ec7", fg_color="#081ec7")
         self.__paroleRyley(self.__assistantRyley.shutdown())
         time.sleep(3)
+        self.__screen.configure(bg_color="white", fg_color="white")
         self.__disableAllFrame()
         self.__backgroudBoot5.pack()
         time.sleep(0.2)
@@ -227,6 +248,7 @@ class guiRyley:
         self.__bottomBackgrown.pack_forget()
         self.__frameBackgroud.pack_forget()
         self.__bottomBackgrownOpen.pack_forget()
+        self.__backgroundActu.pack_forget()
 
     def __viewNormal(self):
         self.__topBackgrown.pack()
@@ -248,6 +270,9 @@ class guiRyley:
             self.__close()
 
     def __close(self):
+        self.__disableAllFrame()
+        self.__viewNormal()
+        self.__frameBackgroud.pack_forget()
         thSTop = th.Thread(target=self.__sequenceStop)
         thSTop.start()
 
@@ -278,16 +303,14 @@ class guiRyley:
                 case 2 :
                     pass
                 case 3 :
-                    pass
-                    # Sequence parole pour ouverture de l'actualité
-                    # Fonction pour afficher l'actualité
+                    self.__paroleRyley(self.__language.getPhOpenActu())
+                    self.__viewResumer(listSortie,2)
                 case 4 :
                     self.__paroleRyley(listSortie[0])
                 case 5 :
                     self.__paroleRyley(listSortie[0])
                 case 6 :
-                    pass
-                    # Sequence parole pour ouverture d'erreur actualité
+                    self.__paroleRyley(self.__language.getPhErreurActu())
                 case 7 :
                     self.__paroleRyley(listSortie[0])
                     self.setButtonOpen()
@@ -296,21 +319,19 @@ class guiRyley:
                     self.setButtonOpen()
                 case 9 :
                     pass
-                    # Sequence parole pour lesture de fichier
+                    # Sequence parole pour lecture de fichier
                     # Fonction qui ouvre un fenetre pour lire le contenu du fichier
                 case 10 :
                     self.__paroleRyley(listSortie[0])
                     # Fonction pour mettre affichier les bouton fichier
                 case 11 :
-                    pass
-                    # Sequence parole pour erreur du resumer actualité
+                    self.__paroleRyley(self.__language.getPhErreurResumerActu())
                 case 12 :
-                    pass
-                    # Sequence parole pour reussite du resumer actualité
-                    # Fonction qui crée pour afficher le resumer
+                    self.__paroleRyley(self.__language.getPhResumerActu())
+                    self.__viewResumer(listSortie,1)
                 case 13 :
                     pass
-                    # Sequence parole pour lesture d'un tableur
+                    # Sequence parole pour lecture d'un tableur
                     # Fonction qui ouvre un fenetre pour lire le contenu du fichier
                 case 14 :
                     self.__paroleRyley(listSortie[0])
@@ -323,16 +344,13 @@ class guiRyley:
                     pass
                     # Ouverture d'un fenetre pour afficher l'aide
                 case 18 :
-                    pass
-                    # Sequence parole pour reussite du resumer agenda et tache
-                    # Fonction qui crée pour afficher le resumer
+                    self.__paroleRyley(self.__language.getPhResumerAgenda())
+                    self.__viewResumer(listSortie,3)
                 case 19 :
-                    pass
-                    # Sequence parole pour reussite du resumer total
-                    # Fonction qui crée pour afficher le resumer
+                    self.__paroleRyley(self.__language.getPhResumerAll())
+                    self.__viewResumer(listSortie,4)
                 case 20 :
-                    pass
-                    # Sequence parole du resumer totale en erreur
+                    self.__paroleRyley(self.__language.getPhErreurResumerAll())
                 case 21 :
                     self.__paroleRyley(listSortie[0])
                     self.setButtonOpen()
@@ -427,3 +445,44 @@ class guiRyley:
                     newText += "    "+text+"\n"
 
         return newText.strip()
+
+    def __viewResumer(self, listSortie:list, mode:int):
+        """
+        1 : Resumer actualités
+        2 : actuliés
+        3 : Resumer agenda
+        4 : Resumer totale
+        """
+        self.__disableAllFrame()
+        self.__backgroundActu.pack()
+        match mode :
+            case 1 :
+                self.__labelActu.configure(text=listSortie[0]+
+                                        "\n"+listSortie[1]+
+                                        "\n"+listSortie[2]+
+                                        "\n"+listSortie[3]+
+                                        "\n"+listSortie[4]+
+                                        "\n"+listSortie[5],
+                                        justify="left",
+                                        wraplength=400)
+            case 2 :
+                self.__labelActu.configure(text=listSortie[0]+
+                                        "\n"+listSortie[1]+
+                                        "\n"+listSortie[2],
+                                        justify="left",
+                                        wraplength=400)
+            case 3 :
+                self.__labelActu.configure(text=listSortie[0]+"\n"+listSortie[1],
+                                        justify="left",
+                                        wraplength=400)
+            case 4 :
+                self.__labelActu.configure(text=listSortie[0] + "\n" + listSortie[1]+"\n"
+                                                +listSortie[2] + "\n" + listSortie[3]+"\n"
+                                                +listSortie[4] + "\n" + listSortie[5]+"\n"
+                                                +listSortie[7] + "\n" + listSortie[8],
+                                           justify="left",
+                                           wraplength=400)
+
+    def __backActu(self):
+        self.__disableAllFrame()
+        self.__viewNormal()

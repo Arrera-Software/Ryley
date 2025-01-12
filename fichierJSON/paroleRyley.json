@@ -1,0 +1,9 @@
+{
+  "phOpenActu": "Voila j'éspere que c'est actualités on etais utile pour toi",
+  "phErreurActu": "Désoler mais je ne peux pas te montrer les actualités j'ai subit un probleme",
+  "phErreurResumerActu": "Désoler mais je ne peux pas te montrer un resumer les actualités j'ai subit un probleme",
+  "phResumerActu": "Voila ton un resumer des actualités du jour.",
+  "phResumerAgenda": "Voila ton resumer des taches et des evenements du jour.",
+  "phResumerAll": "Voila j'épere que ton resumer totale du jour te sera utile",
+  "phErreurResumerAll": "Desoler mais je recompte un probleme qui m'empeche de te donner ton resumer totale du jour"
+}
