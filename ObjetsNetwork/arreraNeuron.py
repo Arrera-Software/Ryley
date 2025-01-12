@@ -13,7 +13,7 @@ class ArreraNetwork :
     def __init__(self,fichierConfiguration:str):
         # Declaration des diferente var 
         self.__listOut =  [] 
-        self.__valeurOut = int
+        self.__valeurOut = 0
         #Ouverture fichier de configuration
         self.__configNeuron = jsonWork(fichierConfiguration)
         self.__fichierUtilisateur = jsonWork(self.__configNeuron.lectureJSON("fileUser"))
@@ -86,6 +86,7 @@ class ArreraNetwork :
         18 : Resumer tache / agenda
         19 : Resumer all ok 
         20 : Resumer all fail
+        21 : Close projet
         """
         return self.__valeurOut
     
@@ -94,6 +95,12 @@ class ArreraNetwork :
     
     def getWord(self):
         return self.__fonctionAssistant.getWordOpen()
+
+    def getProject(self):
+        return self.__fonctionAssistant.getProjectOpen()
+
+    def getUserData(self):
+        return self.__gestionnaire.getLanguageObjet().getDataUser()
 
     
     def neuron(self,var:str) :

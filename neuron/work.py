@@ -26,8 +26,8 @@ class neuronWork :
             self.__valeurOut = 0
             self.__listSortie = ["",""]
             oldRequette,oldSortie = self.__gestionNeuron.getOld()
-
-            if (("ouvre" in requette)):
+            if (("ouvre" in requette) and ("ouvre le projet nommer" not in requette
+                and "ouvre le projet nomme" not in requette and "ouvre le projet" not in requette)):
                 if ((("exel" in requette) or ("tableur" in requette)) 
                     and  ("ordinateur" in requette)):
                     self.__listSortie = [self.__fonctionArreraNetwork.sortieOpenSoftTableurFile(),""]
@@ -53,7 +53,7 @@ class neuronWork :
                                 if (("projet" in requette) or ("nommer" in requette) and ("le" in requette)):
                                     text,file = self.__fonctionArreraNetwork.sortieOpenFileProject(requette)
                                     self.__listSortie = [text,""]
-                                    if ("Il a peux être pas un projet ouvert." not in requette):
+                                    if ("Il a peux être pas un projet ouvert." not in self.__listSortie[0]):
                                         self.__objHistorique.setAction("Ouverture du fichier "+file+" du projet "+self.__fonctionArreraNetwork.getNameProjetOpen())
                                         self.__valeurOut = 7
                                     else :
@@ -76,7 +76,7 @@ class neuronWork :
                                 nameProjet = self.__fonctionArreraNetwork.getNameProjetOpen()
                                 self.__listSortie = [self.__fonctionArreraNetwork.sortieCloseProject(),""]
                                 self.__objHistorique.setAction("Fermeture du projet "+nameProjet)
-                                self.__valeurOut = 1
+                                self.__valeurOut = 21
                 else :
                     if (("lis" in requette) and ("liste" not in requette)):
                         if ("word" in requette):
@@ -191,7 +191,9 @@ class neuronWork :
                                                         self.__objHistorique.setAction("Mise en place d'un type au projet")
                                                         self.__valeurOut = 5
                                                     else :
-                                                        if (("ouvre le projet nommer" in requette) or ("ouvre le projet nomme" in requette) or ("ouvre le projet" in requette)):
+                                                        if (("ouvre le projet nommer" in requette) or
+                                                                ("ouvre le projet nomme" in requette) or
+                                                                ("ouvre le projet" in requette)):
                                                             projet,text = self.__fonctionArreraNetwork.sortieOpenProjet(requette)
                                                             self.__listSortie = [text,""]
                                                             self.__objHistorique.setAction("Ouverture du projet "+projet)
@@ -278,7 +280,7 @@ class neuronWork :
                                                                                                                      "\n- Edition tableur (Taper aide tableur)"+
                                                                                                                      "\n- Edition fichier de traitement de texte (Taper aide word)"+
                                                                                                                      "\n- Fonction Arrera projet (Taper aide projet)"
-                                                                                                                     ,""]
+                                                                                                                     ,"work"]
                                                                                                 self.__valeurOut = 17 
                                                                                             else :
                                                                                                 if ("aide tableur" in requette):

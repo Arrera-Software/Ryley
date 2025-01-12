@@ -69,7 +69,6 @@ class fncArreraWork :
         if (self.__tableurOpen==False and file != ""):
             self.__fileTableur = file
             self.__objTableur = CArreraTableur(file)
-            showinfo("Work","Exel ouvert")
             self.__tableurOpen = True
             return True
         else :
@@ -100,7 +99,6 @@ class fncArreraWork :
         if (self.__wordOpen == False and file != ""):
             self.__fileWord = file
             self.__objWord = CArreraDocx(file)
-            showinfo("Work","Word ouvert")
             self.__wordOpen = True
             return True
         else :
@@ -166,6 +164,7 @@ class fncArreraWork :
             del self.__objTableur
             self.__objTableur = None
             self.__fileTableur = ""
+            self.__tableurOpen = False
             return True
         else :
             return False
@@ -197,6 +196,9 @@ class fncArreraWork :
     
     def getEtatWord(self):
         return self.__wordOpen
+
+    def getEtatProject(self):
+        return self.__projectOpen
     
     def getNameFileTableur(self):
         return self.__fileTableur

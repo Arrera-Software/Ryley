@@ -28,5 +28,5 @@
    "emplacementFileRoutine":"fichierJSON/routineFile.json",
    "fileUser": "fichierJSON/configUser.json",
    "fileFete": "fichierJSON/listFete.json",
-   "moduleLanguage": "language/vouvoiment/"
+   "moduleLanguage": "language/"
 }

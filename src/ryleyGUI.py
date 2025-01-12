@@ -218,3 +218,19 @@ class guiRyley:
                 if event.keycode == 36:
                     self.__envoi()
         self.__screen.bind("<Key>", anychar)
+
+    def setButtonOpen(self):
+        if self.__assistantRyley.getTableur() :
+            self.__arrTK.placeBottomRight(self.__btnTableurOpen)
+        else :
+            self.__btnTableurOpen.place_forget()
+
+        if self.__assistantRyley.getWord():
+            self.__arrTK.placeBottomLeft(self.__btnWordOpen)
+        else :
+            self.__btnWordOpen.place_forget()
+
+        if self.__assistantRyley.getProject():
+            self.__arrTK.placeBottomCenter(self.__btnProjetOpen)
+        else :
+            self.__btnProjetOpen.place_forget()

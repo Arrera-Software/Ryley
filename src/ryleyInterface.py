@@ -47,7 +47,7 @@ class interfaceRyley:
         self.__labelParole.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__ryleyMenu.configure(bg=self.__mainColor,fg=self.__mainTextColor)
         self.__objetSetting = ArreraSettingAssistant("fichierJSON/configSetting.json"
-                                                     ,"fichierJSON/configNeuronTutoiment.json"
+                                                     ,"fichierJSON/configNeuron.json"
                                                      ,"fichierJSON/ryleyConfig.json"
                                                      ,"fichierJSON/configUser.json")
     
