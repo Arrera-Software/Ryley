@@ -11,5 +11,7 @@
   "phOpenAideFichier": "Je t'ai ouvert la liste des type de fichier que je peux te crée dans un projet.",
   "phOpenAideRadio": "Voici la liste des radios que je peux te lancer pour d'aider a te détendre",
   "phOpenAideProjet": "Voici l'aide pour qu'on puisse crée des projet ensemble",
-  "phOpenAideWork": "Je t'ai ouvert l'aide pour utiliser la fonction Arrera Word"
+  "phOpenAideWork": "Je t'ai ouvert l'aide pour utiliser la fonction Arrera Word",
+  "phReadWord": "Je t'ouvre un fenetre pour tu lise le contenu du fichier de traitement de texte",
+  "phReadTableur": "Voici la fenetre pour que tu lise le contenu du tableur"
 }

@@ -214,8 +214,9 @@ class guiRyley:
         self.__backgroudBoot5.pack()
         time.sleep(0.2)
         self.__backgroudBoot5.pack_forget()
-        self.__paroleRyley(self.__assistantRyley.boot(1))
+        self.__paroleRyley(self.__assistantRyley.boot(2))
         self.__viewNormal()
+        self.setButtonOpen()
 
     def __sequenceStop(self):
         self.__screen.configure(bg_color="#081ec7", fg_color="#081ec7")
@@ -318,9 +319,8 @@ class guiRyley:
                     self.__paroleRyley(listSortie[0])
                     self.setButtonOpen()
                 case 9 :
-                    pass
-                    # Sequence parole pour lecture de fichier
-                    # Fonction qui ouvre un fenetre pour lire le contenu du fichier
+                    self.__paroleRyley(self.__language.getPhReadWord())
+                    self.__windowsReadFile(listSortie,2)
                 case 10 :
                     self.__paroleRyley(listSortie[0])
                     self.setButtonOpen()
@@ -330,9 +330,8 @@ class guiRyley:
                     self.__paroleRyley(self.__language.getPhResumerActu())
                     self.__viewResumer(listSortie,1)
                 case 13 :
-                    pass
-                    # Sequence parole pour lecture d'un tableur
-                    # Fonction qui ouvre un fenetre pour lire le contenu du fichier
+                    self.__paroleRyley(self.__language.getPhReadTableur())
+                    self.__windowsReadFile(listSortie,1)
                 case 14 :
                     self.__paroleRyley(listSortie[0])
                     self.setButtonOpen()
@@ -523,3 +522,38 @@ class guiRyley:
         self.__arrTK.placeTopCenter(labelTitleHelp)
         self.__arrTK.placeCenter(aideView)
         self.__paroleRyley(textSpeak)
+
+    def __windowsReadFile(self, liste:list, mode:int):
+        """
+        :param mode:
+        1. Tableur
+        2. Word
+        :return:
+        """
+        winRead = self.__arrTK.aTopLevel(width=500, height=600,
+                                         resizable=False,
+                                         icon=self.__emplacementIcon)
+
+        labelTitleRead = self.__arrTK.createLabel(winRead, ppolice="Arial", ptaille=25, pstyle="bold")
+
+        content = self.__arrTK.createTextBox(winRead, width=475, height=500,
+                                             wrap="word", ppolice="Arial",
+                                             ptaille=20, pstyle="normal")
+
+
+        match mode :
+            case 1 :
+                winRead.title("Arrera Six : Lecture Tableur")
+                labelTitleRead.configure(text="Lecture : Tableur")
+                textContent = ""
+                for i in range(0, len(liste)):
+                    textContent = textContent+str(liste[i]) + "\n"
+                self.__arrTK.insertTextOnTextBox(content, textContent)
+
+            case 2 :
+                winRead.title("Arrera Six : Lecture Traitement de texte")
+                labelTitleRead.configure(text="Lecture : Traitement de texte")
+                self.__arrTK.insertTextOnTextBox(content, liste[0])
+
+        self.__arrTK.placeCenter(content)
+        self.__arrTK.placeTopCenter(labelTitleRead)

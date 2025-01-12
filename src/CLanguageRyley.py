@@ -54,3 +54,9 @@ class CLanguageRyley :
     def getPhOpenAideWork(self):
         return self.__language.lectureJSON("phOpenAideWork")
 
+    def getPhReadWord(self):
+        return self.__language.lectureJSON("phReadWord")
+
+    def getPhReadTableur(self):
+        return self.__language.lectureJSON("phReadTableur")
+
