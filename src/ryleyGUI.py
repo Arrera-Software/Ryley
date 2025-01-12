@@ -323,7 +323,7 @@ class guiRyley:
                     # Fonction qui ouvre un fenetre pour lire le contenu du fichier
                 case 10 :
                     self.__paroleRyley(listSortie[0])
-                    # Fonction pour mettre affichier les bouton fichier
+                    self.setButtonOpen()
                 case 11 :
                     self.__paroleRyley(self.__language.getPhErreurResumerActu())
                 case 12 :
