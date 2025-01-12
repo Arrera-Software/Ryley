@@ -555,7 +555,7 @@ class guiRyley:
 
         match mode :
             case 1 :
-                winRead.title("Arrera Six : Lecture Tableur")
+                winRead.title("Arrera RYLEY : Lecture Tableur")
                 labelTitleRead.configure(text="Lecture : Tableur")
                 textContent = ""
                 for i in range(0, len(liste)):
@@ -563,7 +563,7 @@ class guiRyley:
                 self.__arrTK.insertTextOnTextBox(content, textContent)
 
             case 2 :
-                winRead.title("Arrera Six : Lecture Traitement de texte")
+                winRead.title("Arrera RYLEY : Lecture Traitement de texte")
                 labelTitleRead.configure(text="Lecture : Traitement de texte")
                 self.__arrTK.insertTextOnTextBox(content, liste[0])
 
