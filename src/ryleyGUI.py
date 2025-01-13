@@ -169,6 +169,10 @@ class guiRyley:
                                                          width=500, height=130,
                                                          bg="#656565", corner_radius=0)
 
+        fDockCodeHelpApp = self.__arrTK.createFrame(self.__frameBackgroudCodehelp, width=350, height=45, bg="#656565")
+        fDockCodeHelpAppRight = self.__arrTK.createFrame(fDockCodeHelpApp, width=175, height=45, bg="#656565")
+        fDockCodeHelpAppleft = self.__arrTK.createFrame(fDockCodeHelpApp, width=175, height=45, bg="#656565")
+
 
         # Widget
         # Entry
@@ -220,6 +224,24 @@ class guiRyley:
         btnRyley = self.__arrTK.createButton(self.__frameBackgroudCodehelp, image=imgRyley,
                                                 width=40, height=40,command=self.__modeRyley,
                                                 bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        btnCHOrgaVar = self.__arrTK.createButton(fDockCodeHelpAppRight, width=40,height=40,
+                                                 text = "",command=self.__activeOrgaVar,
+                                                 bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        btnCHColorSelecteur = self.__arrTK.createButton(fDockCodeHelpAppRight,  width=40,height=40,
+                                                 text = "",command=self.__activeColorSelecteur,
+                                                 bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        btnCHGestGit = self.__arrTK.createButton(fDockCodeHelpAppleft,  width=40,height=40,
+                                                 text = "",command=self.__activeGestGit,
+                                                 bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        btnCHLibrairy = self.__arrTK.createButton(fDockCodeHelpAppleft,  width=40,height=40,
+                                                 text = "",command=self.__activeLibrairy,
+                                                 bg="#8c8c8c", hoverbg="#4e4e4e")
+
+
 
         # Btn open
 
@@ -280,6 +302,16 @@ class guiRyley:
         self.__labelActu.place(x=70, y=75)
         self.__labelFirstBoot.place(x=70, y=190)
         self.__arrTK.placeBottomRight(btnQuitActu)
+
+        self.__arrTK.placeRightBottom(btnCHColorSelecteur)
+        self.__arrTK.placeBottomCenter(btnCHOrgaVar)
+
+        self.__arrTK.placeBottomLeft(btnCHGestGit)
+        self.__arrTK.placeBottomCenter(btnCHLibrairy)
+
+        self.__arrTK.placeBottomRight(fDockCodeHelpAppRight)
+        self.__arrTK.placeBottomLeft(fDockCodeHelpAppleft)
+        self.__arrTK.placeBottomCenter(fDockCodeHelpApp)
         # Bind
         self.__keyboard()
 
@@ -738,3 +770,18 @@ class guiRyley:
         self.__screen.maxsize(500, 600)
         self.__viewNormal()
         self.__paroleRyley(self.__language.getPhParametre())
+
+    def __activeOrgaVar(self):
+        self.__paroleCodehelp(self.__sendAssistant("ouvre orga var"))
+
+    def __activeColorSelecteur(self):
+        self.__paroleCodehelp(self.__sendAssistant("ouvre color selecteur"))
+
+    def __activeGestGit(self):
+        self.__paroleCodehelp(self.__sendAssistant("ouvre gest github"))
+
+    def __activeLibrairy(self):
+        self.__paroleCodehelp(self.__sendAssistant("ouvre librairy"))
+
+
+
