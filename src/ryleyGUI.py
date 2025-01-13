@@ -13,6 +13,7 @@ class guiRyley:
     def __init__(self, neuronConfigFile: str):
         # Varriable
         self.__nameSoft = "Arrera RYLEY"
+        self.__codeHelpActived = False
         # Boot ArreraTK
         self.__arrTK = CArreraTK()
 
@@ -72,6 +73,8 @@ class guiRyley:
                    "booting6.png",#14
                    "actu.png",#15
                    "firstBoot.png",#16
+                   "bottomCodeHelp.png",#17
+                   "topCodehelp.png",#18
                    ]
         # Creation des images
 
@@ -85,6 +88,11 @@ class guiRyley:
         imgCodehelp = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[4],
                                              pathDark=emplacementDark + listIMG[4],
                                              tailleX=30, tailleY=30)
+
+        imgRyley = self.__arrTK.createImage(pathLight=self.__emplacementIcon,
+                                            pathDark=self.__emplacementIcon,
+                                            tailleX=30, tailleY=30)
+
         imgTableurOpen = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[5],
                                                     pathDark=emplacementDark + listIMG[5],
                                                     tailleX=30, tailleY=30)
@@ -149,69 +157,131 @@ class guiRyley:
                                                                         imageDark=emplacementDark + listIMG[14],
                                                                         width=500, height=600)
 
+        self.__backgroundTopCodehelp = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                      imageLight=emplacementLight + listIMG[18],
+                                                                      imageDark=emplacementDark + listIMG[18],
+                                                                      width=500, height=400,bg="#041f75")
+        self.__backgroundBottomCodehelp = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                             imageLight=emplacementLight + listIMG[17],
+                                                                             imageDark=emplacementDark + listIMG[17],
+                                                                             width=500, height=70, bg="#041f75")
+        self.__frameBackgroudCodehelp = self.__arrTK.createFrame(self.__screen,
+                                                         width=500, height=130,
+                                                         bg="#656565", corner_radius=0)
+
+
         # Widget
         # Entry
-        self.__entryUser = self.__arrTK.createEntry(self.__frameBackgroud,
-                                             ppolice="Arial", ptaille=25, width=350)
+        self.__entryUserRyley = self.__arrTK.createEntry(self.__frameBackgroud,
+                                                         ppolice="Arial", ptaille=25, width=350)
+
+        self.__entryUserCodehelp = self.__arrTK.createEntry(self.__frameBackgroudCodehelp,
+                                                         ppolice="Arial", ptaille=25, width=350)
 
         # Bouton
-        btnSend = self.__arrTK.createButton(self.__frameBackgroud, image=imgSend,
-                                            width=40, height=40, command=self.__envoi,
-                                            bg="#3b4bca", hoverbg="#051484")
+        # Partie Ryley
+        btnSendRyley = self.__arrTK.createButton(self.__frameBackgroud, image=imgSend,
+                                                 width=40, height=40, command=self.__actionBTNRyley,
+                                                 bg="#3b4bca", hoverbg="#051484")
 
-        btnPara = self.__arrTK.createButton(self.__frameBackgroud,image=imgPara,
+        btnParaRyley = self.__arrTK.createButton(self.__frameBackgroud,image=imgPara,
                                             width=40, height=40,command=self.__viewParametre,
                                             bg="#3b4bca",hoverbg="#051484")
 
         btnCodehelp = self.__arrTK.createButton(self.__frameBackgroud,image=imgCodehelp,
-                                                width=40,height=40,
+                                                width=40,height=40,command=self.__modeCodehelp,
                                                 bg="#3b4bca", hoverbg="#051484")
+        # Btn open
 
+        self.__btnTableurOpenRyley = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
+                                                               image=imgTableurOpen,
+                                                               command=lambda: self.__winHelpFileAndProjet(1),
+                                                               bg="#3b4bca", hoverbg="#051484")
+
+        self.__btnWordOpenRyley = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
+                                                            image=imgWordOpen,
+                                                            command=lambda: self.__winHelpFileAndProjet(2),
+                                                            bg="#3b4bca", hoverbg="#051484")
+
+        self.__btnProjetOpenRyley = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
+                                                              image=imgProjetOpen,
+                                                              command=lambda: self.__winHelpFileAndProjet(3),
+                                                              bg="#3b4bca", hoverbg="#051484")
+
+        # Partie Codehelp
+        btnSendCodehelp = self.__arrTK.createButton(self.__frameBackgroudCodehelp, image=imgSend,
+                                                    width=40, height=40, command=self.__actionBTNCodehelp,
+                                                    bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        btnParaCodehelp = self.__arrTK.createButton(self.__frameBackgroudCodehelp, image=imgPara,
+                                                 width=40, height=40, command=self.__viewParametre,
+                                                 bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        btnRyley = self.__arrTK.createButton(self.__frameBackgroudCodehelp, image=imgRyley,
+                                                width=40, height=40,command=self.__modeRyley,
+                                                bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        # Btn open
+
+        self.__btnTableurOpenCodehelp = self.__arrTK.createButton(self.__backgroundBottomCodehelp, width=35, height=35,
+                                                               image=imgTableurOpen,
+                                                               command=lambda: self.__winHelpFileAndProjet(1),
+                                                               bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        self.__btnWordOpenCodehelp = self.__arrTK.createButton(self.__backgroundBottomCodehelp, width=35, height=35,
+                                                            image=imgWordOpen,
+                                                            command=lambda: self.__winHelpFileAndProjet(2),
+                                                            bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        self.__btnProjetOpenCodehelp = self.__arrTK.createButton(self.__backgroundBottomCodehelp, width=35, height=35,
+                                                              image=imgProjetOpen,
+                                                              command=lambda: self.__winHelpFileAndProjet(3),
+                                                              bg="#8c8c8c", hoverbg="#4e4e4e")
+
+        # Partie actu
         btnQuitActu = self.__arrTK.createButton(self.__backgroundActu, text="Retour",
                                                 command=self.__backActu)
 
         # Label
-        self.__lparole = self.__arrTK.createLabel(self.__topBackgrown,
-                                                  bg="#041f75", fg="white",
-                                                  ppolice="Arial", pstyle="bold",
-                                                  ptaille=18, justify="left", pwraplength=400)
+        self.__lparoleRyley = self.__arrTK.createLabel(self.__topBackgrown,
+                                                       bg="#041f75", fg="white",
+                                                       ppolice="Arial", pstyle="bold",
+                                                       ptaille=18, justify="left", pwraplength=400)
+
+        self.__lparoleCodehelp = self.__arrTK.createLabel(self.__backgroundTopCodehelp,
+                                                       bg="#041f75", fg="white",
+                                                       ppolice="Arial", pstyle="bold",
+                                                       ptaille=18, justify="left", pwraplength=400)
+
         self.__labelActu = self.__arrTK.createLabel(self.__backgroundActu,
                                                     bg="#041f75", fg="white",
                                                     ppolice="Arial", pstyle="bold",
                                                     ptaille=18, justify="left", pwraplength=400)
+
         self.__labelFirstBoot = self.__arrTK.createLabel(self.__backgroundFirstboot,pwraplength=300,
                                                         bg="#041f75", fg="white",ptaille=20,
                                                         ppolice="Arial", pstyle="bold",justify="left")
 
-        # Button
-        self.__btnTableurOpen = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
-                                                          image=imgTableurOpen, command=lambda : self.__winHelpFileAndProjet(1),
-                                                          bg="#3b4bca", hoverbg="#051484")
-
-        self.__btnWordOpen = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
-                                                       image=imgWordOpen, command=lambda : self.__winHelpFileAndProjet(2),
-                                                       bg="#3b4bca", hoverbg="#051484")
-
-        self.__btnProjetOpen = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
-                                                         image=imgProjetOpen, command=lambda : self.__winHelpFileAndProjet(3),
-                                                         bg="#3b4bca", hoverbg="#051484")
-
-
-
         # Affichage des widgets
-        self.__entryUser.place(relx=0.40, rely=0.3, anchor="center")
-        btnSend.place(relx=0.90, rely=0.3, anchor="center")
-        self.__lparole.place(x=55, y=280)
+        self.__entryUserRyley.place(relx=0.40, rely=0.3, anchor="center")
+        btnSendRyley.place(relx=0.90, rely=0.3, anchor="center")
+        self.__lparoleRyley.place(x=55, y=280)
 
-        self.__arrTK.placeBottomLeft(btnPara)
+        self.__arrTK.placeBottomLeft(btnParaRyley)
         self.__arrTK.placeBottomRight(btnCodehelp)
+
+        self.__entryUserCodehelp.place(relx=0.40, rely=0.3, anchor="center")
+        btnSendCodehelp.place(relx=0.90, rely=0.3, anchor="center")
+        self.__lparoleCodehelp.place(x=55, y=280)
+
+        self.__arrTK.placeBottomLeft(btnParaCodehelp)
+        self.__arrTK.placeBottomRight(btnRyley)
 
         self.__labelActu.place(x=70, y=75)
         self.__labelFirstBoot.place(x=70, y=190)
         self.__arrTK.placeBottomRight(btnQuitActu)
         # Bind
-        self.keyboard()
-        # Instruction a supprimer par la suite
+        self.__keyboard()
 
 
     def active(self, firstStart: bool):
@@ -306,6 +376,9 @@ class guiRyley:
         self.__bottomBackgrownOpen.pack_forget()
         self.__backgroundActu.pack_forget()
         self.__backgroundFirstboot.pack_forget()
+        self.__backgroundTopCodehelp.pack_forget()
+        self.__backgroundBottomCodehelp.pack_forget()
+        self.__frameBackgroudCodehelp.pack_forget()
 
     def __viewNormal(self):
         self.__topBackgrown.pack()
@@ -317,10 +390,33 @@ class guiRyley:
         self.__bottomBackgrownOpen.pack()
         self.__frameBackgroud.pack()
 
+    def __viewCodehelp(self):
+        self.__backgroundTopCodehelp.pack()
+        self.__backgroundBottomCodehelp.pack()
+        self.__frameBackgroudCodehelp.pack()
+
+    def __modeRyley(self):
+        self.__codeHelpActived = False
+        self.__disableAllFrame()
+        self.__viewNormal()
+        self.setButtonOpen()
+
+    def __modeCodehelp(self):
+        self.__codeHelpActived = True
+        self.__disableAllFrame()
+        self.__paroleCodehelp("Activation codehelp")
+        self.__viewCodehelp()
+        self.setButtonOpen()
+
     def __paroleRyley(self, text: str):
         if text != "":
-            self.__lparole.configure(text=text)
-            self.__entryUser.delete(0, END)
+            self.__lparoleRyley.configure(text=text)
+            self.__entryUserRyley.delete(0, END)
+
+    def __paroleCodehelp(self, text: str):
+        if text != "":
+            self.__lparoleCodehelp.configure(text=text)
+            self.__entryUserCodehelp.delete(0, END)
 
     def __quitRyley(self):
         if (askyesno("Atention", "Voulez-vous vraiment fermer Ryley")):
@@ -342,84 +438,95 @@ class guiRyley:
             linkSource="https://github.com/Arrera-Software/Ryley",
             linkWeb="https://arrera-software.fr/")
 
-    def __envoi(self):
+    def __actionBTNRyley(self):
+        texte = self.__entryUserRyley.get().lower()
+        self.__entryUserRyley.delete(0, END)
+        self.__paroleRyley(self.__sendAssistant(texte))
 
-        texte = self.__entryUser.get().lower()
-        self.__entryUser.delete(0, END)
-        if ("parametre" in texte ) :
-            pass
-        else :
+    def __actionBTNCodehelp(self):
+        texte = self.__entryUserCodehelp.get().lower()
+        self.__entryUserCodehelp.delete(0, END)
+        self.__paroleCodehelp(self.__sendAssistant(texte))
+
+    def __sendAssistant(self, texte:str):
+        out = ""
+        if ("parametre" in texte):
+            self.__viewParametre()
+        else:
             self.__assistantRyley.neuron(texte)
             nbSortie = self.__assistantRyley.getValeurSortie()
             listSortie = self.__assistantRyley.getListSortie()
             match nbSortie:
-                case 0 :
-                    self.__paroleRyley(listSortie[0])
-                case 1 :
-                    self.__paroleRyley(listSortie[0])
-                case 2 :
-                    pass
-                case 3 :
-                    self.__paroleRyley(self.__language.getPhOpenActu())
-                    self.__viewResumer(listSortie,2)
-                case 4 :
-                    self.__paroleRyley(listSortie[0])
-                case 5 :
-                    self.__paroleRyley(listSortie[0])
-                case 6 :
-                    self.__paroleRyley(self.__language.getPhErreurActu())
-                case 7 :
-                    self.__paroleRyley(listSortie[0])
+                case 0:
+                    out = listSortie[0]
+                case 1:
+                    out =listSortie[0]
+                case 2:
+                    out = "error"
+                case 3:
+                    out = self.__language.getPhOpenActu()
+                    self.__viewResumer(listSortie, 2)
+                case 4:
+                    out = listSortie[0]
+                case 5:
+                    out = listSortie[0]
+                case 6:
+                    out = self.__language.getPhErreurActu()
+                case 7:
+                    out = listSortie[0]
                     self.setButtonOpen()
-                case 8 :
-                    self.__paroleRyley(listSortie[0])
+                case 8:
+                    out = listSortie[0]
                     self.setButtonOpen()
-                case 9 :
-                    self.__paroleRyley(self.__language.getPhReadWord())
-                    self.__windowsReadFile(listSortie,2)
-                case 10 :
-                    self.__paroleRyley(listSortie[0])
+                case 9:
+                    out = self.__language.getPhReadWord()
+                    self.__windowsReadFile(listSortie, 2)
+                case 10:
+                    out = listSortie[0]
                     self.setButtonOpen()
-                case 11 :
-                    self.__paroleRyley(self.__language.getPhErreurResumerActu())
-                case 12 :
-                    self.__paroleRyley(self.__language.getPhResumerActu())
-                    self.__viewResumer(listSortie,1)
-                case 13 :
-                    self.__paroleRyley(self.__language.getPhReadTableur())
-                    self.__windowsReadFile(listSortie,1)
-                case 14 :
-                    self.__paroleRyley(listSortie[0])
+                case 11:
+                     out = self.__language.getPhErreurResumerActu()
+                case 12:
+                    out = self.__language.getPhResumerActu()
+                    self.__viewResumer(listSortie, 1)
+                case 13:
+                    out = self.__language.getPhReadTableur()
+                    self.__windowsReadFile(listSortie, 1)
+                case 14:
+                    out = listSortie[0]
                     self.setButtonOpen()
-                case 15 :
+                case 15:
                     self.__close()
-                case 16 :
-                    self.__paroleRyley(self.__assistantRyley.shutdown())
-                case 17 :
-                    pass
+                case 16:
+                    out = self.__assistantRyley.shutdown()
+                case 17:
+                    out = ""
                     self.__windowsHelp(listSortie)
-                case 18 :
-                    self.__paroleRyley(self.__language.getPhResumerAgenda())
-                    self.__viewResumer(listSortie,3)
-                case 19 :
-                    self.__paroleRyley(self.__language.getPhResumerAll())
-                    self.__viewResumer(listSortie,4)
-                case 20 :
-                    self.__paroleRyley(self.__language.getPhErreurResumerAll())
-                case 21 :
-                    self.__paroleRyley(listSortie[0])
+                case 18:
+                    out = self.__language.getPhResumerAgenda()
+                    self.__viewResumer(listSortie, 3)
+                case 19:
+                    out = self.__language.getPhResumerAll()
+                    self.__viewResumer(listSortie, 4)
+                case 20:
+                    out = self.__language.getPhErreurResumerAll()
+                case 21:
+                    out = listSortie[0]
                     self.setButtonOpen()
-                case other :
-                    pass
+                case other:
+                    out = ""
+            return out
 
-    def keyboard(self):
+    def __keyboard(self):
         def anychar(event):
             if self.__windowsOS:
                 if event.keycode == 13:
-                    self.__envoi()
+                    self.__actionBTNRyley()
+                    self.__actionBTNCodehelp()
             else:
                 if event.keycode == 36:
-                    self.__envoi()
+                    self.__actionBTNRyley()
+                    self.__actionBTNCodehelp()
         self.__screen.bind("<Key>", anychar)
 
     def setButtonOpen(self):
@@ -427,26 +534,33 @@ class guiRyley:
         word = self.__assistantRyley.getWord()
         projet = self.__assistantRyley.getProject()
         if tableur :
-            self.__arrTK.placeTopRight(self.__btnTableurOpen)
+            self.__arrTK.placeTopRight(self.__btnTableurOpenRyley)
+            self.__arrTK.placeBottomRight(self.__btnTableurOpenCodehelp)
         else :
-            self.__btnTableurOpen.place_forget()
+            self.__btnTableurOpenRyley.place_forget()
+            self.__btnTableurOpenCodehelp.place_forget()
 
         if word:
-            self.__arrTK.placeTopLeft(self.__btnWordOpen)
+            self.__arrTK.placeTopLeft(self.__btnWordOpenRyley)
+            self.__arrTK.placeBottomLeft(self.__btnWordOpenCodehelp)
         else :
-            self.__btnWordOpen.place_forget()
+            self.__btnWordOpenRyley.place_forget()
+            self.__btnWordOpenCodehelp.place_forget()
 
         if projet:
-            self.__arrTK.placeTopCenter(self.__btnProjetOpen)
+            self.__arrTK.placeTopCenter(self.__btnProjetOpenRyley)
+            self.__arrTK.placeBottomCenter(self.__btnProjetOpenCodehelp)
         else :
-            self.__btnProjetOpen.place_forget()
+            self.__btnProjetOpenRyley.place_forget()
+            self.__btnProjetOpenCodehelp.place_forget()
 
-        if tableur or word or projet :
-            self.__disableAllFrame()
-            self.__viewOpen()
-        else :
-            self.__disableAllFrame()
-            self.__viewNormal()
+        if self.__codeHelpActived == False:
+            if tableur or word or projet :
+                self.__disableAllFrame()
+                self.__viewOpen()
+            else :
+                self.__disableAllFrame()
+                self.__viewNormal()
 
     def __winHelpFileAndProjet(self, mode: int):
         """
