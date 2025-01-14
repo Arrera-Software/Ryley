@@ -119,8 +119,8 @@ class guiRyley:
                                                    pathDark=emplacementDark + listIMG[21],
                                                    tailleX=30, tailleY=30)
 
-        imgCHOrgaVar = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[20],
-                                                   pathDark=emplacementDark + listIMG[20],
+        imgCHOrgaVar = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[22],
+                                                   pathDark=emplacementDark + listIMG[22],
                                                    tailleX=30, tailleY=30)
 
         # Frame
