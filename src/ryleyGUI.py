@@ -14,6 +14,7 @@ class guiRyley:
         # Varriable
         self.__nameSoft = "Arrera RYLEY"
         self.__codeHelpActived = False
+        self.__litleWindowsActived = False
         # Boot ArreraTK
         self.__arrTK = CArreraTK()
 
@@ -79,6 +80,7 @@ class guiRyley:
                    "btnGestGithub.png",#20
                     "btnLibrairy.png",#21
                     "btnOrgaVar.png",#22
+                   "litlewindows.png"#23
                    ]
         # Creation des images
 
@@ -136,6 +138,15 @@ class guiRyley:
                                                                         imageLight=emplacementLight + listIMG[15],
                                                                         imageDark=emplacementDark + listIMG[15],
                                                                         width=500, height=600,bg="white")
+
+        self.__backgroundLitleWindows = self.__arrTK.createArreraBackgroudImage(self.__screen,
+                                                                        imageLight=emplacementLight + listIMG[23],
+                                                                        imageDark=emplacementDark + listIMG[23],
+                                                                        width=500, height=110,bg="#041f75")
+
+        self.__fBottomLitleWindows = self.__arrTK.createFrame(self.__screen,
+                                                         width=500, height=90,
+                                                         bg="#081ec7", corner_radius=0)
 
         self.__frameBackgroud = self.__arrTK.createFrame(self.__screen,
                                                          width=500, height=130,
@@ -202,6 +213,9 @@ class guiRyley:
         self.__entryUserCodehelp = self.__arrTK.createEntry(self.__frameBackgroudCodehelp,
                                                          ppolice="Arial", ptaille=25, width=350)
 
+        self.__entryUserLittle = self.__arrTK.createEntry(self.__fBottomLitleWindows,
+                                                        ppolice="Arial", ptaille=25, width=350)
+
         # Bouton
         # Partie Ryley
         btnSendRyley = self.__arrTK.createButton(self.__frameBackgroud, image=imgSend,
@@ -215,6 +229,9 @@ class guiRyley:
         btnCodehelp = self.__arrTK.createButton(self.__frameBackgroud,image=imgCodehelp,
                                                 width=40,height=40,command=self.__modeCodehelp,
                                                 bg="#3b4bca", hoverbg="#051484")
+        btnLittleWindows = self.__arrTK.createButton(self.__frameBackgroud,text="",
+                                                       width=40,height=40,command=self.__modeLittleWindows,
+                                                       bg="#3b4bca", hoverbg="#051484")
         # Btn open
 
         self.__btnTableurOpenRyley = self.__arrTK.createButton(self.__bottomBackgrownOpen, width=35, height=35,
@@ -280,6 +297,36 @@ class guiRyley:
                                                               command=lambda: self.__winHelpFileAndProjet(3),
                                                               bg="#8c8c8c", hoverbg="#4e4e4e")
 
+        # Partie litle windows
+
+        # Bouton open
+
+        self.__btnTableurOpenLittle = self.__arrTK.createButton(self.__fBottomLitleWindows, width=35, height=35,
+                                                               image=imgTableurOpen,
+                                                               command=lambda: self.__winHelpFileAndProjet(1),
+                                                               bg="#3b4bca", hoverbg="#051484")
+
+        self.__btnWordOpenLitte = self.__arrTK.createButton(self.__fBottomLitleWindows, width=35, height=35,
+                                                            image=imgWordOpen,
+                                                            command=lambda: self.__winHelpFileAndProjet(2),
+                                                            bg="#3b4bca", hoverbg="#051484")
+
+        self.__btnProjetOpenLitte = self.__arrTK.createButton(self.__backgroundLitleWindows, width=35, height=35,
+                                                              image=imgProjetOpen,
+                                                              command=lambda: self.__winHelpFileAndProjet(3),
+                                                              bg="#3b4bca", hoverbg="#051484")
+
+        # Button
+
+        btnSendLittle = self.__arrTK.createButton(self.__fBottomLitleWindows, image=imgSend,
+                                                 width=40, height=40, command=self.__actionBTNRyley,
+                                                 bg="#3b4bca", hoverbg="#051484")
+
+        btnBigWindows = self.__arrTK.createButton(self.__fBottomLitleWindows,text="",
+                                                     width=40,height=40,command=self.__modeBigWindows,
+                                                     bg="#3b4bca", hoverbg="#051484")
+
+
         # Partie actu
         btnQuitActu = self.__arrTK.createButton(self.__backgroundActu, text="Retour",
                                                 command=self.__backActu)
@@ -294,6 +341,11 @@ class guiRyley:
                                                        bg="#041f75", fg="white",
                                                        ppolice="Arial", pstyle="bold",
                                                        ptaille=18, justify="left", pwraplength=400)
+
+        self.__lparoleLittle = self.__arrTK.createLabel(self.__backgroundLitleWindows,
+                                                        bg="#041f75", fg="white",
+                                                        ppolice="Arial", pstyle="bold",
+                                                        ptaille=18, justify="left", pwraplength=350)
 
         self.__labelActu = self.__arrTK.createLabel(self.__backgroundActu,
                                                     bg="#041f75", fg="white",
@@ -316,8 +368,15 @@ class guiRyley:
         btnSendCodehelp.place(relx=0.90, rely=0.3, anchor="center")
         self.__lparoleCodehelp.place(x=55, y=280)
 
+        self.__entryUserLittle.place(relx=0.40, rely=0.3, anchor="center")
+        btnSendLittle.place(relx=0.90, rely=0.3, anchor="center")
+        self.__lparoleLittle.place(x=95, y=10)
+
+        self.__arrTK.placeBottomCenter(btnBigWindows)
+
         self.__arrTK.placeBottomLeft(btnParaCodehelp)
         self.__arrTK.placeBottomRight(btnRyley)
+        self.__arrTK.placeBottomCenter(btnLittleWindows)
 
         self.__labelActu.place(x=70, y=75)
         self.__labelFirstBoot.place(x=70, y=190)
@@ -431,6 +490,8 @@ class guiRyley:
         self.__backgroundTopCodehelp.pack_forget()
         self.__backgroundBottomCodehelp.pack_forget()
         self.__frameBackgroudCodehelp.pack_forget()
+        self.__backgroundLitleWindows.pack_forget()
+        self.__fBottomLitleWindows.pack_forget()
 
     def __viewNormal(self):
         self.__topBackgrown.pack()
@@ -455,6 +516,8 @@ class guiRyley:
 
     def __modeCodehelp(self):
         self.__codeHelpActived = True
+        if self.__litleWindowsActived:
+            self.__modeBigWindows()
         self.__disableAllFrame()
         self.__paroleCodehelp(self.__language.getPhActiveCodehelp())
         self.__viewCodehelp()
@@ -470,11 +533,18 @@ class guiRyley:
             self.__lparoleCodehelp.configure(text=text)
             self.__entryUserCodehelp.delete(0, END)
 
+    def __paroleLittle(self, text: str):
+        if text != "":
+            self.__lparoleLittle.configure(text=text)
+            self.__entryUserLittle.delete(0, END)
+
     def __quitRyley(self):
         if (askyesno("Atention", "Voulez-vous vraiment fermer Ryley")):
             self.__close()
 
     def __close(self):
+        if self.__litleWindowsActived:
+            self.__modeBigWindows()
         self.__disableAllFrame()
         self.__viewNormal()
         self.__frameBackgroud.pack_forget()
@@ -500,77 +570,91 @@ class guiRyley:
         self.__entryUserCodehelp.delete(0, END)
         self.__paroleCodehelp(self.__sendAssistant(texte))
 
+    def __actionBTNLitleWindows(self):
+        texte = self.__entryUserLittle.get().lower()
+        self.__entryUserLittle.delete(0, END)
+        self.__paroleLittle(self.__sendAssistant(texte))
+
     def __sendAssistant(self, texte:str):
         out = ""
         texte = texte.lower()
-        if ("parametre" in texte):
-            self.__viewParametre()
-        else:
-            if ("codehelp" in texte):
-                self.__modeCodehelp()
-            else:
-                self.__assistantRyley.neuron(texte)
-                nbSortie = self.__assistantRyley.getValeurSortie()
-                listSortie = self.__assistantRyley.getListSortie()
-                match nbSortie:
-                    case 0:
-                        out = listSortie[0]
-                    case 1:
-                        out =listSortie[0]
-                    case 2:
-                        out = "error"
-                    case 3:
-                        out = self.__language.getPhOpenActu()
-                        self.__viewResumer(listSortie, 2)
-                    case 4:
-                        out = listSortie[0]
-                    case 5:
-                        out = listSortie[0]
-                    case 6:
-                        out = self.__language.getPhErreurActu()
-                    case 7:
-                        out = listSortie[0]
-                        self.setButtonOpen()
-                    case 8:
-                        out = listSortie[0]
-                        self.setButtonOpen()
-                    case 9:
-                        out = self.__language.getPhReadWord()
-                        self.__windowsReadFile(listSortie, 2)
-                    case 10:
-                        out = listSortie[0]
-                        self.setButtonOpen()
-                    case 11:
-                         out = self.__language.getPhErreurResumerActu()
-                    case 12:
-                        out = self.__language.getPhResumerActu()
-                        self.__viewResumer(listSortie, 1)
-                    case 13:
-                        out = self.__language.getPhReadTableur()
-                        self.__windowsReadFile(listSortie, 1)
-                    case 14:
-                        out = listSortie[0]
-                        self.setButtonOpen()
-                    case 15:
-                        self.__close()
-                    case 16:
-                        out = self.__assistantRyley.shutdown()
-                    case 17:
-                        out = ""
-                        self.__windowsHelp(listSortie)
-                    case 18:
-                        out = self.__language.getPhResumerAgenda()
-                        self.__viewResumer(listSortie, 3)
-                    case 19:
-                        out = self.__language.getPhResumerAll()
-                        self.__viewResumer(listSortie, 4)
-                    case 20:
-                        out = self.__language.getPhErreurResumerAll()
-                    case 21:
-                        out = listSortie[0]
-                        self.setButtonOpen()
-                    case other:
-                        out = ""
+        if ("mode normal" in texte and self.__litleWindowsActived == True):
+            self.__modeBigWindows()
+            return
+        else :
+            if ("mode petit" in texte or "mode discret" in texte and self.__litleWindowsActived == False):
+                self.__modeLittleWindows()
+                return
+            else :
+                if ("parametre" in texte):
+                    self.__viewParametre()
+                else:
+                    if ("codehelp" in texte):
+                        self.__modeCodehelp()
+                        return
+                    else:
+                        self.__assistantRyley.neuron(texte)
+                        nbSortie = self.__assistantRyley.getValeurSortie()
+                        listSortie = self.__assistantRyley.getListSortie()
+                        match nbSortie:
+                            case 0:
+                                out = listSortie[0]
+                            case 1:
+                                out =listSortie[0]
+                            case 2:
+                                out = "error"
+                            case 3:
+                                out = self.__language.getPhOpenActu()
+                                self.__viewResumer(listSortie, 2)
+                            case 4:
+                                out = listSortie[0]
+                            case 5:
+                                out = listSortie[0]
+                            case 6:
+                                out = self.__language.getPhErreurActu()
+                            case 7:
+                                out = listSortie[0]
+                                self.setButtonOpen()
+                            case 8:
+                                out = listSortie[0]
+                                self.setButtonOpen()
+                            case 9:
+                                out = self.__language.getPhReadWord()
+                                self.__windowsReadFile(listSortie, 2)
+                            case 10:
+                                out = listSortie[0]
+                                self.setButtonOpen()
+                            case 11:
+                                 out = self.__language.getPhErreurResumerActu()
+                            case 12:
+                                out = self.__language.getPhResumerActu()
+                                self.__viewResumer(listSortie, 1)
+                            case 13:
+                                out = self.__language.getPhReadTableur()
+                                self.__windowsReadFile(listSortie, 1)
+                            case 14:
+                                out = listSortie[0]
+                                self.setButtonOpen()
+                            case 15:
+                                self.__close()
+                            case 16:
+                                out = self.__assistantRyley.shutdown()
+                            case 17:
+                                out = ""
+                                self.__windowsHelp(listSortie)
+                            case 18:
+                                out = self.__language.getPhResumerAgenda()
+                                self.__viewResumer(listSortie, 3)
+                            case 19:
+                                out = self.__language.getPhResumerAll()
+                                self.__viewResumer(listSortie, 4)
+                            case 20:
+                                out = self.__language.getPhErreurResumerAll()
+                            case 21:
+                                out = listSortie[0]
+                                self.setButtonOpen()
+                            case other:
+                                out = ""
             return out
 
     def __keyboard(self):
@@ -579,36 +663,45 @@ class guiRyley:
                 if event.keycode == 13:
                     self.__actionBTNRyley()
                     self.__actionBTNCodehelp()
+                    self.__actionBTNLitleWindows()
             else:
                 if event.keycode == 36:
                     self.__actionBTNRyley()
                     self.__actionBTNCodehelp()
+                    self.__actionBTNLitleWindows()
         self.__screen.bind("<Key>", anychar)
 
     def setButtonOpen(self):
         tableur = self.__assistantRyley.getTableur()
         word = self.__assistantRyley.getWord()
         projet = self.__assistantRyley.getProject()
+
         if tableur :
             self.__arrTK.placeTopRight(self.__btnTableurOpenRyley)
             self.__arrTK.placeBottomRight(self.__btnTableurOpenCodehelp)
+            self.__arrTK.placeBottomLeft(self.__btnTableurOpenLittle)
         else :
             self.__btnTableurOpenRyley.place_forget()
             self.__btnTableurOpenCodehelp.place_forget()
+            self.__btnTableurOpenLittle.place_forget()
 
         if word:
             self.__arrTK.placeTopLeft(self.__btnWordOpenRyley)
             self.__arrTK.placeBottomLeft(self.__btnWordOpenCodehelp)
+            self.__arrTK.placeBottomRight(self.__btnWordOpenLitte)
         else :
             self.__btnWordOpenRyley.place_forget()
             self.__btnWordOpenCodehelp.place_forget()
+            self.__btnWordOpenLitte.place_forget()
 
         if projet:
             self.__arrTK.placeTopCenter(self.__btnProjetOpenRyley)
             self.__arrTK.placeBottomCenter(self.__btnProjetOpenCodehelp)
+            self.__arrTK.placeBottomLeft(self.__btnProjetOpenLitte)
         else :
             self.__btnProjetOpenRyley.place_forget()
             self.__btnProjetOpenCodehelp.place_forget()
+            self.__btnProjetOpenLitte.place_forget()
 
         if self.__codeHelpActived == False:
             if tableur or word or projet :
@@ -807,5 +900,19 @@ class guiRyley:
     def __activeLibrairy(self):
         self.__paroleCodehelp(self.__sendAssistant("ouvre librairy"))
 
+    def __modeLittleWindows(self):
+        self.__disableAllFrame()
+        self.__screen.maxsize(500, 200)
+        self.__screen.minsize(500, 200)
+        self.__paroleLittle(self.__language.getPhActiveModeLitle())
+        self.__backgroundLitleWindows.pack()
+        self.__fBottomLitleWindows.pack()
+        self.__litleWindowsActived = True
 
-
+    def __modeBigWindows(self):
+        self.__disableAllFrame()
+        self.__screen.maxsize(500, 600)
+        self.__screen.minsize(500, 600)
+        self.__paroleRyley(self.__language.getPhActiveModeNormal())
+        self.__viewNormal()
+        self.__litleWindowsActived = False

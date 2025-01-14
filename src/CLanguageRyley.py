@@ -69,3 +69,9 @@ class CLanguageRyley :
     def getPhActiveCodehelp(self):
         return self.__language.lectureJSON("phActiveCodehelp")
 
+    def getPhActiveModeLitle(self):
+        return self.__language.lectureJSON("phActiveModeLitle")
+
+    def getPhActiveModeNormal(self):
+        return self.__language.lectureJSON("phActiveModeNormal")
+

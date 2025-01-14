@@ -15,5 +15,7 @@
   "phReadWord": "Je t'ouvre une fenêtre pour que tu lises le contenu du fichier de traitement de texte.",
   "phReadTableur": "Voici la fenêtre pour que tu lises le contenu du tableur.",
   "phParametre": "J'ai bien pris en compte les nouveaux paramètres.",
-  "phActiveCodehelp": "Très bien, je suis passé en mode CodeHelp pour vous aider à concevoir vos programmes."
+  "phActiveCodehelp": "Très bien, je suis passé en mode CodeHelp pour vous aider à concevoir vos programmes.",
+  "phActiveModeLitle": "Je passe à une fenêtre plus petite pour continuer à t'aider tout en étant plus discrète.",
+  "phActiveModeNormal": "Je repasse en fenêtre normale pour t'aider plus efficacement."
 }
