@@ -14,5 +14,6 @@
   "phOpenAideWork": "Je t'ai ouvert l'aide pour utiliser la fonction Arrera Word.",
   "phReadWord": "Je t'ouvre une fenêtre pour que tu lises le contenu du fichier de traitement de texte.",
   "phReadTableur": "Voici la fenêtre pour que tu lises le contenu du tableur.",
-  "phParametre": "J'ai bien pris en compte les nouveaux paramètres."
+  "phParametre": "J'ai bien pris en compte les nouveaux paramètres.",
+  "phActiveCodehelp": "Très bien, je suis passé en mode CodeHelp pour vous aider à concevoir vos programmes."
 }

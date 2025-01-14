@@ -66,3 +66,6 @@ class CLanguageRyley :
     def getFirstBoot(self,nb:int):
         return self.__firstBoot.lectureJSON(str(nb))
 
+    def getPhActiveCodehelp(self):
+        return self.__language.lectureJSON("phActiveCodehelp")
+

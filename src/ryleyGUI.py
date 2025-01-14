@@ -456,7 +456,7 @@ class guiRyley:
     def __modeCodehelp(self):
         self.__codeHelpActived = True
         self.__disableAllFrame()
-        self.__paroleCodehelp("Activation codehelp")
+        self.__paroleCodehelp(self.__language.getPhActiveCodehelp())
         self.__viewCodehelp()
         self.setButtonOpen()
 
@@ -502,71 +502,75 @@ class guiRyley:
 
     def __sendAssistant(self, texte:str):
         out = ""
+        texte = texte.lower()
         if ("parametre" in texte):
             self.__viewParametre()
         else:
-            self.__assistantRyley.neuron(texte)
-            nbSortie = self.__assistantRyley.getValeurSortie()
-            listSortie = self.__assistantRyley.getListSortie()
-            match nbSortie:
-                case 0:
-                    out = listSortie[0]
-                case 1:
-                    out =listSortie[0]
-                case 2:
-                    out = "error"
-                case 3:
-                    out = self.__language.getPhOpenActu()
-                    self.__viewResumer(listSortie, 2)
-                case 4:
-                    out = listSortie[0]
-                case 5:
-                    out = listSortie[0]
-                case 6:
-                    out = self.__language.getPhErreurActu()
-                case 7:
-                    out = listSortie[0]
-                    self.setButtonOpen()
-                case 8:
-                    out = listSortie[0]
-                    self.setButtonOpen()
-                case 9:
-                    out = self.__language.getPhReadWord()
-                    self.__windowsReadFile(listSortie, 2)
-                case 10:
-                    out = listSortie[0]
-                    self.setButtonOpen()
-                case 11:
-                     out = self.__language.getPhErreurResumerActu()
-                case 12:
-                    out = self.__language.getPhResumerActu()
-                    self.__viewResumer(listSortie, 1)
-                case 13:
-                    out = self.__language.getPhReadTableur()
-                    self.__windowsReadFile(listSortie, 1)
-                case 14:
-                    out = listSortie[0]
-                    self.setButtonOpen()
-                case 15:
-                    self.__close()
-                case 16:
-                    out = self.__assistantRyley.shutdown()
-                case 17:
-                    out = ""
-                    self.__windowsHelp(listSortie)
-                case 18:
-                    out = self.__language.getPhResumerAgenda()
-                    self.__viewResumer(listSortie, 3)
-                case 19:
-                    out = self.__language.getPhResumerAll()
-                    self.__viewResumer(listSortie, 4)
-                case 20:
-                    out = self.__language.getPhErreurResumerAll()
-                case 21:
-                    out = listSortie[0]
-                    self.setButtonOpen()
-                case other:
-                    out = ""
+            if ("codehelp" in texte):
+                self.__modeCodehelp()
+            else:
+                self.__assistantRyley.neuron(texte)
+                nbSortie = self.__assistantRyley.getValeurSortie()
+                listSortie = self.__assistantRyley.getListSortie()
+                match nbSortie:
+                    case 0:
+                        out = listSortie[0]
+                    case 1:
+                        out =listSortie[0]
+                    case 2:
+                        out = "error"
+                    case 3:
+                        out = self.__language.getPhOpenActu()
+                        self.__viewResumer(listSortie, 2)
+                    case 4:
+                        out = listSortie[0]
+                    case 5:
+                        out = listSortie[0]
+                    case 6:
+                        out = self.__language.getPhErreurActu()
+                    case 7:
+                        out = listSortie[0]
+                        self.setButtonOpen()
+                    case 8:
+                        out = listSortie[0]
+                        self.setButtonOpen()
+                    case 9:
+                        out = self.__language.getPhReadWord()
+                        self.__windowsReadFile(listSortie, 2)
+                    case 10:
+                        out = listSortie[0]
+                        self.setButtonOpen()
+                    case 11:
+                         out = self.__language.getPhErreurResumerActu()
+                    case 12:
+                        out = self.__language.getPhResumerActu()
+                        self.__viewResumer(listSortie, 1)
+                    case 13:
+                        out = self.__language.getPhReadTableur()
+                        self.__windowsReadFile(listSortie, 1)
+                    case 14:
+                        out = listSortie[0]
+                        self.setButtonOpen()
+                    case 15:
+                        self.__close()
+                    case 16:
+                        out = self.__assistantRyley.shutdown()
+                    case 17:
+                        out = ""
+                        self.__windowsHelp(listSortie)
+                    case 18:
+                        out = self.__language.getPhResumerAgenda()
+                        self.__viewResumer(listSortie, 3)
+                    case 19:
+                        out = self.__language.getPhResumerAll()
+                        self.__viewResumer(listSortie, 4)
+                    case 20:
+                        out = self.__language.getPhErreurResumerAll()
+                    case 21:
+                        out = listSortie[0]
+                        self.setButtonOpen()
+                    case other:
+                        out = ""
             return out
 
     def __keyboard(self):
