@@ -75,6 +75,10 @@ class guiRyley:
                    "firstBoot.png",#16
                    "bottomCodeHelp.png",#17
                    "topCodehelp.png",#18
+                   "btnColorSelector.png",#19
+                   "btnGestGithub.png",#20
+                    "btnLibrairy.png",#21
+                    "btnOrgaVar.png",#22
                    ]
         # Creation des images
 
@@ -102,6 +106,22 @@ class guiRyley:
         imgProjetOpen = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[7],
                                                     pathDark=emplacementDark + listIMG[7],
                                                     tailleX=30, tailleY=30)
+
+        imgCHColorSelector = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[19],
+                                                    pathDark=emplacementDark + listIMG[19],
+                                                    tailleX=30, tailleY=30)
+
+        imgCHGestGithub = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[20],
+                                                     pathDark=emplacementDark + listIMG[20],
+                                                     tailleX=30, tailleY=30)
+
+        imgCHLibrairy = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[21],
+                                                   pathDark=emplacementDark + listIMG[21],
+                                                   tailleX=30, tailleY=30)
+
+        imgCHOrgaVar = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[20],
+                                                   pathDark=emplacementDark + listIMG[20],
+                                                   tailleX=30, tailleY=30)
 
         # Frame
         self.__topBackgrown = self.__arrTK.createArreraBackgroudImage(self.__screen,
@@ -226,19 +246,19 @@ class guiRyley:
                                                 bg="#8c8c8c", hoverbg="#4e4e4e")
 
         btnCHOrgaVar = self.__arrTK.createButton(fDockCodeHelpAppRight, width=40,height=40,
-                                                 text = "",command=self.__activeOrgaVar,
+                                                 image=imgCHOrgaVar,command=self.__activeOrgaVar,
                                                  bg="#8c8c8c", hoverbg="#4e4e4e")
 
         btnCHColorSelecteur = self.__arrTK.createButton(fDockCodeHelpAppRight,  width=40,height=40,
-                                                 text = "",command=self.__activeColorSelecteur,
+                                                 image=imgCHColorSelector,command=self.__activeColorSelecteur,
                                                  bg="#8c8c8c", hoverbg="#4e4e4e")
 
         btnCHGestGit = self.__arrTK.createButton(fDockCodeHelpAppleft,  width=40,height=40,
-                                                 text = "",command=self.__activeGestGit,
+                                                 image=imgCHGestGithub,command=self.__activeGestGit,
                                                  bg="#8c8c8c", hoverbg="#4e4e4e")
 
         btnCHLibrairy = self.__arrTK.createButton(fDockCodeHelpAppleft,  width=40,height=40,
-                                                 text = "",command=self.__activeLibrairy,
+                                                 image=imgCHLibrairy,command=self.__activeLibrairy,
                                                  bg="#8c8c8c", hoverbg="#4e4e4e")
 
 
