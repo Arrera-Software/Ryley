@@ -80,7 +80,9 @@ class guiRyley:
                    "btnGestGithub.png",#20
                     "btnLibrairy.png",#21
                     "btnOrgaVar.png",#22
-                   "litlewindows.png"#23
+                   "litlewindows.png",#23
+                   "btnbigwindows.png",#24
+                   "btnlittlewindows.png"#25
                    ]
         # Creation des images
 
@@ -124,6 +126,15 @@ class guiRyley:
         imgCHOrgaVar = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[22],
                                                    pathDark=emplacementDark + listIMG[22],
                                                    tailleX=30, tailleY=30)
+
+        imgBTNBigWindows = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[24],
+                                                pathDark=emplacementDark + listIMG[24],
+                                                tailleX=30, tailleY=30)
+
+        imgBTNLittleWindows = self.__arrTK.createImage(pathLight=emplacementLight + listIMG[25],
+                                                pathDark=emplacementDark + listIMG[25],
+                                                tailleX=30, tailleY=30)
+
 
         # Frame
         self.__topBackgrown = self.__arrTK.createArreraBackgroudImage(self.__screen,
@@ -229,7 +240,7 @@ class guiRyley:
         btnCodehelp = self.__arrTK.createButton(self.__frameBackgroud,image=imgCodehelp,
                                                 width=40,height=40,command=self.__modeCodehelp,
                                                 bg="#3b4bca", hoverbg="#051484")
-        btnLittleWindows = self.__arrTK.createButton(self.__frameBackgroud,text="",
+        btnLittleWindows = self.__arrTK.createButton(self.__frameBackgroud,image=imgBTNLittleWindows,
                                                        width=40,height=40,command=self.__modeLittleWindows,
                                                        bg="#3b4bca", hoverbg="#051484")
         # Btn open
@@ -322,7 +333,7 @@ class guiRyley:
                                                  width=40, height=40, command=self.__actionBTNRyley,
                                                  bg="#3b4bca", hoverbg="#051484")
 
-        btnBigWindows = self.__arrTK.createButton(self.__fBottomLitleWindows,text="",
+        btnBigWindows = self.__arrTK.createButton(self.__fBottomLitleWindows,image=imgBTNBigWindows,
                                                      width=40,height=40,command=self.__modeBigWindows,
                                                      bg="#3b4bca", hoverbg="#051484")
 
