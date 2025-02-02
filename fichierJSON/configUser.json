@@ -1,12 +1,12 @@
 {
-  "user": "Dev",
-  "genre": "monsieur",
+  "user": "",
+  "genre": "",
   "listVille": [
     "",
     ""
   ],
-  "lieuDomicile": "Paris",
-  "lieuTravail": "Marseille",
+  "lieuDomicile": "",
+  "lieuTravail": "",
   "adresseDomicile": "",
   "adresseTravail": "",
   "dictSoftWindows": {},
