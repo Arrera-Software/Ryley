@@ -10,9 +10,10 @@ from setting.CArreraGazelleUIRyleyCopilote import *
 VERSION = "I2025-1.00"
 
 class guiRyley:
-    def __init__(self, neuronConfigFile: str):
+    def __init__(self, neuronConfigFile: str,version: str):
         # Varriable
         self.__nameSoft = "Arrera RYLEY"
+        self.__version = version
         self.__codeHelpActived = False
         self.__litleWindowsActived = False
         # Boot ArreraTK
@@ -566,7 +567,7 @@ class guiRyley:
         self.__arrTK.aproposWindows(
             nameSoft=self.__nameSoft,
             iconFile=self.__emplacementIcon,
-            version=VERSION,
+            version=self.__version,
             copyright="Copyright Arrera Software by Baptiste P 2023-2025",
             linkSource="https://github.com/Arrera-Software/Ryley",
             linkWeb="https://arrera-software.fr/")
