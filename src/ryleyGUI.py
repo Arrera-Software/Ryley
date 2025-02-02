@@ -141,7 +141,7 @@ class guiRyley:
         self.__topBackgrown = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                       imageLight=emplacementLight + listIMG[0],
                                                                       imageDark=emplacementDark + listIMG[0],
-                                                                      width=500, height=400,bg="#041f75")
+                                                                      width=500, height=400)
         self.__bottomBackgrown = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                          imageLight=emplacementLight + listIMG[1],
                                                                          imageDark=emplacementDark + listIMG[1],
@@ -149,12 +149,12 @@ class guiRyley:
         self.__backgroundActu = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                         imageLight=emplacementLight + listIMG[15],
                                                                         imageDark=emplacementDark + listIMG[15],
-                                                                        width=500, height=600,bg="white")
+                                                                        width=500, height=600)
 
         self.__backgroundLitleWindows = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                         imageLight=emplacementLight + listIMG[23],
                                                                         imageDark=emplacementDark + listIMG[23],
-                                                                        width=500, height=110,bg="#041f75")
+                                                                        width=500, height=110)
 
         self.__fBottomLitleWindows = self.__arrTK.createFrame(self.__screen,
                                                          width=500, height=90,
@@ -167,12 +167,12 @@ class guiRyley:
         self.__backgroundFirstboot = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                         imageLight=emplacementLight + listIMG[16],
                                                                         imageDark=emplacementDark + listIMG[16],
-                                                                        width=500, height=600,bg="#041f75")
+                                                                        width=500, height=600)
 
         self.__bottomBackgrownOpen = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                              imageLight=emplacementLight + listIMG[8],
                                                                              imageDark=emplacementDark + listIMG[8],
-                                                                             width=500, height=70, bg="#081ec7")
+                                                                             width=500, height=70,)
 
         self.__backgroudBoot1 = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                         imageLight=emplacementLight + listIMG[9],
@@ -203,11 +203,11 @@ class guiRyley:
         self.__backgroundTopCodehelp = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                       imageLight=emplacementLight + listIMG[18],
                                                                       imageDark=emplacementDark + listIMG[18],
-                                                                      width=500, height=400,bg="#041f75")
+                                                                      width=500, height=400)
         self.__backgroundBottomCodehelp = self.__arrTK.createArreraBackgroudImage(self.__screen,
                                                                              imageLight=emplacementLight + listIMG[17],
                                                                              imageDark=emplacementDark + listIMG[17],
-                                                                             width=500, height=70, bg="#041f75")
+                                                                             width=500, height=70)
         self.__frameBackgroudCodehelp = self.__arrTK.createFrame(self.__screen,
                                                          width=500, height=130,
                                                          bg="#656565", corner_radius=0)
