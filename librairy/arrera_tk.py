@@ -480,14 +480,14 @@ class CArreraTK :
             apropos.maxsize(400,300)
             apropos.minsize(400,300)
             icon = ctk.CTkImage(light_image=Image.open(iconFile),size=(100,100))
-            mainFrame = ctk.CTkFrame(apropos,width=400,height=250,border_width=0)
-            frameBTN = ctk.CTkFrame(apropos,width=400,height=50,border_width=0)
-            frameLabel = ctk.CTkFrame(apropos,border_width=0)
+            mainFrame = ctk.CTkFrame(apropos,width=400,height=250,border_width=0,fg_color=self.__windowsColor)
+            frameBTN = ctk.CTkFrame(apropos,width=400,height=50,border_width=0,fg_color=self.__windowsColor)
+            frameLabel = ctk.CTkFrame(apropos,border_width=0,fg_color=self.__windowsColor)
 
-            labelIcon = ctk.CTkLabel(mainFrame,image=icon,text="")
-            labelSoft = ctk.CTkLabel(frameLabel,text=nameSoft+" version "+version,font=("Arial",20))
-            labelVersion = ctk.CTkLabel(frameLabel,text="Arrera TK version "+VERSIONARRERATK,font=("Arial",13))
-            labelCopy = ctk.CTkLabel(mainFrame,text=copyright,font=("Arial",13))
+            labelIcon = ctk.CTkLabel(mainFrame,image=icon,text="",fg_color=self.__windowsColor)
+            labelSoft = ctk.CTkLabel(frameLabel,text=nameSoft+" version "+version,font=("Arial",20),fg_color=self.__windowsColor)
+            labelVersion = ctk.CTkLabel(frameLabel,text="Arrera TK version "+VERSIONARRERATK,font=("Arial",13),fg_color=self.__windowsColor)
+            labelCopy = ctk.CTkLabel(mainFrame,text=copyright,font=("Arial",13),fg_color=self.__windowsColor)
 
             btnLinkSource = ctk.CTkButton(frameBTN,text="Source code",command= lambda :  wb.open(linkSource))
             btnLinkWeb = ctk.CTkButton(frameBTN,text="Web site",command= lambda :  wb.open(linkWeb))
@@ -554,7 +554,7 @@ class CArreraTK :
     def addCascadeTopMenu(self, menuMaster:Menu, menuChild:Menu, text:str):
         menuMaster.add_cascade(label=text, menu=menuChild)
 
-    def createArreraBackgroudImage(self,screen:Union[Tk,ctk.CTk,Toplevel,ctk.CTkToplevel],imageLight:str,imageDark :str = "",height:int = 600,width:int = 800,bg :str = ""):
+    def createArreraBackgroudImage(self,screen:Union[Tk,ctk.CTk,Toplevel,ctk.CTkToplevel],imageLight:str,imageDark :str = "",height:int = 600,width:int = 800):
         if (self.__mode == 0):
             if (imageDark != ""):
                 image = ctk.CTkImage(light_image=Image.open(imageLight),
@@ -563,12 +563,8 @@ class CArreraTK :
             else :
                 image = ctk.CTkImage(light_image=Image.open(imageLight)
                                      ,size=(width, height))
-
             frame = ctk.CTkFrame(screen,width=width,height=height,border_width=0)
             label = ctk.CTkLabel(frame,image=image,text="")
-            if (bg != ""):
-                frame.configure(fg_color=bg)
-
             label.place(relx=0.5, rely=0.5, anchor='center')
             return frame
 
