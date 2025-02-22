@@ -1,17 +1,13 @@
 {
-  "user": "Dev",
-  "genre": "monsieur",
-  "listVille": [
-    "",
-    ""
-  ],
-  "lieuDomicile": "Paris",
-  "lieuTravail": "Marseille",
+  "user": "",
+  "genre": "",
+  "listVille": [],
+  "lieuDomicile": "",
+  "lieuTravail": "",
   "adresseDomicile": "",
   "adresseTravail": "",
   "dictSoftWindows": {},
-  "dictSoftLinux": {
-  },
+  "dictSoftLinux": {},
   "diapoLinux": "",
   "diapoWindows": "",
   "browserLinux": "",
