@@ -31,7 +31,7 @@ class CTigerDemon :
             else:
                 return False
         else:
-            return True
+            return False
 
     def getVersionSoft(self):
         versionInstalled = ""
