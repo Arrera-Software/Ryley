@@ -1,12 +1,14 @@
 from librairy.jsonWorkOnline import *
 from librairy.dectectionOS import *
 import requests
+import os
+import sys
 
 class CTigerDemon :
     def __init__(self,nameSoft : str,url :str):
         # Teste internet
         try:
-            response = requests.get("https://www.google.com/", timeout=5)
+            requests.get("https://www.google.com/", timeout=5)
             self.__internet = True
         except requests.RequestException:
             self.__internet = False
@@ -18,6 +20,14 @@ class CTigerDemon :
             depotFile.loadInternet(url)
             # Chargement des informations du logiciel
             self.__dictSofts = depotFile.dictJson()[nameSoft]
+
+    def __resource_path(self, relative_path):
+        if self.__system.osMac():
+            if hasattr(sys, '_MEIPASS'):
+                return os.path.join(sys._MEIPASS, relative_path)
+            return os.path.join(os.path.abspath("."), relative_path)
+        else:
+            return relative_path
 
     def checkUpdate(self):
         if self.__internet:
@@ -35,7 +45,11 @@ class CTigerDemon :
 
     def getVersionSoft(self):
         versionInstalled = ""
-        with open("VERSION", "r") as fichier:
+        if self.__system.osMac():
+            versionFile = self.__resource_path("VERSION")
+        else:
+            versionFile = "VERSION"
+        with open(versionFile, "r") as fichier:
             for ligne in fichier:
                 # Si la ligne commence par "VERSION="
                 if ligne.startswith("VERSION="):
