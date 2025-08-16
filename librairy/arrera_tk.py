@@ -200,7 +200,7 @@ class CArreraTK :
                 label.configure(font=(ppolice, ptaille))
         return label
 
-    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,ppolice : str = "Arial", ptaille : int = 12,pstyle :str = "normal",width : int = 0,height : int = 0,hoverbg:str=""):
+    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,ppolice : str = "Arial", ptaille : int = 12,pstyle :str = "normal",width : int = 0,height : int = 0,hoverbg:str="",conerRadus:int = 0):
         if (self.__mode == 0):
             btn = (ctk.CTkButton(screen))
             if (text != ""):
@@ -222,6 +222,8 @@ class CArreraTK :
                 btn.configure(width=width)
             if (height != 0):
                 btn.configure(height=height)
+            if conerRadus != 0:
+                btn.configure(corner_radius=conerRadus)
             police = "Arial"
             style = "normal"
             taille = 12
@@ -361,6 +363,14 @@ class CArreraTK :
         var.set(value[0])
         return option
 
+    def createEntryLegend(self,screen, bg : str = "", fg : str = "",text :str = "", ppolice : str = "Arial", ptaille : int = 12, width : int = 20):
+        widget = self.createFrame(screen)
+        label = self.createLabel(widget, text=text, bg=bg, fg=fg, ppolice=ppolice, ptaille=ptaille, width=width)
+        entry = self.createEntry(widget, bg=bg, fg=fg, ppolice=ppolice, ptaille=ptaille, width=width)
+        label.pack(side="left")
+        entry.pack(side="right")
+        return widget,entry
+
     def placeLeftTop(self, widget):
         widget.place(relx=0, rely=0, anchor='nw')
 
@@ -390,9 +400,12 @@ class CArreraTK :
 
     def placeCenterOnWidth(self,widget,y :int = 0 ):
         if (y==0):
-            return False
+            return
         else :
             widget.place(relx=0.5, y=y, anchor='n')
+
+    def placeWidgetCenteredAtBottom(self, widget, x_offset=1):
+        widget.place(relx=0.5, rely=1, x=-x_offset, anchor="s")
 
     def placeBottomRight(self,widget):
         widget.place(relx=1, rely=1, anchor='se')
@@ -411,6 +424,15 @@ class CArreraTK :
 
     def placeCenterLeft(self,widget):
         widget.place(relx=0, rely=0.5, anchor='w')
+
+    def placeLeftBottomNoStick(self, widget):
+        widget.place(relx=0, rely=1, anchor='sw', x=10, y=-10)
+
+    def placeRightBottomNoStick(self, widget):
+        widget.place(relx=1, rely=1, anchor='se', x=-10, y=-10)
+
+    def placeBottomCenterNoStick(self, widget):
+        widget.place(relx=0.5, rely=1, anchor='s', x=0, y=-10)
 
     def pack(self, widget,xExpand : bool = False , yExpand : bool = False):
         if (xExpand and yExpand):
