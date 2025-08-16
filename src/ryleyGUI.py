@@ -21,6 +21,7 @@ class guiRyley:
 
         # Demarage Neuron Network
         self.__assistantRyley = ArreraNetwork(neuronConfigFile)
+        self.__userConf = userConf()
 
         # Demarage objet language Ryley
         self.__language = CLanguageRyley("fichierJSON/paroleRyley.json",
@@ -48,7 +49,7 @@ class guiRyley:
         # Demage de l'objet parametre
 
         self.__arrGazelle = CArreraGazelleUIRyleyCopilote(self.__arrTK, self.__screen,
-                                                          "fichierJSON/configUser.json",
+                                                          self.__userConf.getUserSettingPath(),
                                                           "fichierJSON/configNeuron.json",
                                                           "fichierJSON/ryleyConfig.json",
                                                           "fichierJSON/configSetting.json")
