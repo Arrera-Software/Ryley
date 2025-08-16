@@ -6,8 +6,8 @@ from src.CLanguageRyley import *
 import threading as th
 import signal
 from setting.CArreraGazelleUIRyleyCopilote import *
+from src.ryleyConf import RyleyConf
 
-VERSION = "I2025-1.00"
 
 class guiRyley:
     def __init__(self, neuronConfigFile: str,version: str):
@@ -16,9 +16,10 @@ class guiRyley:
         self.__version = version
         self.__codeHelpActived = False
         self.__litleWindowsActived = False
+        # Conf de ryley
         # Boot ArreraTK
         self.__arrTK = CArreraTK()
-
+        self.__ryleyConf = RyleyConf()
         # Demarage Neuron Network
         self.__assistantRyley = ArreraNetwork(neuronConfigFile)
         self.__userConf = userConf()
@@ -51,7 +52,7 @@ class guiRyley:
         self.__arrGazelle = CArreraGazelleUIRyleyCopilote(self.__arrTK, self.__screen,
                                                           self.__userConf.getUserSettingPath(),
                                                           "fichierJSON/configNeuron.json",
-                                                          "fichierJSON/ryleyConfig.json",
+                                                          self.__ryleyConf.getRyleySettingPath(),
                                                           "fichierJSON/configSetting.json")
         self.__arrGazelle.passApropos(self.__apropos)
 
