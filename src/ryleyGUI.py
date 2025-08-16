@@ -1,13 +1,9 @@
-import time
-
-from librairy.arrera_tk import CArreraTK
 from ObjetsNetwork.arreraNeuron import *
 from src.CLanguageRyley import *
-import threading as th
 import signal
 from setting.CArreraGazelleUIRyleyCopilote import *
 from src.ryleyConf import RyleyConf
-
+from librairy.asset_manage import resource_path
 
 class guiRyley:
     def __init__(self, neuronConfigFile: str,version: str):
@@ -25,22 +21,20 @@ class guiRyley:
         self.__userConf = userConf()
 
         # Demarage objet language Ryley
-        self.__language = CLanguageRyley("fichierJSON/paroleRyley.json",
-                                              "fichierJSON/aideRyley.json",
-                                              "fichierJSON/firstBootRyley.json")
+        self.__language = CLanguageRyley(resource_path("fichierJSON/paroleRyley.json"),
+                                         resource_path("fichierJSON/aideRyley.json"),
+                                         resource_path("fichierJSON/firstBootRyley.json"))
 
         # Teste sur de l'OS hote
-        objOS = OS()
-        self.__windowsOS = objOS.osWindows()
-        self.__linuxOS = objOS.osLinux()
-        del objOS
+        self.__objOS = OS()
 
         # Demarage de l'interface
-        if (self.__windowsOS == True) and (self.__linuxOS == False):
+        if self.__objOS.osWindows():
             self.__emplacementIcon = "asset/Ryley.ico"
-        else:
-            if (self.__windowsOS == False) and (self.__linuxOS == True):
-                self.__emplacementIcon = "asset/Ryley.png"
+        elif self.__objOS.osLinux():
+            self.__emplacementIcon = "asset/Ryley.png"
+        elif self.__objOS.osMac():
+            self.__emplacementIcon = "asset/Ryley.png"
 
         self.__screen = self.__arrTK.aTK(0,title=self.__nameSoft, resizable=False,
                                          width=500, height=600,icon=self.__emplacementIcon)
@@ -51,16 +45,10 @@ class guiRyley:
 
         self.__arrGazelle = CArreraGazelleUIRyleyCopilote(self.__arrTK, self.__screen,
                                                           self.__userConf.getUserSettingPath(),
-                                                          "fichierJSON/configNeuron.json",
+                                                          resource_path("fichierJSON/configNeuron.json"),
                                                           self.__ryleyConf.getRyleySettingPath(),
-                                                          "fichierJSON/configSetting.json")
+                                                          resource_path("fichierJSON/configSetting.json"))
         self.__arrGazelle.passApropos(self.__apropos)
-
-        # Icon
-        if self.__windowsOS:
-            self.__emplacementIcon = "asset/Ryley.ico"
-        else :
-            self.__emplacementIcon = "asset/Ryley.png"
 
         # Definition des images
         emplacementLight = "asset/GUI/light/"
@@ -493,11 +481,10 @@ class guiRyley:
         time.sleep(0.2)
         self.__backgroudBoot2.pack_forget()
         self.__backgroudBoot1.pack()
-        if (self.__windowsOS==True) and (self.__linuxOS==False) :
+        if self.__objOS.osWindows():
             os.kill(os.getpid(), signal.SIGINT)
-        else :
-            if (self.__windowsOS==False) and (self.__linuxOS==True) :
-                os.kill(os.getpid(), signal.SIGKILL)
+        elif self.__objOS.osLinux() or self.__objOS.osMac() :
+            os.kill(os.getpid(), signal.SIGKILL)
 
 
     def __disableAllFrame(self):
@@ -679,13 +666,18 @@ class guiRyley:
 
     def __keyboard(self):
         def anychar(event):
-            if self.__windowsOS:
+            if self.__objOS.osWindows():
                 if event.keycode == 13:
                     self.__actionBTNRyley()
                     self.__actionBTNCodehelp()
                     self.__actionBTNLitleWindows()
-            else:
+            elif self.__objOS.osLinux():
                 if event.keycode == 36:
+                    self.__actionBTNRyley()
+                    self.__actionBTNCodehelp()
+                    self.__actionBTNLitleWindows()
+            elif self.__objOS.osMac():
+                if event.keycode == 603979789:
                     self.__actionBTNRyley()
                     self.__actionBTNCodehelp()
                     self.__actionBTNLitleWindows()
@@ -723,7 +715,7 @@ class guiRyley:
             self.__btnProjetOpenCodehelp.place_forget()
             self.__btnProjetOpenLitte.place_forget()
 
-        if self.__codeHelpActived == False:
+        if not self.__codeHelpActived:
             if tableur or word or projet :
                 self.__disableAllFrame()
                 self.__viewOpen()
