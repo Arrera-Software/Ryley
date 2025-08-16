@@ -1,27 +1,26 @@
 from src.ryleyGUI import *
 from arreraLynx.arreraLynx import *
 from src.CTigerDemon import *
+from ObjetsNetwork.userConf import userConf
 
 class ryleyBoot:
     def __init__(self):
         # Ouverture JSON
-        json = jsonWork("fichierJSON/configUser.json")
+        self.__userConf = userConf()
         # Declaration des var
         self.__sortieLynx = False
 
         # Verification de la configuration de l'assistant
-        if ((json.lectureJSON("user") == "") and
-                (json.lectureJSON("genre") == "")):
+        if self.__userConf.getFirstRun():
             self.__firstStart = True
         else:
             self.__firstStart = False
-        del json
         self.__demonTiger = CTigerDemon("six","https://arrera-software.fr/depots.json")
 
     def active(self):
-        if (self.__firstStart):
+        if self.__firstStart:
             lynx = ArreraLynx("fichierJSON/configLynx.json",
-                              "fichierJSON/configUser.json",
+                              self.__userConf.getUserSettingPath(),
                               "fichierJSON/configNeuron.json")
             lynx.active()
             self.__sortieLynx = lynx.confiCreate()
@@ -34,7 +33,7 @@ class ryleyBoot:
     def __boot(self):
         arrTk = CArreraTK()
         self.__checkUpdate(arrTk)
-        if (self.__sortieLynx == False):
+        if not self.__sortieLynx:
             screen = arrTk.aTK(title="Arrera Ryley",resizable=False,width=500,height=350)
             imgCavas = arrTk.createArreraBackgroudImage(screen,
                                                         imageDark="asset/GUI/dark/NoConfig.png",
@@ -61,7 +60,7 @@ class ryleyBoot:
         self.active()
 
     def __checkUpdate(self,arrTk:CArreraTK):
-        if (self.__demonTiger.checkUpdate()):
+        if self.__demonTiger.checkUpdate():
             screen = arrTk.aTK(title="Arrera Six",resizable=False,width=500,height=350)
             imgCavas = arrTk.createArreraBackgroudImage(screen,
                                                         imageDark="asset/GUI/dark/NoConfig.png",

@@ -1,4 +1,5 @@
 yt_dlp
+pathlib
 tkcalendar
 datetime
 geocoder
@@ -12,5 +13,6 @@ openpyxl
 PyGithub
 language_tool_python
 pyperclip
+websocket-client
 pillow
 customtkinter
