@@ -471,6 +471,8 @@ class guiRyley:
         self.setButtonOpen()
 
     def __sequenceStop(self):
+        self.__arrGazelle.leaveSetting()
+        self.__quitParametre()
         self.__screen.configure(bg_color="#081ec7", fg_color="#081ec7")
         self.__paroleRyley(self.__assistantRyley.shutdown())
         time.sleep(3)
