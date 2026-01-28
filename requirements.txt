@@ -1,4 +1,5 @@
 setuptools
+requests
 wheel
 customtkinter
 yt_dlp
