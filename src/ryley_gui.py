@@ -18,6 +18,7 @@ class ryley_gui(aTk):
         self.__nameSoft = "Arrera Ryley"
         self.__first_boot = False
         self.__L_img_boot_gui = []
+        self.__L_img_gui_load = []
         self.__dir_gui_dark = "asset/GUI/dark/"
         self.__dir_gui_light = "asset/GUI/light/"
 
@@ -29,11 +30,13 @@ class ryley_gui(aTk):
         self.geometry("500x400+5+30")
 
         # Canvas
-        self._c_boot = self.__canvas_boot()
+        self.__c_boot = self.__canvas_boot()
 
         self.__c_maj = self.__canvas_maj()
 
         self.__c_speak = self.__canvas_speak()
+
+        self.__c_load = self.__canvas_load()
 
     def active(self,firstBoot:bool,update_available:bool):
 
@@ -103,6 +106,21 @@ class ryley_gui(aTk):
 
         return c
 
+    def __canvas_load(self):
+        self.__L_img_gui_load.append((self.__dir_gui_light + "load0.png", self.__dir_gui_dark + "load0.png"))
+        self.__L_img_gui_load.append((self.__dir_gui_light + "load1.png", self.__dir_gui_dark + "load1.png"))
+        self.__L_img_gui_load.append((self.__dir_gui_light + "load2.png", self.__dir_gui_dark + "load2.png"))
+        self.__L_img_gui_load.append((self.__dir_gui_light + "load3.png", self.__dir_gui_dark + "load3.png"))
+        self.__L_img_gui_load.append((self.__dir_gui_light + "load4.png", self.__dir_gui_dark + "load4.png"))
+
+        l_img,d_img = self.__L_img_gui_load[0]
+
+        c = aBackgroundImage(self,background_light=l_img,
+                             background_dark=d_img
+                             ,fg_color=("#ffffff","#000000"),width=500,height=350)
+
+        return c
+
     # Methode change IMG
 
     def __change_img_boot(self,index:int):
@@ -111,14 +129,23 @@ class ryley_gui(aTk):
         else :
             l_img,d_img = self.__L_img_boot_gui[0]
 
-        self._c_boot.change_background(background_light=l_img,background_dark=d_img)
+        self.__c_boot.change_background(background_light=l_img, background_dark=d_img)
+        self.update()
+
+    def __change_img_load(self,index:int):
+        if index < len(self.__L_img_gui_load):
+            l_img,d_img = self.__L_img_boot_gui[index]
+        else :
+            l_img,d_img = self.__L_img_boot_gui[0]
+
+        self.__c_boot.change_background(background_light=l_img, background_dark=d_img)
         self.update()
 
     # Methode des sequence
 
     def __sequence_boot(self):
         self.__change_img_boot(0)
-        self._c_boot.place(x=0,y=0)
+        self.__c_boot.place(x=0, y=0)
         time.sleep(0.2)
         self.__change_img_boot(1)
         time.sleep(0.2)
@@ -132,7 +159,8 @@ class ryley_gui(aTk):
         time.sleep(0.2)
 
     def __sequence_speak(self,texte:str):
-        self._c_boot.place_forget()
+        self.__c_load.place_forget()
+        self.__c_boot.place_forget()
         self.__c_speak.place(x=0,y=0)
 
         self.__label_speak.configure(text=texte)
