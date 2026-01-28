@@ -21,6 +21,9 @@ class ryley_gui(aTk):
         self.__dir_gui_dark = "asset/GUI/dark/"
         self.__dir_gui_light = "asset/GUI/light/"
 
+        # Recuperation du cerveau
+        self.__brain = brain
+
         super().__init__(title=self.__nameSoft,resizable=False,theme_file=theme_file,
                          fg_color=("#ffffff","#000000"))
         self.geometry("500x400+5+30")
@@ -29,6 +32,8 @@ class ryley_gui(aTk):
         self._c_boot = self.__canvas_boot()
 
         self.__c_maj = self.__canvas_maj()
+
+        self.__c_speak = self.__canvas_speak()
 
     def active(self,firstBoot:bool,update_available:bool):
 
@@ -45,6 +50,7 @@ class ryley_gui(aTk):
         # TODO : Gerer le first boot
         self.__c_maj.place_forget()
         self.__sequence_boot()
+        self.__sequence_speak(self.__brain.boot())
 
 
     # Creation des widget
@@ -83,6 +89,20 @@ class ryley_gui(aTk):
         btn_continuer.placeBottomRight()
         return c
 
+    def __canvas_speak(self):
+        c = aBackgroundImage(self,background_light="asset/GUI/light/parole.png",
+                             background_dark="asset/GUI/dark/parole.png"
+                             ,fg_color=("#ffffff","#000000"),width=500,height=350)
+
+        self.__label_speak = aLabel(c,text="", wraplength=440,justify="left",
+                                    police_size=20,corner_radius=0
+                                    ,fg_color=("#ffffff","#000000"),
+                                    text_color=("#000000","#ffffff"))
+
+        self.__label_speak.place(x=10, y=80)
+
+        return c
+
     # Methode change IMG
 
     def __change_img_boot(self,index:int):
@@ -109,3 +129,12 @@ class ryley_gui(aTk):
         self.__change_img_boot(4)
         time.sleep(0.2)
         self.__change_img_boot(5)
+        time.sleep(0.2)
+
+    def __sequence_speak(self,texte:str):
+        self._c_boot.place_forget()
+        self.__c_speak.place(x=0,y=0)
+
+        self.__label_speak.configure(text=texte)
+
+        self.update()
