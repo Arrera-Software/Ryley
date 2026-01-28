@@ -28,24 +28,23 @@ class ryley_gui(aTk):
         # Canvas
         self._c_boot = self.__canvas_boot()
 
+        self.__c_maj = self.__canvas_maj()
+
     def active(self,firstBoot:bool,update_available:bool):
 
         self.__first_boot = firstBoot
 
-        # TODO : A metre en place plus tart
-        """ 
         if update_available:
             self.__c_maj.place(x=0,y=0)
         else :
             self.__boot()
-        """
-        self.__boot()
 
         self.mainloop()
 
     def __boot(self):
+        # TODO : Gerer le first boot
+        self.__c_maj.place_forget()
         self.__sequence_boot()
-
 
 
     # Creation des widget
@@ -63,6 +62,25 @@ class ryley_gui(aTk):
         c = aBackgroundImage(self,background_light=l_img,background_dark=d_img,
                              fg_color=("#ffffff","#000000"),width=500,height=350)
 
+        return c
+
+    def __canvas_maj(self):
+        c = aBackgroundImage(self,background_light="asset/GUI/light/maj.png",
+                             background_dark="asset/GUI/dark/maj.png",
+                             fg_color=("#ffffff","#000000"),width=500,height=350)
+        label_text = aLabel(c,
+                            text="Ryley n'est pas dans sa version la plus recente.Pensez a le mettre a jour pour avoir les dernieres fonctionnalites et corrections de bugs.",
+                            police_size=20, fg_color=("#ffffff","#000000"),
+                            text_color="white", wraplength=250, justify="left")
+
+        btn_update = aButton(c, text="Mettre a jour", size=20,
+                             command=lambda: wb.open("https://github.com/Arrera-Software/Ryley/releases"))
+
+        btn_continuer = aButton(c, text="Me rappeler plus tart", size=20, command=self.__boot)
+
+        label_text.place(x=190, y=40)
+        btn_update.placeBottomLeft()
+        btn_continuer.placeBottomRight()
         return c
 
     # Methode change IMG
