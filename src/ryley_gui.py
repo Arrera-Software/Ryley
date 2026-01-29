@@ -44,7 +44,8 @@ class ryley_gui(aTk):
         self.__c_load = self.__canvas_load()
 
         self.__back_widget = back_widget(self,[self.__dir_gui_light,self.__dir_gui_dark],
-                                         "little.png","codehelp.png",self.__objOS)
+                                         "little.png","codehelp.png",
+                                         self.__objOS,self.__send_on_assistant)
 
     def active(self,firstBoot:bool,update_available:bool):
 
@@ -149,6 +150,12 @@ class ryley_gui(aTk):
 
         self.__c_boot.change_background(background_light=l_img, background_dark=d_img)
         self.update()
+
+    # Partie envoie assistant
+
+    def __send_on_assistant(self):
+        print("Send assistant")
+        self.focus()
 
     # Methode des sequence
 
