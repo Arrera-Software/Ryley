@@ -17,10 +17,12 @@ class ryley_gui(aTk):
         # Var
         self.__nameSoft = "Arrera Ryley"
         self.__first_boot = False
+        self.__assistant_load = False
         self.__L_img_boot_gui = []
         self.__L_img_gui_load = []
         self.__dir_gui_dark = "asset/GUI/dark/"
         self.__dir_gui_light = "asset/GUI/light/"
+        self.__index_load = 0
 
         # Recuperation du cerveau
         self.__brain = brain
@@ -28,6 +30,9 @@ class ryley_gui(aTk):
         self.__gestionnaire = self.__brain.getGestionnaire()
         # Recuperation librairy
         self.__objOS = self.__gestionnaire.getOSObjet()
+
+        # Theard
+        self.__th_reflect = th.Thread()
 
         super().__init__(title=self.__nameSoft,resizable=False,theme_file=theme_file,
                          fg_color=("#ffffff","#000000"))
@@ -150,18 +155,38 @@ class ryley_gui(aTk):
 
     def __change_img_load(self,index:int):
         if index < len(self.__L_img_gui_load):
-            l_img,d_img = self.__L_img_boot_gui[index]
+            l_img,d_img = self.__L_img_gui_load[index]
         else :
-            l_img,d_img = self.__L_img_boot_gui[0]
+            l_img,d_img = self.__L_img_gui_load[0]
 
-        self.__c_boot.change_background(background_light=l_img, background_dark=d_img)
+        self.__c_load.change_background(background_light=l_img, background_dark=d_img)
         self.update()
 
-    # Partie envoie assistant
+    # Partie gestion assistant
 
     def __send_on_assistant(self):
-        print("Send assistant")
         self.focus()
+        content = self.__back_widget.get_text_entry()
+        self.__back_widget.clear_entry()
+
+        if content:
+            if "parametre" in content or "settings" in content:
+                print("Setting")
+            else :
+                self.__th_reflect = th.Thread(target=self.__brain.neuron,args=(content,))
+                self.__th_reflect.start()
+                self.__update_during_assistant_reflect(True)
+
+    def __treatment_out_assistant(self,var:int,out:list):
+        if var == 15:
+            print("Stop")
+        elif var == 17:
+            print("Help")
+        else :
+           self.__sequence_speak(out[0])
+
+        # self.__manage_btn_open_fnc()
+
 
     # Methode des sequence
 
@@ -203,3 +228,26 @@ class ryley_gui(aTk):
 
     def __mode_codehelp_little(self):
         print("MODE CODEHELP LITTLE")
+
+    # Methode qui gere l'update de l'interface
+
+    def __update_during_assistant_reflect(self,firt_call:bool=False):
+        if self.__th_reflect.is_alive():
+            self.__change_img_load(self.__index_load)
+            if firt_call:
+                self.__assistant_load = True
+                self.__c_speak.place_forget()
+                self.__back_widget.place_forget()
+                self.__c_load.place(x=0,y=0)
+                self.update()
+            self.__index_load += 1
+
+            if self.__index_load >= len(self.__L_img_gui_load):
+                self.__index_load = 0
+            self.after(100,self.__update_during_assistant_reflect)
+        else :
+            self.__assistant_load = False
+            nbSortie = self.__brain.getValeurSortie()
+            listSortie = self.__brain.getListSortie()
+
+            self.__treatment_out_assistant(nbSortie,listSortie)
