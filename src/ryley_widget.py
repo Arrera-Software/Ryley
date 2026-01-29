@@ -91,3 +91,9 @@ class back_widget(aFrame):
 
         # Retirer le focus de l'entry
         self.__master.focus()
+
+    def get_text_entry(self):
+        return self.__entry.get()
+
+    def clear_entry(self):
+        self.__entry.delete(0,END)
