@@ -33,8 +33,8 @@ class back_widget(aFrame):
 
         # Application comportement entry
 
-        self.__entry.bind("<FocusIn>", self.on_focus)
-        self.__entry.bind("<FocusOut>", self.reset_focus)
+        self.__entry.bind("<FocusIn>", self.__on_focus)
+        self.__entry.bind("<FocusOut>", self.__reset_focus)
 
         if dectOS.osWindows():
             detectionTouche(master,lambda : master.focus(),27)
@@ -68,7 +68,7 @@ class back_widget(aFrame):
 
         return f
 
-    def on_focus(self, event):
+    def __on_focus(self, event):
         # Agrandir l'entry
         self.__entry.configure(width=250)
         self.__entry.placeLeftBottomNoStick()
@@ -77,7 +77,7 @@ class back_widget(aFrame):
         self.__btn_mode.place_forget()
 
 
-    def reset_focus(self, event=None):
+    def __reset_focus(self, event=None):
         # Rétrécir l'entry
         self.__entry.configure(width=200)
 
