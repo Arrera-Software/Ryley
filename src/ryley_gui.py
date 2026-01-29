@@ -29,10 +29,12 @@ class ryley_gui(aTk):
         # Recuperation librairy
         self.__objOS = self.__gestionnaire.getOSObjet()
 
-
         super().__init__(title=self.__nameSoft,resizable=False,theme_file=theme_file,
                          fg_color=("#ffffff","#000000"))
         self.geometry("500x400+5+30")
+
+        # Initilisation du gestionnaire de clavier
+        self.__key_gest = keyboad_manager(self)
 
         # Canvas
         self.__c_boot = self.__canvas_boot()
@@ -43,7 +45,8 @@ class ryley_gui(aTk):
 
         self.__c_load = self.__canvas_load()
 
-        self.__back_widget = back_widget(self,[self.__dir_gui_light,self.__dir_gui_dark],
+        self.__back_widget = back_widget(self,self.__key_gest
+                                         ,[self.__dir_gui_light,self.__dir_gui_dark],
                                          "little.png",
                                          "codehelp.png",
                                          self.__objOS,self.__send_on_assistant,

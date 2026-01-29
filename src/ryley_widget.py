@@ -11,9 +11,9 @@ def detectionTouche(w:Union[aTk,aTopLevel],fonc, touche:int):
     w.bind("<Key>", anychar)
 
 class back_widget(aFrame):
-    def __init__(self, master:aTk, dirImg:list, img_windows_mode:str,
-                 img_mode:str,dectOS:OS,fonc_send:callable,
-                 fonc_mode:callable,fonc_windows_mode:callable):
+    def __init__(self, master:aTk,key_gest:keyboad_manager,dirImg:list, img_windows_mode:str,
+                 img_mode:str,dectOS:OS,fonc_send:Callable,
+                 fonc_mode:Callable,fonc_windows_mode:Callable):
         super().__init__(master,width=500,height=50)
 
         self.__l_dir = dirImg[0]
@@ -39,14 +39,14 @@ class back_widget(aFrame):
         self.__entry.bind("<FocusOut>", self.__reset_focus)
 
         if dectOS.osWindows():
-            detectionTouche(master,lambda : master.focus(),27)
-            detectionTouche(master, fonc_send, 13)
+            key_gest.add_key(27,lambda : master.focus())
+            key_gest.add_key(13,fonc_send)
         elif dectOS.osLinux():
-            detectionTouche(master,lambda : master.focus(),9)
-            detectionTouche(master, fonc_send, 36)
+            key_gest.add_key(9,lambda : master.focus())
+            key_gest.add_key(36,fonc_send)
         elif dectOS.osMac():
-            detectionTouche(master,lambda : master.focus(),889192475)
-            detectionTouche(master, fonc_send, 603979789)
+            key_gest.add_key(889192475,lambda : master.focus())
+            key_gest.add_key(603979789,fonc_send)
 
         # Mise en place fonction dans les BTN
 
