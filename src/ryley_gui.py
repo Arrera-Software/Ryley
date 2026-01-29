@@ -37,6 +37,7 @@ class ryley_gui(aTk):
         super().__init__(title=self.__nameSoft,resizable=False,theme_file=theme_file,
                          fg_color=("#ffffff","#000000"))
         self.geometry("500x400+5+30")
+        self.protocol("WM_DELETE_WINDOW", self.__on_close)
 
         # Initilisation du gestionnaire de clavier
         self.__key_gest = keyboad_manager(self)
@@ -168,6 +169,7 @@ class ryley_gui(aTk):
         self.focus()
         content = self.__back_widget.get_text_entry()
         self.__back_widget.clear_entry()
+        self.__back_widget.place_forget()
 
         if content:
             if "parametre" in content or "settings" in content:
@@ -179,7 +181,7 @@ class ryley_gui(aTk):
 
     def __treatment_out_assistant(self,var:int,out:list):
         if var == 15:
-            print("Stop")
+            self.__on_close()
         elif var == 17:
             print("Help")
         else :
@@ -214,6 +216,26 @@ class ryley_gui(aTk):
         self.__back_widget.placeBottomCenter()
 
         self.update()
+
+    def __sequence_stop(self):
+        self.__sequence_speak(self.__brain.shutdown())
+        self.__back_widget.place_forget()
+        self.update()
+        time.sleep(0.8)
+        self.__c_speak.place_forget()
+        self.__c_load.place_forget()
+        self.__change_img_boot(5)
+        self.__c_boot.place(x=0, y=0)
+        time.sleep(0.2)
+        self.__change_img_boot(4)
+        time.sleep(0.2)
+        self.__change_img_boot(3)
+        time.sleep(0.2)
+        self.__change_img_boot(2)
+        time.sleep(0.2)
+        self.__change_img_boot(1)
+        time.sleep(0.2)
+        self.__change_img_boot(0)
 
     # Methode de modification de l'interface
 
@@ -251,3 +273,17 @@ class ryley_gui(aTk):
             listSortie = self.__brain.getListSortie()
 
             self.__treatment_out_assistant(nbSortie,listSortie)
+
+    # Methode qui agit sur la fenetre
+
+    def __on_close(self):
+        if askyesno("Atention", "Voulez-vous vraiment fermer Arrera Ryley ?"):
+            self.title(self.__nameSoft)
+            #self.__gazelleUI.clearAllFrame()
+            self.update()
+            self.__sequence_stop()
+
+            if self.__objOS.osWindows():
+                os.kill(os.getpid(), signal.SIGINT)
+            elif self.__objOS.osLinux() or self.__objOS.osMac():
+                os.kill(os.getpid(), signal.SIGKILL)
