@@ -1,11 +1,23 @@
+from typing import Union
 from lib.arrera_tk import *
+from librairy.dectectionOS import OS
+
+
+def detectionTouche(w:Union[aTk,aTopLevel],fonc, touche:int):
+    def anychar(event):
+        if event.keycode == touche:
+            fonc()
+
+    w.bind("<Key>", anychar)
 
 class back_widget(aFrame):
-    def __init__(self, master, dirImg:list, img_windows_mode:str,img_mode:str):
+    def __init__(self, master:aTk, dirImg:list, img_windows_mode:str,img_mode:str,dectOS:OS):
         super().__init__(master,width=500,height=50)
 
         self.__l_dir = dirImg[0]
         self.__d_dir = dirImg[1]
+        
+        self.__master = master
 
 
         user = self.__entry_btn(img_mode)
@@ -16,11 +28,21 @@ class back_widget(aFrame):
         img_windows_mode = aImage(width=30, height=30, path_light=self.__l_dir + img_windows_mode, path_dark=self.__d_dir + img_windows_mode)
         self.__btn_windows_mode = aButton(self, text="", image=img_windows_mode, width=30, height=30)
 
-        self.__entry.bind("<FocusIn>", self.on_focus)
-        self.__entry.bind("<FocusOut>", self.reset_focus())
-
         self.__btn_setting.placeLeftCenter()
         self.__btn_windows_mode.placeRightCenter()
+
+        # Application comportement entry
+
+        self.__entry.bind("<FocusIn>", self.on_focus)
+        self.__entry.bind("<FocusOut>", self.reset_focus)
+
+        if dectOS.osWindows():
+            detectionTouche(master,lambda : master.focus(),27)
+        elif dectOS.osLinux():
+            detectionTouche(master,lambda : master.focus(),9)
+        elif dectOS.osMac():
+            detectionTouche(master,lambda : master.focus(),889192475)
+
         user.placeCenter()
 
     def __entry_btn(self,img_mode:str):
@@ -57,4 +79,4 @@ class back_widget(aFrame):
         self.__btn_mode.placeLeftBottomNoStick()
 
         # Retirer le focus de l'entry
-        self.focus()
+        self.__master.focus()

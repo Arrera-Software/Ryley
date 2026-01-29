@@ -24,6 +24,11 @@ class ryley_gui(aTk):
 
         # Recuperation du cerveau
         self.__brain = brain
+        # Recuperation gestionnaire
+        self.__gestionnaire = self.__brain.getGestionnaire()
+        # Recuperation librairy
+        self.__objOS = self.__gestionnaire.getOSObjet()
+
 
         super().__init__(title=self.__nameSoft,resizable=False,theme_file=theme_file,
                          fg_color=("#ffffff","#000000"))
@@ -39,7 +44,7 @@ class ryley_gui(aTk):
         self.__c_load = self.__canvas_load()
 
         self.__back_widget = back_widget(self,[self.__dir_gui_light,self.__dir_gui_dark],
-                                         "little.png","codehelp.png")
+                                         "little.png","codehelp.png",self.__objOS)
 
     def active(self,firstBoot:bool,update_available:bool):
 
