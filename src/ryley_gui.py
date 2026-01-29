@@ -38,6 +38,9 @@ class ryley_gui(aTk):
 
         self.__c_load = self.__canvas_load()
 
+        self.__back_widget = back_widget(self,[self.__dir_gui_light,self.__dir_gui_dark],
+                                         "little.png","codehelp.png")
+
     def active(self,firstBoot:bool,update_available:bool):
 
         self.__first_boot = firstBoot
@@ -165,5 +168,6 @@ class ryley_gui(aTk):
         self.__c_speak.place(x=0,y=0)
 
         self.__label_speak.configure(text=texte)
+        self.__back_widget.placeBottomCenter()
 
         self.update()
