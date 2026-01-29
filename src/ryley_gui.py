@@ -79,8 +79,9 @@ class ryley_gui(aTk):
                              fg_color=("#ffffff","#000000"),width=500,height=350)
         label_text = aLabel(c,
                             text="Ryley n'est pas dans sa version la plus recente.Pensez a le mettre a jour pour avoir les dernieres fonctionnalites et corrections de bugs.",
-                            police_size=20, fg_color=("#ffffff","#000000"),
-                            text_color="white", wraplength=250, justify="left")
+                            police_size=20,
+                            fg_color=("#ffffff","#000000"),text_color=("#000000","#ffffff"),
+                            wraplength=250, justify="left")
 
         btn_update = aButton(c, text="Mettre a jour", size=20,
                              command=lambda: wb.open("https://github.com/Arrera-Software/Ryley/releases"))
