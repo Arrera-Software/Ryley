@@ -11,7 +11,9 @@ def detectionTouche(w:Union[aTk,aTopLevel],fonc, touche:int):
     w.bind("<Key>", anychar)
 
 class back_widget(aFrame):
-    def __init__(self, master:aTk, dirImg:list, img_windows_mode:str,img_mode:str,dectOS:OS,fonc_send:callable):
+    def __init__(self, master:aTk, dirImg:list, img_windows_mode:str,
+                 img_mode:str,dectOS:OS,fonc_send:callable,
+                 fonc_mode:callable,fonc_windows_mode:callable):
         super().__init__(master,width=500,height=50)
 
         self.__l_dir = dirImg[0]
@@ -49,6 +51,8 @@ class back_widget(aFrame):
         # Mise en place fonction dans les BTN
 
         self.__btn_send.configure(command=fonc_send)
+        self.__btn_mode.configure(command=fonc_mode)
+        self.__btn_windows_mode.configure(command=fonc_windows_mode)
 
         user.placeCenter()
 

@@ -44,8 +44,11 @@ class ryley_gui(aTk):
         self.__c_load = self.__canvas_load()
 
         self.__back_widget = back_widget(self,[self.__dir_gui_light,self.__dir_gui_dark],
-                                         "little.png","codehelp.png",
-                                         self.__objOS,self.__send_on_assistant)
+                                         "little.png",
+                                         "codehelp.png",
+                                         self.__objOS,self.__send_on_assistant,
+                                         self.__mode_codehelp_normal,
+                                         self.__mode_little)
 
     def active(self,firstBoot:bool,update_available:bool):
 
@@ -183,3 +186,17 @@ class ryley_gui(aTk):
         self.__back_widget.placeBottomCenter()
 
         self.update()
+
+    # Methode de modification de l'interface
+
+    def __mode_normal(self):
+        print("MODE NORMAL")
+
+    def __mode_codehelp_normal(self):
+        print("MODE CODEHELP NORMAL")
+
+    def __mode_little(self):
+        print("MODE LITTLE")
+
+    def __mode_codehelp_little(self):
+        print("MODE CODEHELP LITTLE")
