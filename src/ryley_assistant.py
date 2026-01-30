@@ -64,7 +64,7 @@ class ryley_assistant():
         if not self.__state_conf:
             pass # TODO : Faire la partie non conf
         else :
-            assistant = ryley_gui("asset/icon/",
+            assistant = ryley_gui("asset/icone/",
                                 "icon",
                                 self.__assistant,
                                 THEME_FILE,

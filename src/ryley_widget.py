@@ -13,7 +13,8 @@ def detectionTouche(w:Union[aTk,aTopLevel],fonc, touche:int):
 class back_widget(aFrame):
     def __init__(self, master:aTk,key_gest:keyboad_manager,dirImg:list, img_windows_mode:str,
                  img_mode:str,dectOS:OS,fonc_send:Callable,
-                 fonc_mode:Callable,fonc_windows_mode:Callable):
+                 fonc_mode:Callable,fonc_windows_mode:Callable,
+                 fonc_setting:Callable):
         super().__init__(master,width=500,height=50)
 
         self.__l_dir = dirImg[0]
@@ -25,7 +26,7 @@ class back_widget(aFrame):
         user = self.__entry_btn(img_mode)
 
         img_setting = aImage(width=30,height=30,path_light=self.__l_dir+"settings.png",path_dark=self.__d_dir+"settings.png")
-        self.__btn_setting = aButton(self, text="", image=img_setting, width=30, height=30)
+        self.__btn_setting = aButton(self, text="", image=img_setting, width=30, height=30,command=fonc_setting)
 
         img_windows_mode = aImage(width=30, height=30, path_light=self.__l_dir + img_windows_mode, path_dark=self.__d_dir + img_windows_mode)
         self.__btn_windows_mode = aButton(self, text="", image=img_windows_mode, width=30, height=30)

@@ -30,11 +30,11 @@ class guiRyley:
 
         # Demarage de l'interface
         if self.__objOS.osWindows():
-            self.__emplacementIcon = "asset/Ryley.ico"
+            self.__emplacementIcon = "asset/icon.ico"
         elif self.__objOS.osLinux():
-            self.__emplacementIcon = "asset/Ryley.png"
+            self.__emplacementIcon = "asset/icon.png"
         elif self.__objOS.osMac():
-            self.__emplacementIcon = "asset/Ryley.png"
+            self.__emplacementIcon = "asset/icon.png"
 
         self.__screen = self.__arrTK.aTK(0,title=self.__nameSoft, resizable=False,
                                          width=500, height=600,icon=self.__emplacementIcon)

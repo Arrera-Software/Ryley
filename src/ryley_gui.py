@@ -23,6 +23,7 @@ class ryley_gui(aTk):
         self.__dir_gui_dark = "asset/GUI/dark/"
         self.__dir_gui_light = "asset/GUI/light/"
         self.__index_load = 0
+        self.__version = version
 
         # Recuperation du cerveau
         self.__brain = brain
@@ -39,8 +40,23 @@ class ryley_gui(aTk):
         self.geometry("500x400+5+30")
         self.protocol("WM_DELETE_WINDOW", self.__on_close)
 
+        if self.__objOS.osLinux():
+            self.__emplacementIcon = iconFolder+"linux/"+iconName+".png"
+            self.iconphoto(False,PhotoImage(file=self.__emplacementIcon))
+        elif self.__objOS.osWindows():
+            self.__emplacementIcon = iconFolder+"win/"+iconName+".ico"
+            self.iconbitmap(self.__emplacementIcon)
+        elif self.__objOS.osMac():
+            self.__emplacementIcon = resource_path(iconFolder+"mac/"+iconName+".png")
+            self.iconphoto(False,PhotoImage(file=self.__emplacementIcon))
+
         # Initilisation du gestionnaire de clavier
         self.__key_gest = keyboad_manager(self)
+
+        # Init des parametre
+        self.__gazelleUI = arrera_gazelle(self,self.__gestionnaire,"json_conf/conf-setting.json")
+        self.__gazelleUI.passFNCQuit(self.__quit_setting)
+        self.__gazelleUI.passFNCBTNIcon(self.__about)
 
         # Canvas
         self.__c_boot = self.__canvas_boot()
@@ -57,7 +73,7 @@ class ryley_gui(aTk):
                                          "codehelp.png",
                                          self.__objOS,self.__send_on_assistant,
                                          self.__mode_codehelp_normal,
-                                         self.__mode_little)
+                                         self.__mode_little,self.__active_setting)
 
     def active(self,firstBoot:bool,update_available:bool):
 
@@ -279,7 +295,7 @@ class ryley_gui(aTk):
     def __on_close(self):
         if askyesno("Atention", "Voulez-vous vraiment fermer Arrera Ryley ?"):
             self.title(self.__nameSoft)
-            #self.__gazelleUI.clearAllFrame()
+            self.__gazelleUI.clearAllFrame()
             self.update()
             self.__sequence_stop()
 
@@ -287,3 +303,24 @@ class ryley_gui(aTk):
                 os.kill(os.getpid(), signal.SIGINT)
             elif self.__objOS.osLinux() or self.__objOS.osMac():
                 os.kill(os.getpid(), signal.SIGKILL)
+
+    def __about(self):
+        windows_about(nameSoft=self.__nameSoft,
+                      iconFile="asset/icone/linux/icon.png",
+                      version=self.__version,
+                      copyright="Copyright Arrera Software by Baptiste P 2023-2026",
+                      linkSource="https://github.com/Arrera-Software/Ryley",
+                      linkWeb="https://arrera-software.fr/")
+
+    # Methode pour la gestion des parametre
+
+    def __active_setting(self):
+        self.__c_load.place_forget()
+        self.__back_widget.place_forget()
+        self.__c_speak.place_forget()
+        self.__c_boot.place_forget()
+        self.__gazelleUI.active()
+
+    def __quit_setting(self):
+        self.__gazelleUI.clearAllFrame()
+        self.__sequence_speak("Fin parametre") # Todo : Mettre une vrai phrase
