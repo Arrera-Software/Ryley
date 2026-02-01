@@ -1,14 +1,5 @@
-from typing import Union
 from lib.arrera_tk import *
 from librairy.dectectionOS import OS
-
-
-def detectionTouche(w:Union[aTk,aTopLevel],fonc, touche:int):
-    def anychar(event):
-        if event.keycode == touche:
-            fonc()
-
-    w.bind("<Key>", anychar)
 
 class back_widget(aFrame):
     def __init__(self, master:aTk,key_gest:keyboad_manager,dirImg:list, img_windows_mode:str,

@@ -115,7 +115,7 @@ class ryley_gui(aTk):
                              background_dark="asset/GUI/dark/maj.png",
                              fg_color=("#ffffff","#000000"),width=500,height=350)
         label_text = aLabel(c,
-                            text="Ryley n'est pas dans sa version la plus recente.Pensez a le mettre a jour pour avoir les dernieres fonctionnalites et corrections de bugs.",
+                            text="Ryley n’est pas dans sa version la plus récente. Pensez à le mettre à jour pour avoir les dernières fonctionnalités et corrections de bugs.",
                             police_size=20,
                             fg_color=("#ffffff","#000000"),text_color=("#000000","#ffffff"),
                             wraplength=250, justify="left")
