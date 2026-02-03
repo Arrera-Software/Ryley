@@ -189,7 +189,7 @@ class ryley_gui(aTk):
 
         if content:
             if "parametre" in content or "settings" in content:
-                print("Setting")
+                self.__active_setting()
             else :
                 self.__th_reflect = th.Thread(target=self.__brain.neuron,args=(content,))
                 self.__th_reflect.start()

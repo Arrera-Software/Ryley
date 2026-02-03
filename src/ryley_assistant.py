@@ -17,7 +17,7 @@ class ryley_assistant():
             name="Arrera Ryley",
             lang="fr",
             asset="asset/",
-            icon="asset/icon/linux/icon.png",
+            icon="asset/icone/linux/icon.png",
             assistant_color="#041f75",
             assistant_texte_color="white",
             bute="",
