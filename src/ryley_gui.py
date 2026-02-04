@@ -63,9 +63,9 @@ class ryley_gui(aTk):
 
         self.__c_maj = self.__canvas_maj()
 
-        self.__c_speak = self.__canvas_speak()
+        self.__c_speak = self.__canvas_speak_normal()
 
-        self.__c_load = self.__canvas_load()
+        self.__c_load = self.__canvas_load_normal()
 
         self.__back_widget = back_widget(self,self.__key_gest
                                          ,[self.__dir_gui_light,self.__dir_gui_dark],
@@ -130,7 +130,7 @@ class ryley_gui(aTk):
         btn_continuer.placeBottomRight()
         return c
 
-    def __canvas_speak(self):
+    def __canvas_speak_normal(self):
         c = aBackgroundImage(self,background_light="asset/GUI/light/parole.png",
                              background_dark="asset/GUI/dark/parole.png"
                              ,fg_color=("#ffffff","#000000"),width=500,height=350)
@@ -144,7 +144,7 @@ class ryley_gui(aTk):
 
         return c
 
-    def __canvas_load(self):
+    def __canvas_load_normal(self):
         self.__L_img_gui_load.append((self.__dir_gui_light + "load0.png", self.__dir_gui_dark + "load0.png"))
         self.__L_img_gui_load.append((self.__dir_gui_light + "load1.png", self.__dir_gui_dark + "load1.png"))
         self.__L_img_gui_load.append((self.__dir_gui_light + "load2.png", self.__dir_gui_dark + "load2.png"))
