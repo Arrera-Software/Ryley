@@ -199,7 +199,7 @@ class ryley_gui(aTk):
         if var == 15:
             self.__on_close()
         elif var == 17:
-            print("Help")
+            self.__windows_help_assistant(out[0])
         else :
            self.__sequence_speak(out[0])
 
@@ -311,6 +311,18 @@ class ryley_gui(aTk):
                       copyright="Copyright Arrera Software by Baptiste P 2023-2026",
                       linkSource="https://github.com/Arrera-Software/Ryley",
                       linkWeb="https://arrera-software.fr/")
+
+    def __windows_help_assistant(self,texte:str):
+        winHelp = aTopLevel(width=500, height=600,title="Arrera Copilote : Aide Assistant",
+                            icon=self.__emplacementIcon)
+        labelTitleHelp = aLabel(winHelp, police_size=25,text="Copilote - Aide")
+        aideView = aText(winHelp, width=475, height=500,wrap="word",police_size=20)
+
+        self.__sequence_speak("Aide") # Todo : Mettre une vrai phrase
+
+        aideView.insert_text(texte)
+        labelTitleHelp.placeTopCenter()
+        aideView.placeCenter()
 
     # Methode pour la gestion des parametre
 
