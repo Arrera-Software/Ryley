@@ -18,6 +18,8 @@ class ryley_gui(aTk):
         self.__nameSoft = "Arrera Ryley"
         self.__first_boot = False
         self.__assistant_load = False
+        self.__setting_is_enabled = False
+        self.__timer = 0
         self.__L_img_boot_gui = []
         self.__L_img_gui_load = []
         self.__dir_gui_dark = "asset/GUI/dark/"
@@ -224,17 +226,20 @@ class ryley_gui(aTk):
         time.sleep(0.2)
 
     def __sequence_speak(self,texte:str):
+        self.__timer = 0
+        self.__assistant_speak = True
         self.__c_load.place_forget()
         self.__c_boot.place_forget()
         self.__c_speak.place(x=0,y=0)
 
         self.__label_speak.configure(text=texte)
         self.__back_widget.placeBottomCenter()
-
+        self.__assistant_speak = False
         self.update()
 
     def __sequence_stop(self):
         self.__sequence_speak(self.__brain.shutdown())
+        self.__assistant_speak = True
         self.__back_widget.place_forget()
         self.update()
         time.sleep(0.8)
@@ -327,6 +332,7 @@ class ryley_gui(aTk):
     # Methode pour la gestion des parametre
 
     def __active_setting(self):
+        self.__setting_is_enabled = True
         self.__c_load.place_forget()
         self.__back_widget.place_forget()
         self.__c_speak.place_forget()
@@ -336,3 +342,4 @@ class ryley_gui(aTk):
     def __quit_setting(self):
         self.__gazelleUI.clearAllFrame()
         self.__sequence_speak("Fin parametre") # Todo : Mettre une vrai phrase
+        self.__setting_is_enabled = False
