@@ -94,6 +94,8 @@ class ryley_gui(aTk):
         self.__sequence_boot()
         self.__sequence_speak(self.__brain.boot())
 
+        self.__update__assistant()
+
 
     # Creation des widget
 
@@ -294,6 +296,23 @@ class ryley_gui(aTk):
             listSortie = self.__brain.getListSortie()
 
             self.__treatment_out_assistant(nbSortie,listSortie)
+
+    def __update__assistant(self):
+        if not self.__setting_is_enabled :
+            self.__timer += 1
+            if self.__brain.updateAssistant():
+                varOut = self.__brain.getValeurSortie()
+                listOut = self.__brain.getListSortie()
+                self.__treatment_out_assistant(varOut,listOut)
+            """
+            elif self.__timer >= 10:
+                if self.__timer == 10:
+                    self.__c_speak.place_forget()
+                    self.__c_emotion.place(x=0, y=0)
+                self.__sequence_emotion()
+            """
+
+        self.after(1000,self.__update__assistant)
 
     # Methode qui agit sur la fenetre
 
