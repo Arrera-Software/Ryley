@@ -8,6 +8,7 @@ import threading as th
 from brain.brain import ABrain
 import random
 from src.ryley_widget import*
+from src.ryley_language import ryley_language
 
 class ryley_gui(aTk):
     def __init__(self,iconFolder:str,iconName:str,
@@ -34,6 +35,8 @@ class ryley_gui(aTk):
         # Recuperation librairy
         self.__objOS = self.__gestionnaire.getOSObjet()
 
+        # Language Ryley
+        self.__language = ryley_language("json_conf/language_ryley.json")
         # Theard
         self.__th_reflect = th.Thread()
 
@@ -89,11 +92,12 @@ class ryley_gui(aTk):
         self.mainloop()
 
     def __boot(self):
-        # TODO : Gerer le first boot
         self.__c_maj.place_forget()
-        self.__sequence_boot()
-        self.__sequence_speak(self.__brain.boot())
-
+        if self.__first_boot :
+            self.__sequence_first_boot()
+        else :
+            self.__sequence_boot()
+            self.__sequence_speak(self.__brain.boot())
         self.__update__assistant()
 
 
@@ -259,6 +263,13 @@ class ryley_gui(aTk):
         self.__change_img_boot(1)
         time.sleep(0.2)
         self.__change_img_boot(0)
+
+    def __sequence_first_boot(self):
+        self.__sequence_speak(self.__language.get_first_boot(1))
+        time.sleep(1.5)
+        self.__sequence_speak(self.__language.get_first_boot(2))
+        time.sleep(1.5)
+        self.__sequence_speak(self.__brain.boot())
 
     # Methode de modification de l'interface
 
