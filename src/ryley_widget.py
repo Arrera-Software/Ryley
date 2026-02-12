@@ -89,3 +89,6 @@ class back_widget(aFrame):
 
     def clear_entry(self):
         self.__entry.delete(0,END)
+
+    def insert_text(self,text:str):
+        self.__entry.insert(END,text)

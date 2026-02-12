@@ -164,13 +164,16 @@ class ryley_gui(aTk):
 
         self.__L_btn_tableur_normal.append(aButton(c, width=30, height=30, text="", image=tableurIMG,
                                                    dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                   hover_color=("#949494", "#505050")))
+                                                   hover_color=("#949494", "#505050"),
+                                                   command=lambda : self.__set_requette_with_btn("aide tableur")))
         self.__L_btn_word_normal.append(aButton(c, width=30, height=30, text="", image=wordIMG,
                                                 dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                hover_color=("#949494", "#505050")))
+                                                hover_color=("#949494", "#505050"),
+                                                command = lambda : self.__set_requette_with_btn("aide word")))
         self.__L_btn_project_normal.append(aButton(c, width=30, height=30, text="", image=projetrIMG,
                                                    dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                   hover_color=("#949494", "#505050")))
+                                                   hover_color=("#949494", "#505050"),
+                                                   command=lambda: self.__set_requette_with_btn("aide projet")))
 
         return c
 
@@ -234,6 +237,11 @@ class ryley_gui(aTk):
            self.__sequence_speak(out[0])
 
         self.__manage_btn_open_fnc()
+
+    def __set_requette_with_btn(self,requette:str):
+        self.__back_widget.clear_entry()
+        self.__back_widget.insert_text(requette)
+        self.__send_on_assistant()
 
 
     # Methode des sequence
@@ -383,7 +391,7 @@ class ryley_gui(aTk):
         labelTitleHelp = aLabel(winHelp, police_size=25,text="Copilote - Aide")
         aideView = aText(winHelp, width=475, height=500,wrap="word",police_size=20)
 
-        self.__sequence_speak("Aide") # Todo : Mettre une vrai phrase
+        self.__sequence_speak(self.__language.get_ph_help())
 
         aideView.insert_text(texte)
         labelTitleHelp.placeTopCenter()
