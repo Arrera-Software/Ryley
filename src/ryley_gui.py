@@ -74,19 +74,19 @@ class ryley_gui(aTk):
 
         self.__c_maj = self.__canvas_maj()
 
-        self.__c_speak = self.__canvas_speak_normal()
+        self.__c_speak_normal = self.__canvas_speak_normal()
 
-        self.__c_load = self.__canvas_load_normal()
+        self.__c_load_normal = self.__canvas_load_normal()
 
         self.__c_emotion_normal = self.__canvas_emmotion_normal()
 
-        self.__back_widget = back_widget(self,self.__key_gest
-                                         ,[self.__dir_gui_light,self.__dir_gui_dark],
+        self.__back_widget_normal = back_widget(self, self.__key_gest
+                                                , [self.__dir_gui_light,self.__dir_gui_dark],
                                          "little.png",
                                          "codehelp.png",
-                                         self.__objOS,self.__send_on_assistant,
-                                         self.__mode_codehelp_normal,
-                                         self.__mode_little,self.__active_setting)
+                                                self.__objOS, self.__send_on_assistant,
+                                                self.__mode_codehelp_normal,
+                                                self.__mode_little, self.__active_setting)
 
     def active(self,firstBoot:bool,update_available:bool):
 
@@ -225,7 +225,7 @@ class ryley_gui(aTk):
         else :
             l_img,d_img = self.__L_img_gui_load[0]
 
-        self.__c_load.change_background(background_light=l_img, background_dark=d_img)
+        self.__c_load_normal.change_background(background_light=l_img, background_dark=d_img)
         self.update()
 
     def __change_img_emotion(self,index:int):
@@ -241,9 +241,9 @@ class ryley_gui(aTk):
 
     def __send_on_assistant(self):
         self.focus()
-        content = self.__back_widget.get_text_entry()
-        self.__back_widget.clear_entry()
-        self.__back_widget.place_forget()
+        content = self.__back_widget_normal.get_text_entry()
+        self.__back_widget_normal.clear_entry()
+        self.__back_widget_normal.place_forget()
 
         if content:
             if "parametre" in content or "settings" in content:
@@ -264,8 +264,8 @@ class ryley_gui(aTk):
         self.__manage_btn_open_fnc()
 
     def __set_requette_with_btn(self,requette:str):
-        self.__back_widget.clear_entry()
-        self.__back_widget.insert_text(requette)
+        self.__back_widget_normal.clear_entry()
+        self.__back_widget_normal.insert_text(requette)
         self.__send_on_assistant()
 
 
@@ -295,23 +295,23 @@ class ryley_gui(aTk):
             btn.place_forget()
         self.__timer = 0
         self.__assistant_speak = True
-        self.__c_load.place_forget()
+        self.__c_load_normal.place_forget()
         self.__c_boot.place_forget()
-        self.__c_speak.place(x=0,y=0)
+        self.__c_speak_normal.place(x=0, y=0)
 
         self.__label_speak.configure(text=texte)
-        self.__back_widget.placeBottomCenter()
+        self.__back_widget_normal.placeBottomCenter()
         self.__assistant_speak = False
         self.update()
 
     def __sequence_stop(self):
         self.__sequence_speak(self.__brain.shutdown())
         self.__assistant_speak = True
-        self.__back_widget.place_forget()
+        self.__back_widget_normal.place_forget()
         self.update()
         time.sleep(0.8)
-        self.__c_speak.place_forget()
-        self.__c_load.place_forget()
+        self.__c_speak_normal.place_forget()
+        self.__c_load_normal.place_forget()
         self.__change_img_boot(5)
         self.__c_boot.place(x=0, y=0)
         time.sleep(0.2)
@@ -368,9 +368,9 @@ class ryley_gui(aTk):
             self.__change_img_load(self.__index_load)
             if firt_call:
                 self.__assistant_load = True
-                self.__c_speak.place_forget()
-                self.__back_widget.place_forget()
-                self.__c_load.place(x=0,y=0)
+                self.__c_speak_normal.place_forget()
+                self.__back_widget_normal.place_forget()
+                self.__c_load_normal.place(x=0, y=0)
                 self.update()
             self.__index_load += 1
 
@@ -393,7 +393,7 @@ class ryley_gui(aTk):
                 self.__treatment_out_assistant(varOut,listOut)
             elif self.__timer >= 10:
                 if self.__timer == 10:
-                    self.__c_speak.place_forget()
+                    self.__c_speak_normal.place_forget()
                     self.__c_emotion_normal.place(x=0, y=0)
                 self.__sequence_emotion()
 
@@ -439,9 +439,9 @@ class ryley_gui(aTk):
 
     def __active_setting(self):
         self.__setting_is_enabled = True
-        self.__c_load.place_forget()
-        self.__back_widget.place_forget()
-        self.__c_speak.place_forget()
+        self.__c_load_normal.place_forget()
+        self.__back_widget_normal.place_forget()
+        self.__c_speak_normal.place_forget()
         self.__c_boot.place_forget()
         self.__gazelleUI.active()
 
