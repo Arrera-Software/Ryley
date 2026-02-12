@@ -23,6 +23,7 @@ class ryley_gui(aTk):
         self.__timer = 0
         self.__L_img_boot_gui = []
         self.__L_img_gui_load = []
+        self.__L_img_emotion = []
         self.__dir_gui_dark = "asset/GUI/dark/"
         self.__dir_gui_light = "asset/GUI/light/"
         self.__index_load = 0
@@ -76,6 +77,8 @@ class ryley_gui(aTk):
         self.__c_speak = self.__canvas_speak_normal()
 
         self.__c_load = self.__canvas_load_normal()
+
+        self.__c_emotion_normal = self.__canvas_emmotion_normal()
 
         self.__back_widget = back_widget(self,self.__key_gest
                                          ,[self.__dir_gui_light,self.__dir_gui_dark],
@@ -192,6 +195,19 @@ class ryley_gui(aTk):
 
         return c
 
+    def __canvas_emmotion_normal(self):
+        self.__L_img_emotion.append((self.__dir_gui_light + "w0.png", self.__dir_gui_dark + "w0.png"))
+        self.__L_img_emotion.append((self.__dir_gui_light + "w1.png", self.__dir_gui_dark + "w1.png"))
+        self.__L_img_emotion.append((self.__dir_gui_light + "w2.png", self.__dir_gui_dark + "w2.png"))
+        self.__L_img_emotion.append((self.__dir_gui_light + "w3.png", self.__dir_gui_dark + "w3.png"))
+        self.__L_img_emotion.append((self.__dir_gui_light + "w4.png", self.__dir_gui_dark + "w4.png"))
+
+        l_img,d_img = self.__L_img_emotion[0]
+        c = aBackgroundImage(self,background_light=l_img,background_dark=d_img,width=500,height=350)
+
+        return c
+
+
     # Methode change IMG
 
     def __change_img_boot(self,index:int):
@@ -210,6 +226,15 @@ class ryley_gui(aTk):
             l_img,d_img = self.__L_img_gui_load[0]
 
         self.__c_load.change_background(background_light=l_img, background_dark=d_img)
+        self.update()
+
+    def __change_img_emotion(self,index:int):
+        if index < len(self.__L_img_emotion):
+            l_img,d_img = self.__L_img_emotion[index]
+        else :
+            l_img,d_img = self.__L_img_emotion[0]
+
+        self.__c_emotion_normal.change_background(background_light=l_img, background_dark=d_img)
         self.update()
 
     # Partie gestion assistant
@@ -307,6 +332,21 @@ class ryley_gui(aTk):
         time.sleep(1.5)
         self.__sequence_speak(self.__brain.boot())
 
+    def __sequence_emotion(self):
+        if 10 >= self.__timer >= 40:
+            self.__change_img_emotion(0)
+        elif 41 <= self.__timer >= 80:
+            self.__change_img_emotion(1)
+        elif 81 <= self.__timer >= 120:
+            self.__change_img_emotion(2)
+        elif 121 <= self.__timer >= 160:
+            self.__change_img_emotion(3)
+        elif 161 <= self.__timer >= 200:
+            self.__change_img_emotion(4)
+        else :
+            self.__change_img_emotion(0)
+
+
     # Methode de modification de l'interface
 
     def __mode_normal(self):
@@ -351,13 +391,11 @@ class ryley_gui(aTk):
                 varOut = self.__brain.getValeurSortie()
                 listOut = self.__brain.getListSortie()
                 self.__treatment_out_assistant(varOut,listOut)
-            """
             elif self.__timer >= 10:
                 if self.__timer == 10:
                     self.__c_speak.place_forget()
-                    self.__c_emotion.place(x=0, y=0)
+                    self.__c_emotion_normal.place(x=0, y=0)
                 self.__sequence_emotion()
-            """
 
         self.__manage_btn_open_fnc()
 
