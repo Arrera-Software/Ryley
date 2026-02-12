@@ -28,6 +28,11 @@ class ryley_gui(aTk):
         self.__index_load = 0
         self.__version = version
 
+        # Liste de widget
+        self.__L_btn_tableur_normal = []
+        self.__L_btn_word_normal = []
+        self.__L_btn_project_normal = []
+
         # Recuperation du cerveau
         self.__brain = brain
         # Recuperation gestionnaire
@@ -148,7 +153,24 @@ class ryley_gui(aTk):
                                     ,fg_color=("#ffffff","#000000"),
                                     text_color=("#000000","#ffffff"))
 
+        tableurIMG = aImage(path_dark="asset/GUI/dark/tableur.png",
+                            path_light="asset/GUI/light/tableur.png", width=30, height=30)
+        wordIMG = aImage(path_dark="asset/GUI/dark/word.png",
+                         path_light="asset/GUI/light/word.png", width=30, height=30)
+        projetrIMG = aImage(path_dark="asset/GUI/dark/projet.png",
+                            path_light="asset/GUI/light/projet.png", width=30, height=30)
+
         self.__label_speak.place(x=10, y=80)
+
+        self.__L_btn_tableur_normal.append(aButton(c, width=30, height=30, text="", image=tableurIMG,
+                                                   dark_color="#1f1f1f", light_color="#e0e0e0",
+                                                   hover_color=("#949494", "#505050")))
+        self.__L_btn_word_normal.append(aButton(c, width=30, height=30, text="", image=wordIMG,
+                                                dark_color="#1f1f1f", light_color="#e0e0e0",
+                                                hover_color=("#949494", "#505050")))
+        self.__L_btn_project_normal.append(aButton(c, width=30, height=30, text="", image=projetrIMG,
+                                                   dark_color="#1f1f1f", light_color="#e0e0e0",
+                                                   hover_color=("#949494", "#505050")))
 
         return c
 
@@ -211,7 +233,7 @@ class ryley_gui(aTk):
         else :
            self.__sequence_speak(out[0])
 
-        # self.__manage_btn_open_fnc()
+        self.__manage_btn_open_fnc()
 
 
     # Methode des sequence
@@ -232,6 +254,12 @@ class ryley_gui(aTk):
         time.sleep(0.2)
 
     def __sequence_speak(self,texte:str):
+        for btn in self.__L_btn_tableur_normal:
+            btn.place_forget()
+        for btn in self.__L_btn_word_normal:
+            btn.place_forget()
+        for btn in self.__L_btn_project_normal:
+            btn.place_forget()
         self.__timer = 0
         self.__assistant_speak = True
         self.__c_load.place_forget()
@@ -323,6 +351,8 @@ class ryley_gui(aTk):
                 self.__sequence_emotion()
             """
 
+        self.__manage_btn_open_fnc()
+
         self.after(1000,self.__update__assistant)
 
     # Methode qui agit sur la fenetre
@@ -373,3 +403,26 @@ class ryley_gui(aTk):
         self.__gazelleUI.clearAllFrame()
         self.__sequence_speak(self.__language.get_ph_setting())
         self.__setting_is_enabled = False
+
+    # Methode pour la gestion des btn qui ouvre les fnc
+    def __manage_btn_open_fnc(self):
+        if self.__brain.getTableur() :
+            for btn in self.__L_btn_tableur_normal:
+                btn.placeBottomRight()
+        else :
+            for btn in self.__L_btn_tableur_normal:
+                btn.place_forget()
+
+        if self.__brain.getWord():
+            for btn in self.__L_btn_word_normal:
+                btn.placeBottomLeft()
+        else :
+            for btn in self.__L_btn_word_normal:
+                btn.place_forget()
+
+        if self.__brain.getProject():
+            for btn in self.__L_btn_project_normal:
+                btn.placeBottomCenter()
+        else :
+            for btn in self.__L_btn_project_normal:
+                btn.place_forget()
