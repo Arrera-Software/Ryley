@@ -20,6 +20,7 @@ class ryley_gui(aTk):
         self.__first_boot = False
         self.__assistant_load = False
         self.__setting_is_enabled = False
+        self.__little_enabled = False
         self.__timer = 0
         self.__L_img_boot_gui = []
         self.__L_img_gui_load = []
@@ -76,6 +77,8 @@ class ryley_gui(aTk):
 
         self.__c_speak_normal = self.__canvas_speak_normal()
 
+        self.__c_speak_little = self.__canvas_speak_little()
+
         self.__c_load_normal = self.__canvas_load_normal()
 
         self.__c_emotion_normal = self.__canvas_emmotion_normal()
@@ -87,6 +90,14 @@ class ryley_gui(aTk):
                                                 self.__objOS, self.__send_on_assistant,
                                                 self.__mode_codehelp_normal,
                                                 self.__mode_little, self.__active_setting)
+
+        self.__back_widget_little = back_widget(self, self.__key_gest
+                                                , [self.__dir_gui_light,self.__dir_gui_dark],
+                                                "big.png",
+                                                "codehelp.png",
+                                                self.__objOS, self.__send_on_assistant,
+                                                self.__mode_codehelp_normal,
+                                                self.__mode_normal, self.__active_setting)
 
     def active(self,firstBoot:bool,update_available:bool):
 
@@ -151,10 +162,10 @@ class ryley_gui(aTk):
                              background_dark="asset/GUI/dark/parole.png"
                              ,fg_color=("#ffffff","#000000"),width=500,height=350)
 
-        self.__label_speak = aLabel(c,text="", wraplength=440,justify="left",
-                                    police_size=20,corner_radius=0
-                                    ,fg_color=("#ffffff","#000000"),
-                                    text_color=("#000000","#ffffff"))
+        self.__label_speak_normal = aLabel(c, text="", wraplength=440, justify="left",
+                                           police_size=20, corner_radius=0
+                                           , fg_color=("#ffffff","#000000"),
+                                           text_color=("#000000","#ffffff"))
 
         tableurIMG = aImage(path_dark="asset/GUI/dark/tableur.png",
                             path_light="asset/GUI/light/tableur.png", width=30, height=30)
@@ -163,7 +174,7 @@ class ryley_gui(aTk):
         projetrIMG = aImage(path_dark="asset/GUI/dark/projet.png",
                             path_light="asset/GUI/light/projet.png", width=30, height=30)
 
-        self.__label_speak.place(x=10, y=80)
+        self.__label_speak_normal.place(x=10, y=80)
 
         self.__L_btn_tableur_normal.append(aButton(c, width=30, height=30, text="", image=tableurIMG,
                                                    dark_color="#1f1f1f", light_color="#e0e0e0",
@@ -179,6 +190,21 @@ class ryley_gui(aTk):
                                                    command=lambda: self.__set_requette_with_btn("aide projet")))
 
         return c
+
+    def __canvas_speak_little(self):
+        c = aBackgroundImage(self,background_light="asset/GUI/light/parole_little.png",
+                             background_dark="asset/GUI/dark/parole_little.png"
+                             ,fg_color=("#ffffff","#000000"),width=500,height=70)
+
+        self.__label_speak_little = aLabel(c, text="", wraplength=440, justify="left",
+                                           police_size=15, corner_radius=0
+                                           , fg_color=("#102876","#102876"),
+                                           text_color=("#ffffff","#ffffff"))
+
+        self.__label_speak_little.place(x=12,y=15)
+
+        return  c
+
 
     def __canvas_load_normal(self):
         self.__L_img_gui_load.append((self.__dir_gui_light + "load0.png", self.__dir_gui_dark + "load0.png"))
@@ -241,9 +267,14 @@ class ryley_gui(aTk):
 
     def __send_on_assistant(self):
         self.focus()
-        content = self.__back_widget_normal.get_text_entry()
-        self.__back_widget_normal.clear_entry()
-        self.__back_widget_normal.place_forget()
+        if not self.__little_enabled:
+            content = self.__back_widget_normal.get_text_entry()
+            self.__back_widget_normal.clear_entry()
+            self.__back_widget_normal.place_forget()
+        else :
+            content = self.__back_widget_little.get_text_entry()
+            self.__back_widget_little.clear_entry()
+            self.__back_widget_little.place_forget()
 
         if content:
             if "parametre" in content or "settings" in content:
@@ -264,8 +295,12 @@ class ryley_gui(aTk):
         self.__manage_btn_open_fnc()
 
     def __set_requette_with_btn(self,requette:str):
-        self.__back_widget_normal.clear_entry()
-        self.__back_widget_normal.insert_text(requette)
+        if not self.__little_enabled:
+            self.__back_widget_normal.clear_entry()
+            self.__back_widget_normal.insert_text(requette)
+        else :
+            self.__back_widget_little.clear_entry()
+            self.__back_widget_little.insert_text(requette)
         self.__send_on_assistant()
 
 
@@ -297,17 +332,32 @@ class ryley_gui(aTk):
         self.__assistant_speak = True
         self.__c_load_normal.place_forget()
         self.__c_boot.place_forget()
-        self.__c_speak_normal.place(x=0, y=0)
 
-        self.__label_speak.configure(text=texte)
-        self.__back_widget_normal.placeBottomCenter()
+        if not self.__little_enabled:
+            self.__c_speak_normal.place(x=0, y=0)
+            self.__label_speak_normal.configure(text=texte)
+            self.__back_widget_normal.placeBottomCenter()
+        else :
+            self.__c_speak_little.place(x=0, y=0)
+            self.__label_speak_little.configure(text=texte)
+            self.__back_widget_little.placeBottomCenter()
+
+
         self.__assistant_speak = False
         self.update()
 
     def __sequence_stop(self):
+        if self.__little_enabled:
+            self.geometry("500x400+5+30")
+            self.update()
+            self.__c_speak_little.place_forget()
+            # self.__c_emotion_little.place_forget()
+            self.__little_enabled = False
+
         self.__sequence_speak(self.__brain.shutdown())
         self.__assistant_speak = True
         self.__back_widget_normal.place_forget()
+        self.__back_widget_little.placeBottomCenter()
         self.update()
         time.sleep(0.8)
         self.__c_speak_normal.place_forget()
@@ -350,13 +400,24 @@ class ryley_gui(aTk):
     # Methode de modification de l'interface
 
     def __mode_normal(self):
-        print("MODE NORMAL")
+        self.geometry("500x400+5+30")
+        self.update()
+        self.__c_speak_little.place_forget()
+        # self.__c_emotion_normal.place_forget()
+        self.__little_enabled = False
+        self.__sequence_speak("Mode normal") # ToDo : Mettre une autre phrase
+
 
     def __mode_codehelp_normal(self):
         print("MODE CODEHELP NORMAL")
 
     def __mode_little(self):
-        print("MODE LITTLE")
+        self.geometry("500x120+5+30")
+        self.update()
+        self.__c_speak_normal.place_forget()
+        self.__c_emotion_normal.place_forget()
+        self.__little_enabled = True
+        self.__sequence_speak("Mode little") # ToDo : Mettre une autre phrase
 
     def __mode_codehelp_little(self):
         print("MODE CODEHELP LITTLE")
@@ -438,6 +499,12 @@ class ryley_gui(aTk):
     # Methode pour la gestion des parametre
 
     def __active_setting(self):
+        if self.__little_enabled:
+            self.geometry("500x400+5+30")
+            self.update()
+            self.__c_speak_little.place_forget()
+            # self.__c_emotion_little.place_forget()
+            self.__little_enabled = False
         self.__setting_is_enabled = True
         self.__c_load_normal.place_forget()
         self.__back_widget_normal.place_forget()
