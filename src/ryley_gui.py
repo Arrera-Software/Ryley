@@ -26,6 +26,7 @@ class ryley_gui(aTk):
         self.__L_img_gui_load = []
         self.__L_img_emotion = []
         self.__L_img_emotion_little = []
+        self.__L_img_load_little = []
         self.__dir_gui_dark = "asset/GUI/dark/"
         self.__dir_gui_light = "asset/GUI/light/"
         self.__index_load = 0
@@ -81,6 +82,8 @@ class ryley_gui(aTk):
         self.__c_speak_little = self.__canvas_speak_little()
 
         self.__c_load_normal = self.__canvas_load_normal()
+
+        self.__c_load_little = self.__canvas_load_little()
 
         self.__c_emotion_normal = self.__canvas_emmotion_normal()
 
@@ -224,6 +227,21 @@ class ryley_gui(aTk):
 
         return c
 
+    def __canvas_load_little(self):
+        self.__L_img_load_little.append((self.__dir_gui_light + "little-load0.png", self.__dir_gui_dark + "little-load0.png"))
+        self.__L_img_load_little.append((self.__dir_gui_light + "little-load1.png", self.__dir_gui_dark + "little-load1.png"))
+        self.__L_img_load_little.append((self.__dir_gui_light + "little-load2.png", self.__dir_gui_dark + "little-load2.png"))
+        self.__L_img_load_little.append((self.__dir_gui_light + "little-load3.png", self.__dir_gui_dark + "little-load3.png"))
+        self.__L_img_load_little.append((self.__dir_gui_light + "little-load4.png", self.__dir_gui_dark + "little-load4.png"))
+
+        l_img,d_img = self.__L_img_load_little[0]
+
+        c = aBackgroundImage(self,background_light=l_img,
+                             background_dark=d_img
+                             ,fg_color=("#ffffff","#000000"),width=500,height=70)
+
+        return c
+
     def __canvas_emmotion_normal(self):
         self.__L_img_emotion.append((self.__dir_gui_light + "w0.png", self.__dir_gui_dark + "w0.png"))
         self.__L_img_emotion.append((self.__dir_gui_light + "w1.png", self.__dir_gui_dark + "w1.png"))
@@ -262,11 +280,15 @@ class ryley_gui(aTk):
 
     def __change_img_load(self,index:int):
         if index < len(self.__L_img_gui_load):
-            l_img,d_img = self.__L_img_gui_load[index]
+            l_img_normal,d_img_normal = self.__L_img_gui_load[index]
+            l_img_little,d_img_little = self.__L_img_load_little[index]
         else :
-            l_img,d_img = self.__L_img_gui_load[0]
+            l_img_normal,d_img_normal = self.__L_img_gui_load[0]
+            l_img_little,d_img_little = self.__L_img_load_little[0]
 
-        self.__c_load_normal.change_background(background_light=l_img, background_dark=d_img)
+
+        self.__c_load_normal.change_background(background_light=l_img_normal, background_dark=d_img_normal)
+        self.__c_load_little.change_background(background_light=l_img_little, background_dark=d_img_little)
         self.update()
 
     def __change_img_emotion(self,index:int):
@@ -349,6 +371,9 @@ class ryley_gui(aTk):
         self.__timer = 0
         self.__assistant_speak = True
         self.__c_load_normal.place_forget()
+        self.__c_load_little.place_forget()
+        self.__c_emotion_little.place_forget()
+        self.__c_emotion_normal.place_forget()
         self.__c_boot.place_forget()
 
         self.__back_widget_little.place_forget()
@@ -376,6 +401,7 @@ class ryley_gui(aTk):
             self.__little_enabled = False
 
         self.__c_emotion_normal.place_forget()
+        self.__c_emotion_little.place_forget()
         self.__sequence_speak(self.__brain.shutdown())
         self.__assistant_speak = True
         self.__back_widget_normal.place_forget()
@@ -384,6 +410,7 @@ class ryley_gui(aTk):
         time.sleep(0.8)
         self.__c_speak_normal.place_forget()
         self.__c_load_normal.place_forget()
+        self.__c_load_little.place_forget()
         self.__change_img_boot(5)
         self.__c_boot.place(x=0, y=0)
         time.sleep(0.2)
@@ -452,8 +479,13 @@ class ryley_gui(aTk):
             if firt_call:
                 self.__assistant_load = True
                 self.__c_speak_normal.place_forget()
+                self.__c_emotion_little.place_forget()
+                self.__c_emotion_normal.place_forget()
                 self.__back_widget_normal.place_forget()
-                self.__c_load_normal.place(x=0, y=0)
+                if not self.__little_enabled:
+                    self.__c_load_normal.place(x=0, y=0)
+                else :
+                    self.__c_load_little.place(x=0, y=0)
                 self.update()
             self.__index_load += 1
 
@@ -535,6 +567,7 @@ class ryley_gui(aTk):
             self.__little_enabled = False
         self.__setting_is_enabled = True
         self.__c_load_normal.place_forget()
+        self.__c_load_little.place_forget()
         self.__back_widget_normal.place_forget()
         self.__c_speak_normal.place_forget()
         self.__c_boot.place_forget()
