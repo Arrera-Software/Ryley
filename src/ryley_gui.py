@@ -454,8 +454,7 @@ class ryley_gui(aTk):
         self.__c_speak_little.place_forget()
         self.__c_emotion_little.place_forget()
         self.__little_enabled = False
-        self.__sequence_speak("Mode normal") # ToDo : Mettre une autre phrase
-
+        self.__sequence_speak(self.__language.get_ph_normal_mode())
 
     def __mode_codehelp_normal(self):
         print("MODE CODEHELP NORMAL")
@@ -466,7 +465,7 @@ class ryley_gui(aTk):
         self.__c_speak_normal.place_forget()
         self.__c_emotion_normal.place_forget()
         self.__little_enabled = True
-        self.__sequence_speak("Mode little") # ToDo : Mettre une autre phrase
+        self.__sequence_speak(self.__language.get_ph_little_mode())
 
     def __mode_codehelp_little(self):
         print("MODE CODEHELP LITTLE")
@@ -535,6 +534,8 @@ class ryley_gui(aTk):
                 os.kill(os.getpid(), signal.SIGINT)
             elif self.__objOS.osLinux() or self.__objOS.osMac():
                 os.kill(os.getpid(), signal.SIGKILL)
+        else :
+            self.__sequence_speak(self.__language.get_ph_cancel_close())
 
     def __about(self):
         windows_about(nameSoft=self.__nameSoft,
