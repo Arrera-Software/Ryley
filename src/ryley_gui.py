@@ -25,6 +25,7 @@ class ryley_gui(aTk):
         self.__L_img_boot_gui = []
         self.__L_img_gui_load = []
         self.__L_img_emotion = []
+        self.__L_img_emotion_little = []
         self.__dir_gui_dark = "asset/GUI/dark/"
         self.__dir_gui_light = "asset/GUI/light/"
         self.__index_load = 0
@@ -82,6 +83,8 @@ class ryley_gui(aTk):
         self.__c_load_normal = self.__canvas_load_normal()
 
         self.__c_emotion_normal = self.__canvas_emmotion_normal()
+
+        self.__c_emotion_little = self.__canvas_emmotion_little()
 
         self.__back_widget_normal = back_widget(self, self.__key_gest
                                                 , [self.__dir_gui_light,self.__dir_gui_dark],
@@ -233,6 +236,18 @@ class ryley_gui(aTk):
 
         return c
 
+    def __canvas_emmotion_little(self):
+        self.__L_img_emotion_little.append((self.__dir_gui_light + "little-w0.png", self.__dir_gui_dark + "little-w0.png"))
+        self.__L_img_emotion_little.append((self.__dir_gui_light + "little-w1.png", self.__dir_gui_dark + "little-w1.png"))
+        self.__L_img_emotion_little.append((self.__dir_gui_light + "little-w2.png", self.__dir_gui_dark + "little-w2.png"))
+        self.__L_img_emotion_little.append((self.__dir_gui_light + "little-w3.png", self.__dir_gui_dark + "little-w3.png"))
+        self.__L_img_emotion_little.append((self.__dir_gui_light + "little-w4.png", self.__dir_gui_dark + "little-w4.png"))
+
+        l_img,d_img = self.__L_img_emotion_little[0]
+        c = aBackgroundImage(self,background_light=l_img,background_dark=d_img,width=500,height=70)
+
+        return c
+
 
     # Methode change IMG
 
@@ -256,11 +271,14 @@ class ryley_gui(aTk):
 
     def __change_img_emotion(self,index:int):
         if index < len(self.__L_img_emotion):
-            l_img,d_img = self.__L_img_emotion[index]
+            l_img_normal,d_img_normal = self.__L_img_emotion[index]
+            l_img_little,d_img_little = self.__L_img_emotion_little[index]
         else :
-            l_img,d_img = self.__L_img_emotion[0]
+            l_img_normal,d_img_normal = self.__L_img_emotion[0]
+            l_img_little,d_img_little = self.__L_img_emotion_little[0]
 
-        self.__c_emotion_normal.change_background(background_light=l_img, background_dark=d_img)
+        self.__c_emotion_normal.change_background(background_light=l_img_normal, background_dark=d_img_normal)
+        self.__c_emotion_little.change_background(background_light=l_img_little, background_dark=d_img_little)
         self.update()
 
     # Partie gestion assistant
@@ -333,6 +351,9 @@ class ryley_gui(aTk):
         self.__c_load_normal.place_forget()
         self.__c_boot.place_forget()
 
+        self.__back_widget_little.place_forget()
+        self.__back_widget_normal.place_forget()
+
         if not self.__little_enabled:
             self.__c_speak_normal.place(x=0, y=0)
             self.__label_speak_normal.configure(text=texte)
@@ -351,9 +372,10 @@ class ryley_gui(aTk):
             self.geometry("500x400+5+30")
             self.update()
             self.__c_speak_little.place_forget()
-            # self.__c_emotion_little.place_forget()
+            self.__c_emotion_little.place_forget()
             self.__little_enabled = False
 
+        self.__c_emotion_normal.place_forget()
         self.__sequence_speak(self.__brain.shutdown())
         self.__assistant_speak = True
         self.__back_widget_normal.place_forget()
@@ -403,7 +425,7 @@ class ryley_gui(aTk):
         self.geometry("500x400+5+30")
         self.update()
         self.__c_speak_little.place_forget()
-        # self.__c_emotion_normal.place_forget()
+        self.__c_emotion_little.place_forget()
         self.__little_enabled = False
         self.__sequence_speak("Mode normal") # ToDo : Mettre une autre phrase
 
@@ -454,8 +476,14 @@ class ryley_gui(aTk):
                 self.__treatment_out_assistant(varOut,listOut)
             elif self.__timer >= 10:
                 if self.__timer == 10:
-                    self.__c_speak_normal.place_forget()
-                    self.__c_emotion_normal.place(x=0, y=0)
+                    if not self.__little_enabled :
+                        self.__c_speak_normal.place_forget()
+                        self.__c_emotion_normal.place(x=0, y=0)
+                    else :
+                        self.__c_speak_little.place_forget()
+                        self.__c_emotion_little.place(x=0, y=0)
+                    self.update()
+
                 self.__sequence_emotion()
 
         self.__manage_btn_open_fnc()
