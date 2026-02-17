@@ -248,6 +248,15 @@ class ryley_gui(aTk):
         projetrIMG = aImage(path_dark="asset/GUI/dark/projet.png",
                             path_light="asset/GUI/light/projet.png", width=30, height=30)
 
+        orgavarIMG = aImage(path_dark=self.__dir_gui_dark+"btnOrgaVar.png",path_light=self.__dir_gui_light+"btnOrgaVar.png",
+                            width=30, height=30)
+        libIMG = aImage(path_dark=self.__dir_gui_dark+"btnLibrairy.png",path_light=self.__dir_gui_light+"btnLibrairy.png",
+                        width=30, height=30)
+        gestGithubIMG = aImage(path_dark=self.__dir_gui_dark+"btnGestGithub.png",path_light=self.__dir_gui_light+"btnGestGithub.png",
+                               width=30, height=30)
+        colorIMG = aImage(path_dark=self.__dir_gui_dark+"btnColorSelector.png",path_light=self.__dir_gui_light+"btnColorSelector.png",
+                          width=30, height=30)
+
         self.__L_btn_tableur_normal.append(aButton(c, width=30, height=30, text="", image=tableurIMG,
                                                    dark_color="#1f1f1f", light_color="#e0e0e0",
                                                    hover_color=("#949494", "#505050"),
@@ -260,6 +269,30 @@ class ryley_gui(aTk):
                                                    dark_color="#1f1f1f", light_color="#e0e0e0",
                                                    hover_color=("#949494", "#505050"),
                                                    command=lambda: self.__set_requette_with_btn("aide projet")))
+
+        btn_orga_var = aButton(c,width=30, height=30,text="",image=orgavarIMG,
+                               dark_color="#1f1f1f", light_color="#e0e0e0",
+                               hover_color=("#949494", "#505050"),
+                               command=lambda : print("Orga var")) # ToDo : Faire la fonction
+
+        btn_lib = aButton(c,width=30, height=30,text="",image=libIMG,
+                               dark_color="#1f1f1f", light_color="#e0e0e0",
+                               hover_color=("#949494", "#505050"),
+                               command=lambda : print("lib")) # ToDo : Faire la fonction
+        btn_gestgithub = aButton(c,width=30, height=30,text="",image=gestGithubIMG,
+                               dark_color="#1f1f1f", light_color="#e0e0e0",
+                               hover_color=("#949494", "#505050"),
+                               command=lambda : print("gestgit")) # ToDo : Faire la fonction
+
+        btn_color = aButton(c,width=30, height=30,text="",image=colorIMG,
+                          dark_color="#1f1f1f", light_color="#e0e0e0",
+                          hover_color=("#949494", "#505050"),
+                          command=lambda : print("color")) # ToDo : Faire la fonction
+
+        btn_orga_var.placeWidgetCenteredAtBottom(x_offset=-155)
+        btn_lib.placeWidgetCenteredAtBottom(x_offset=155)
+        btn_gestgithub.placeWidgetCenteredAtBottom(x_offset=-80)
+        btn_color.placeWidgetCenteredAtBottom(x_offset=80)
 
         self.__label_speak_codehelp.place(x=10, y=80)
 
@@ -330,8 +363,42 @@ class ryley_gui(aTk):
         self.__L_img_emotion_codehelp.append((self.__dir_gui_light + "codehelp-w3.png", self.__dir_gui_dark + "codehelp-w3.png"))
         self.__L_img_emotion_codehelp.append((self.__dir_gui_light + "codehelp-w4.png", self.__dir_gui_dark + "codehelp-w4.png"))
 
+        orgavarIMG = aImage(path_dark=self.__dir_gui_dark+"btnOrgaVar.png",path_light=self.__dir_gui_light+"btnOrgaVar.png",
+                            width=30, height=30)
+        libIMG = aImage(path_dark=self.__dir_gui_dark+"btnLibrairy.png",path_light=self.__dir_gui_light+"btnLibrairy.png",
+                        width=30, height=30)
+        gestGithubIMG = aImage(path_dark=self.__dir_gui_dark+"btnGestGithub.png",path_light=self.__dir_gui_light+"btnGestGithub.png",
+                               width=30, height=30)
+        colorIMG = aImage(path_dark=self.__dir_gui_dark+"btnColorSelector.png",path_light=self.__dir_gui_light+"btnColorSelector.png",
+                          width=30, height=30)
+
         l_img,d_img = self.__L_img_emotion_codehelp[0]
-        c = aBackgroundImage(self,background_light=l_img,background_dark=d_img,width=500,height=350)
+        c = aBackgroundImage(self,background_light=l_img,background_dark=d_img,width=500,height=350,
+                             fg_color=("#ffffff","#000000"))
+
+        btn_orga_var = aButton(c,width=30, height=30,text="",image=orgavarIMG,
+                               dark_color="#1f1f1f", light_color="#e0e0e0",
+                               hover_color=("#949494", "#505050"),
+                               command=lambda : print("Orga var")) # ToDo : Faire la fonction
+
+        btn_lib = aButton(c,width=30, height=30,text="",image=libIMG,
+                          dark_color="#1f1f1f", light_color="#e0e0e0",
+                          hover_color=("#949494", "#505050"),
+                          command=lambda : print("lib")) # ToDo : Faire la fonction
+        btn_gestgithub = aButton(c,width=30, height=30,text="",image=gestGithubIMG,
+                                 dark_color="#1f1f1f", light_color="#e0e0e0",
+                                 hover_color=("#949494", "#505050"),
+                                 command=lambda : print("gestgit")) # ToDo : Faire la fonction
+
+        btn_color = aButton(c,width=30, height=30,text="",image=colorIMG,
+                            dark_color="#1f1f1f", light_color="#e0e0e0",
+                            hover_color=("#949494", "#505050"),
+                            command=lambda : print("color")) # ToDo : Faire la fonction
+
+        btn_orga_var.placeWidgetCenteredAtBottom(x_offset=-155)
+        btn_lib.placeWidgetCenteredAtBottom(x_offset=155)
+        btn_gestgithub.placeWidgetCenteredAtBottom(x_offset=-80)
+        btn_color.placeWidgetCenteredAtBottom(x_offset=80)
 
         return c
 
@@ -427,12 +494,15 @@ class ryley_gui(aTk):
         self.__manage_btn_open_fnc()
 
     def __set_requette_with_btn(self,requette:str):
-        if not self.__little_enabled:
-            self.__back_widget_normal.clear_entry()
-            self.__back_widget_normal.insert_text(requette)
-        else :
+        if self.__little_enabled:
             self.__back_widget_little.clear_entry()
             self.__back_widget_little.insert_text(requette)
+        elif self.__codehelp_enabled:
+            self.__back_widget_codehelp.clear_entry()
+            self.__back_widget_codehelp.insert_text(requette)
+        else :
+            self.__back_widget_normal.clear_entry()
+            self.__back_widget_normal.insert_text(requette)
         self.__send_on_assistant()
 
 
@@ -571,7 +641,7 @@ class ryley_gui(aTk):
         self.__c_emotion_normal.place_forget()
         self.__codehelp_enabled = True
         self.__little_enabled = False
-        self.__sequence_speak("Mode codehelp normal")
+        self.__sequence_speak("Mode codehelp normal") # ToDo : Mettre un vrai phrase
 
     def __mode_little(self):
         self.geometry("500x120+5+30")
