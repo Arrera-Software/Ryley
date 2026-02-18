@@ -608,19 +608,11 @@ class ryley_gui(aTk):
             btn.place_forget()
         self.__timer = 0
         self.__assistant_speak = True
-        self.__c_load_normal.place_forget()
-        self.__c_load_little.place_forget()
-        self.__c_load_codehelp.place_forget()
-        self.__c_load_codehelp_little.place_forget()
-        self.__c_emotion_little.place_forget()
-        self.__c_emotion_codehelp.place_forget()
-        self.__c_emotion_normal.place_forget()
-        self.__c_boot.place_forget()
 
-        self.__back_widget_little.place_forget()
-        self.__back_widget_normal.place_forget()
-        self.__back_widget_codehelp.place_forget()
-        self.__back_widget_little_codehelp.place_forget()
+        self.__clear_load()
+        self.__clear_speak()
+        self.__clear_emotion()
+        self.__clear_backwidget()
 
         if self.__little_enabled and self.__codehelp_enabled:
             self.__c_speak_codehelp_little.place(x=0, y=0)
@@ -652,35 +644,17 @@ class ryley_gui(aTk):
         if self.__codehelp_enabled:
             self.__codehelp_enabled = False
 
-        self.__c_speak_little.place_forget()
-        self.__c_emotion_little.place_forget()
-        self.__c_emotion_codehelp.place_forget()
+        self.__clear_load()
+        self.__clear_speak()
+        self.__clear_emotion()
+        self.__clear_backwidget()
 
-        self.__c_emotion_codehelp.place_forget()
-        self.__c_load_codehelp.place_forget()
-        self.__c_speak_codehelp.place_forget()
-
-        self.__c_load_codehelp.place_forget()
-        self.__c_speak_codehelp.place_forget()
-        self.__c_emotion_codehelp_little.place_forget()
-
-        self.__c_emotion_normal.place_forget()
-        self.__c_emotion_little.place_forget()
-        self.__c_emotion_codehelp.place_forget()
-        self.__c_emotion_codehelp_little.place_forget()
-        self.__c_load_codehelp.place_forget()
-        self.__c_load_codehelp_little.place_forget()
         self.__sequence_speak(self.__brain.shutdown())
         self.__assistant_speak = True
-        self.__back_widget_little_codehelp.place_forget()
-        self.__back_widget_normal.place_forget()
-        self.__back_widget_little.placeBottomCenter()
+
         self.update()
         time.sleep(0.8)
-        self.__c_speak_normal.place_forget()
-        self.__c_speak_codehelp_little.place_forget()
-        self.__c_load_normal.place_forget()
-        self.__c_load_little.place_forget()
+
         self.__change_img_boot(5)
         self.__c_boot.place(x=0, y=0)
         time.sleep(0.2)
@@ -721,12 +695,12 @@ class ryley_gui(aTk):
     def __mode_normal(self):
         self.geometry("500x400+5+30")
         self.update()
-        self.__c_speak_little.place_forget()
-        self.__c_emotion_little.place_forget()
-        self.__c_emotion_codehelp.place_forget()
-        self.__c_speak_codehelp.place_forget()
-        self.__c_load_codehelp.place_forget()
-        self.__c_load_codehelp_little.place_forget()
+
+        self.__clear_load()
+        self.__clear_speak()
+        self.__clear_emotion()
+        self.__clear_backwidget()
+
         self.__little_enabled = False
         self.__codehelp_enabled = False
         self.__sequence_speak(self.__language.get_ph_normal_mode())
@@ -734,12 +708,12 @@ class ryley_gui(aTk):
     def __mode_codehelp_normal(self):
         self.geometry("500x400+5+30")
         self.update()
-        self.__c_speak_little.place_forget()
-        self.__c_emotion_little.place_forget()
-        self.__c_emotion_codehelp.place_forget()
-        self.__c_speak_normal.place_forget()
-        self.__c_speak_codehelp_little.place_forget()
-        self.__c_emotion_normal.place_forget()
+
+        self.__clear_load()
+        self.__clear_speak()
+        self.__clear_emotion()
+        self.__clear_backwidget()
+
         self.__codehelp_enabled = True
         self.__little_enabled = False
         self.__sequence_speak("Mode codehelp normal") # ToDo : Mettre un vrai phrase
@@ -747,21 +721,24 @@ class ryley_gui(aTk):
     def __mode_little(self):
         self.geometry("500x120+5+30")
         self.update()
-        self.__c_speak_normal.place_forget()
-        self.__c_speak_codehelp_little.place_forget()
-        self.__c_emotion_normal.place_forget()
-        self.__c_emotion_codehelp.place_forget()
+
+        self.__clear_load()
+        self.__clear_speak()
+        self.__clear_emotion()
+        self.__clear_backwidget()
+
         self.__little_enabled = True
         self.__codehelp_enabled = False
         self.__sequence_speak(self.__language.get_ph_little_mode())
 
     def __mode_codehelp_little(self):
         self.geometry("500x120+5+30")
-        self.__c_speak_little.place_forget()
-        self.__c_emotion_little.place_forget()
-        self.__c_emotion_codehelp.place_forget()
-        self.__c_speak_codehelp.place_forget()
-        self.__c_load_codehelp.place_forget()
+
+        self.__clear_load()
+        self.__clear_speak()
+        self.__clear_emotion()
+        self.__clear_backwidget()
+
         self.__little_enabled = True
         self.__codehelp_enabled = True
         self.__sequence_speak("Mode codehelp little") # ToDo : Mettre une vrai phrase
@@ -773,15 +750,11 @@ class ryley_gui(aTk):
             self.__change_img_load(self.__index_load)
             if firt_call:
                 self.__assistant_load = True
-                self.__c_speak_normal.place_forget()
-                self.__c_speak_codehelp_little.place_forget()
-                self.__c_emotion_little.place_forget()
-                self.__c_emotion_codehelp.place_forget()
-                self.__c_emotion_normal.place_forget()
-                self.__c_speak_codehelp.place_forget()
 
-                self.__back_widget_codehelp.place_forget()
-                self.__back_widget_normal.place_forget()
+                self.__clear_load()
+                self.__clear_speak()
+                self.__clear_emotion()
+                self.__clear_backwidget()
 
                 if self.__little_enabled and self.__codehelp_enabled:
                     self.__c_load_codehelp_little.place(x=0, y=0)
@@ -877,20 +850,15 @@ class ryley_gui(aTk):
         if self.__little_enabled:
             self.geometry("500x400+5+30")
             self.update()
-            self.__c_speak_little.place_forget()
-            self.__c_emotion_little.place_forget()
-            self.__c_emotion_codehelp.place_forget()
             self.__little_enabled = False
+
         self.__setting_is_enabled = True
-        self.__c_load_normal.place_forget()
-        self.__c_load_little.place_forget()
-        self.__c_load_codehelp_little.place_forget()
-        self.__c_emotion_codehelp_little.place_forget()
-        self.__c_emotion_normal.place_forget()
-        self.__c_emotion_codehelp.place_forget()
-        self.__back_widget_normal.place_forget()
-        self.__c_speak_codehelp_little.place_forget()
-        self.__c_speak_normal.place_forget()
+
+        self.__clear_load()
+        self.__clear_speak()
+        self.__clear_emotion()
+        self.__clear_backwidget()
+
         self.__c_boot.place_forget()
         self.__gazelleUI.active()
 
@@ -921,3 +889,29 @@ class ryley_gui(aTk):
         else :
             for btn in self.__L_btn_project_normal:
                 btn.place_forget()
+
+    # Methode clear l'affichage des canvas
+
+    def __clear_speak(self):
+        self.__c_speak_normal.place_forget()
+        self.__c_speak_little.place_forget()
+        self.__c_speak_codehelp.place_forget()
+        self.__c_speak_codehelp_little.place_forget()
+
+    def __clear_emotion(self):
+        self.__c_emotion_normal.place_forget()
+        self.__c_emotion_codehelp.place_forget()
+        self.__c_emotion_little.place_forget()
+        self.__c_emotion_codehelp_little.place_forget()
+
+    def __clear_load(self):
+        self.__c_load_normal.place_forget()
+        self.__c_load_codehelp.place_forget()
+        self.__c_load_little.place_forget()
+        self.__c_load_codehelp_little.place_forget()
+
+    def __clear_backwidget(self):
+        self.__back_widget_normal.place_forget()
+        self.__back_widget_codehelp.place_forget()
+        self.__back_widget_little.place_forget()
+        self.__back_widget_little_codehelp.place_forget()
