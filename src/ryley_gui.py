@@ -299,21 +299,21 @@ class ryley_gui(aTk):
         btn_orga_var = aButton(c,width=30, height=30,text="",image=orgavarIMG,
                                dark_color="#1f1f1f", light_color="#e0e0e0",
                                hover_color=("#949494", "#505050"),
-                               command=lambda : print("Orga var")) # ToDo : Faire la fonction
+                               command=lambda : self.__set_requette_with_btn("Ouvre orga var"))
 
         btn_lib = aButton(c,width=30, height=30,text="",image=libIMG,
                                dark_color="#1f1f1f", light_color="#e0e0e0",
                                hover_color=("#949494", "#505050"),
-                               command=lambda : print("lib")) # ToDo : Faire la fonction
+                               command=lambda : self.__set_requette_with_btn("Ouvre la librairy"))
         btn_gestgithub = aButton(c,width=30, height=30,text="",image=gestGithubIMG,
                                dark_color="#1f1f1f", light_color="#e0e0e0",
                                hover_color=("#949494", "#505050"),
-                               command=lambda : print("gestgit")) # ToDo : Faire la fonction
+                               command=lambda : self.__set_requette_with_btn("Ouvre gestionnaire github"))
 
         btn_color = aButton(c,width=30, height=30,text="",image=colorIMG,
                           dark_color="#1f1f1f", light_color="#e0e0e0",
                           hover_color=("#949494", "#505050"),
-                          command=lambda : print("color")) # ToDo : Faire la fonction
+                          command=lambda : self.__set_requette_with_btn("Ouvre color selecteur"))
 
         btn_orga_var.placeWidgetCenteredAtBottom(x_offset=-155)
         btn_lib.placeWidgetCenteredAtBottom(x_offset=155)
@@ -425,21 +425,21 @@ class ryley_gui(aTk):
         btn_orga_var = aButton(c,width=30, height=30,text="",image=orgavarIMG,
                                dark_color="#1f1f1f", light_color="#e0e0e0",
                                hover_color=("#949494", "#505050"),
-                               command=lambda : print("Orga var")) # ToDo : Faire la fonction
+                               command=lambda : self.__set_requette_with_btn("Ouvre orga var"))
 
         btn_lib = aButton(c,width=30, height=30,text="",image=libIMG,
                           dark_color="#1f1f1f", light_color="#e0e0e0",
                           hover_color=("#949494", "#505050"),
-                          command=lambda : print("lib")) # ToDo : Faire la fonction
+                          command=lambda : self.__set_requette_with_btn("Ouvre la librairy"))
         btn_gestgithub = aButton(c,width=30, height=30,text="",image=gestGithubIMG,
                                  dark_color="#1f1f1f", light_color="#e0e0e0",
                                  hover_color=("#949494", "#505050"),
-                                 command=lambda : print("gestgit")) # ToDo : Faire la fonction
+                                 command=lambda : self.__set_requette_with_btn("Ouvre gestionnaire github"))
 
         btn_color = aButton(c,width=30, height=30,text="",image=colorIMG,
                             dark_color="#1f1f1f", light_color="#e0e0e0",
                             hover_color=("#949494", "#505050"),
-                            command=lambda : print("color")) # ToDo : Faire la fonction
+                            command=lambda : self.__set_requette_with_btn("Ouvre color selecteur"))
 
         btn_orga_var.placeWidgetCenteredAtBottom(x_offset=-155)
         btn_lib.placeWidgetCenteredAtBottom(x_offset=155)
