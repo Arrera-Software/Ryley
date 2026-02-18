@@ -256,7 +256,7 @@ class ryley_gui(aTk):
                                            , fg_color=("#0a1df4","#0a1df4"),
                                            text_color=("#ffffff","#ffffff"))
 
-        self.__label_speak_little.place(x=12,y=15)
+        self.__label_speak_little_codehelp.place(x=12,y=15)
 
         return  c
 
@@ -647,10 +647,22 @@ class ryley_gui(aTk):
         if self.__little_enabled:
             self.geometry("500x400+5+30")
             self.update()
-            self.__c_speak_little.place_forget()
-            self.__c_emotion_little.place_forget()
-            self.__c_emotion_codehelp.place_forget()
             self.__little_enabled = False
+
+        if self.__codehelp_enabled:
+            self.__codehelp_enabled = False
+
+        self.__c_speak_little.place_forget()
+        self.__c_emotion_little.place_forget()
+        self.__c_emotion_codehelp.place_forget()
+
+        self.__c_emotion_codehelp.place_forget()
+        self.__c_load_codehelp.place_forget()
+        self.__c_speak_codehelp.place_forget()
+
+        self.__c_load_codehelp.place_forget()
+        self.__c_speak_codehelp.place_forget()
+        self.__c_emotion_codehelp_little.place_forget()
 
         self.__c_emotion_normal.place_forget()
         self.__c_emotion_little.place_forget()
@@ -714,6 +726,7 @@ class ryley_gui(aTk):
         self.__c_emotion_codehelp.place_forget()
         self.__c_speak_codehelp.place_forget()
         self.__c_load_codehelp.place_forget()
+        self.__c_load_codehelp_little.place_forget()
         self.__little_enabled = False
         self.__codehelp_enabled = False
         self.__sequence_speak(self.__language.get_ph_normal_mode())
