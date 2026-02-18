@@ -123,7 +123,7 @@ class ryley_gui(aTk):
                                                 "big.png",
                                                 "codehelp.png",
                                                 self.__objOS, self.__send_on_assistant,
-                                                self.__mode_codehelp_normal,
+                                                self.__mode_codehelp_little,
                                                 self.__mode_normal, self.__active_setting)
 
         self.__back_widget_codehelp = back_widget(self, self.__key_gest,[self.__dir_gui_light,self.__dir_gui_dark],
