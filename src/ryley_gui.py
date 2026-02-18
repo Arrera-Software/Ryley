@@ -248,7 +248,7 @@ class ryley_gui(aTk):
 
     def __canvas_speak_little_codehelp(self):
         c = aBackgroundImage(self,background_light="asset/GUI/light/parole_codehelp_little.png",
-                             background_dark="asset/GUI/light/parole_codehelp_little.png"
+                             background_dark="asset/GUI/dark/parole_codehelp_little.png"
                              ,fg_color=("#ffffff","#000000"),width=500,height=70)
 
         self.__label_speak_little_codehelp = aLabel(c, text="AAAAAAAAAAAAAAAAA", wraplength=440, justify="left",
@@ -510,7 +510,6 @@ class ryley_gui(aTk):
         self.__c_load_codehelp.change_background(background_light=l_img_codehelp, background_dark=d_img_codehelp)
         self.__c_load_codehelp_little.change_background(background_light=l_img_codehelp_little,background_dark=d_img_codehelp_little)
         self.update()
-
     def __change_img_emotion(self,index:int):
         if index < len(self.__L_img_emotion):
             l_img_normal,d_img_normal = self.__L_img_emotion[index]
@@ -570,7 +569,10 @@ class ryley_gui(aTk):
         self.__manage_btn_open_fnc()
 
     def __set_requette_with_btn(self,requette:str):
-        if self.__little_enabled:
+        if self.__codehelp_enabled and self.__little_enabled:
+            self.__back_widget_little_codehelp.clear_entry()
+            self.__back_widget_little_codehelp.insert_text(requette)
+        elif self.__little_enabled:
             self.__back_widget_little.clear_entry()
             self.__back_widget_little.insert_text(requette)
         elif self.__codehelp_enabled:
@@ -656,17 +658,32 @@ class ryley_gui(aTk):
         time.sleep(0.8)
 
         self.__change_img_boot(5)
+
+        self.__clear_all_canvas()
+        self.__clear_backwidget()
+
         self.__c_boot.place(x=0, y=0)
+        self.update()
         time.sleep(0.2)
         self.__change_img_boot(4)
+
         time.sleep(0.2)
         self.__change_img_boot(3)
+
         time.sleep(0.2)
         self.__change_img_boot(2)
+
         time.sleep(0.2)
         self.__change_img_boot(1)
+
         time.sleep(0.2)
         self.__change_img_boot(0)
+
+
+        if self.__objOS.osWindows():
+            os.kill(os.getpid(), signal.SIGINT)
+        elif self.__objOS.osLinux() or self.__objOS.osMac():
+            os.kill(os.getpid(), signal.SIGKILL)
 
     def __sequence_first_boot(self):
         self.__sequence_speak(self.__language.get_first_boot(1))
@@ -751,19 +768,20 @@ class ryley_gui(aTk):
             if firt_call:
                 self.__assistant_load = True
 
-                self.__clear_load()
-                self.__clear_speak()
-                self.__clear_emotion()
-                self.__clear_backwidget()
+                self.__clear_all_canvas()
 
                 if self.__little_enabled and self.__codehelp_enabled:
                     self.__c_load_codehelp_little.place(x=0, y=0)
+
                 elif self.__little_enabled:
                     self.__c_load_little.place(x=0, y=0)
+
                 elif self.__codehelp_enabled:
                     self.__c_load_codehelp.place(x=0, y=0)
+
                 else :
                     self.__c_load_normal.place(x=0, y=0)
+
 
                 self.update()
             self.__index_load += 1
@@ -816,11 +834,6 @@ class ryley_gui(aTk):
             self.__gazelleUI.clearAllFrame()
             self.update()
             self.__sequence_stop()
-
-            if self.__objOS.osWindows():
-                os.kill(os.getpid(), signal.SIGINT)
-            elif self.__objOS.osLinux() or self.__objOS.osMac():
-                os.kill(os.getpid(), signal.SIGKILL)
         else :
             self.__sequence_speak(self.__language.get_ph_cancel_close())
 
@@ -891,6 +904,13 @@ class ryley_gui(aTk):
                 btn.place_forget()
 
     # Methode clear l'affichage des canvas
+
+    def __clear_all_canvas(self):
+        self.__c_boot.place_forget()
+        self.__c_maj.place_forget()
+        self.__clear_speak()
+        self.__clear_emotion()
+        self.__clear_load()
 
     def __clear_speak(self):
         self.__c_speak_normal.place_forget()
