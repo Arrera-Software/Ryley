@@ -15,3 +15,5 @@ class ryley_language :
     def get_ph_normal_mode(self): return self.__f_language.getContentJsonFlag("normal_mode")
 
     def get_ph_cancel_close(self): return self.__f_language.getContentJsonFlag("cancel_stop")
+
+    def get_ph_codehelp(self,nb:int): return self.__f_language.getContentJsonFlag("codehelp"+str(nb))

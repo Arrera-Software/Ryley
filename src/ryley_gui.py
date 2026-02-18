@@ -1,12 +1,9 @@
 import signal
-import requests
 from setting_gui.arrera_gazelle import arrera_gazelle
 import time
 from tkinter.messagebox import *
-from lib.arrera_tk import *
 import threading as th
 from brain.brain import ABrain
-import random
 from src.ryley_widget import*
 from src.ryley_language import ryley_language
 
@@ -137,7 +134,7 @@ class ryley_gui(aTk):
                                                          "big.png","ryley.png",
                                                          self.__objOS,self.__send_on_assistant,
                                                          self.__mode_little,
-                                                         self.__mode_codehelp_little,
+                                                         self.__mode_codehelp_normal,
                                                          self.__active_setting)
 
     def active(self,firstBoot:bool,update_available:bool):
@@ -510,6 +507,7 @@ class ryley_gui(aTk):
         self.__c_load_codehelp.change_background(background_light=l_img_codehelp, background_dark=d_img_codehelp)
         self.__c_load_codehelp_little.change_background(background_light=l_img_codehelp_little,background_dark=d_img_codehelp_little)
         self.update()
+
     def __change_img_emotion(self,index:int):
         if index < len(self.__L_img_emotion):
             l_img_normal,d_img_normal = self.__L_img_emotion[index]
@@ -733,7 +731,7 @@ class ryley_gui(aTk):
 
         self.__codehelp_enabled = True
         self.__little_enabled = False
-        self.__sequence_speak("Mode codehelp normal") # ToDo : Mettre un vrai phrase
+        self.__sequence_speak(self.__language.get_ph_codehelp(1))
 
     def __mode_little(self):
         self.geometry("500x120+5+30")
@@ -758,7 +756,7 @@ class ryley_gui(aTk):
 
         self.__little_enabled = True
         self.__codehelp_enabled = True
-        self.__sequence_speak("Mode codehelp little") # ToDo : Mettre une vrai phrase
+        self.__sequence_speak(self.__language.get_ph_codehelp(2))
 
     # Methode qui gere l'update de l'interface
 

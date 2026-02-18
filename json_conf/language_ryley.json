@@ -5,5 +5,7 @@
   "aide": "Je t'ouvre l'interface d'aide de cette fonctionnalité.",
   "little_mode": "Passage de ma fenêtre en plus petit pour continuer à t'assister au mieux.",
   "normal_mode": "Repassage en mode fenêtre en dimension normale.",
-  "cancel_stop": "Rassurer que tu ne veux vraiment pas te passer de moi."
+  "cancel_stop": "Rassurer que tu ne veux vraiment pas te passer de moi.",
+  "codehelp1": "Passage en mode codehelp pour t'aider mieux dans tes projets informatiques.",
+  "codehelp2": "Passage en mode codehelp sur petite fenêtre."
 }
