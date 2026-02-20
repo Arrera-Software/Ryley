@@ -137,6 +137,14 @@ class ryley_gui(aTk):
                                                          self.__mode_codehelp_normal,
                                                          self.__active_setting)
 
+        # Appelle des methode de creation des bouton
+
+        self.__create_arrera_work_btn([self.__c_speak_codehelp,
+                                       self.__c_speak_normal])
+
+        self.__create_codehelp_btn([self.__c_emotion_codehelp,
+                                       self.__c_speak_codehelp])
+
     def active(self,firstBoot:bool,update_available:bool):
 
         self.__first_boot = firstBoot
@@ -205,27 +213,7 @@ class ryley_gui(aTk):
                                            , fg_color=("#ffffff","#000000"),
                                            text_color=("#000000","#ffffff"))
 
-        tableurIMG = aImage(path_dark="asset/GUI/dark/tableur.png",
-                            path_light="asset/GUI/light/tableur.png", width=30, height=30)
-        wordIMG = aImage(path_dark="asset/GUI/dark/word.png",
-                         path_light="asset/GUI/light/word.png", width=30, height=30)
-        projetrIMG = aImage(path_dark="asset/GUI/dark/projet.png",
-                            path_light="asset/GUI/light/projet.png", width=30, height=30)
-
         self.__label_speak_normal.place(x=10, y=80)
-
-        self.__L_btn_tableur_normal.append(aButton(c, width=30, height=30, text="", image=tableurIMG,
-                                                   dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                   hover_color=("#949494", "#505050"),
-                                                   command=lambda : self.__set_requette_with_btn("aide tableur")))
-        self.__L_btn_word_normal.append(aButton(c, width=30, height=30, text="", image=wordIMG,
-                                                dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                hover_color=("#949494", "#505050"),
-                                                command = lambda : self.__set_requette_with_btn("aide word")))
-        self.__L_btn_project_normal.append(aButton(c, width=30, height=30, text="", image=projetrIMG,
-                                                   dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                   hover_color=("#949494", "#505050"),
-                                                   command=lambda: self.__set_requette_with_btn("aide projet")))
 
         return c
 
@@ -266,59 +254,6 @@ class ryley_gui(aTk):
                                              police_size=20, corner_radius=0
                                              , fg_color=("#ffffff","#000000"),
                                              text_color=("#000000","#ffffff"))
-
-        tableurIMG = aImage(path_dark="asset/GUI/dark/tableur.png",
-                            path_light="asset/GUI/light/tableur.png", width=30, height=30)
-        wordIMG = aImage(path_dark="asset/GUI/dark/word.png",
-                         path_light="asset/GUI/light/word.png", width=30, height=30)
-        projetrIMG = aImage(path_dark="asset/GUI/dark/projet.png",
-                            path_light="asset/GUI/light/projet.png", width=30, height=30)
-
-        orgavarIMG = aImage(path_dark=self.__dir_gui_dark+"btnOrgaVar.png",path_light=self.__dir_gui_light+"btnOrgaVar.png",
-                            width=30, height=30)
-        libIMG = aImage(path_dark=self.__dir_gui_dark+"btnLibrairy.png",path_light=self.__dir_gui_light+"btnLibrairy.png",
-                        width=30, height=30)
-        gestGithubIMG = aImage(path_dark=self.__dir_gui_dark+"btnGestGithub.png",path_light=self.__dir_gui_light+"btnGestGithub.png",
-                               width=30, height=30)
-        colorIMG = aImage(path_dark=self.__dir_gui_dark+"btnColorSelector.png",path_light=self.__dir_gui_light+"btnColorSelector.png",
-                          width=30, height=30)
-
-        self.__L_btn_tableur_normal.append(aButton(c, width=30, height=30, text="", image=tableurIMG,
-                                                   dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                   hover_color=("#949494", "#505050"),
-                                                   command=lambda : self.__set_requette_with_btn("aide tableur")))
-        self.__L_btn_word_normal.append(aButton(c, width=30, height=30, text="", image=wordIMG,
-                                                dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                hover_color=("#949494", "#505050"),
-                                                command = lambda : self.__set_requette_with_btn("aide word")))
-        self.__L_btn_project_normal.append(aButton(c, width=30, height=30, text="", image=projetrIMG,
-                                                   dark_color="#1f1f1f", light_color="#e0e0e0",
-                                                   hover_color=("#949494", "#505050"),
-                                                   command=lambda: self.__set_requette_with_btn("aide projet")))
-
-        btn_orga_var = aButton(c,width=30, height=30,text="",image=orgavarIMG,
-                               dark_color="#1f1f1f", light_color="#e0e0e0",
-                               hover_color=("#949494", "#505050"),
-                               command=lambda : self.__set_requette_with_btn("Ouvre orga var"))
-
-        btn_lib = aButton(c,width=30, height=30,text="",image=libIMG,
-                               dark_color="#1f1f1f", light_color="#e0e0e0",
-                               hover_color=("#949494", "#505050"),
-                               command=lambda : self.__set_requette_with_btn("Ouvre la librairy"))
-        btn_gestgithub = aButton(c,width=30, height=30,text="",image=gestGithubIMG,
-                               dark_color="#1f1f1f", light_color="#e0e0e0",
-                               hover_color=("#949494", "#505050"),
-                               command=lambda : self.__set_requette_with_btn("Ouvre gestionnaire github"))
-
-        btn_color = aButton(c,width=30, height=30,text="",image=colorIMG,
-                          dark_color="#1f1f1f", light_color="#e0e0e0",
-                          hover_color=("#949494", "#505050"),
-                          command=lambda : self.__set_requette_with_btn("Ouvre color selecteur"))
-
-        btn_orga_var.placeWidgetCenteredAtBottom(x_offset=-155)
-        btn_lib.placeWidgetCenteredAtBottom(x_offset=155)
-        btn_gestgithub.placeWidgetCenteredAtBottom(x_offset=-80)
-        btn_color.placeWidgetCenteredAtBottom(x_offset=80)
 
         self.__label_speak_codehelp.place(x=10, y=80)
 
@@ -409,42 +344,10 @@ class ryley_gui(aTk):
         self.__L_img_emotion_codehelp.append((self.__dir_gui_light + "codehelp-w3.png", self.__dir_gui_dark + "codehelp-w3.png"))
         self.__L_img_emotion_codehelp.append((self.__dir_gui_light + "codehelp-w4.png", self.__dir_gui_dark + "codehelp-w4.png"))
 
-        orgavarIMG = aImage(path_dark=self.__dir_gui_dark+"btnOrgaVar.png",path_light=self.__dir_gui_light+"btnOrgaVar.png",
-                            width=30, height=30)
-        libIMG = aImage(path_dark=self.__dir_gui_dark+"btnLibrairy.png",path_light=self.__dir_gui_light+"btnLibrairy.png",
-                        width=30, height=30)
-        gestGithubIMG = aImage(path_dark=self.__dir_gui_dark+"btnGestGithub.png",path_light=self.__dir_gui_light+"btnGestGithub.png",
-                               width=30, height=30)
-        colorIMG = aImage(path_dark=self.__dir_gui_dark+"btnColorSelector.png",path_light=self.__dir_gui_light+"btnColorSelector.png",
-                          width=30, height=30)
 
         l_img,d_img = self.__L_img_emotion_codehelp[0]
         c = aBackgroundImage(self,background_light=l_img,background_dark=d_img,width=500,height=350,
                              fg_color=("#ffffff","#000000"))
-
-        btn_orga_var = aButton(c,width=30, height=30,text="",image=orgavarIMG,
-                               dark_color="#1f1f1f", light_color="#e0e0e0",
-                               hover_color=("#949494", "#505050"),
-                               command=lambda : self.__set_requette_with_btn("Ouvre orga var"))
-
-        btn_lib = aButton(c,width=30, height=30,text="",image=libIMG,
-                          dark_color="#1f1f1f", light_color="#e0e0e0",
-                          hover_color=("#949494", "#505050"),
-                          command=lambda : self.__set_requette_with_btn("Ouvre la librairy"))
-        btn_gestgithub = aButton(c,width=30, height=30,text="",image=gestGithubIMG,
-                                 dark_color="#1f1f1f", light_color="#e0e0e0",
-                                 hover_color=("#949494", "#505050"),
-                                 command=lambda : self.__set_requette_with_btn("Ouvre gestionnaire github"))
-
-        btn_color = aButton(c,width=30, height=30,text="",image=colorIMG,
-                            dark_color="#1f1f1f", light_color="#e0e0e0",
-                            hover_color=("#949494", "#505050"),
-                            command=lambda : self.__set_requette_with_btn("Ouvre color selecteur"))
-
-        btn_orga_var.placeWidgetCenteredAtBottom(x_offset=-155)
-        btn_lib.placeWidgetCenteredAtBottom(x_offset=155)
-        btn_gestgithub.placeWidgetCenteredAtBottom(x_offset=-80)
-        btn_color.placeWidgetCenteredAtBottom(x_offset=80)
 
         return c
 
@@ -879,6 +782,68 @@ class ryley_gui(aTk):
         self.__setting_is_enabled = False
 
     # Methode pour la gestion des btn qui ouvre les fnc
+    def __create_arrera_work_btn(self,list_canvas:list):
+        tableurIMG = aImage(path_dark="asset/GUI/dark/tableur.png",
+                            path_light="asset/GUI/light/tableur.png", width=30, height=30)
+        wordIMG = aImage(path_dark="asset/GUI/dark/word.png",
+                         path_light="asset/GUI/light/word.png", width=30, height=30)
+        projetrIMG = aImage(path_dark="asset/GUI/dark/projet.png",
+                            path_light="asset/GUI/light/projet.png", width=30, height=30)
+
+        for c in list_canvas:
+            self.__L_btn_tableur_normal.append(aButton(c, width=30, height=30, text="", image=tableurIMG,
+                                                       dark_color="#1f1f1f", light_color="#e0e0e0",
+                                                       hover_color=("#949494", "#505050"),
+                                                       command=lambda : self.__set_requette_with_btn("aide tableur")))
+            self.__L_btn_word_normal.append(aButton(c, width=30, height=30, text="", image=wordIMG,
+                                                    dark_color="#1f1f1f", light_color="#e0e0e0",
+                                                    hover_color=("#949494", "#505050"),
+                                                    command = lambda : self.__set_requette_with_btn("aide word")))
+            self.__L_btn_project_normal.append(aButton(c, width=30, height=30, text="", image=projetrIMG,
+                                                       dark_color="#1f1f1f", light_color="#e0e0e0",
+                                                       hover_color=("#949494", "#505050"),
+                                                       command=lambda: self.__set_requette_with_btn("aide projet")))
+
+    def __create_codehelp_btn(self,list_canvas:list):
+        orgavarIMG = aImage(path_dark=self.__dir_gui_dark + "btnOrgaVar.png",
+                            path_light=self.__dir_gui_light + "btnOrgaVar.png",
+                            width=30, height=30)
+        libIMG = aImage(path_dark=self.__dir_gui_dark + "btnLibrairy.png",
+                        path_light=self.__dir_gui_light + "btnLibrairy.png",
+                        width=30, height=30)
+        gestGithubIMG = aImage(path_dark=self.__dir_gui_dark + "btnGestGithub.png",
+                               path_light=self.__dir_gui_light + "btnGestGithub.png",
+                               width=30, height=30)
+        colorIMG = aImage(path_dark=self.__dir_gui_dark + "btnColorSelector.png",
+                          path_light=self.__dir_gui_light + "btnColorSelector.png",
+                          width=30, height=30)
+
+        for c in list_canvas:
+            btn_orga_var = aButton(c, width=30, height=30, text="", image=orgavarIMG,
+                                   dark_color="#1f1f1f", light_color="#e0e0e0",
+                                   hover_color=("#949494", "#505050"),
+                                   command=lambda: self.__set_requette_with_btn("Ouvre orga var"))
+
+            btn_lib = aButton(c, width=30, height=30, text="", image=libIMG,
+                              dark_color="#1f1f1f", light_color="#e0e0e0",
+                              hover_color=("#949494", "#505050"),
+                              command=lambda: self.__set_requette_with_btn("Ouvre la librairy"))
+            btn_gestgithub = aButton(c, width=30, height=30, text="", image=gestGithubIMG,
+                                     dark_color="#1f1f1f", light_color="#e0e0e0",
+                                     hover_color=("#949494", "#505050"),
+                                     command=lambda: self.__set_requette_with_btn("Ouvre gestionnaire github"))
+
+            btn_color = aButton(c, width=30, height=30, text="", image=colorIMG,
+                                dark_color="#1f1f1f", light_color="#e0e0e0",
+                                hover_color=("#949494", "#505050"),
+                                command=lambda: self.__set_requette_with_btn("Ouvre color selecteur"))
+
+            btn_orga_var.placeWidgetCenteredAtBottom(x_offset=-155)
+            btn_lib.placeWidgetCenteredAtBottom(x_offset=155)
+            btn_gestgithub.placeWidgetCenteredAtBottom(x_offset=-80)
+            btn_color.placeWidgetCenteredAtBottom(x_offset=80)
+
+
     def __manage_btn_open_fnc(self):
         if self.__brain.getTableur() :
             for btn in self.__L_btn_tableur_normal:
