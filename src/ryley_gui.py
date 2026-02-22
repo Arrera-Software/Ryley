@@ -472,6 +472,32 @@ class ryley_gui(aTk):
         if content:
             if "parametre" in content or "settings" in content:
                 self.__active_setting()
+            elif "fenetre" in content :
+                if "petit" in content or "reduis" in content or "mini" in content or "compact" in content:
+                    if self.__codehelp_enabled:
+                        self.__mode_codehelp_little()
+                    else :
+                        self.__mode_little()
+                elif "normal" in content or "standard" in content or "default" in content:
+                    if self.__codehelp_enabled:
+                        self.__mode_codehelp_normal()
+                    else :
+                        self.__mode_normal()
+                else :
+                    self.__sequence_speak(self.__language.get_ph_error(1))
+            elif "mode" in content:
+                if "normal" in content :
+                    if self.__codehelp_enabled:
+                        self.__mode_codehelp_normal()
+                    else :
+                        self.__mode_normal()
+                elif "codehelp" in content or "developpement" in content :
+                    if not self.__little_enabled:
+                        self.__mode_codehelp_normal()
+                    else :
+                        self.__mode_codehelp_little()
+                else :
+                    self.__sequence_speak(self.__language.get_ph_error(2))
             else :
                 self.__th_reflect = th.Thread(target=self.__brain.neuron,args=(content,))
                 self.__th_reflect.start()
