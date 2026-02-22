@@ -107,35 +107,53 @@ class ryley_gui(aTk):
 
         self.__c_emotion_codehelp_little = self.__canvas_emmotion_codehelp_little()
 
-        self.__back_widget_normal = back_widget(self, self.__key_gest
-                                                , [self.__dir_gui_light,self.__dir_gui_dark],
-                                         "little.png",
-                                         "codehelp.png",
-                                                self.__objOS, self.__send_on_assistant,
-                                                self.__mode_codehelp_normal,
-                                                self.__mode_little, self.__active_setting)
+        self.__back_widget_normal = back_widget(master=self,
+                                                gest_assistant=self.__gestionnaire,
+                                                key_gest=self.__key_gest,
+                                                dirImg=[self.__dir_gui_light,self.__dir_gui_dark],
+                                                img_windows_mode="little.png",
+                                                img_mode="codehelp.png",
+                                                dectOS=self.__objOS,
+                                                fonc_send=self.__send_on_assistant,
+                                                fonc_mode=self.__mode_codehelp_normal,
+                                                fonc_windows_mode=self.__mode_little,
+                                                fonc_setting=self.__active_setting)
 
-        self.__back_widget_little = back_widget(self, self.__key_gest
-                                                , [self.__dir_gui_light,self.__dir_gui_dark],
-                                                "big.png",
-                                                "codehelp.png",
-                                                self.__objOS, self.__send_on_assistant,
-                                                self.__mode_codehelp_little,
-                                                self.__mode_normal, self.__active_setting)
+        self.__back_widget_little = back_widget(master=self,
+                                                key_gest=self.__key_gest,
+                                                gest_assistant=self.__gestionnaire,
+                                                dirImg=[self.__dir_gui_light,self.__dir_gui_dark],
+                                                img_windows_mode="big.png",
+                                                img_mode="codehelp.png",
+                                                dectOS=self.__objOS,
+                                                fonc_send=self.__send_on_assistant,
+                                                fonc_mode=self.__mode_codehelp_little,
+                                                fonc_windows_mode=self.__mode_normal,
+                                                fonc_setting=self.__active_setting)
 
-        self.__back_widget_codehelp = back_widget(self, self.__key_gest,[self.__dir_gui_light,self.__dir_gui_dark],
-                                                  "little.png","ryley.png",
-                                                  self.__objOS,self.__send_on_assistant,
-                                                  self.__mode_normal,
-                                                  self.__mode_codehelp_little,
-                                                  self.__active_setting)
+        self.__back_widget_codehelp = back_widget(master=self,
+                                                  key_gest=self.__key_gest,
+                                                  gest_assistant=self.__gestionnaire,
+                                                  dirImg=[self.__dir_gui_light,self.__dir_gui_dark],
+                                                  img_windows_mode="little.png",
+                                                  img_mode="ryley.png",
+                                                  dectOS=self.__objOS,
+                                                  fonc_send=self.__send_on_assistant,
+                                                  fonc_mode=self.__mode_normal,
+                                                  fonc_windows_mode=self.__mode_codehelp_little,
+                                                  fonc_setting=self.__active_setting)
 
-        self.__back_widget_little_codehelp = back_widget(self, self.__key_gest,[self.__dir_gui_light,self.__dir_gui_dark],
-                                                         "big.png","ryley.png",
-                                                         self.__objOS,self.__send_on_assistant,
-                                                         self.__mode_little,
-                                                         self.__mode_codehelp_normal,
-                                                         self.__active_setting)
+        self.__back_widget_little_codehelp = back_widget(master=self,
+                                                         key_gest=self.__key_gest,
+                                                         gest_assistant=self.__gestionnaire,
+                                                         dirImg=[self.__dir_gui_light,self.__dir_gui_dark],
+                                                         img_windows_mode="big.png",
+                                                         img_mode="ryley.png",
+                                                         dectOS=self.__objOS,
+                                                         fonc_send=self.__send_on_assistant,
+                                                         fonc_mode=self.__mode_little,
+                                                         fonc_windows_mode=self.__mode_codehelp_normal,
+                                                         fonc_setting=self.__active_setting)
 
         # Appelle des methode de creation des bouton
 
@@ -611,7 +629,7 @@ class ryley_gui(aTk):
     # Methode de modification de l'interface
 
     def __mode_normal(self):
-        self.geometry("500x400+5+30")
+        self.geometry("500x400")
         self.update()
 
         self.__clear_load()
@@ -624,7 +642,7 @@ class ryley_gui(aTk):
         self.__sequence_speak(self.__language.get_ph_normal_mode())
 
     def __mode_codehelp_normal(self):
-        self.geometry("500x400+5+30")
+        self.geometry("500x400")
         self.update()
 
         self.__clear_load()
@@ -637,7 +655,7 @@ class ryley_gui(aTk):
         self.__sequence_speak(self.__language.get_ph_codehelp(1))
 
     def __mode_little(self):
-        self.geometry("500x120+5+30")
+        self.geometry("500x120")
         self.update()
 
         self.__clear_load()
@@ -650,7 +668,7 @@ class ryley_gui(aTk):
         self.__sequence_speak(self.__language.get_ph_little_mode())
 
     def __mode_codehelp_little(self):
-        self.geometry("500x120+5+30")
+        self.geometry("500x120")
 
         self.__clear_load()
         self.__clear_speak()
@@ -747,9 +765,9 @@ class ryley_gui(aTk):
                       linkWeb="https://arrera-software.fr/")
 
     def __windows_help_assistant(self,texte:str):
-        winHelp = aTopLevel(width=500, height=600,title="Arrera Copilote : Aide Assistant",
+        winHelp = aTopLevel(width=500, height=600,title="Arrera Ryley : Aide Assistant",
                             icon=self.__emplacementIcon)
-        labelTitleHelp = aLabel(winHelp, police_size=25,text="Copilote - Aide")
+        labelTitleHelp = aLabel(winHelp, police_size=25,text="Ryley - Aide")
         aideView = aText(winHelp, width=475, height=500,wrap="word",police_size=20)
 
         self.__sequence_speak(self.__language.get_ph_help())

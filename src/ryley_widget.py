@@ -1,8 +1,10 @@
 from lib.arrera_tk import *
 from librairy.dectectionOS import OS
+from gestionnaire.gestion import gestionnaire
 
 class back_widget(aFrame):
-    def __init__(self, master:aTk,key_gest:keyboad_manager,dirImg:list, img_windows_mode:str,
+    def __init__(self, master:aTk,gest_assistant:gestionnaire,key_gest:keyboad_manager,
+                 dirImg:list, img_windows_mode:str,
                  img_mode:str,dectOS:OS,fonc_send:Callable,
                  fonc_mode:Callable,fonc_windows_mode:Callable,
                  fonc_setting:Callable):
@@ -13,6 +15,7 @@ class back_widget(aFrame):
         
         self.__master = master
 
+        self.__gest_assistant = gest_assistant
 
         user = self.__entry_btn(img_mode)
 
@@ -85,7 +88,7 @@ class back_widget(aFrame):
         self.__master.focus()
 
     def get_text_entry(self):
-        return self.__entry.get()
+        return self.__gest_assistant.netoyageChaine(self.__entry.get().lower())
 
     def clear_entry(self):
         self.__entry.delete(0,END)
