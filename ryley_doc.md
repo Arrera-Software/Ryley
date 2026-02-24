@@ -49,3 +49,18 @@ L'explication des boutons va de gauche à droite.
 - *Bouton Ryley* : Passe en mode normal en petite fenêtre.
 - *Bouton envoyer* : Envoie la requête à l'assistant
 - *Bouton fenêtre normale* : Passe l'assistant en mode fenêtre normale CodeHelp.
+
+## Explication des paramètres
+
+![setting_ryley.png](img_doc/setting_ryley.png)
+
+- *Paramètres généraux* : Paramètre qui permet d'ajouter ou supprimer les dossiers d'Arrera Work et Arrera Download
+- *Paramètres utilisateur* : Paramètre pour modifier le nom, le prénom et le genre avec lesquels vous souhaitez que votre assistant vous appelle
+- *Paramètres météo* : Permet de gérer les villes enregistrées dans le système de météo de l'assistant
+- *Intelligence Artificielle* : Permet d'activer ou désactiver l'utilisation de modèles d'intelligence artificielle et de télécharger de nouveaux modèles 
+- *Paramètres de recherche* : Paramètre pour changer le moteur de recherche utilisé par l'assistant
+- *Logiciels externes* : Permet d'ajouter ou supprimer les logiciels enregistrés dans l'assistant pour qu'il puisse vous les ouvrir 
+- *Raccourcis internet* : Permet d'ajouter ou supprimer les raccourcis internet enregistrés dans l'assistant pour qu'il puisse vous les ouvrir 
+- *Adresse GPS* : Permet de modifier les adresses de votre lieu de travail et de domicile enregistrées dans l'assistant pour qu'il puisse vous calculer les meilleurs itinéraires
+- *Intégration Github* : Permet d'ajouter le token github pour les fonctions de codehelp
+- *Retour* : Retourne à l'assistant
