@@ -824,6 +824,7 @@ class ryley_gui(aTk):
         self.__gazelleUI.clearAllFrame()
         self.__sequence_speak(self.__language.get_ph_setting())
         self.__setting_is_enabled = False
+        self.__gestionnaire.getLanguageObjet().setVarUser()
 
     # Methode pour la gestion des btn qui ouvre les fnc
     def __create_arrera_work_btn(self,list_canvas:list):
