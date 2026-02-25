@@ -42,7 +42,7 @@ class ryley_assistant():
             etatCodehelp=1,
             etatWork=1,
             etatSocket=1,
-            lienDoc="www.google.com", # TODO : A changer plus tart
+            lienDoc="https://arrera-software.fr/docRyley",
             fichierLangue="language/", # Path to language files
             fichierKeyword="keyword/",            # Path to keyword files
             voiceAssistant=False
