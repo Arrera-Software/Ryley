@@ -8,7 +8,7 @@ THEME_FILE = "asset/theme/theme_bleu.json"
 
 SOFT_CONF = soft_config(
     name_soft="ryley",
-    version="I2026-0.00"
+    version="I2026-1.00"
 )
 
 class ryley_assistant():
