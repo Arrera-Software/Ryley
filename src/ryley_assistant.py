@@ -62,7 +62,7 @@ class ryley_assistant():
     def active(self):
         if self.__firt_boot:
             l = arrera_lynx(self.__gestionnaire,
-                            "json_conf/configLynx.json",
+                            resource_path("json_conf/configLynx.json"),
                             THEME_FILE)
             self.__state_conf = l.return_state_lynx()
         else :
