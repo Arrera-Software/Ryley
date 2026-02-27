@@ -51,7 +51,7 @@ class ryley_gui(aTk):
         self.__objOS = self.__gestionnaire.getOSObjet()
 
         # Language Ryley
-        self.__language = ryley_language("json_conf/language_ryley.json")
+        self.__language = ryley_language(resource_path("json_conf/language_ryley.json"))
         # Theard
         self.__th_reflect = th.Thread()
 
@@ -74,7 +74,8 @@ class ryley_gui(aTk):
         self.__key_gest = keyboad_manager(self)
 
         # Init des parametre
-        self.__gazelleUI = arrera_gazelle(self,self.__gestionnaire,"json_conf/conf-setting.json")
+        self.__gazelleUI = arrera_gazelle(self,self.__gestionnaire,
+                                          resource_path("json_conf/conf-setting.json"))
         self.__gazelleUI.passFNCQuit(self.__quit_setting)
         self.__gazelleUI.passFNCBTNIcon(self.__about)
 
