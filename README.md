@@ -4,104 +4,36 @@ Ryley est un des assistant d'Arrera qui par rapport a SIX et a Arrera Copilote t
 
 Cette Assistant est passer sur le projet open-sources [ArreraNeuronNetword](https://github.com/Arrera-Software/ArreraNeuronNetwork) qui est un projet qui sert aussi de base a Six et Arrera Copilote 
 
-# Fonction permit par Ryley
+## Fonctionnalités
 
-- Donnez l’heure
-- Donnez date
-- ouvrir le chronomètre
-- ouvrir l’horloge
-- ouvrir le minuteur
-- ajouter un rendez-vous sur l’agenda
-- supprimer un événement
-- voir l’événement du jour
-- ouvrir l’agenda
-- ouvrir les taches
-- Ajouter une ou plusieur taches
-- Supprimer une ou plusieur taches
-- Finir une ou plusieur taches
-- Dire le nombre de tache totale
-- Dire le nombre de tache a faire aujourd’hui
-- Dit le nombre de tache demain
-- Faire un résumer des événement du jour 
-- Faire un resumer des actualités
-- Faire un résumé de la journée
-- Donner les actualités
-- Donner la météo de maintenant
-- Donner la météo de demain matin
-- Donner la météo de demain midi
-- Dire la température
-- Dire les coordonnée gps
-- Faire un itinéraire GPS avec google map
-- Ouvrir l’outil de traduction
-- Ouvrir un logiciel d’organisateur de variable
-- Ouvrir un logiciel de selecteur de couleur
-- ouvrir le site github
-- ouvrir l’outil de gestion github
-- ouvrir librairy codehelp
-- Faire une recherche sur devdoc
-- Faire une recherche sur microsoft learn
-- Faire une recherche sur le site python
-- Faire une recherche sur github
-- Ouvrir un logiciel defini par l'utilisateur
-- Ouvrir le logiciel de présentation
-- Ouvrir le navigateur internet
-- Ouvrir le logiciel de note
-- Ouvrir le logiciel de musique
-- Ouvre une site internet
-- Lancer la radio europe 1
-- Lancer la radio europe 2
-- Lancer la radio france info
-- Lancer la radio france inter
-- Lancer la radio france musique
-- Lancer la radio france culture
-- Lancer la radio france bleu
-- Lancer la radio fun radio
-- Lancer la radio nrj
-- Lancer la radio rfm
-- Lancer la radio nostalgi
-- Lancer la radio skyrock
-- Lancer la radio rtl
-- Ouvrir youtube
-- Ouvrir le site de votre cloud
-- Lire un texte avec assistant
-- Faire un calcule
-- Corriger une phrase (En francais uniquement)
-- Faire une grand recherche (Recherche sur plusieur moteur recherche)
-- Faire une recherche simple
-- Telecharger une video youtube
-- Telecharger une musique depuis youtube
-- Ouvrir la calculatrice
-- Ouvrir la calculatrice en mode nombre complex
-- Ouvrir la calculatrice en mode pythagore
-- Ouvrir un fichier de traitement de texte
-- Ouvrir un fichier tableur
-- Ouvrir le fichier tableur avec le logiciel système
-- Ouvrir le fichier de traitement de texte  avec le logiciel système
-- Fermer le tableur
-- Fermer le traitement de texte
-- Lire le fichier de traitement de texte
-- Lire le fichier tableur
-- Écrire dans le traitement de texte
-- Vérifier si il a un fichier d’ouvert 
-- Ajouter une valeur au tableur ouvert dans l'assistant
-- Ajouter une somme au tableur ouvert dans l'assistant
-- Ajouter une moyenne au tableur ouvert dans l'assistant
-- Ajouter un comptage de valeur au tableur ouvert dans l'assistant
-- Ajouter un minimum au tableur ouvert dans l'assistant
-- Ajouter un maximun au tableur ouvert dans l'assistant
-- Ouvrir le tableur dans une interface integrer a l’assistant
-- Ouvrir le traitement de texte dans une interface integrer a l’assistant
-- Supprimer une valeur ou formule d’un tableur ouvert dans l'assistant
-- Crée un projet (Qui peuvent etre entirement gerer avec votre assistant)
-- Crée un fichier word ou open document dans votre projet (Format docx et odt)
-- Crée un fichier texte dans votre projet
-- Crée un fichier python dans votre projet
-- Crée un fichier json dans votre projet
-- Crée un fichier html dans votre projet
-- Crée un fichier css dans votre projet
-- Crée un fichier md dans votre projet
-- Crée un fichier c++ dans votre projet
-- Crée un fichier exel dans votre projet
-- Crée un fichier en-tête dans votre projet
-- Crée un fichier php dans votre projet
-- Crée un fichier javascript dans votre projet
+L'assistant Arrera Neuron Network dispose de plusieurs neurones spécialisés pour répondre à diverses requêtes :
+*   **Météo** : Donne la météo actuelle, pour demain matin ou demain après-midi (domicile, travail ou localisation actuelle).
+*   **Température** : Donne la température actuelle.
+*   **Résumé (Breef)** : Fournit un résumé des actualités, de la météo et des tâches (morning breef ou résumé à la demande).
+*   **GPS** : Donne les coordonnées géographiques actuelles et permet de lancer un itinéraire Google Maps (point de départ et d'arrivée).
+*   **Actualités** : Donne les dernières actualités.
+*   **Traduction** : Ouvre l'outil de traduction.
+*   **Ouverture de logiciels** : Ouvre des logiciels pré-configurés par l'utilisateur ou des logiciels système (calculatrice).
+*   **Ouverture de sites web** : Ouvre des sites web enregistrés ou des sites pré-définis (YouTube, YouTube Music).
+*   **Radio** : Lance des stations de radio (Europe 1, France Info, NRJ, Skyrock, etc.) ou arrête la radio.
+*   **Modes d'interface** : Active des modes d'interface spécifiques via des commandes socket.
+*   **Outils Arrera** : Ouvre des outils internes comme le téléchargeur YouTube ou les modes de calculatrice (complexe, Pythagore).
+*   **Heure et Date** : Donne l'heure et la date actuelle.
+*   **Outils de temps** : Lance le chronomètre, l'horloge ou le minuteur.
+*   **Agenda** : Ouvre l'agenda, permet d'ajouter ou de supprimer des événements.
+*   **Tâches** : Gère la liste des tâches (ajout, suppression, marquage comme fini, consultation du nombre de tâches).
+*   **Recherche simple** : Effectue une recherche standard sur le moteur de recherche par défaut.
+*   **Grande recherche** : Effectue une recherche plus approfondie (selon l'implémentation de `bigRecherche`).
+*   **Calculs** : Effectue des calculs mathématiques simples.
+*   **Lecture** : Lance la lecture de contenu.
+*   **Documentation** : Ouvre la documentation de l'assistant.
+*   **Orthographe** : Ouvre l'outil de correction orthographique.
+*   **Projets** : Création, ouverture, fermeture et listage de projets. Gestion des fichiers au sein des projets.
+*   **Tableur** : Ouverture, fermeture, lecture et modification de fichiers Excel (ajout de valeurs, calculs de somme, moyenne, min, max).
+*   **Traitement de texte (Word)** : Ouverture, fermeture, lecture et écriture dans des fichiers Word.
+*   **GUI Work** : Ouvre les interfaces graphiques dédiées à la gestion de projets, tableurs et fichiers Word.
+*   **Recherche de documentation** : Recherche dans la documentation de développement, Microsoft, Python ou GitHub.
+*   **Outils de développement** : Ouvre des outils comme l'organisateur de variables, le sélecteur de couleurs, ou la gestion GitHub.
+*   **Gestion des fenêtres** : Ouvre les fenêtres de tâches, d'agenda, de résumé (breef).
+*   **Modes d'affichage** : Active différents modes d'affichage (mode 1 à 6).
+*   **Fermeture** : Gère la fermeture de l'assistant ou des modes.
