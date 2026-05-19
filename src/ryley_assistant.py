@@ -1,15 +1,12 @@
 from brain.brain import ABrain,confNeuron
 from lynx_gui.arrera_lynx import arrera_lynx
 from src.ryley_gui import ryley_gui
-from src.version_demon import demon,soft_config
-from lib.arrera_tk import *
+from config.tiger_demon import tiger_demon
+from librairy.arrera_tk import *
 
 THEME_FILE = "asset/theme/theme_bleu.json"
 
-SOFT_CONF = soft_config(
-    name_soft="ryley",
-    version="I2026-0.00"
-)
+VERSION = "dev"
 
 class ryley_assistant():
     def __init__(self):
@@ -49,7 +46,7 @@ class ryley_assistant():
         )
 
         # Demon de MAJ
-        self.__demon = demon(SOFT_CONF, "https://arrera-software.fr/depots.json")
+        self.__demon = tiger_demon("ryley",VERSION)
 
         # Demarage du reseau de neuron
         self.__assistant = ABrain(self.__assistant_conf)
@@ -91,7 +88,7 @@ class ryley_assistant():
                                 "icon",
                                 self.__assistant,
                                 THEME_FILE,
-                                self.__demon.getVersionSoft())
+                                self.__demon.get_local_version())
             assistant.active(self.__firt_boot,self.__demon.checkUpdate())
 
     def __restartConf(self,windows:aTk):

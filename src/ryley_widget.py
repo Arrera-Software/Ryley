@@ -1,4 +1,4 @@
-from lib.arrera_tk import *
+from librairy.arrera_tk import *
 from librairy.dectectionOS import OS
 from gestionnaire.gestion import gestionnaire
 
