@@ -3,13 +3,14 @@ from setting_gui.arrera_gazelle import arrera_gazelle
 import time
 from tkinter.messagebox import *
 import threading as th
-from brain.brain import ABrain
+from brain.brain import ABrain,confNeuron
+from lynx_gui.arrera_lynx import arrera_lynx
 from src.ryley_widget import*
 from src.ryley_language import ryley_language
 
 class ryley_gui(aTk):
     def __init__(self,iconFolder:str,iconName:str,
-                 brain:ABrain,theme_file:str,
+                 conf:confNeuron,theme_file:str,
                  version:str):
 
         # Var
@@ -44,7 +45,7 @@ class ryley_gui(aTk):
         self.__L_btn_project_codehelp = []
 
         # Recuperation du cerveau
-        self.__brain = brain
+        self.__brain = ABrain(conf)
         # Recuperation gestionnaire
         self.__gestionnaire = self.__brain.getGestionnaire()
         # Recuperation librairy
@@ -54,11 +55,16 @@ class ryley_gui(aTk):
         self.__language = ryley_language(resource_path("json_conf/language_ryley.json"))
         # Theard
         self.__th_reflect = th.Thread()
-
+        
         super().__init__(title=self.__nameSoft,resizable=False,theme_file=theme_file,
                          fg_color=("#ffffff","#000000"))
         self.geometry("500x400+5+30")
         self.protocol("WM_DELETE_WINDOW", self.__on_close)
+
+        # Arrera Lynx
+        self.__arr_lynx = arrera_lynx(self,gest=self.__gestionnaire,
+                                      conf_file=resource_path("json_conf/configLynx.json"),
+                                      fnc_end=self.__end_lynx)
 
         if self.__objOS.osLinux():
             self.__emplacementIcon = iconFolder+"linux/"+iconName+".png"
@@ -164,11 +170,14 @@ class ryley_gui(aTk):
         self.__create_codehelp_btn([self.__c_emotion_codehelp,
                                        self.__c_speak_codehelp])
 
-    def active(self,firstBoot:bool,update_available:bool):
+    def active(self,update_available:bool):
 
-        self.__first_boot = firstBoot
+        self.__first_boot = self.__gestionnaire.getUserConf().getFirstRun()
 
-        if update_available:
+        if self.__first_boot :
+            self.geometry(self.__arr_lynx.get_geometry())
+            self.__arr_lynx.active()
+        elif update_available:
             self.__c_maj.place(x=0,y=0)
         else :
             self.__boot()
@@ -177,13 +186,15 @@ class ryley_gui(aTk):
 
     def __boot(self):
         self.__c_maj.place_forget()
-        if self.__first_boot :
-            self.__sequence_first_boot()
-        else :
-            self.__sequence_boot()
-            self.__sequence_speak(self.__brain.boot())
+
+        self.__sequence_boot()
+        self.__sequence_speak(self.__brain.boot())
+
         self.__update__assistant()
 
+    def __end_lynx(self):
+        self.geometry("500x400+5+30")
+        self.__sequence_first_boot()
 
     # Creation des widget
 
