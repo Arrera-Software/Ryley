@@ -58,7 +58,7 @@ binaries = []
 
 # 2.1 Collecte des dossiers demandés
 # Cela inclura récursivement tous les fichiers (json, png, txt, etc.) sauf les .py
-target_folders = ['asset', 'config', 'keyword', 'language', 'json_conf']
+target_folders = ['asset', 'config', 'keyword', 'language', 'json_conf', 'instruction_ia']
 datas += collect_data_recursive(target_folders)
 
 # 2.2 Fichier VERSION (s'il existe à la racine)
@@ -66,14 +66,18 @@ version_file = os.path.join(PROJECT_ROOT, "VERSION")
 if os.path.isfile(version_file):
     datas.append((version_file, "."))
 
-# 2.3 LLAMA CPP (Gestion des binaires si présents)
-try:
-    llama_datas, llama_binaries, llama_hiddenimports = collect_all('llama_cpp')
-    datas += llama_datas
-    binaries += llama_binaries
-except Exception:
-    print("⚠️ Attention : llama_cpp n'a pas pu être collecté.")
-    llama_hiddenimports = []
+# 2.3 LIBRAIRIES EXTERNES (LLAMA CPP, pyttsx3, etc.)
+libs = ['llama_cpp', 'customtkinter', 'pyttsx3', 'speech_recognition', 'playsound3']
+combined_hiddenimports = []
+
+for lib in libs:
+    try:
+        tmp_datas, tmp_binaries, tmp_hidden = collect_all(lib)
+        datas += tmp_datas
+        binaries += tmp_binaries
+        combined_hiddenimports += tmp_hidden
+    except Exception:
+        print(f"⚠️ Attention : {lib} n'a pas pu être collecté.")
 
 # --- PARTIE 3 : CONFIGURATION TECHNIQUE ---
 
@@ -90,8 +94,9 @@ excludes_modules = [
 # Imports nécessaires
 hiddenimports = [
     "pyaudio", "sounddevice", "AppKit", "Foundation", "objc",
-    "numpy", "google.protobuf", "PIL", "PIL.Image", "tkinter", "customtkinter"
-] + llama_hiddenimports
+    "numpy", "google.protobuf", "PIL", "PIL.Image", "PIL._tkinter_finder", "tkinter", "customtkinter",
+    "pyttsx3.drivers", "pyttsx3.drivers.nsss", "gtts"
+] + combined_hiddenimports
 
 # --- PARTIE 4 : BUILD ---
 block_cipher = None

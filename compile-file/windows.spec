@@ -23,27 +23,44 @@ if not sys.platform.startswith("win"):
 PROJECT_ROOT = os.path.abspath(".")
 
 # -----------------------------------------------------------
-# AJOUT POUR LLAMA CPP
+# AJOUT POUR LLAMA CPP ET AUTRES LIBRAIRIES
 # -----------------------------------------------------------
-tmp_ret = collect_all('llama_cpp')
-datas_llama, binaries_llama, hiddenimports_llama = tmp_ret
+libs = ['llama_cpp', 'customtkinter', 'pyttsx3', 'speech_recognition', 'playsound3']
+combined_datas = []
+combined_binaries = []
+combined_hidden = []
+
+for lib in libs:
+    try:
+        tmp = collect_all(lib)
+        combined_datas += tmp[0]
+        combined_binaries += tmp[1]
+        combined_hidden += tmp[2]
+    except Exception:
+        print(f"⚠️ Attention : {lib} n'a pas pu être collecté.")
 
 # On fusionne avec vos listes existantes
-HIDDENIMPORTS += hiddenimports_llama
+HIDDENIMPORTS += combined_hidden
+HIDDENIMPORTS += [
+    'PIL._tkinter_finder',
+    'pyttsx3.drivers',
+    'pyttsx3.drivers.sapi5',
+    'gtts'
+]
 
 # --- Ajout des dossiers asset, config, keyword, language ---
 extra_datas = []
-for folder in ['asset', 'config', 'keyword', 'language']:
+for folder in ['asset', 'config', 'keyword', 'language', 'json_conf', 'instruction_ia']:
     source_path = os.path.join(PROJECT_ROOT, folder)
     if os.path.exists(source_path):
         extra_datas.append((source_path, folder))
 
-final_datas = datas_llama + extra_datas
+final_datas = combined_datas + extra_datas
 
 a = Analysis(
     [ENTRY_SCRIPT],
     pathex=[PROJECT_ROOT],
-    binaries=binaries_llama,
+    binaries=combined_binaries,
     datas=final_datas,
     hiddenimports=HIDDENIMPORTS,
     hookspath=[],

@@ -40,7 +40,7 @@ final_hiddenimports = list(set(HIDDENIMPORTS + combined_hidden))
 
 # --- Ajout des dossiers locaux ---
 extra_datas = []
-for folder in ['asset', 'config', 'keyword', 'language']:
+for folder in ['asset', 'config', 'keyword', 'language', 'json_conf', 'instruction_ia']:
     source_path = os.path.join(PROJECT_ROOT, folder)
     if os.path.exists(source_path):
         extra_datas.append((source_path, folder))
